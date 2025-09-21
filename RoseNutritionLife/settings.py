@@ -87,12 +87,12 @@ WSGI_APPLICATION = 'RoseNutritionLife.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 
 
 # DATABASES = {
@@ -113,22 +113,22 @@ DATABASES = {
 
 
 
-#for postpress sql database management system
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'alocalserviceprosystem',
-#         'USER': 'localserviceprosystem_user',
-#         'PASSWORD': '2IdNVPkdLjrc4ifiywl3sZbm9BJK6vWU',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
-# }
+# for postpress sql database management system
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'rosenutritionlife_db',
+        'USER': 'rosenutritionlife_db_user',
+        'PASSWORD': 'uj2U3w8PPZvIUxZeeYb07TbIpw22E7cL',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
 
 
-# database_url = os.environ.get("DATABASE_URL")
-# DATABASES["default"] = dj_database_url.parse(database_url)
-# DATABASES["default"] = dj_database_url.parse("postgresql://localserviceprosystem_user:2IdNVPkdLjrc4ifiywl3sZbm9BJK6vWU@dpg-d13jhf7diees73alj8k0-a.oregon-postgres.render.com/localserviceprosystem")
+database_url = os.environ.get("DATABASE_URL")
+DATABASES["default"] = dj_database_url.parse(database_url)
+DATABASES["default"] = dj_database_url.parse("postgresql://rosenutritionlife_db_user:uj2U3w8PPZvIUxZeeYb07TbIpw22E7cL@dpg-d384ifhr0fns73fei8kg-a.oregon-postgres.render.com/rosenutritionlife_db")
 
 
 
