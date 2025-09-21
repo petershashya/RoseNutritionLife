@@ -1,0 +1,101 @@
+{% extends 'layout.html' %}
+
+
+{% block content %}
+{% load static %}  
+
+
+
+<!-- design for postures advertisment-->
+<div class="p-2 mt-5"></div>
+<span id="category_title" class="d-flex justify-content-center align-items-center mt-3 mx-3 p-1 rounded" style="background-color:rgb(226, 240, 233); color:rgb(4, 70, 39); font-size:1.2rem;">
+    <i class="bi bi-file-medical-fill text-success mx-1" style="font-size:1.2rem;"></i>POSTURE
+</span>
+
+<div id="category_title" style="background-color:rgb(226, 240, 233);" class="p-2 mx-3 my-1 rounded">
+    <span class="d-flex justify-content-center align-items-center mt-2">
+        <img class="categoryimg" style="width:450px; height:400px;" src="{% static '/images/eternal/uzazi (3).jpg' %}">
+    </span>
+     <!-- posture category -->
+                <div class="row col-sm-3 mx-auto">
+                      <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
+                    <div class="d-flex justify-content-center align-items-start mx-1 gap-1 p-2" style="border-radius:25px; background-color:rgb(226, 240, 233);">
+                        <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                            <i class="bi bi-eye-fill text-success mx-2" style="font-size:1rem;"></i>
+                        </span>
+                        <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                            <i class="bi bi-emoji-heart-eyes-fill text-success mx-2" style="font-size:1rem;"></i>
+                        </span>
+                        <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                            <i class="bi bi-chat-square-dots-fill text-success mx-2" style="font-size:1rem;"></i>
+                        </span>
+                        <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                            <i class="bi bi-patch-plus-fill text-success mx-2" style="font-size:1rem;"></i>
+                        </span>
+                        <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                            <i class="bi bi-share-fill text-success mx-2" style="font-size:1rem;"></i>
+                        </span>
+                        <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                            <i class="bi bi-download text-success mx-2" style="font-size:1rem;"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+    <div class="p-2">
+    <textarea class="form-control  bg-light" rows="4"></textarea>
+    </div>
+
+</div>
+<!-- finish design posture -->
+
+
+
+
+<!-- design for video advertisment -->
+<div class="p-2 mt-5"></div>
+<span id="category_title" class="d-flex justify-content-center align-items-center mt-3 mx-3 p-1 rounded" style="background-color:rgb(226, 240, 233); color:rgb(4, 70, 39); font-size:1.2rem;">
+    <i class="bi bi-play-btn-fill text-success mx-1" style="font-size:1.2rem;"></i>VIDEO
+</span>
+
+<div id="category_title" style="background-color:rgb(226, 240, 233);" class="p-2 mx-3 my-1 rounded">
+    <span class="d-flex justify-content-center align-items-center mt-2">
+        <video width="450" height="250" controls class="rounded">
+            <source src="{% static '/images/eternal/uzazi.mp4' type="video/mp4" %}" >
+        </video>
+    </span>
+     <!-- posture category -->
+                <div class="row col-sm-3 mx-auto">
+                      <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
+                    <div class="d-flex justify-content-center align-items-start mx-1 gap-1 p-2" style="border-radius:25px; background-color:rgb(226, 240, 233);">
+                        <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                            <i class="bi bi-eye-fill text-success mx-2" style="font-size:1rem;"></i>
+                        </span>
+                        <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                            <i class="bi bi-emoji-heart-eyes-fill text-success mx-2" style="font-size:1rem;"></i>
+                        </span>
+                        <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                            <i class="bi bi-chat-square-dots-fill text-success mx-2" style="font-size:1rem;"></i>
+                        </span>
+                        <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                            <i class="bi bi-patch-plus-fill text-success mx-2" style="font-size:1rem;"></i>
+                        </span>
+                        <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                            <i class="bi bi-share-fill text-success mx-2" style="font-size:1rem;"></i>
+                        </span>
+                        <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                            <i class="bi bi-download text-success mx-2" style="font-size:1rem;"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+    <div class="p-2">
+    <textarea class="form-control  bg-light" rows="4"></textarea>
+    </div>
+
+</div>
+<!-- finish design video -->
+
+
+{% endblock %}

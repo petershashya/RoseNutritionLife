@@ -1,0 +1,821 @@
+{% extends 'layout.html' %}
+
+
+{% block content %}
+{% load static %}  
+
+
+<!-- services image and descriptions navigation -->
+
+
+<div class="homeimg p-4">
+    <div id="description" class="text-center" style="padding-top:200px;">
+        <span class="row display-2 text-light d-flex justify-content-center align-items-center">
+            Rose Nutrition Life
+        </span><br>
+
+        <span class="row d-flex justify-content-center align-items-center">
+        <span id="description" class="col-sm-6  text-light text-center">
+            Mfumo wa Rose Nutrition Life unalenga kukuza afya kwa kutoa elimu juu ya kuzuia na kudhibiti magonjwa
+             yasiyo ya kuambukiza kama vile kisukari, shinikizo la damu, saratani na matatizo ya moyo.
+              Unasisitiza ulaji bora, mtindo sahihi wa maisha na uelewa wa tiba. Pia, unawawezesha wanachama
+               kupata kipato kupitia mpango wa biashara unaohusisha rufaa za wagonjwa, mauzo ya dawa na virutubisho. 
+               Huu ni mfumo wa kuunganisha afya na ujasiriamali kwa manufaa ya jamii.
+        </span>
+    </span>
+
+    {% if user.is_authenticated %}
+    {% comment %} <a class="btn btn-sm text-light mt-3" id="getservice"  href="{% url 'post_service' %}"> {% endcomment %}
+        <a class="btn btn-sm text-light mt-3" id="getservice" >
+       <i class="bi bi-basket-fill text-light mx-2" style="font-size:1rem;" ></i>Add Service
+    </a>
+    {% else %}
+    {% comment %} <a class="btn btn-sm text-light mt-3" id="getservice"  href="{% url 'login' %}"> {% endcomment %}
+        <a class="btn btn-sm text-light mt-3" id="getservice" >
+        <i class="bi bi-basket-fill text-light mx-2" style="font-size:1rem;"></i> Get Started
+     </a>
+     {% endif %}
+
+    </div>
+</div>
+
+
+
+<!-- Our services -->
+ <div class="d-flex justify-content-center">
+<div  class="d-flex flex-nowrap overflow-x-auto  gap-3 p-3 mx-2" style="display: flex;">
+    <div id="getservice" class="top_providers  p-4 text-light flex-shrink-0"  >
+     {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
+     OUR SERVICES
+     <span class="d-flex justify-content-center align-items-center ">
+         <i class="bi bi-basket-fill text-light mx-2" style="font-size:2.5rem;"></i>
+         <span>
+     </div>
+
+     <div  id="getservice" class="top_providers  p-4 text-light flex-shrink-0" >
+         {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
+         ADVERTISMENT
+         <span class="d-flex justify-content-center align-items-center">
+             <i class="bi bi-badge-ad-fill text-light mx-2" style="font-size:2.5rem;"></i>
+             <span>
+         </div>
+
+         <div  id="getservice" class="top_providers  p-4 text-light flex-shrink-0"  >
+             {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
+             PV-EXCHANGE
+             <span class="d-flex justify-content-center align-items-center">
+                 <i class="bi bi-currency-exchange text-light mx-2" style="font-size:2.5rem;"></i>
+                 <span>
+             </div>
+
+             <div  id="getservice" class="top_providers  p-4 text-light flex-shrink-0"  >
+                 {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
+                 OUR ANALYSIS
+                 <span class="d-flex justify-content-center align-items-center">
+                     <i class="bi bi-graph-up-arrow text-light mx-2" style="font-size:2.5rem;"></i>
+                     <span>
+                 </div>
+</div>
+</div>
+
+
+
+<!-- disease categories -->
+<span id="category_title" class="d-flex justify-content-center align-items-center mt-3 mx-3 p-1 rounded" style="background-color:rgb(226, 240, 233); color:rgb(4, 70, 39); font-size:1.2rem;">
+    <i class="bi bi-file-medical-fill text-success mx-1" style="font-size:1.2rem;"></i>DISEASES
+</span>
+
+<!-- start diseases -->
+<div class="d-flex justify-content-center align-items-start mx-3 rounded my-1 p-3" style="background-color:rgb(226, 240, 233);">
+    <div class="row ">
+    <div class="col-sm-3 mx-2 mt-3 " >
+           <img class="categoryimg" style="width:300px; height:250px;" src="{% static '/images/eternal/uzazi (3).jpg' %}">
+
+           <!-- posture category -->
+           <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
+                <span class="d-flex justify-content-center align-items-center px-3 py-2 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(226, 240, 233);" >
+                    <i class="bi bi-image-fill text-success mx-1" style="font-size:1.3rem;"></i>Posture
+                </span>
+
+            <div class="d-flex justify-content-center align-items-start mx-1 gap-1 p-2" style="border-radius:25px; background-color:rgb(226, 240, 233);">
+                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                    <i class="bi bi-eye-fill text-success mx-2" style="font-size:1rem;"></i>
+                </span>
+                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                    <i class="bi bi-emoji-heart-eyes-fill text-success mx-2" style="font-size:1rem;"></i>
+                </span>
+                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                    <i class="bi bi-share-fill text-success mx-2" style="font-size:1rem;"></i>
+                </span>
+            </div>
+        </div>
+
+            <!-- video category -->
+            <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
+                <span class="d-flex justify-content-center align-items-center px-3 py-2 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(226, 240, 233);" >
+                    <i class="bi bi-play-btn-fill text-success mx-1" style="font-size:1.3rem;"></i>Video
+                </span>
+
+            <div class="d-flex justify-content-center align-items-start mx-1 gap-1 p-2" style="border-radius:25px; background-color:rgb(226, 240, 233);">
+                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                    <i class="bi bi-eye-fill text-success mx-2" style="font-size:1rem;"></i>
+                </span>
+                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                    <i class="bi bi-emoji-heart-eyes-fill text-success mx-2" style="font-size:1rem;"></i>
+                </span>
+                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                    <i class="bi bi-share-fill text-success mx-2" style="font-size:1rem;"></i>
+                </span>
+           </div>
+    </div>
+    
+
+
+         <!-- comment category -->
+         <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-3 py-2 bg-light" style="border-radius:25px; ">
+            <textarea class="form-control  bg-light" rows="1" style="border-top:0px solid white; border-left:0px solid white; border-right:0px solid white; border-bottom:2px solid rgb(4, 70, 39);"></textarea>
+        <div class="d-flex justify-content-center align-items-start mx-1 gap-1 p-2" style="border-radius:25px; background-color:rgb(226, 240, 233);">
+            <span class="p-1 bg-light btn" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                <i class="bi bi-plus-lg text-success mx-1" style="font-size:1rem;"></i>
+            </span>
+       </div>
+</div>
+
+</div>
+
+    <div class=" col-sm p-2 rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2"><b>DIABETS MELLITUS</b></div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Disease Symptoms</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+            au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
+             pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha.
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Disease Effects</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+            au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
+             pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha.
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Disease Precautions</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+            au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
+             pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha.
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Other about disease</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+            au kushindwa kusukuma damu
+        </div>
+    </div>
+<!-- finish disease-->
+ <!-- start more disease button -->
+        <div class="d-flex justify-content-center align-items-center">
+            <a class="btn btn-sm text-light px-3 py-2" style="background-color:rgb(4, 70, 39);  border-radius:35px;" href="{% url 'services' %}">
+                <i class="bi bi-arrow-right-circle text-success mx-1" style="font-size:1rem; font-style:bold;"></i>More Diseases</a>
+        </div>
+        <!-- finish more diseases btn-->
+</div>
+</div>
+<!-- finish disease category-->
+
+
+
+
+
+
+<!-- medicine categories -->
+<span id="category_title" class="d-flex justify-content-center align-items-center mt-4 mx-3 p-1 rounded" style="background-color:rgb(226, 240, 233); color:rgb(4, 70, 39); font-size:1.2rem;">
+    <i class="bi bi-bandaid-fill text-success mx-1" style="font-size:1.2rem;"></i>MEDICINE
+</span>
+
+<!-- start diseases -->
+<div class="d-flex justify-content-center align-items-start mx-3 rounded my-1 p-3" style="background-color:rgb(226, 240, 233);">
+        <div class="row ">
+    <div class="col-sm-3 mx-2 mt-3 " >
+           <img class="categoryimg" style="width:300px; height:250px;" src="{% static '/images/eternal/dawa4.jpg' %}">
+
+           <!-- posture category -->
+           <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
+                <span class="d-flex justify-content-center align-items-center px-3 py-2 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(226, 240, 233);" >
+                    <i class="bi bi-image-fill text-success mx-1" style="font-size:1.3rem;"></i>Posture
+                </span>
+
+            <div class="d-flex justify-content-center align-items-start mx-1 gap-1 p-2" style="border-radius:25px; background-color:rgb(226, 240, 233);">
+                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                    <i class="bi bi-eye-fill text-success mx-2" style="font-size:1rem;"></i>
+                </span>
+                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                    <i class="bi bi-emoji-heart-eyes-fill text-success mx-2" style="font-size:1rem;"></i>
+                </span>
+                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                    <i class="bi bi-share-fill text-success mx-2" style="font-size:1rem;"></i>
+                </span>
+            </div>
+        </div>
+
+            <!-- video category -->
+            <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
+                <span class="d-flex justify-content-center align-items-center px-3 py-2 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(226, 240, 233);" >
+                    <i class="bi bi-play-btn-fill text-success mx-1" style="font-size:1.3rem;"></i>Video
+                </span>
+
+            <div class="d-flex justify-content-center align-items-start mx-1 gap-1 p-2" style="border-radius:25px; background-color:rgb(226, 240, 233);">
+                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                    <i class="bi bi-eye-fill text-success mx-2" style="font-size:1rem;"></i>
+                </span>
+                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                    <i class="bi bi-emoji-heart-eyes-fill text-success mx-2" style="font-size:1rem;"></i>
+                </span>
+                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                    <i class="bi bi-share-fill text-success mx-2" style="font-size:1rem;"></i>
+                </span>
+           </div>
+    </div>
+
+
+                 <!-- comment category -->
+                 <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-3 py-2 bg-light" style="border-radius:25px; ">
+                    <textarea class="form-control  bg-light" rows="1" style="border-top:0px solid white; border-left:0px solid white; border-right:0px solid white; border-bottom:2px solid rgb(4, 70, 39);"></textarea>
+                <div class="d-flex justify-content-center align-items-start mx-1 gap-1 p-2" style="border-radius:25px; background-color:rgb(226, 240, 233);">
+                    <span class="p-1 bg-light btn" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                        <i class="bi bi-plus-lg text-success mx-1" style="font-size:1rem;"></i>
+                    </span>
+               </div>
+        </div>
+
+                                  <!-- order category -->
+                                  <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
+                                    <span class="d-flex justify-content-center align-items-center px-3 py-2 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(226, 240, 233);" >
+                                        <i class="bi bi-capsule text-success mx-1" style="font-size:1.3rem;"></i>Make Product Order
+                                    </span>
+                    
+                                <div class="d-flex justify-content-center align-items-start mx-1 gap-1 p-2" style="border-radius:25px; background-color:rgb(226, 240, 233);">
+                                    <a class="p-1 bg-light btn" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                                        <i class="bi bi-cart-fill text-success mx-2" style="font-size:1rem;"></i>
+                                    </a>
+                               </div>
+                            </div>
+</div>
+
+    <div class="col-sm p-2 rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2"><b>SOFT CAPTSUAL SOAP</b></div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Medicine Decsription</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+            au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
+             pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha.
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Accumulated Items</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+            au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
+             pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha.
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Medicine Precautions</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+            au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
+             pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha.
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Medicine Solution</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+            au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
+             pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha.
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Other about medicine</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+            au kushindwa kusukuma damu
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Medicine Dose and Cost</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa.
+        </div>
+    </div>
+<!-- finish Medicine-->
+
+        <!-- start more medicine button -->
+        <div class="d-flex justify-content-center align-items-center">
+            <a class="btn btn-sm text-light px-3 py-2" style="background-color:rgb(4, 70, 39);  border-radius:35px;" href="{% url 'services' %}">
+                <i class="bi bi-arrow-right-circle text-success mx-1" style="font-size:1rem; font-style:bold;"></i>More Medicine</a>
+        </div>
+        <!-- finish more medicine btn-->
+         
+</div>
+</div>
+
+
+<!-- check-up categories -->
+<span id="category_title" class="d-flex justify-content-center align-items-center mt-4 mx-3 p-1 rounded" style="background-color:rgb(226, 240, 233); color:rgb(4, 70, 39); font-size:1.2rem;">
+    <i class="bi bi-person-arms-up text-success mx-1" style="font-size:1.3rem;"></i>CHECK-UPS
+</span>
+
+<!-- start diseases -->
+<div class="d-flex justify-content-center align-items-start mx-3 rounded my-1 p-3" style="background-color:rgb(226, 240, 233);">
+            <div class="row ">
+    <div class="col-sm-3 mx-2 mt-3 " >
+           <img class="categoryimg" style="width:300px; height:200px;" src="{% static '/images/eternal/download.jpeg' %}">
+
+           <!-- posture category -->
+           <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
+                <span class="d-flex justify-content-center align-items-center px-3 py-2 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(226, 240, 233);" >
+                    <i class="bi bi-image-fill text-success mx-1" style="font-size:1.3rem;"></i>Posture
+                </span>
+
+            <div class="d-flex justify-content-center align-items-start mx-1 gap-1 p-2" style="border-radius:25px; background-color:rgb(226, 240, 233);">
+                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                    <i class="bi bi-eye-fill text-success mx-2" style="font-size:1rem;"></i>
+                </span>
+                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                    <i class="bi bi-emoji-heart-eyes-fill text-success mx-2" style="font-size:1rem;"></i>
+                </span>
+                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                    <i class="bi bi-share-fill text-success mx-2" style="font-size:1rem;"></i>
+                </span>
+            </div>
+        </div>
+
+            <!-- video category -->
+            <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
+                <span class="d-flex justify-content-center align-items-center px-3 py-2 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(226, 240, 233);" >
+                    <i class="bi bi-play-btn-fill text-success mx-1" style="font-size:1.3rem;"></i>Video
+                </span>
+
+            <div class="d-flex justify-content-center align-items-start mx-1 gap-1 p-2" style="border-radius:25px; background-color:rgb(226, 240, 233);">
+                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                    <i class="bi bi-eye-fill text-success mx-2" style="font-size:1rem;"></i>
+                </span>
+                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                    <i class="bi bi-emoji-heart-eyes-fill text-success mx-2" style="font-size:1rem;"></i>
+                </span>
+                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                    <i class="bi bi-share-fill text-success mx-2" style="font-size:1rem;"></i>
+                </span>
+           </div>
+    </div>
+
+                     <!-- comment category -->
+         <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-3 py-2 bg-light" style="border-radius:25px; ">
+            <textarea class="form-control  bg-light" rows="1" style="border-top:0px solid white; border-left:0px solid white; border-right:0px solid white; border-bottom:2px solid rgb(4, 70, 39);"></textarea>
+        <div class="d-flex justify-content-center align-items-start mx-1 gap-1 p-2" style="border-radius:25px; background-color:rgb(226, 240, 233);">
+            <span class="p-1 bg-light btn" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                <i class="bi bi-plus-lg text-success mx-1" style="font-size:1rem;"></i>
+            </span>
+       </div>
+</div>
+                    
+                  <!-- order category -->
+                  <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
+                    <span class="d-flex justify-content-center align-items-center px-3 py-2 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(226, 240, 233);" >
+                        <i class="bi bi-person-arms-up text-success mx-1" style="font-size:1.3rem;"></i>Order Body CheckUp
+                    </span>
+    
+                <div class="d-flex justify-content-center align-items-start mx-1 gap-1 p-2" style="border-radius:25px; background-color:rgb(226, 240, 233);">
+                    <a class="p-1 bg-light btn" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                        <i class="bi bi-person-arms-up text-success mx-2" style="font-size:1rem;"></i>
+                    </a>
+               </div>
+            </div>
+</div>
+
+    <div class="col-sm p-2 rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2"><b>MASAGE CHECK-UP</b></div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Check-Up Decsription</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+            au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
+             pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha.
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Check-Up treatment</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+            au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
+             pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha.
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Check-Up attention</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+            au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
+             pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha.
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Other about check-up</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+            au kushindwa kusukuma damu
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Check-Up Cost</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa.
+        </div>
+    </div>
+<!-- finish Medicine-->
+                         <!-- start more checkup button -->
+        <div class="d-flex justify-content-center align-items-center">
+            <a class="btn btn-sm text-light px-3 py-2" style="background-color:rgb(4, 70, 39);  border-radius:35px;" href="{% url 'services' %}">
+                <i class="bi bi-arrow-right-circle text-success mx-1" style="font-size:1rem; font-style:bold;"></i>More checkups</a>
+        </div>
+        <!-- finish more checkup btn-->
+
+</div>
+</div>
+<!-- finish medicine category-->
+
+
+
+
+
+
+
+<!-- business categories -->
+<div >
+    <span id="category_title" class="d-flex justify-content-center align-items-center mt-4  mx-3 p-1 rounded" style="background-color:rgb(226, 240, 233); color:rgb(4, 70, 39);font-size:1.2rem;">
+        <i class="bi bi-briefcase-fill text-success mx-1" style="font-size:1.2rem;"></i>BUSINESS</span>
+    <ul class="nav nav-pills d-flex justify-content-center aling-items-center gap-2 mt-2">
+        <li class="nav-item">
+          <a class="nav-link " data-bs-toggle="pill" href="#business_plan" >Business Plan</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " data-bs-toggle="pill" href="#business_levels" >Business Levels</a>
+        </li>
+      </ul>
+      
+      <!-- Tab panes -->
+      <div class="tab-content p-4">
+
+        <!-- start business plan -->
+        <div class="tab-pane container active p-2 rounded" id="business_plan" style="background-color:rgb(226, 240, 233);">   
+         <div class="p-2 rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2 d-flex justify-content-center align-items-center"><b>BUSINESS THEORY</b></div>
+
+        <div class="d-flex justify-content-center align-items-start rounded gap-2" >
+                <div class="row ">
+                <div class="col-sm-3 mt-3 " >
+           <img class="categoryimg" style="width:300px; height:250px;" src="{% static '/images/eternal/sales.jpeg' %}">
+
+           <!-- posture category -->
+           <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
+                <span class="d-flex justify-content-center align-items-center px-3 py-2 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(226, 240, 233);" >
+                    <i class="bi bi-image-fill text-success mx-1" style="font-size:1.3rem;"></i>Posture
+                </span>
+
+            <div class="d-flex justify-content-center align-items-start mx-1 gap-1 p-2" style="border-radius:25px; background-color:rgb(226, 240, 233);">
+                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                    <i class="bi bi-eye-fill text-success mx-2" style="font-size:1rem;"></i>
+                </span>
+                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                    <i class="bi bi-emoji-heart-eyes-fill text-success mx-2" style="font-size:1rem;"></i>
+                </span>
+                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                    <i class="bi bi-share-fill text-success mx-2" style="font-size:1rem;"></i>
+                </span>
+            </div>
+        </div>
+
+            <!-- video category -->
+            <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
+                <span class="d-flex justify-content-center align-items-center px-3 py-2 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(226, 240, 233);" >
+                    <i class="bi bi-play-btn-fill text-success mx-1" style="font-size:1.3rem;"></i>Video
+                </span>
+
+            <div class="d-flex justify-content-center align-items-start mx-1 gap-1 p-2" style="border-radius:25px; background-color:rgb(226, 240, 233);">
+                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                    <i class="bi bi-eye-fill text-success mx-2" style="font-size:1rem;"></i>
+                </span>
+                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                    <i class="bi bi-emoji-heart-eyes-fill text-success mx-2" style="font-size:1rem;"></i>
+                </span>
+                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                    <i class="bi bi-share-fill text-success mx-2" style="font-size:1rem;"></i>
+                </span>
+           </div>
+    </div>
+
+
+                                                 <!-- comment category -->
+         <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-3 py-2 bg-light" style="border-radius:25px; ">
+            <textarea class="form-control  bg-light" rows="1" style="border-top:0px solid white; border-left:0px solid white; border-right:0px solid white; border-bottom:2px solid rgb(4, 70, 39);"></textarea>
+        <div class="d-flex justify-content-center align-items-start mx-1 gap-1 p-2" style="border-radius:25px; background-color:rgb(226, 240, 233);">
+            <span class="p-1 bg-light btn" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                <i class="bi bi-plus-lg text-success mx-1" style="font-size:1rem;"></i>
+            </span>
+       </div>
+</div>
+
+
+                  <!-- order category -->
+                  <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
+                    <span class="d-flex justify-content-center align-items-center px-3 py-2 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(226, 240, 233);" >
+                        <i class="bi bi-briefcase-fill text-success mx-1" style="font-size:1.3rem;"></i>Start Your Business
+                    </span>
+    
+                <div class="d-flex justify-content-center align-items-start mx-1 gap-1 p-2" style="border-radius:25px; background-color:rgb(226, 240, 233);">
+                    <a class="p-1 bg-light btn" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                        <i class="bi bi-plus-lg text-success mx-2" style="font-size:1rem;"></i>
+                    </a>
+               </div>
+            </div>
+</div>
+
+    <div class="col-sm p-2 rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Business Decsription</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+            au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
+             pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha.
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Sales & Marketing</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+            au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
+             pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha.
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Business Members</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+            au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
+             pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha.
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Product PV points</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+            au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
+             pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha.
+             Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+    </div>
+    </div>
+</div>
+<!-- finish business plan-->
+
+                <!-- start more busines button -->
+        <div class="d-flex justify-content-center align-items-center">
+            <a class="btn btn-sm text-light px-3 py-2" style="background-color:rgb(4, 70, 39);  border-radius:35px;" href="{% url 'services' %}">
+                <i class="bi bi-arrow-right-circle text-success mx-1" style="font-size:1rem; font-style:bold;"></i>about business</a>
+        </div>
+        <!-- finish about business btn-->
+
+    </div>
+</div>
+
+
+
+        <!-- start business plan -->
+        <div class="tab-pane container fade p-2 rounded" id="business_levels" style="background-color:rgb(226, 240, 233);">
+
+                <div class="p-2 rounded" style="background-color:rgb(226, 240, 233);">
+                    <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2 d-flex justify-content-center align-items-center"><b>BUSINESS LEVELS</b></div>
+
+            <div class="d-flex justify-content-center align-items-start rounded gap-2" >
+                            <div class="row ">
+                    <div class="col-sm-3 mt-3 " >
+                      <!-- posture category -->
+                      <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
+                        <span class="d-flex justify-content-center align-items-center px-3 py-2 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(226, 240, 233);" >
+                            <i class="bi bi-image-fill text-success mx-1" style="font-size:1.3rem;"></i>Posture
+                        </span>
+        
+                    <div class="d-flex justify-content-center align-items-start mx-1 gap-1 p-2" style="border-radius:25px; background-color:rgb(226, 240, 233);">
+                        <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                            <i class="bi bi-eye-fill text-success mx-2" style="font-size:1rem;"></i>
+                        </span>
+                        <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                            <i class="bi bi-emoji-heart-eyes-fill text-success mx-2" style="font-size:1rem;"></i>
+                        </span>
+                        <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                            <i class="bi bi-share-fill text-success mx-2" style="font-size:1rem;"></i>
+                        </span>
+                    </div>
+                </div>
+        
+                    <!-- video category -->
+                    <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
+                        <span class="d-flex justify-content-center align-items-center px-3 py-2 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(226, 240, 233);" >
+                            <i class="bi bi-play-btn-fill text-success mx-1" style="font-size:1.3rem;"></i>Video
+                        </span>
+        
+                    <div class="d-flex justify-content-center align-items-start mx-1 gap-1 p-2" style="border-radius:25px; background-color:rgb(226, 240, 233);">
+                        <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                            <i class="bi bi-eye-fill text-success mx-2" style="font-size:1rem;"></i>
+                        </span>
+                        <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                            <i class="bi bi-emoji-heart-eyes-fill text-success mx-2" style="font-size:1rem;"></i>
+                        </span>
+                        <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                            <i class="bi bi-share-fill text-success mx-2" style="font-size:1rem;"></i>
+                        </span>
+                   </div>
+                </div>
+
+                                 <!-- comment category -->
+         <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-3 py-2 bg-light" style="border-radius:25px; ">
+            <textarea class="form-control  bg-light" rows="1" style="border-top:0px solid white; border-left:0px solid white; border-right:0px solid white; border-bottom:2px solid rgb(4, 70, 39);"></textarea>
+        <div class="d-flex justify-content-center align-items-start mx-1 gap-1 p-2" style="border-radius:25px; background-color:rgb(226, 240, 233);">
+            <span class="p-1 bg-light btn" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                <i class="bi bi-plus-lg text-success mx-1" style="font-size:1rem;"></i>
+            </span>
+       </div>
+</div>
+
+                                  <!-- order category -->
+                                  <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
+                                    <span class="d-flex justify-content-center align-items-center px-3 py-2 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(226, 240, 233);" >
+                                        <i class="bi bi-briefcase-fill text-success mx-1" style="font-size:1.3rem;"></i>Start Your Business
+                                    </span>
+                    
+                                <div class="d-flex justify-content-center align-items-start mx-1 gap-1 p-2" style="border-radius:25px; background-color:rgb(226, 240, 233);">
+                                    <a class="p-1 bg-light btn" style="border-radius:35px; color:rgb(4, 70, 39);" >
+                                        <i class="bi bi-plus-lg text-success mx-2" style="font-size:1rem;"></i>
+                                    </a>
+                               </div>
+                            </div>
+                            
+            </div>
+                    <div style="border-left:3px solid rgb(4, 70, 39);" class="col-sm rounded p-2  bg-white my-2">
+                        <span style="color:rgb(4, 70, 39); "><b>Level 1</b></span><br>
+                        Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+                        au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
+                        pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha.
+                         pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha.
+                         pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha.
+                      pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha
+                      pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha.
+                      pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha
+                      pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha.
+                      pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha
+                      pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha.
+                      pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha
+                    </div>
+             </div>
+            <!-- finish business plan-->
+            </div>
+
+
+        </div>
+      </div>
+</div>
+    </div> 
+<!-- finish business plan and levels -->
+
+
+
+<!-- advertisments -->
+<span id="category_title" class="d-flex justify-content-center align-items-center mt-4  mx-3 p-1 rounded" style="background-color:rgb(226, 240, 233); color:rgb(4, 70, 39);font-size:1.2rem;">
+    <i class="bi bi-badge-ad-fill text-success mx-1" style="font-size:1.2rem;"></i>ADVERTISMENT & NEWS</span>
+    <div class="d-flex justify-content-center">
+<div class="d-flex flex-nowrap overflow-x-auto  gap-3 p-3 mx-2" >
+    <div id="advertisment" class="top_providers  p-5 text-light flex-shrink-0">
+     {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
+     OUR SHOPS
+     <span class="d-flex justify-content-center align-items-center ">
+         <i class="bi bi-shop-window text-light mx-2" style="font-size:3.5rem;"></i>
+         <span>
+     </div>
+
+     <div id="advertisment" class="top_providers  p-5 text-light flex-shrink-0" >
+         {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
+         OUR MEETINGS
+         <span class="d-flex justify-content-center align-items-center">
+             <i class="bi bi-people text-light mx-2" style="font-size:3.5rem;"></i>
+             <span>
+         </div>
+
+         <div id="advertisment" class="top_providers  p-5 text-light flex-shrink-0" >
+             {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
+             OUR UNIFORMS
+             <span class="d-flex justify-content-center align-items-center">
+                 <i class="bi bi-person-arms-up text-light mx-2" style="font-size:3.5rem;"></i>
+                 <span>
+             </div>
+
+             <div id="advertisment" class="top_providers  p-5 text-light flex-shrink-0"  >
+                 {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
+                OUR BRANCHS
+                 <span class="d-flex justify-content-center align-items-center">
+                     <i class="bi bi-houses text-light mx-2" style="font-size:3.5rem;"></i>
+                     <span>
+                 </div>
+</div>
+</div>
+<!-- finish advertisments -->
+
+
+    <!-- Terms and revies-->
+     
+    <span id="category_title" class="d-flex justify-content-center align-items-center mt-3 mb-1 mx-3 p-1 rounded" style="background-color:rgb(226, 240, 233); color:rgb(4, 70, 39); font-size:1.2rem;">
+        <i class="bi bi-star-fill mx-1" style="font-size:1.2rem; color:rgb(4, 70, 39);"></i>RATING & REVIEWS</span>
+    <div class="p-3 mx-3 rounded" style="background-color:rgb(226, 240, 233);">
+    <span class="mx-1 d-flex justify-content-center align-items-center p-2 mb-2 bg-light" style="background-color:rgb(219, 228, 231);  border-radius:15px;">
+        Rating and reviews are verified and are from people who use the same type of device you use
+        <i class="bi bi-info-circle-fill mx-1" style="font-size:1rem; color:rgb(4, 70, 39);"></i>
+    </span>
+    <div class="row mx-1  p-3 bg-light gap-2" style=" border-radius:15px;" >
+    <div class="col-sm-2 text-center mt-4 ml-3 mr-1" style="font-size:2rem;">
+        4.0
+        <span class="d-flex justify-content-center align-items-center">
+            <i class="bi bi-star-fill" style="font-size:1rem; color:rgb(4, 70, 39);"></i>
+            <i class="bi bi-star-fill" style="font-size:1rem; color:rgb(4, 70, 39);"></i>
+            <i class="bi bi-star-fill" style="font-size:1rem; color:rgb(4, 70, 39);"></i>
+            <i class="bi bi-star-fill" style="font-size:1rem; color:rgb(4, 70, 39);"></i>
+        </span>
+    </div>
+    <div class="col-sm-8 " style="color:rgb(4, 70, 39); font-size:1rem;">
+                <div class="progress mt-4 mb-2">
+            <div class="progress-bar progress-bar-animated progress-bar-striped" style="width:50%; height:70px; background-color:rgb(8, 71, 100);">
+            </div>
+        </div>
+
+                <div class="progress mb-2">
+            <div class="progress-bar progress-bar-animated progress-bar-striped" style="width:30%; height:70px; background-color:rgb(8, 71, 100);">
+            </div>
+        </div>
+
+                        <div class="progress mb-2">
+            <div class="progress-bar progress-bar-animated progress-bar-striped" style="width:20%; height:70px; background-color:rgb(8, 71, 100);">
+            </div>
+        </div>
+
+                        <div class="progress mb-2">
+            <div class="progress-bar progress-bar-animated progress-bar-striped" style="width:10%; height:70px; background-color:rgb(8, 71, 100);">
+            </div>
+        </div>
+        <span class="text-secondary" style="font-size:0.8rem;">More Than 45,999 People Review</span>
+    </div>
+    </div>
+
+    <div class="mt-2 p-3 bg-white" style=" border-radius:15px;">
+            <span class="d-flex justify-content-start align-items-center">
+                <i class="bi bi-star-fill mx-1" style="font-size:1rem; color:rgb(4, 70, 39);"></i>
+                <i class="bi bi-star-fill mx-1" style="font-size:1rem; color:rgb(4, 70, 39);"></i>
+                <i class="bi bi-star-fill mx-1" style="font-size:1rem; color:rgb(4, 70, 39);"></i>
+                <i class="bi bi-star-fill mx-1" style="font-size:1rem; color:rgb(4, 70, 39);"></i>
+                <span class="text-secondary mx-2">3 weeks Ago </span>
+            </span>
+        <span class="d-flex justify-content-start align-items-center">
+            This Web Application is exceptionaly great! Speed & Optional performance , is amaizing .
+             Overall I'd highly recommended this Web App currently. The security features excels the app high rank.
+             placing at the top of most web Apps categorised on providing Local Services with Better quality and efficiency.
+        </span>
+        <div class="row ">
+            <div class="col-sm- " style="color:rgb(4, 70, 39);">What This Review helpful?</div>
+            <div class="col-sm- ">
+            <span class="btn btn-sm px-3 py-1" style=" border-radius:15px; color:rgb(4, 70, 39);rgb(4, 70, 39);  background-color:rgb(219, 228, 231);">
+                <i class="bi bi-hand-thumbs-up-fill mx-1 text-secondary" style="font-size:1rem; color:rgb(4, 70, 39);"></i>Yes</span>
+            <span class="btn btn-sm px-3 py-1 " style=" border-radius:15px; color:rgb(4, 70, 39); rgb(4, 70, 39); background-color:rgb(219, 228, 231);">
+                <i class="bi bi-hand-thumbs-down-fill mx-1 text-secondary" style="font-size:1rem; color:rgb(4, 70, 39);"></i>No</span>
+            </div>
+         </div>
+    </div>
+
+</div>
+
+
+
+<!-- Our team section -->
+    <div class="mt-4 rounded p-5" style="background-color:rgb(226, 240, 233); ">
+        <div class="text-center mx-4 mt-4">
+            <span class="d-flex justify-content-center align-items-center" style="color:rgb(4, 70, 39); font-size:1.5rem;">OUR TEAM</span>
+            <i class="bi bi-quote mx-1" style="font-size:1.5rem; color:rgb(4, 70, 39);"></i>
+            Karibuni nyote katika mfumo wetu wa RoseNutrition system unaohusiana na kukusanya taarifa zote za wanachama 
+            na wagonjwa, pia unasaidia kuchakata taarifa hizi ili kujuwa mwenendo mzima wa biashara, pamoja na kusaidia 
+            kuongeza idadi ya wanachama kupitia mitandao ya kijamii na matangazo kwa njia ya picha na video pamoja na
+            kuwezesha ongezeko la manunuzi ya dawa kupitia matangazo ,mfumo huu unapatikana Online kupitia <a class="text-decoration-none text-success" style="cursor:pointer; color:rgb(4, 70, 39);" href="https://www.RoseNutritionLife.com">https://www.RoseNutritionLife.com</a>
+            <i class="bi bi-quote mx-1 " style="font-size:1.5rem; color:rgb(4, 70, 39);"></i>
+        </div>
+        <span class="d-flex justify-content-center align-items-center gap-2">
+            <i class="bi bi-telephone-fill mx-1" style="font-size:1.4rem; color:rgb(4, 70, 39);"></i>
+            <i class="bi bi-envelope-fill mx-1" style="font-size:1.5rem; color:rgb(4, 70, 39);"></i>
+        </span>
+        <span class="d-flex justify-content-center align-items-center gap-2" style="color:rgb(4, 70, 39);"><b>Branch Manager</b></span>
+        <div class="d-flex justify-content-center align-items-center ">
+            <img class="categoryimg rounded-circle" style="width:90px; height:90px;" src="{% static '/images/person2.jpg' %}">
+        </div>
+    </div>
+
+
+
+    <!-- login/logout tag -->
+     <div class="fixed_tag d-flex justify-content-end align-items-center p-2 fixed-bottom mb-3 mx-3 gap-1">
+        <span class="p-1" style="border-radius:25px; background-color:rgb(6, 104, 58);">
+        <span class="navbartabs text-decoration-none" >
+            {% if user.is_authenticated %}
+            <a id="disease-post-btn" class="p-2 bi bi-plus-lg mx-1 text-decoration-none ml-2 navbarbutton" data-label="Add disease" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);" ></a>
+            <a id="medicine-post-btn" class="p-2 bi bi-plus-lg mx-1 text-decoration-none ml-2 navbarbutton" data-label="Add Medicine" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);" ></a>
+            {% comment %} <a id="checkup-post-btn" class="p-2 bi bi-plus-lg mx-1 text-decoration-none ml-2 navbarbutton" data-label="Add checkup" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);" ></a>
+            <a id="businessplan-post-btn" class="p-2 bi bi-plus-lg mx-1 text-decoration-none ml-2 navbarbutton" data-label="Add Business Plan" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);" ></a>
+            <a id="businessplevel-post-btn" class="p-2 bi bi-plus-lg mx-1 text-decoration-none ml-2 navbarbutton" data-label="Add Business Level" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);" ></a>
+            <a id="patient-post-btn" class="p-2 bi bi-plus-lg mx-1 text-decoration-none ml-2 navbarbutton" data-label="Add Patient" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);" ></a>
+            <a id="advertisement-post-btn" class="p-2 bi bi-plus-lg mx-1 text-decoration-none ml-2 navbarbutton" data-label="Add Advertisement" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);" ></a> {% endcomment %}
+                {% else %}
+            <a class="p-2 bi bi-arrow-right-circle mx-1 text-decoration-none ml-2 navbarbutton" data-label="Login" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39); "></a>
+            {% endif %}
+        </span>
+    </span>
+     </div> 
+
+
+
+
+{% endblock %}

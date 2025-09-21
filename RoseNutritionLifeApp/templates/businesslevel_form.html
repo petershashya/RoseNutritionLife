@@ -1,0 +1,89 @@
+{% load static %}
+
+<!-- BusinessLevel Form Modal -->
+<div class="modal fade" id="businessLevelModal" tabindex="-1" aria-labelledby="businessLevelModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h5 class="modal-title" id="businessLevelModalLabel">Add Business Level</h5>
+        <button type="button" class="btn btn-sm btn-outline-secondary btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <section class="book_section mb-2" id="details">
+          <div class="container">
+            <form id="postBusinessLevelForm" method="post" action="{% url 'post_businesslevel' %}" enctype="multipart/form-data">
+              {% csrf_token %}
+              <h4>FILL <span>BUSINESS LEVEL</span></h4>
+
+              <!-- Level Name -->
+              <div class="row mb-2">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="{{ form.level_name.id_for_label }}">Level Name</label>
+                    <input type="text" class="form-control" id="{{ form.level_name.id_for_label }}" name="level_name" placeholder="Enter level name" required>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Description -->
+              <div class="row mb-2">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="{{ form.description.id_for_label }}">Description</label>
+                    <textarea class="form-control" id="{{ form.description.id_for_label }}" name="description" rows="3" placeholder="Enter description..." required></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Additional Comment -->
+              <div class="row mb-2">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="{{ form.additional_comment.id_for_label }}">Additional Comment</label>
+                    <textarea class="form-control" id="{{ form.additional_comment.id_for_label }}" name="additional_comment" rows="3" placeholder="Additional comments..." required></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Image -->
+              <div class="row mb-2">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="{{ form.image.id_for_label }}">BusinessLevel Image (Optional)</label>
+                    <input type="file" class="form-control" id="{{ form.image.id_for_label }}" name="image" accept="image/*">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Video -->
+              <div class="row mb-2">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="{{ form.video.id_for_label }}">BusinessLevel Video (Optional)</label>
+                    <input type="file" class="form-control" id="{{ form.video.id_for_label }}" name="video" accept="video/*">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="btn-box">
+                <button id="postbusinesslevel_button" type="submit" class="btn btn-sm btn-light bg-secondary text-white">Post</button>
+              </div>
+
+            </form>
+          </div>
+        </section>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>

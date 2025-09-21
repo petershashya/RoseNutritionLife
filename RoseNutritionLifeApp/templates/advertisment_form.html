@@ -1,0 +1,67 @@
+<!-- Advertisement Post Modal -->
+<div class="modal fade" id="advertisementPostModal" tabindex="-1" aria-labelledby="advertisementPostModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+     
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h5 class="modal-title" id="advertisementPostModalLabel">Post Advertisement</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <form id="postAdvertisementForm" method="post" action="{% url 'post_advertisement' %}" enctype="multipart/form-data">
+          {% csrf_token %}
+          <h4>FILL <span>ADVERTISEMENT</span></h4>
+
+          <!-- User ID (usually auto filled / hidden) -->
+          <div class="mb-3">
+            <label for="{{ form.user_id.id_for_label }}">User</label>
+            <input type="text" class="form-control" id="{{ form.user_id.id_for_label }}" name="user_id" placeholder="Enter user ID">
+          </div>
+
+          <!-- Info Name -->
+          <div class="mb-3">
+            <label for="{{ form.infoname.id_for_label }}">Info Name</label>
+            <input type="text" class="form-control" id="{{ form.infoname.id_for_label }}" name="infoname" placeholder="Enter advertisement name" required>
+          </div>
+
+          <!-- Description -->
+          <div class="mb-3">
+            <label for="{{ form.description.id_for_label }}">Description</label>
+            <textarea class="form-control" id="{{ form.description.id_for_label }}" name="description" rows="3" placeholder="Enter description..." required></textarea>
+          </div>
+
+          <!-- Location -->
+          <div class="mb-3">
+            <label for="{{ form.location.id_for_label }}">Location</label>
+            <input type="text" class="form-control" id="{{ form.location.id_for_label }}" name="location" placeholder="Enter location" required>
+          </div>
+
+          <!-- Image -->
+          <div class="mb-3">
+            <label for="{{ form.image.id_for_label }}">Advertisement Image (Optional)</label>
+            <input type="file" class="form-control" id="{{ form.image.id_for_label }}" name="image" accept="image/*">
+          </div>
+
+          <!-- Video -->
+          <div class="mb-3">
+            <label for="{{ form.video.id_for_label }}">Advertisement Video (Optional)</label>
+            <input type="file" class="form-control" id="{{ form.video.id_for_label }}" name="video" accept="video/*">
+          </div>
+
+          <!-- Submit Button -->
+          <div class="btn-box">
+            <button  type="submit" id="postadvertisement_button" class="btn btn-sm btn-light bg-secondary text-white">Post</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

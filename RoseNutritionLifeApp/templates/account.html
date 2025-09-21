@@ -1,0 +1,435 @@
+{% extends 'layout.html' %}
+
+
+{% block content %}
+{% load static %} 
+
+
+<div class="p-2 mt-5"></div>
+<!-- start account page -->
+ 
+
+<!-- start personal details -->
+<div class="shadow mx-2 mt-2 py-4 mb-3 " style="border-radius:25px;">
+    <span class="h4 mx-4 d-flex justify-content-center align-items-center"  style="color:rgb(4, 70, 39);">MY PROFILE</span>
+<div class="d-flex justify-content-center align-items-center gap-2 mx-2 " >
+    <div>
+        <span class="d-flex justify-content-center align-items-start mx-1">
+            {% comment %} {% if userdetail.profile_image %}
+            <img src="{{userdetail.profile_image.url}}" alt="Profile Picture" class="img-thumbnail rounded-circle p-2" style="border:1px solid #563419; height:90px; width:90px;" >
+            {% else %} {% endcomment %}
+
+            <span class="p-3" style="border-radius:25px; border:1px solid rgb(4, 70, 39);">
+              <i class="bi bi-person-fill mb-1" style="font-size: 3rem"></i>
+            </span>
+              {% comment %} {% endif %}  {% endcomment %}
+         </span>
+    </div>
+    <div class="details" style="background-color:white; color:rgb(4, 70, 39);">
+        {% comment %} <span class="">Details</span><br> {% endcomment %}
+        <span class="h6" style="color:rgb(4, 70, 39);">
+            {% comment %} {{about_detail.rank}} {% endcomment %}
+                Company manager
+        </span><br>
+        <span class="" style="color:rgb(4, 70, 39);">
+            {% comment %} {{ user.first_name }} {{ user.last_name }} {% endcomment %}
+            Rose John
+        </span><br>
+        <span class=" " style="color:rgb(4, 70, 39);">
+            {% comment %} {{ user.email }} {% endcomment %}
+            rosejohn@gmail.com
+        </span><br>
+        <span class="job " style="color:rgb(4, 70, 39);"><i class="bi bi-phone" style=" font-size:15px; color:#563419;"></i>
+             {% comment %} {{ userdetail.mobile_contact }} {% endcomment %}
+             +255 775987677
+            </span>
+        <span class="job " style="color:rgb(4, 70, 39);"><i class="bi bi-whatsapp" style=" font-size:15px; color:#563419;"></i>
+             {% comment %} {{ userdetail.whatsapp_no }} {% endcomment %}
+             +255 775987677
+            </span><br><br>
+        <span id="add_list" class="p-2" ><i class="bi bi-pencil mx-1 text-bold text-light" style=" font-size:12px;"></i>Edit My Acount</span>
+    </div>
+</div>
+
+<hr class="col-10 mx-auto">
+<div class="p-3 mx-3" style="background-color:rgb(226, 240, 233); border-radius:25px;">
+<h5 class="mt-2 p-2 d-flex justify-content-center bg-light" style="color:rgb(4, 70, 39); border-radius:25px;">About</h5>
+<div class="px-3 d-flex justify-content-center">
+    <p class="px-3 d-flex justify-content-center" style="color:rgb(4, 70, 39);">
+        <i class="bi bi-quote"></i> 
+        {% comment %} {{about_detail.description}}  {% endcomment %}
+             au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
+             pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha.
+             Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+             pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha.
+             Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        <i class="bi bi-quote"></i>
+    </p>
+</div>
+
+<div class="social_box align-items d-flex justify-content-center align-items-center gap-2">
+    <a href="{{userdetail.instagram_account}}" class="text-decoration-none">
+        <i class="bi bi-instagram" aria-hidden="true" style="color:rgb(4, 70, 39); font-size:20px;"></i>
+      </a>
+    <a href="{{userdetail.facebook}}" class="bntext-decoration-none">
+      <i   class="bi bi-facebook " aria-hidden="true" style="color:rgb(4, 70, 39); font-size:20px;"></i>
+    </a>
+    <a href="{{userdetail.twitter}}" class="text-decoration-none">
+      <i  class="bi bi-twitter-x " aria-hidden="true" style="color:rgb(4, 70, 39); font-size:20px;"></i>
+    </a>
+    <a href="{{userdetail.youtube}}" class="text-decoration-none">
+      <i  class="bi bi-youtube " aria-hidden="true" style="color:rgb(4, 70, 39); font-size:20px;"></i>
+    </a>
+    <a href="{{userdetail.tiktok}}" class="text-decoration-none">
+        <i class="bi bi-tiktok" class="bi bi-tiktok " aria-hidden="true" style="color:rgb(4, 70, 39); font-size:20px;"></i>
+      </a>
+      {% comment %} <a href="{{userdetail.instagram_account}}" class="text-decoration-none"> <i class="bi bi-instagram " style="color:#563419; font-size:18px;"></i> </a>
+      <a href="{{userdetail.facebook_account}}" class="text-decoration-none"> <i class="bi bi-facebook " style="color:#563419; font-size:18px;"></i> </a>
+      <a href="{{userdetail.twitter_account}}" class="text-decoration-none"> <i class="bi bi-twitter-x " style="color:#563419; font-size:18px;"></i> </a>
+      <a href="{{userdetail.tiktok_account}}" class="text-decoration-none"> <i class="bi bi-tiktok " style="color:#563419; font-size:18px;"></i> </a>
+      <a href="{{userdetail.youtube_account}}" class="text-decoration-none"> <i class="bi bi-youtube" style="color:#563419; font-size:18px;"></i> </a> {% endcomment %}
+  </div>
+</div>
+</div>
+<!-- finish personal details -->
+ 
+
+                <!-- start Add list -->
+            <div class="d-flex justify-content-center align-items-center mt-4 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
+                <span id="add_list" class="d-flex justify-content-center align-items-center px-3 py-2 "  >
+                    <i class="bi bi-basket-fill text-light mx-1" style="font-size:1.3rem;"></i>Add Service
+                </span>
+                <span id="add_list" class="d-flex justify-content-center align-items-center px-3 py-2 " >
+                    <i class="bi bi-badge-ad-fill text-light mx-1" style="font-size:1.3rem;"></i>Add Advertisment
+                </span>
+           </div>
+
+
+
+ 
+ <!-- start members list -->
+        <div class="p-3 mt-4 mb-2 mx-2 bg-light" style="border-radius:25px;">
+                <span id="category_title" class="d-flex justify-content-center align-items-center mt-2  mx-3 p-1 rounded" style="background-color:rgb(226, 240, 233); color:rgb(4, 70, 39);font-size:1.2rem;">
+        <i class="bi bi-person-arms-up text-success mx-1" style="font-size:1.2rem;"></i>LIST OF MEMBERS</span>
+              <!-- analysis bars category -->
+            <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
+                 <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-eye text-success mx-1" style="font-size:0.7rem;"></i>View
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>Word
+                </span> 
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>PDF
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-download text-success mx-1" style="font-size:0.7rem;"></i>Save
+                </span>
+        </div>
+
+           <div class="table-responsive" >
+        <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Patient Name</th>
+        <th>Patient Mobile</th>
+        <th>Member Name</th>
+        <th>Member Mobile</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+          <tr>
+        <td>Melitus Soap</td>
+        <td>+2255 676879876</td>
+        <td>Melitus Soap</td>
+        <td>+2255 676879876</td>
+        <td>
+            <div class="d-flex justify-content-center align-items-center gap-1">
+        <span class="bg-primary p-2" style="border-radius:25px;">
+         <i class="bi bi-database-add text-light mx-1" style="font-size:1rem;"></i>
+        </span>
+        <span class="bg-warning p-2" style="border-radius:25px;">
+         <i class="bi bi-pencil text-light mx-1" style="font-size:1rem;"></i>
+        </span>
+        <span class="bg-danger p-2" style="border-radius:25px;">
+         <i class="bi bi-trash text-light mx-1" style="font-size:1rem;"></i>
+        </span></td>
+            </div>
+      </tr>
+         <tr>
+        <td>Melitus Soap</td>
+        <td>+2255 676879876</td>
+        <td>Melitus Soap</td>
+        <td>+2255 676879876</td>
+        <td>
+            <div class="d-flex justify-content-center align-items-center gap-1">
+            <span class="bg-primary p-2" style="border-radius:25px;">
+         <i class="bi bi-database-add text-light mx-1" style="font-size:1rem;"></i>
+        </span>
+        <span class="bg-warning p-2" style="border-radius:25px;">
+         <i class="bi bi-pencil text-light mx-1" style="font-size:1rem;"></i>
+        </span>
+        <span class="bg-danger p-2" style="border-radius:25px;">
+         <i class="bi bi-trash text-light mx-1" style="font-size:1rem;"></i>
+        </span>
+            </div>
+            </td>
+      </tr>
+    </tbody>
+</table>
+</div>
+</div>
+ <!-- finish members list -->
+
+ <!-- start patients list -->
+        <div class="p-3 mt-4 mb-2 mx-2 bg-light" style="border-radius:25px;">
+                <span id="category_title" class="d-flex justify-content-center align-items-center mt-2  mx-3 p-1 rounded" style="background-color:rgb(226, 240, 233); color:rgb(4, 70, 39);font-size:1.2rem;">
+        <i class="bi bi-bandaid text-success mx-1" style="font-size:1.2rem;"></i>LIST OF PATIENTS</span>
+              <!-- analysis bars category -->
+             <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
+                 <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-eye text-success mx-1" style="font-size:0.7rem;"></i>View
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>Word
+                </span> 
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>PDF
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-download text-success mx-1" style="font-size:0.7rem;"></i>Save
+                </span>
+        </div>
+
+           <div class="table-responsive" >
+        <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Patient Name</th>
+        <th>Patient Mobile</th>
+        <th>Member Name</th>
+        <th>Member Mobile</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+          <tr>
+        <td>Melitus Soap</td>
+        <td>+2255 676879876</td>
+        <td>Melitus Soap</td>
+        <td>+2255 676879876</td>
+        <td>
+            <div class="d-flex justify-content-center align-items-center gap-1">
+        <span class="bg-primary p-2" style="border-radius:25px;">
+         <i class="bi bi-database-add text-light mx-1" style="font-size:1rem;"></i>
+        </span>
+        <span class="bg-warning p-2" style="border-radius:25px;">
+         <i class="bi bi-pencil text-light mx-1" style="font-size:1rem;"></i>
+        </span>
+        <span class="bg-danger p-2" style="border-radius:25px;">
+         <i class="bi bi-trash text-light mx-1" style="font-size:1rem;"></i>
+        </span></td>
+            </div>
+      </tr>
+         <tr>
+        <td>Melitus Soap</td>
+        <td>+2255 676879876</td>
+        <td>Melitus Soap</td>
+        <td>+2255 676879876</td>
+        <td>
+            <div class="d-flex justify-content-center align-items-center gap-1">
+        <span class="bg-primary p-2" style="border-radius:25px;">
+         <i class="bi bi-database-add text-light mx-1" style="font-size:1rem;"></i>
+        </span>
+        <span class="bg-warning p-2" style="border-radius:25px;">
+         <i class="bi bi-pencil text-light mx-1" style="font-size:1rem;"></i>
+        </span>
+        <span class="bg-danger p-2" style="border-radius:25px;">
+         <i class="bi bi-trash text-light mx-1" style="font-size:1rem;"></i>
+        </span>
+            </div>
+            </td>
+      </tr>
+    </tbody>
+</table>
+</div>
+</div>
+ <!-- finish patients list -->
+
+
+
+ <div class="p-3 mt-3 mb-2 mx-2 bg-light" style="border-radius:25px;">
+                <span id="category_title" class="d-flex justify-content-center align-items-center mt-2  mx-3 p-1 rounded" style="background-color:rgb(226, 240, 233); color:rgb(4, 70, 39);font-size:1.2rem;">
+        <i class="bi bi-basket-fill text-success mx-1" style="font-size:1.2rem;"></i>LIST OF PRODUCTS</span>
+              <!-- analysis bars category -->
+            <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
+                 <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-eye text-success mx-1" style="font-size:0.7rem;"></i>View
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>Word
+                </span> 
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>PDF
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-download text-success mx-1" style="font-size:0.7rem;"></i>Save
+                </span>
+        </div>
+
+           <div class="table-responsive" >
+        <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Product Name</th>
+        <th>Memmber Name</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Capsual Meritus</td>
+        <td>Doe John</td>
+        <td>
+            <div class="d-flex justify-content-center align-items-center gap-1">
+        <span class="d-flex align-items-center bg-secondary p-2 gap-1" style="border-radius:25px;">
+         <i class="bi bi-bag-plus text-light mx-1" style="font-size:1rem;"></i>2
+        </span>
+        <span class="d-flex align-items-center bg-primary p-2" style="border-radius:25px;">
+         <i class="bi bi-cart-check text-light mx-1" style="font-size:1rem;"></i>
+        </span>
+        <span class="d-flex align-items-center bg-primary p-2" style="border-radius:25px;">
+         <i class="bi bi-database-check text-light mx-1" style="font-size:1rem;"></i>
+        </span>
+        <span class="d-flex align-items-center bg-primary p-2" style="border-radius:25px;">
+         <i class="bi bi-check-circle text-light mx-1" style="font-size:1rem;"></i>
+        </span>
+    </div>
+    </td>
+      </tr>
+      <tr>
+        <td>Melitus Soap</td>
+        <td>Farison John</td>
+        <td>
+        <div class="d-flex justify-content-center align-items-center gap-1">
+        <span class="bg-secondary p-2 gap-1" style="border-radius:25px;">
+         <i class="bi bi-bag-plus text-light mx-1" style="font-size:1rem;"></i>2
+        </span>
+        <span class="bg-primary p-2" style="border-radius:25px;">
+         <i class="bi bi-cart-check text-light mx-1" style="font-size:1rem;"></i>
+        </span>
+        <span class="bg-primary p-2" style="border-radius:25px;">
+         <i class="bi bi-database-check text-light mx-1" style="font-size:1rem;"></i>
+        </span>
+        <span class="bg-primary p-2" style="border-radius:25px;">
+         <i class="bi bi-check-circle text-light mx-1" style="font-size:1rem;"></i>
+        </span>
+     </div>
+    </td>
+      </tr>
+       <tr>
+        <td>Melitus Soap</td>
+        <td>Farison John</td>
+        <td>
+        <div class="d-flex justify-content-center align-items-center gap-1">
+        <span class="bg-secondary p-2 gap-1" style="border-radius:25px;">
+         <i class="bi bi-bag-plus text-light mx-1" style="font-size:1rem;"></i>2
+        </span>
+        <div class="d-flex justify-content-center align-items-center gap-1">
+        <span class="bg-primary p-2" style="border-radius:25px;">
+         <i class="bi bi-cart-check text-light mx-1" style="font-size:1rem;"></i>
+        </span>
+        <span class="bg-primary p-2" style="border-radius:25px;">
+         <i class="bi bi-database-check text-light mx-1" style="font-size:1rem;"></i>
+        </span>
+        <span class="bg-primary p-2" style="border-radius:25px;">
+         <i class="bi bi-check-circle text-light mx-1" style="font-size:1rem;"></i>
+        </span>
+    </div>
+    </td>
+      </tr>
+    </tbody>
+</table>
+</div>
+</div>
+ <!-- finish carts product list -->
+
+
+
+ 
+             <!-- start check-up list -->
+        <div class="p-3 mt-4 mb-2 mx-2 bg-light" style="border-radius:25px;">
+                <span id="category_title" class="d-flex justify-content-center align-items-center mt-2  mx-3 p-1 rounded" style="background-color:rgb(226, 240, 233); color:rgb(4, 70, 39);font-size:1.2rem;">
+        <i class="bi bi-bandaid-fill text-success mx-1" style="font-size:1.2rem;"></i>LIST OF CHECK-UP</span>
+              <!-- analysis bars category -->
+           <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
+                 <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-eye text-success mx-1" style="font-size:0.7rem;"></i>View
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>Word
+                </span> 
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>PDF
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-download text-success mx-1" style="font-size:0.7rem;"></i>Save
+                </span>
+        </div>
+
+           <div class="table-responsive" >
+        <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Patient Name</th>
+        <th>Patient Mobile</th>
+        <th>Member Name</th>
+        <th>Member Mobile</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+          <tr>
+        <td>Melitus Soap</td>
+        <td>+2255 676879876</td>
+        <td>Melitus Soap</td>
+        <td>+2255 676879876</td>
+        <td>
+            <div class="d-flex justify-content-center align-items-center gap-1">
+        <span class="bg-primary p-2" style="border-radius:25px;">
+         <i class="bi bi-database-add text-light mx-1" style="font-size:1rem;"></i>
+        </span>
+        <span class="bg-primary p-2" style="border-radius:25px;">
+         <i class="bi bi-pencil text-light mx-1" style="font-size:1rem;"></i>
+        </span>
+        <span class="bg-danger p-2" style="border-radius:25px;">
+         <i class="bi bi-trash text-light mx-1" style="font-size:1rem;"></i>
+        </span></td>
+            </div>
+      </tr>
+         <tr>
+        <td>Melitus Soap</td>
+        <td>+2255 676879876</td>
+        <td>Melitus Soap</td>
+        <td>+2255 676879876</td>
+        <td>
+            <div class="d-flex justify-content-center align-items-center gap-1">
+            <span class="bg-primary p-2" style="border-radius:25px;">
+         <i class="bi bi-database-add text-light mx-1" style="font-size:1rem;"></i>
+        </span>
+        <span class="bg-primary p-2" style="border-radius:25px;">
+         <i class="bi bi-pencil text-light mx-1" style="font-size:1rem;"></i>
+        </span>
+        <span class="bg-danger p-2" style="border-radius:25px;">
+         <i class="bi bi-trash text-light mx-1" style="font-size:1rem;"></i>
+        </span>
+            </div>
+            </td>
+      </tr>
+    </tbody>
+</table>
+</div>
+</div>
+ <!-- finish check-up list -->
+{% endblock %}

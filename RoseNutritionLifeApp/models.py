@@ -1,0 +1,308 @@
+from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+from django.db import models
+from django.utils import timezone
+
+# Validator function for image and video file formats
+# ---------------- Validators ----------------
+def validate_image_file(value):
+    allowed_extensions = ['.jpg', '.jpeg', '.png', '.gif']
+    ext = value.name.split('.')[-1].lower()
+    if f'.{ext}' not in allowed_extensions:
+        raise ValidationError(f'Unsupported file extension. Allowed: {", ".join(allowed_extensions)}')
+
+def validate_video_file(value):
+    allowed_extensions = ['.mp4', '.mov', '.avi', '.mkv']
+    ext = value.name.split('.')[-1].lower()
+    if f'.{ext}' not in allowed_extensions:
+        raise ValidationError(f'Unsupported file extension. Allowed: {", ".join(allowed_extensions)}')
+
+class UserDetail(models.Model):
+    GENDER_CHOICES = [
+        ('M', 'Male'),
+        ('F', 'Female'),
+    ]
+
+    COMPANY_RANK_CHOICES = [
+        ('director', 'Director'),
+        ('vice_director', 'Vice Director'),
+        ('business_teacher', 'Business Teacher'),
+        ('manager', 'Manager'),
+        ('doctor', 'Doctor'),
+        ('it_officer', 'IT Officer'),
+        ('supervisor', 'Supervisor'),
+        ('reception', 'Reception'),
+        ('accountant', 'Accountant'),
+    ]
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user_detail')
+    profile_image = models.ImageField(
+        upload_to='userdetail/images/',
+        blank=True,
+        validators=[validate_image_file]
+    )
+    mobile_contact = models.CharField(max_length=15, unique=True)  # Not null
+    email = models.EmailField(blank=True, null=True)  #Nullable
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=False, null=False)#Not null
+    age = models.PositiveIntegerField(blank=False, null=False) #Not Null
+    region = models.CharField(max_length=100)  # Not null
+    postal_address = models.CharField(max_length=255, blank=True, null=True)  # Nullable
+    company_rank = models.CharField(max_length=50, choices=COMPANY_RANK_CHOICES, blank=True, null=True)
+    membership_no = models.CharField(max_length=50, blank=False, null=False, unique=True)  # For SuperUser & Member
+
+    def __str__(self):
+        return f'{self.user.username} - Details'
+
+class Viewer(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='viewer_detail')
+    full_name = models.CharField(max_length=255)
+    mobile_contact = models.CharField(max_length=15, unique=True)
+    email = models.EmailField(blank=True, null=True) #Nullable
+    religion = models.CharField(max_length=100)
+    postal_address = models.CharField(max_length=255, blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.full_name} - Viewer'
+
+
+# ---------------- Disease Model ----------------
+class Disease(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="diseases")
+    disease_name = models.CharField(max_length=255)
+    description = models.TextField()
+    symptoms = models.TextField()
+    causes = models.TextField()
+    treatment = models.TextField()
+    additional_comment = models.TextField(blank=True, null=True)
+
+    # Image & Video fields (refactored like Song model)
+    image = models.ImageField(
+        upload_to="disease/images/",
+        blank=True,
+        null=True,
+        validators=[validate_image_file]
+    )
+    video = models.FileField(
+        upload_to="disease/videos/",
+        blank=True,
+        null=True,
+        validators=[validate_video_file]
+    )
+
+    date_created = models.DateTimeField(default=timezone.now)
+    date_modified = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.disease_name
+
+# ---------------- Medicine Model ----------------
+class Medicine(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="medicines")
+    medicine_name = models.CharField(max_length=200)
+    description = models.TextField()
+    solution = models.TextField()
+    additional_comment = models.TextField(blank=True, null=True)
+    dose = models.CharField(max_length=100)
+    cost = models.DecimalField(max_digits=10, decimal_places=2)
+
+    image = models.ImageField(
+        upload_to="medicine/images/",
+        blank=True,
+        null=True,
+        validators=[validate_image_file]
+    )
+    video = models.FileField(
+        upload_to="medicine/videos/",
+        blank=True,
+        null=True,
+        validators=[validate_video_file]
+    )
+
+    date_created = models.DateTimeField(default=timezone.now)
+    date_modified = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.medicine_name
+
+# ---------------- CheckUp Model ----------------
+class CheckUp(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="checkups")
+    checkup_name = models.CharField(max_length=200)
+    description = models.TextField()
+    treatment = models.TextField()
+    solution = models.TextField()
+    additional_comment = models.TextField(blank=True, null=True)
+    dose = models.CharField(max_length=100)
+    cost = models.DecimalField(max_digits=10, decimal_places=2)
+
+    image = models.ImageField(
+        upload_to="checkup/images/",
+        blank=True,
+        null=True,
+        validators=[validate_image_file]
+    )
+    video = models.FileField(
+        upload_to="checkup/videos/",
+        blank=True,
+        null=True,
+        validators=[validate_video_file]
+    )
+
+    date_created = models.DateTimeField(default=timezone.now)
+    date_modified = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.checkup_name
+
+# ---------------- BusinessPlan Model ----------------
+class BusinessPlan(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="business_plans")
+    description = models.TextField()
+    sales_and_marketing = models.TextField()
+    business_member = models.TextField()
+    pv_points = models.TextField()
+    additional_comment = models.TextField(blank=True, null=True)
+
+    image = models.ImageField(
+        upload_to="businessplan/images/",
+        blank=True,
+        null=True,
+        validators=[validate_image_file]
+    )
+    video = models.FileField(
+        upload_to="businessplan/videos/",
+        blank=True,
+        null=True,
+        validators=[validate_video_file]
+    )
+
+    date_created = models.DateTimeField(default=timezone.now)
+    date_modified = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"Business Plan - {self.user.username}"
+
+# ---------------- BusinessLevel Model ----------------
+class BusinessLevel(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="business_levels")
+    level_name = models.CharField(max_length=200)
+    description = models.TextField()
+    additional_comment = models.TextField(blank=True, null=True)
+
+    image = models.ImageField(
+        upload_to="businesslevel/images/",
+        blank=True,
+        null=True,
+        validators=[validate_image_file]
+    )
+    video = models.FileField(
+        upload_to="businesslevel/videos/",
+        blank=True,
+        null=True,
+        validators=[validate_video_file]
+    )
+
+    date_created = models.DateTimeField(default=timezone.now)
+    date_modified = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.level_name
+
+# ---------------- PatientForm Model ----------------
+class PatientForm(models.Model):
+    GENDER_CHOICES = [
+        ('M', 'Male'),
+        ('F', 'Female'),
+    ]
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="patients")
+    full_name = models.CharField(max_length=255)
+    age = models.PositiveIntegerField(blank=False, null=False)#Not null
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=False, null=False)
+    mobile_no = models.CharField(max_length=15)  # required
+    email = models.EmailField(blank=True, null=True)
+    region = models.CharField(max_length=100)
+    postal_address = models.CharField(max_length=255, blank=True, null=True)
+    membership_no = models.CharField(max_length=50)
+
+    date_created = models.DateTimeField(default=timezone.now)
+    date_modified = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"Patient: {self.full_name}"
+
+
+
+# ---------------- Advertisement Model ----------------
+class Advertisement(models.Model):
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="advertisements"
+    )
+    infoname = models.CharField(max_length=255)
+    description = models.TextField()
+    location = models.CharField(max_length=255)
+    image = models.ImageField(
+        upload_to="advertisement/images/",
+        blank=True,
+        null=True,
+        validators=[validate_image_file]
+    )
+    video = models.FileField(
+        upload_to="advertisement/videos/",
+        blank=True,
+        null=True,
+        validators=[validate_video_file]
+    )
+    date_created = models.DateTimeField(default=timezone.now)
+    date_modified = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"Advertisement - {self.infoname} ({self.user.username})"
+
+
+# ---------------- CheckUp Sales Model ----------------
+class CheckUp_SalesForm(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="checkup_sales")
+    checkup = models.ForeignKey(CheckUp, on_delete=models.CASCADE, related_name="sales")  # checkupId
+    checkup_name = models.CharField(max_length=200)  # store checkup name
+    checkup_type = models.CharField(max_length=255)
+    checkup_cost = models.DecimalField(max_digits=10, decimal_places=2)
+
+    date_created = models.DateTimeField(default=timezone.now)
+    date_modified = models.DateTimeField(auto_now=True)
+
+    def save(self, *args, **kwargs):
+        # auto-fill fields from CheckUp model
+        if self.checkup:
+            self.checkup_name = self.checkup.checkup_name
+            self.checkup_type = self.checkup.dose  # using 'dose' as type
+            self.checkup_cost = self.checkup.cost
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"CheckUp Sale: {self.checkup_name} - {self.checkup_cost}"
+
+# ---------------- Medicine Sales Model ----------------
+class Medicine_SalesForm(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="medicine_sales")
+    medicine = models.ForeignKey(Medicine, on_delete=models.CASCADE, related_name="sales")  # medicineId
+    medicine_name = models.CharField(max_length=200)  # store medicine name
+    medicine_type = models.CharField(max_length=255)
+    medicine_cost = models.DecimalField(max_digits=10, decimal_places=2)
+    medicine_pv = models.PositiveIntegerField()
+
+    date_created = models.DateTimeField(default=timezone.now)
+    date_modified = models.DateTimeField(auto_now=True)
+
+    def save(self, *args, **kwargs):
+        # auto-fill fields from Medicine model
+        if self.medicine:
+            self.medicine_name = self.medicine.medicine_name
+            self.medicine_type = self.medicine.dose  # using 'dose' as type
+            self.medicine_cost = self.medicine.cost
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"Medicine Sale: {self.medicine_name} - {self.medicine_cost}"

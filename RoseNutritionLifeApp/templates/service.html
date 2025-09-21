@@ -1,0 +1,178 @@
+{% extends 'layout.html' %}
+
+
+{% block content %}
+{% load static %}  
+
+
+<div class="p-2 mt-5"></div>
+<!-- Our services -->
+ <div class="d-flex justify-content-center">
+<div  class="d-flex flex-nowrap overflow-x-auto  gap-3 p-3 mx-2" style="display: flex;">
+    <div id="getservice" class="top_providers  p-4 text-light flex-shrink-0"  >
+     {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
+     OUR SERVICES
+     <span class="d-flex justify-content-center align-items-center ">
+         <i class="bi bi-basket-fill text-light mx-2" style="font-size:2.5rem;"></i>
+         <span>
+     </div>
+
+     <div  id="getservice" class="top_providers  p-4 text-light flex-shrink-0" >
+         {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
+         ADVERTISMENT
+         <span class="d-flex justify-content-center align-items-center">
+             <i class="bi bi-badge-ad-fill text-light mx-2" style="font-size:2.5rem;"></i>
+             <span>
+         </div>
+
+         <div  id="getservice" class="top_providers  p-4 text-light flex-shrink-0"  >
+             {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
+             PV-EXCHANGE
+             <span class="d-flex justify-content-center align-items-center">
+                 <i class="bi bi-currency-exchange text-light mx-2" style="font-size:2.5rem;"></i>
+                 <span>
+             </div>
+
+             <div  id="getservice" class="top_providers  p-4 text-light flex-shrink-0"  >
+                 {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
+                 OUR ANALYSIS
+                 <span class="d-flex justify-content-center align-items-center">
+                     <i class="bi bi-graph-up-arrow text-light mx-2" style="font-size:2.5rem;"></i>
+                     <span>
+                 </div>
+</div>
+</div>
+
+
+
+<!-- start general services categories -->
+<!-- disease categories -->
+<span id="category_title" class="d-flex justify-content-center align-items-center mt-3 mx-3 p-1 rounded bg-light" style=" color:rgb(4, 70, 39); font-size:1.2rem;">
+    <i class="bi bi-file-medical-fill text-success mx-1" style="font-size:1.2rem;"></i>DISEASES
+</span>
+<!-- start list of diseases -->
+  <a href="{% url 'services' %}" class="text-decoration-none">
+ <div class="d-flex justify-content-center align-items-center mx-2 rounded my-1 p-2 bg-light" >
+    <div class="p-1 mx-1">
+        <img class="categoryimg" style="width:100px; height:100px;" src="{% static '/images/eternal/uzazi (3).jpg' %}">
+    </div>
+    <div class="rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-3 bg-white mt-1 text-black"><b>DIABETS MELLITUS</b><br>
+            <span style="color:rgb(4, 70, 39); ">
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu...
+        </div>
+    </div>
+</div>
+</a>
+
+
+ <a href="{% url 'services' %}" class="text-decoration-none">
+ <div class="d-flex justify-content-center align-items-center mx-2 rounded my-1 p-2 bg-light">
+    <div class="p-1 mx-1">
+        <img class="categoryimg" style="width:100px; height:100px;" src="{% static '/images/eternal/uzazi (3).jpg' %}">
+    </div>
+    <div class="rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-3 bg-white mt-1 text-black"><b>DIABETS MELLITUS</b><br>
+            <span style="color:rgb(4, 70, 39); ">
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu...
+        </div>
+    </div>
+</div>
+</a>
+<!-- finish diseases list -->
+
+
+
+
+ <!-- medicine categories -->
+<span id="category_title" class="d-flex justify-content-center align-items-center mt-5 mx-3 p-1 rounded bg-light" style=" color:rgb(4, 70, 39); font-size:1.2rem;">
+ <i class="bi bi-bandaid-fill text-success mx-1" style="font-size:1.2rem;"></i>MEDICINE
+</span>
+<!-- start list of medicine -->
+  <a href="{% url 'services' %}" class="text-decoration-none">
+ <div class="d-flex justify-content-center align-items-center mx-2 rounded my-1 p-2 bg-light">
+    <div class="p-1 mx-1">
+        <img class="categoryimg" style="width:100px; height:100px;" src="{% static '/images/eternal/dawa4.jpg' %}">
+    </div>
+    <div class="rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-3 bg-white mt-1 text-black"><b>SOFT CAPSUAL SOAP</b><br>
+            <span style="color:rgb(4, 70, 39); ">
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu...
+        </div>
+    </div>
+</div>
+</a>
+
+
+
+
+<!-- checkups categories -->
+<span id="category_title" class="d-flex justify-content-center align-items-center mt-5 mx-3 p-1 rounded bg-light" style=" color:rgb(4, 70, 39); font-size:1.2rem;">
+ <i class="bi bi-person-arms-up text-success mx-1" style="font-size:1.2rem;"></i>CHECK-UPS
+</span>
+<!-- start list of medicine -->
+  <a href="{% url 'services' %}" class="text-decoration-none">
+ <div class="d-flex justify-content-center align-items-center mx-2 rounded my-1 p-2 bg-light" >
+    <div class="p-1 mx-1">
+        <img class="categoryimg" style="width:100px; height:100px;" src="{% static '/images/eternal/download.jpeg' %}">
+    </div>
+    <div class="rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-3 bg-white mt-1 text-black"><b>BODY MASSAGE</b><br>
+            <span style="color:rgb(4, 70, 39); ">
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu...
+        </div>
+    </div>
+</div>
+</a>
+
+
+
+
+ <!-- Business plan -->
+<span id="category_title" class="d-flex justify-content-center align-items-center mt-5 mx-3 p-1 rounded bg-light" style=" color:rgb(4, 70, 39); font-size:1.2rem;">
+ <i class="bi bi-briefcase-fill text-success mx-1" style="font-size:1.2rem;"></i>BUSINESS PLAN
+</span>
+<!-- start list of business plan -->
+  <a href="{% url 'services' %}" class="text-decoration-none">
+ <div class="d-flex justify-content-center align-items-center mx-2 rounded my-1 p-2 bg-light">
+    <div class="p-1 mx-1">
+        <img class="categoryimg" style="width:100px; height:100px;" src="{% static '/images/eternal/sales.jpeg' %}">
+    </div>
+    <div class="rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-3 bg-white mt-1 text-black"><b>SALES & MARKETING</b><br>
+            <span style="color:rgb(4, 70, 39); ">
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu...
+        </div>
+    </div>
+</div>
+</a>
+
+
+
+
+ <!-- business levels categories -->
+<span id="category_title" class="d-flex justify-content-center align-items-center mt-5 mx-3 p-1 rounded bg-light" style=" color:rgb(4, 70, 39); font-size:1.2rem;">
+ <i class="bi bi-briefcase text-success mx-1" style="font-size:1.2rem;"></i>BUSINESS LEVELS
+</span>
+<!-- start list of business level -->
+ <a href="{% url 'services' %}" class="text-decoration-none">
+ <div class="d-flex justify-content-center align-items-center mx-2 rounded my-1 p-2 bg-light">
+    <div class="p-1 mx-1">
+        <img class="categoryimg" style="width:100px; height:100px;" src="{% static '/images/eternal/sales.jpeg' %}">
+    </div>
+    <div class="rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-3 bg-white mt-1 text-black"><b>LEVEL 1</b><br>
+            <span style="color:rgb(4, 70, 39); ">
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu...
+        </div>
+    </div>
+</div>
+</a>
+<!-- finish general services lists -->
+
+
+
+
+
+<div class="mb-5"></div>
+{% endblock %}

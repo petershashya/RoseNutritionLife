@@ -1,0 +1,71 @@
+{% extends 'layout2.html' %}
+
+
+{% block content %}
+{% load static %} 
+
+<!-- login division -->
+    
+<section class="book_section layout_padding mt-5" id="details">
+
+  <div class="row">
+    <div class="col">
+      <div class="container ">
+
+  <form method="post">
+    {% csrf_token %}
+    <h4 style="color:rgba(25, 28, 29, 1);">
+      LOGIN<span class="text-success"> DETAILS</span>
+    </h4>
+    
+    <!-- Select Login Method -->
+    <div class="form-row">
+      <div class="form-group col-lg-4 d-flex justify-content-center align-items-start">
+        <label for="login-method" class="dropdown-toggle mt-1">Login Options</label>
+        <select id="login-method" name="login_method" class="btn btn-outline-light text-secondary"  onchange="toggleLoginInput()">
+          <option value="username">Username</option>
+          <option value="email">Email</option>
+          <option value="mobile">Mobile Number</option>
+        </select>
+      </div>
+    </div>
+    
+    <!-- Dynamic Login Input -->
+    <div class="form-row" id="login-input-container">
+      <div class="form-group col-lg-4">
+        <label id="login-label" for="login-input">Username</label>
+        <input type="text" class="form-control" name="login_input" id="login-input" placeholder="Fill Username">
+      </div>
+    </div>
+
+    <div class="form-row ">
+      {% comment %} <div class="form-group col-lg-4">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" name="password" id="password" placeholder="Fill password">
+      </div> {% endcomment %}
+      
+      <!-- Password Field with Strength Meter and Show/Hide Toggle -->
+      <div class="form-group col-lg-4 password-container">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" name="password" id="password" placeholder="Fill password" required>
+        {% comment %} <span class="toggle-password mt-3 mx-2 bg-light p-2"><i class="bi bi-eye-fill"></i></span> {% endcomment %}
+      </div>
+    </div>
+
+    {% if error %}
+      <p style="color: red;">{{ error }}</p>
+    {% endif %}
+
+    <div class="btn-box ">
+      <button type="submit" class="btn btn-sm text-white" style="background-color:rgb(4, 70, 39);">Login</button>
+      <a href="{% url 'register' %}" class="btn btn-sm text-secondary bg-light p-2 mt-3">Register</a>
+    </div> 
+    <span class="mt-1 mx-5 d-flex justify-content-start align-items-center "><a class="text-decoration:none" style="color:rgb(8, 71, 100);" href="">Forget password ?</a></span>
+        </form>  
+        
+      </div>
+  </div>
+</div>
+</section>
+
+{% endblock %}

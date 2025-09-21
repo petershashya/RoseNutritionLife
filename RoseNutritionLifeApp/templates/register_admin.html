@@ -1,0 +1,40 @@
+{% extends 'layout2.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+{% load static %} 
+
+    
+ <section class="book_section layout_padding mt-5" id="details">
+
+    <div class="row">
+      <div class="col">
+        <div class="container ">
+
+            <!-- fill Admin  details-->
+             <form method="post">
+          {% csrf_token %}
+          <h4 style="color:rgba(18, 23, 26, 1);">
+            FILL ADMIN REGISTRATION <span class="text-success">DETAILS</span>
+          </h4>
+        {{ admin_form.as_p }}
+
+        <span class="mt-2">
+          {% if error %}
+          <p style="color: red;">{{ error }}</p>
+      {% endif %}
+        </span>
+
+          <div class="btn-box">
+            <button type="submit" class="btn btn-sm text-light"  style="background-color:rgb(4, 70, 39);" name="register_admin">Register</button>
+            <a href="{% url 'login' %}" class="btn btn-sm text-secondary bg-light p-2 mt-3">Login</a>
+          </div> 
+        </form>  
+        
+      </div>
+  </div>
+</div>
+</section>
+
+
+    {% endblock content %}

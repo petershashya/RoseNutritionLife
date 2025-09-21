@@ -1,0 +1,1402 @@
+{% extends 'layout.html' %}
+
+
+{% block content %}
+{% load static %} 
+
+
+<div class="p-2 mt-5"></div>
+<!-- Our Analysis -->
+ <div class="d-flex justify-content-center">
+<div  class="d-flex flex-nowrap overflow-x-auto align-items-center gap-3 mx-3">
+    <div  id="getservice" class="top_providers  p-4 text-light flex-shrink-0"  >
+        {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
+        <div class="d-flex justify-content-center align-items-center">
+           <span class="badge badge-sm bg-info mb-1 p-2" style="border-radius:45px;">120</span>
+       </div>
+           TOTAL PATIENTS
+        <span class="d-flex justify-content-center align-items-center">
+            <i class="bi bi-people text-light mx-2" style="font-size:2.5rem;"></i>
+            <span>
+        </div>
+
+     <div  id="getservice" class="top_providers  p-4 text-light flex-shrink-0"  >
+        {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
+        <div class="d-flex justify-content-center align-items-center">
+            <span class="badge badge-sm bg-info mb-1 p-2" style="border-radius:45px;">120</span>
+       </div>
+           TOTAL MEMBERS
+        <span class="d-flex justify-content-center align-items-center">
+            <i class="bi bi-people-fill text-light mx-2" style="font-size:2.5rem;"></i>
+            <span>
+        </div>
+
+         <div  id="getservice" class="top_providers  p-4 text-light flex-shrink-0"  >
+            {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
+            <div class="d-flex justify-content-center align-items-center">
+                <span class="badge badge-sm bg-info mb-1 p-2" style="border-radius:45px;">120</span>
+           </div>
+               TOTAL CHECK-UP
+            <span class="d-flex justify-content-center align-items-center">
+                <i class="bi bi-person-arms-up text-light mx-2" style="font-size:2.5rem;"></i>
+                <span>
+            </div>
+
+             <div  id="getservice" class="top_providers  p-4 text-light flex-shrink-0"  >
+                 {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
+                 <div class="d-flex justify-content-center align-items-center">
+                    <span class="badge badge-sm bg-info mb-1 p-2" style="border-radius:45px;">120</span>
+                </div>
+                    TOTOL MEDICINE
+                 <span class="d-flex justify-content-center align-items-center">
+                     <i class="bi bi-bandaid-fill text-light mx-2" style="font-size:2.5rem;"></i>
+                     <span>
+                 </div>
+
+                    <div  id="getservice" class="top_providers  p-4 text-light flex-shrink-0" >
+                        <div class="d-flex justify-content-center align-items-center">
+                            <span class="badge badge-sm bg-info mb-1 p-2" style="border-radius:45px;">120</span>
+                        </div>
+                        {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
+                           TOTAL VIEWERS
+                        <span class="d-flex justify-content-center align-items-center">
+                            <i class="bi bi-eye-fill text-light mx-2" style="font-size:2.5rem;"></i>
+                        </span>
+        </div>
+</div>
+</div>
+
+
+
+
+<!-- analysis categories and lists -->
+ <!-- for patients anaylsis -->
+<div>
+    <span id="category_title" class="d-flex justify-content-center align-items-center mt-4  mx-3 p-1 rounded" style="background-color:rgb(226, 240, 233); color:rgb(4, 70, 39);font-size:1.2rem;">
+        <i class="bi bi-person-arms-up text-success mx-1" style="font-size:1.2rem;"></i>PATIENTS ANALYSIS</span>
+    <ul class="nav nav-pills d-flex justify-content-center aling-items-center gap-2 mt-2">
+        <li class="nav-item">
+          <a class="nav-link " data-bs-toggle="pill" href="#patient_linegraph" >
+            <i class="bi bi-graph-up-arrow text-success mx-1" style="font-size:1rem;"></i>
+            Line Graph</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link " data-bs-toggle="pill" href="#patient_bargraph" >
+            <i class="bi bi-bar-chart text-success mx-1" style="font-size:1rem;"></i>
+            Bar Graph</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " data-bs-toggle="pill" href="#patient_stackgraph" >
+                <i class="bi bi-bar-chart-line text-success mx-1" style="font-size:1rem;"></i>
+                Stack Graph</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " data-bs-toggle="pill" href="#patient_piechart" >
+                <i class="bi bi-pie-chart text-success mx-1" style="font-size:1rem;"></i>
+                Pie Chart</a>
+        </li>
+      </ul>
+      
+      <!-- Tab panes -->
+      <div class="tab-content p-4">
+   
+
+         <!-- start linechart -->
+        <div class="tab-pane container active p-2 rounded" id="patient_linegraph" style="background-color:rgb(226, 240, 233);">   
+         <div class="p-2 rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2 d-flex justify-content-center align-items-center"><b>BUSINESS THEORY</b></div>
+
+        <div class="d-flex justify-content-center align-items-start rounded gap-2" >
+                <div class="row ">
+                <div class="col-sm-5 mt-3 " >
+           <div style="width: 100%; max-width: 900px; height: 360px; border: 1px solid #ddd;">
+            <canvas id="lineChartResponsive"></canvas>
+          </div>
+                     <!-- analysis bars category -->
+            <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
+                 <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-eye text-success mx-1" style="font-size:0.7rem;"></i>View
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>Word
+                </span> 
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>PDF
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-download text-success mx-1" style="font-size:0.7rem;"></i>Save
+                </span>
+        </div>
+</div>
+           
+
+    <div class="col-sm p-2 rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2"><b>ANALYSIS THEORY</b></div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Weak</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Month</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Year</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+           <span style="color:rgb(4, 70, 39); "><b>Analysis Per UpNow</b></span><br>
+           Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+           au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
+       </div>
+    </div>
+    </div>
+</div>
+<!-- finish linechart-->
+    </div>
+</div>
+
+        <!-- start bargraph -->
+        <div class="tab-pane container fade p-2 rounded" id="patient_bargraph" style="background-color:rgb(226, 240, 233);">   
+   <div class="p-2 rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2 d-flex justify-content-center align-items-center"><b>BUSINESS THEORY</b></div>
+
+        <div class="d-flex justify-content-center align-items-start rounded gap-2" >
+                <div class="row ">
+                <div class="col-sm-5 mt-3 " >
+        <div style="width:100%; max-width:700px; height:400px;">
+            <canvas id="barChartResponsive"></canvas>
+          </div>
+                     <!-- analysis bars category -->
+            <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
+                 <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-eye text-success mx-1" style="font-size:0.7rem;"></i>View
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>Word
+                </span> 
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>PDF
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-download text-success mx-1" style="font-size:0.7rem;"></i>Save
+                </span>
+        </div>
+</div>
+           
+
+    <div class="col-sm p-2 rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2"><b>ANALYSIS THEORY</b></div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Weak</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Month</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Year</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+           <span style="color:rgb(4, 70, 39); "><b>Analysis Per UpNow</b></span><br>
+           Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+           au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
+       </div>
+    </div>
+    </div>
+</div>
+<!-- finish bar graph-->
+    </div>
+</div>
+
+
+
+    <!-- start stack chart -->
+    <div class="tab-pane container fade p-2 rounded" id="patient_stackgraph" style="background-color:rgb(226, 240, 233);">   
+         <div class="p-2 rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2 d-flex justify-content-center align-items-center"><b>BUSINESS THEORY</b></div>
+
+        <div class="d-flex justify-content-center align-items-start rounded gap-2" >
+                <div class="row ">
+                <div class="col-sm-5 mt-3 " >
+            <div style="width:100%; max-width:800px; height:400px;">
+                <canvas id="stackedChartResponsive"></canvas>
+              </div>
+                     <!-- analysis bars category -->
+            <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
+                 <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-eye text-success mx-1" style="font-size:0.7rem;"></i>View
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>Word
+                </span> 
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>PDF
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-download text-success mx-1" style="font-size:0.7rem;"></i>Save
+                </span>
+        </div>
+</div>
+           
+
+    <div class="col-sm p-2 rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2"><b>ANALYSIS THEORY</b></div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Weak</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Month</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Year</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+           <span style="color:rgb(4, 70, 39); "><b>Analysis Per UpNow</b></span><br>
+           Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+           au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
+       </div>
+    </div>
+    </div>
+</div>
+<!-- finish stack chart-->
+    </div>
+</div>
+
+
+
+       
+     <!-- start pie chart -->
+     <div class="tab-pane container fade p-2 rounded" id="patient_piechart" style="background-color:rgb(226, 240, 233);">   
+        <div class="p-2 rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2 d-flex justify-content-center align-items-center"><b>BUSINESS THEORY</b></div>
+
+        <div class="d-flex justify-content-center align-items-start rounded gap-2" >
+                <div class="row ">
+                <div class="col-sm-5 mt-3 " >
+            <div style="width:100%; max-width:500px; height:400px;">
+                <canvas id="pieChartResponsive"></canvas>
+              </div>
+                     <!-- analysis bars category -->
+            <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
+                 <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-eye text-success mx-1" style="font-size:0.7rem;"></i>View
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>Word
+                </span> 
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>PDF
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-download text-success mx-1" style="font-size:0.7rem;"></i>Save
+                </span>
+        </div>
+</div>
+           
+
+    <div class="col-sm p-2 rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2"><b>ANALYSIS THEORY</b></div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Weak</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Month</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Year</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+           <span style="color:rgb(4, 70, 39); "><b>Analysis Per UpNow</b></span><br>
+           Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+           au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
+       </div>
+    </div>
+    </div>
+</div>
+<!-- finish piechart-->
+    </div>
+</div>
+
+   
+</div>
+</div>
+</div>
+</div> 
+<!-- finish patients analysis -->
+
+
+
+ <!-- for members anaylsis -->
+ <div>
+    <span id="category_title" class="d-flex justify-content-center align-items-center mt-4  mx-3 p-1 rounded" style="background-color:rgb(226, 240, 233); color:rgb(4, 70, 39);font-size:1.2rem;">
+        <i class="bi bi-person-arms-up text-success mx-1" style="font-size:1.2rem;"></i>MEMBERS ANALYSIS</span>
+    <ul class="nav nav-pills d-flex justify-content-center aling-items-center gap-2 mt-2">
+        <li class="nav-item">
+          <a class="nav-link " data-bs-toggle="pill" href="#member_linegraph" >
+            <i class="bi bi-graph-up-arrow text-success mx-1" style="font-size:1rem;"></i>
+            Line Graph</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link " data-bs-toggle="pill" href="#member_bargraph" >
+            <i class="bi bi-bar-chart text-success mx-1" style="font-size:1rem;"></i>
+            Bar Graph</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " data-bs-toggle="pill" href="#member_stackgraph" >
+                <i class="bi bi-bar-chart-line text-success mx-1" style="font-size:1rem;"></i>
+                Stack Graph</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " data-bs-toggle="pill" href="#member_piechart" >
+                <i class="bi bi-pie-chart text-success mx-1" style="font-size:1rem;"></i>
+                Pie Chart</a>
+        </li>
+      </ul>
+      
+      <!-- Tab panes -->
+      <div class="tab-content p-4">
+
+         <!-- start linechart -->
+        <div class="tab-pane container active p-2 rounded" id="member_linegraph" style="background-color:rgb(226, 240, 233);">   
+         <div class="p-2 rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2 d-flex justify-content-center align-items-center"><b>BUSINESS THEORY</b></div>
+
+        <div class="d-flex justify-content-center align-items-start rounded gap-2" >
+                <div class="row ">
+                <div class="col-sm-5 mt-3 " >
+           <div style="width: 100%; max-width: 900px; height: 360px; border: 1px solid #ddd;">
+            <canvas id="lineChartResponsive"></canvas>
+          </div>
+                     <!-- analysis bars category -->
+            <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
+                 <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-eye text-success mx-1" style="font-size:0.7rem;"></i>View
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>Word
+                </span> 
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>PDF
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-download text-success mx-1" style="font-size:0.7rem;"></i>Save
+                </span>
+        </div>
+</div>
+           
+
+    <div class="col-sm p-2 rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2"><b>ANALYSIS THEORY</b></div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Weak</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Month</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Year</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+           <span style="color:rgb(4, 70, 39); "><b>Analysis Per UpNow</b></span><br>
+           Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+           au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
+       </div>
+    </div>
+    </div>
+</div>
+<!-- finish linechart-->
+    </div>
+</div>
+
+        <!-- start bargraph -->
+        <div class="tab-pane container fade p-2 rounded" id="member_bargraph" style="background-color:rgb(226, 240, 233);">   
+   <div class="p-2 rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2 d-flex justify-content-center align-items-center"><b>BUSINESS THEORY</b></div>
+
+        <div class="d-flex justify-content-center align-items-start rounded gap-2" >
+                <div class="row ">
+                <div class="col-sm-5 mt-3 " >
+        <div style="width:100%; max-width:700px; height:400px;">
+            <canvas id="barChartResponsive"></canvas>
+          </div>
+                     <!-- analysis bars category -->
+            <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
+                 <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-eye text-success mx-1" style="font-size:0.7rem;"></i>View
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>Word
+                </span> 
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>PDF
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-download text-success mx-1" style="font-size:0.7rem;"></i>Save
+                </span>
+        </div>
+</div>
+           
+
+    <div class="col-sm p-2 rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2"><b>ANALYSIS THEORY</b></div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Weak</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Month</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Year</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+           <span style="color:rgb(4, 70, 39); "><b>Analysis Per UpNow</b></span><br>
+           Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+           au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
+       </div>
+    </div>
+    </div>
+</div>
+<!-- finish bar graph-->
+    </div>
+</div>
+
+
+
+    <!-- start stack chart -->
+    <div class="tab-pane container fade p-2 rounded" id="member_stackgraph" style="background-color:rgb(226, 240, 233);">   
+         <div class="p-2 rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2 d-flex justify-content-center align-items-center"><b>BUSINESS THEORY</b></div>
+
+        <div class="d-flex justify-content-center align-items-start rounded gap-2" >
+                <div class="row ">
+                <div class="col-sm-5 mt-3 " >
+            <div style="width:100%; max-width:800px; height:400px;">
+                <canvas id="stackedChartResponsive"></canvas>
+              </div>
+                     <!-- analysis bars category -->
+            <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
+                 <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-eye text-success mx-1" style="font-size:0.7rem;"></i>View
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>Word
+                </span> 
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>PDF
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-download text-success mx-1" style="font-size:0.7rem;"></i>Save
+                </span>
+        </div>
+</div>
+           
+
+    <div class="col-sm p-2 rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2"><b>ANALYSIS THEORY</b></div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Weak</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Month</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Year</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+           <span style="color:rgb(4, 70, 39); "><b>Analysis Per UpNow</b></span><br>
+           Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+           au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
+       </div>
+    </div>
+    </div>
+</div>
+<!-- finish stack chart-->
+    </div>
+</div>
+
+
+
+       
+     <!-- start pie chart -->
+     <div class="tab-pane container fade p-2 rounded" id="member_piechart" style="background-color:rgb(226, 240, 233);">   
+        <div class="p-2 rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2 d-flex justify-content-center align-items-center"><b>BUSINESS THEORY</b></div>
+
+        <div class="d-flex justify-content-center align-items-start rounded gap-2" >
+                <div class="row ">
+                <div class="col-sm-5 mt-3 " >
+            <div style="width:100%; max-width:500px; height:400px;">
+                <canvas id="pieChartResponsive"></canvas>
+              </div>
+                     <!-- analysis bars category -->
+            <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
+                 <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-eye text-success mx-1" style="font-size:0.7rem;"></i>View
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>Word
+                </span> 
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>PDF
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-download text-success mx-1" style="font-size:0.7rem;"></i>Save
+                </span>
+        </div>
+</div>
+           
+
+    <div class="col-sm p-2 rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2"><b>ANALYSIS THEORY</b></div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Weak</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Month</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Year</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+           <span style="color:rgb(4, 70, 39); "><b>Analysis Per UpNow</b></span><br>
+           Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+           au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
+       </div>
+    </div>
+    </div>
+</div>
+<!-- finish piechart-->
+    </div>
+</div>
+
+   
+</div>
+</div>
+</div>
+</div> 
+<!-- finish members analysis -->
+
+
+
+
+ <!-- for medicine anaylsis -->
+ <div>
+    <span id="category_title" class="d-flex justify-content-center align-items-center mt-4  mx-3 p-1 rounded" style="background-color:rgb(226, 240, 233); color:rgb(4, 70, 39);font-size:1.2rem;">
+        <i class="bi bi-person-arms-up text-success mx-1" style="font-size:1.2rem;"></i>MEDICINE ANALYSIS</span>
+    <ul class="nav nav-pills d-flex justify-content-center aling-items-center gap-2 mt-2">
+        <li class="nav-item">
+          <a class="nav-link " data-bs-toggle="pill" href="#medicine_linegraph" >
+            <i class="bi bi-graph-up-arrow text-success mx-1" style="font-size:1rem;"></i>
+            Line Graph</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link " data-bs-toggle="pill" href="#medicine_bargraph" >
+            <i class="bi bi-bar-chart text-success mx-1" style="font-size:1rem;"></i>
+            Bar Graph</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " data-bs-toggle="pill" href="#medicine_stackgraph" >
+                <i class="bi bi-bar-chart-line text-success mx-1" style="font-size:1rem;"></i>
+                Stack Graph</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " data-bs-toggle="pill" href="#medicine_piechart" >
+                <i class="bi bi-pie-chart text-success mx-1" style="font-size:1rem;"></i>
+                Pie Chart</a>
+        </li>
+      </ul>
+      
+      <!-- Tab panes -->
+      <div class="tab-content p-4">
+   
+
+         <!-- start linechart -->
+        <div class="tab-pane container active p-2 rounded" id="medicine_linegraph" style="background-color:rgb(226, 240, 233);">   
+         <div class="p-2 rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2 d-flex justify-content-center align-items-center"><b>BUSINESS THEORY</b></div>
+
+        <div class="d-flex justify-content-center align-items-start rounded gap-2" >
+                <div class="row ">
+                <div class="col-sm-5 mt-3 " >
+           <div style="width: 100%; max-width: 900px; height: 360px; border: 1px solid #ddd;">
+            <canvas id="lineChartResponsive"></canvas>
+          </div>
+                     <!-- analysis bars category -->
+            <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
+                 <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-eye text-success mx-1" style="font-size:0.7rem;"></i>View
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>Word
+                </span> 
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>PDF
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-download text-success mx-1" style="font-size:0.7rem;"></i>Save
+                </span>
+        </div>
+</div>
+           
+
+    <div class="col-sm p-2 rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2"><b>ANALYSIS THEORY</b></div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Weak</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Month</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Year</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+           <span style="color:rgb(4, 70, 39); "><b>Analysis Per UpNow</b></span><br>
+           Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+           au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
+       </div>
+    </div>
+    </div>
+</div>
+<!-- finish linechart-->
+    </div>
+</div>
+
+        <!-- start bargraph -->
+        <div class="tab-pane container fade p-2 rounded" id="medicine_bargraph" style="background-color:rgb(226, 240, 233);">   
+   <div class="p-2 rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2 d-flex justify-content-center align-items-center"><b>BUSINESS THEORY</b></div>
+
+        <div class="d-flex justify-content-center align-items-start rounded gap-2" >
+                <div class="row ">
+                <div class="col-sm-5 mt-3 " >
+        <div style="width:100%; max-width:700px; height:400px;">
+            <canvas id="barChartResponsive"></canvas>
+          </div>
+                     <!-- analysis bars category -->
+            <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
+                 <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-eye text-success mx-1" style="font-size:0.7rem;"></i>View
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>Word
+                </span> 
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>PDF
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-download text-success mx-1" style="font-size:0.7rem;"></i>Save
+                </span>
+        </div>
+</div>
+           
+
+    <div class="col-sm p-2 rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2"><b>ANALYSIS THEORY</b></div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Weak</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Month</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Year</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+           <span style="color:rgb(4, 70, 39); "><b>Analysis Per UpNow</b></span><br>
+           Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+           au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
+       </div>
+    </div>
+    </div>
+</div>
+<!-- finish bar graph-->
+    </div>
+</div>
+
+
+
+    <!-- start stack chart -->
+    <div class="tab-pane container fade p-2 rounded" id="medicine_stackgraph" style="background-color:rgb(226, 240, 233);">   
+         <div class="p-2 rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2 d-flex justify-content-center align-items-center"><b>BUSINESS THEORY</b></div>
+
+        <div class="d-flex justify-content-center align-items-start rounded gap-2" >
+                <div class="row ">
+                <div class="col-sm-5 mt-3 " >
+            <div style="width:100%; max-width:800px; height:400px;">
+                <canvas id="stackedChartResponsive"></canvas>
+              </div>
+                     <!-- analysis bars category -->
+            <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
+                 <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-eye text-success mx-1" style="font-size:0.7rem;"></i>View
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>Word
+                </span> 
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>PDF
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-download text-success mx-1" style="font-size:0.7rem;"></i>Save
+                </span>
+        </div>
+</div>
+           
+
+    <div class="col-sm p-2 rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2"><b>ANALYSIS THEORY</b></div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Weak</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Month</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Year</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+           <span style="color:rgb(4, 70, 39); "><b>Analysis Per UpNow</b></span><br>
+           Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+           au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
+       </div>
+    </div>
+    </div>
+</div>
+<!-- finish stack chart-->
+    </div>
+</div>
+
+
+
+     <!-- start pie chart -->
+     <div class="tab-pane container fade p-2 rounded" id="medicine_piechart" style="background-color:rgb(226, 240, 233);">   
+        <div class="p-2 rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2 d-flex justify-content-center align-items-center"><b>BUSINESS THEORY</b></div>
+
+        <div class="d-flex justify-content-center align-items-start rounded gap-2" >
+                <div class="row ">
+                <div class="col-sm-5 mt-3 " >
+            <div style="width:100%; max-width:500px; height:400px;">
+                <canvas id="pieChartResponsive"></canvas>
+              </div>
+                     <!-- analysis bars category -->
+            <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
+                 <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-eye text-success mx-1" style="font-size:0.7rem;"></i>View
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>Word
+                </span> 
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>PDF
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-download text-success mx-1" style="font-size:0.7rem;"></i>Save
+                </span>
+        </div>
+</div>
+           
+
+    <div class="col-sm p-2 rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2"><b>ANALYSIS THEORY</b></div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Weak</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Month</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Year</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+           <span style="color:rgb(4, 70, 39); "><b>Analysis Per UpNow</b></span><br>
+           Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+           au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
+       </div>
+    </div>
+    </div>
+</div>
+<!-- finish piechart-->
+    </div>
+</div>
+
+   
+</div>
+</div>
+</div>
+</div> 
+<!-- finish medicine analysis -->
+
+    
+ <!-- for checkups anaylsis -->
+ <div>
+    <span id="category_title" class="d-flex justify-content-center align-items-center mt-4  mx-3 p-1 rounded" style="background-color:rgb(226, 240, 233); color:rgb(4, 70, 39);font-size:1.2rem;">
+        <i class="bi bi-person-arms-up text-success mx-1" style="font-size:1.2rem;"></i>CHECHUP ANALYSIS</span>
+    <ul class="nav nav-pills d-flex justify-content-center aling-items-center gap-2 mt-2">
+        <li class="nav-item">
+          <a class="nav-link " data-bs-toggle="pill" href="#checkup_linegraph" >
+            <i class="bi bi-graph-up-arrow text-success mx-1" style="font-size:1rem;"></i>
+            Line Graph</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link " data-bs-toggle="pill" href="#checkup_bargraph" >
+            <i class="bi bi-bar-chart text-success mx-1" style="font-size:1rem;"></i>
+            Bar Graph</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " data-bs-toggle="pill" href="#checkup_stackgraph" >
+                <i class="bi bi-bar-chart-line text-success mx-1" style="font-size:1rem;"></i>
+                Stack Graph</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " data-bs-toggle="pill" href="#checkup_piechart" >
+                <i class="bi bi-pie-chart text-success mx-1" style="font-size:1rem;"></i>
+                Pie Chart</a>
+        </li>
+      </ul>
+      
+     <!-- Tab panes -->
+      <div class="tab-content p-4">
+   
+
+         <!-- start linechart -->
+        <div class="tab-pane container active p-2 rounded" id="checkup_linegraph" style="background-color:rgb(226, 240, 233);">   
+         <div class="p-2 rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2 d-flex justify-content-center align-items-center"><b>BUSINESS THEORY</b></div>
+
+        <div class="d-flex justify-content-center align-items-start rounded gap-2" >
+                <div class="row ">
+                <div class="col-sm-5 mt-3 " >
+           <div style="width: 100%; max-width: 900px; height: 360px; border: 1px solid #ddd;">
+            <canvas id="lineChartResponsive"></canvas>
+          </div>
+                     <!-- analysis bars category -->
+            <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
+                 <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-eye text-success mx-1" style="font-size:0.7rem;"></i>View
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>Word
+                </span> 
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>PDF
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-download text-success mx-1" style="font-size:0.7rem;"></i>Save
+                </span>
+        </div>
+</div>
+           
+
+    <div class="col-sm p-2 rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2"><b>ANALYSIS THEORY</b></div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Weak</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Month</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Year</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+           <span style="color:rgb(4, 70, 39); "><b>Analysis Per UpNow</b></span><br>
+           Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+           au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
+       </div>
+    </div>
+    </div>
+</div>
+<!-- finish linechart-->
+    </div>
+</div>
+
+        <!-- start bargraph -->
+        <div class="tab-pane container fade p-2 rounded" id="checkup_bargraph" style="background-color:rgb(226, 240, 233);">   
+   <div class="p-2 rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2 d-flex justify-content-center align-items-center"><b>BUSINESS THEORY</b></div>
+
+        <div class="d-flex justify-content-center align-items-start rounded gap-2" >
+                <div class="row ">
+                <div class="col-sm-5 mt-3 " >
+        <div style="width:100%; max-width:700px; height:400px;">
+            <canvas id="barChartResponsive"></canvas>
+          </div>
+                     <!-- analysis bars category -->
+            <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
+                 <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-eye text-success mx-1" style="font-size:0.7rem;"></i>View
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>Word
+                </span> 
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>PDF
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-download text-success mx-1" style="font-size:0.7rem;"></i>Save
+                </span>
+        </div>
+</div>
+           
+
+    <div class="col-sm p-2 rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2"><b>ANALYSIS THEORY</b></div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Weak</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Month</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Year</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+           <span style="color:rgb(4, 70, 39); "><b>Analysis Per UpNow</b></span><br>
+           Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+           au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
+       </div>
+    </div>
+    </div>
+</div>
+<!-- finish bar graph-->
+    </div>
+</div>
+
+
+
+    <!-- start stack chart -->
+    <div class="tab-pane container fade p-2 rounded" id="checkup_stackgraph" style="background-color:rgb(226, 240, 233);">   
+         <div class="p-2 rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2 d-flex justify-content-center align-items-center"><b>BUSINESS THEORY</b></div>
+
+        <div class="d-flex justify-content-center align-items-start rounded gap-2" >
+                <div class="row ">
+                <div class="col-sm-5 mt-3 " >
+            <div style="width:100%; max-width:800px; height:400px;">
+                <canvas id="stackedChartResponsive"></canvas>
+              </div>
+                     <!-- analysis bars category -->
+            <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
+                 <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-eye text-success mx-1" style="font-size:0.7rem;"></i>View
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>Word
+                </span> 
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>PDF
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-download text-success mx-1" style="font-size:0.7rem;"></i>Save
+                </span>
+        </div>
+</div>
+           
+
+    <div class="col-sm p-2 rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2"><b>ANALYSIS THEORY</b></div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Weak</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Month</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Year</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+           <span style="color:rgb(4, 70, 39); "><b>Analysis Per UpNow</b></span><br>
+           Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+           au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
+       </div>
+    </div>
+    </div>
+</div>
+<!-- finish stack chart-->
+    </div>
+</div>
+
+
+
+       
+     <!-- start pie chart -->
+     <div class="tab-pane container fade p-2 rounded" id="checkup_piechart" style="background-color:rgb(226, 240, 233);">   
+        <div class="p-2 rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2 d-flex justify-content-center align-items-center"><b>BUSINESS THEORY</b></div>
+
+        <div class="d-flex justify-content-center align-items-start rounded gap-2" >
+                <div class="row ">
+                <div class="col-sm-5 mt-3 " >
+            <div style="width:100%; max-width:500px; height:400px;">
+                <canvas id="pieChartResponsive"></canvas>
+              </div>
+                     <!-- analysis bars category -->
+            <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
+                 <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-eye text-success mx-1" style="font-size:0.7rem;"></i>View
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>Word
+                </span> 
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>PDF
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-download text-success mx-1" style="font-size:0.7rem;"></i>Save
+                </span>
+        </div>
+</div>
+           
+
+    <div class="col-sm p-2 rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2"><b>ANALYSIS THEORY</b></div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Weak</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Month</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Year</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+           <span style="color:rgb(4, 70, 39); "><b>Analysis Per UpNow</b></span><br>
+           Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+           au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
+       </div>
+    </div>
+    </div>
+</div>
+<!-- finish piechart-->
+    </div>
+</div>
+
+   
+</div>
+</div>
+</div>
+</div> 
+<!-- finish checkup analysis -->
+
+
+            
+ <!-- for viwers anaylsis -->
+ <div>
+    <span id="category_title" class="d-flex justify-content-center align-items-center mt-4  mx-3 p-1 rounded" style="background-color:rgb(226, 240, 233); color:rgb(4, 70, 39);font-size:1.2rem;">
+        <i class="bi bi-person-arms-up text-success mx-1" style="font-size:1.2rem;"></i>VIEWERS ANALYSIS</span>
+    <ul class="nav nav-pills d-flex justify-content-center aling-items-center gap-2 mt-2">
+        <li class="nav-item">
+          <a class="nav-link " data-bs-toggle="pill" href="#viewer_linegraph" >
+            <i class="bi bi-graph-up-arrow text-success mx-1" style="font-size:1rem;"></i>
+            Line Graph</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link " data-bs-toggle="pill" href="#viewer_bargraph" >
+            <i class="bi bi-bar-chart text-success mx-1" style="font-size:1rem;"></i>
+            Bar Graph</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " data-bs-toggle="pill" href="#viewer_stackgraph" >
+                <i class="bi bi-bar-chart-line text-success mx-1" style="font-size:1rem;"></i>
+                Stack Graph</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " data-bs-toggle="pill" href="#viewer_piechart" >
+                <i class="bi bi-pie-chart text-success mx-1" style="font-size:1rem;"></i>
+                Pie Chart</a>
+        </li>
+      </ul>
+      
+     <!-- Tab panes -->
+      <div class="tab-content p-4">
+   
+
+         <!-- start linechart -->
+        <div class="tab-pane container active p-2 rounded" id="viewer_linegraph" style="background-color:rgb(226, 240, 233);">   
+         <div class="p-2 rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2 d-flex justify-content-center align-items-center"><b>BUSINESS THEORY</b></div>
+
+        <div class="d-flex justify-content-center align-items-start rounded gap-2" >
+                <div class="row ">
+                <div class="col-sm-5 mt-3 " >
+           <div style="width: 100%; max-width: 900px; height: 360px; border: 1px solid #ddd;">
+            <canvas id="lineChartResponsive"></canvas>
+          </div>
+                     <!-- analysis bars category -->
+            <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
+                 <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-eye text-success mx-1" style="font-size:0.7rem;"></i>View
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>Word
+                </span> 
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>PDF
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-download text-success mx-1" style="font-size:0.7rem;"></i>Save
+                </span>
+        </div>
+</div>
+           
+
+    <div class="col-sm p-2 rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2"><b>ANALYSIS THEORY</b></div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Weak</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Month</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Year</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+           <span style="color:rgb(4, 70, 39); "><b>Analysis Per UpNow</b></span><br>
+           Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+           au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
+       </div>
+    </div>
+    </div>
+</div>
+<!-- finish linechart-->
+    </div>
+</div>
+
+        <!-- start bargraph -->
+        <div class="tab-pane container fade p-2 rounded" id="viewer_bargraph" style="background-color:rgb(226, 240, 233);">   
+   <div class="p-2 rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2 d-flex justify-content-center align-items-center"><b>BUSINESS THEORY</b></div>
+
+        <div class="d-flex justify-content-center align-items-start rounded gap-2" >
+                <div class="row ">
+                <div class="col-sm-5 mt-3 " >
+        <div style="width:100%; max-width:700px; height:400px;">
+            <canvas id="barChartResponsive"></canvas>
+          </div>
+                     <!-- analysis bars category -->
+            <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
+                 <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-eye text-success mx-1" style="font-size:0.7rem;"></i>View
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>Word
+                </span> 
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>PDF
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-download text-success mx-1" style="font-size:0.7rem;"></i>Save
+                </span>
+        </div>
+</div>
+           
+
+    <div class="col-sm p-2 rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2"><b>ANALYSIS THEORY</b></div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Weak</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Month</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Year</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+           <span style="color:rgb(4, 70, 39); "><b>Analysis Per UpNow</b></span><br>
+           Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+           au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
+       </div>
+    </div>
+    </div>
+</div>
+<!-- finish bar graph-->
+    </div>
+</div>
+
+
+
+    <!-- start stack chart -->
+    <div class="tab-pane container fade p-2 rounded" id="viewer_stackgraph" style="background-color:rgb(226, 240, 233);">   
+         <div class="p-2 rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2 d-flex justify-content-center align-items-center"><b>BUSINESS THEORY</b></div>
+
+        <div class="d-flex justify-content-center align-items-start rounded gap-2" >
+                <div class="row ">
+                <div class="col-sm-5 mt-3 " >
+            <div style="width:100%; max-width:800px; height:400px;">
+                <canvas id="stackedChartResponsive"></canvas>
+              </div>
+                     <!-- analysis bars category -->
+            <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
+                 <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-eye text-success mx-1" style="font-size:0.7rem;"></i>View
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>Word
+                </span> 
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>PDF
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-download text-success mx-1" style="font-size:0.7rem;"></i>Save
+                </span>
+        </div>
+</div>
+           
+
+    <div class="col-sm p-2 rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2"><b>ANALYSIS THEORY</b></div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Weak</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Month</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Year</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+           <span style="color:rgb(4, 70, 39); "><b>Analysis Per UpNow</b></span><br>
+           Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+           au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
+       </div>
+    </div>
+    </div>
+</div>
+<!-- finish stack chart-->
+    </div>
+</div>
+
+
+
+       
+     <!-- start pie chart -->
+     <div class="tab-pane container fade p-2 rounded" id="viewer_piechart" style="background-color:rgb(226, 240, 233);">   
+        <div class="p-2 rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2 d-flex justify-content-center align-items-center"><b>BUSINESS THEORY</b></div>
+
+        <div class="d-flex justify-content-center align-items-start rounded gap-2" >
+                <div class="row ">
+                <div class="col-sm-5 mt-3 " >
+            <div style="width:100%; max-width:500px; height:400px;">
+                <canvas id="pieChartResponsive"></canvas>
+              </div>
+                     <!-- analysis bars category -->
+            <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
+                 <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-eye text-success mx-1" style="font-size:0.7rem;"></i>View
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>Word
+                </span> 
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>PDF
+                </span>
+                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
+                    <i class="bi bi-download text-success mx-1" style="font-size:0.7rem;"></i>Save
+                </span>
+        </div>
+</div>
+           
+
+    <div class="col-sm p-2 rounded" style="background-color:rgb(226, 240, 233);">
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2"><b>ANALYSIS THEORY</b></div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Weak</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Month</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Analysis Per Year</b></span><br>
+            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+        </div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+           <span style="color:rgb(4, 70, 39); "><b>Analysis Per UpNow</b></span><br>
+           Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+           au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
+       </div>
+    </div>
+    </div>
+</div>
+<!-- finish piechart-->
+    </div>
+</div>
+
+   
+</div>
+</div>
+</div>
+</div> 
+<!-- finish viewers analysis -->
+
+
+
+
+            {% endblock %}

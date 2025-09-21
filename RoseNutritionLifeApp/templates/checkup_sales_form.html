@@ -1,0 +1,83 @@
+{% load static %}
+
+<!-- CheckUp Sales Form Modal -->
+<div class="modal fade" id="checkupSalesModal" tabindex="-1" aria-labelledby="checkupSalesModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h5 class="modal-title" id="checkupSalesModalLabel">Add CheckUp Sale</h5>
+        <button type="button" class="btn btn-sm btn-outline-secondary btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <section class="book_section mb-2" id="details">
+          <div class="container">
+            <form id="postCheckUpSalesForm" method="post" action="{% url 'post_checkup_sales' %}">
+              {% csrf_token %}
+              <h4>FILL <span>CHECKUP SALE</span></h4>
+
+              <!-- Select CheckUp -->
+              <div class="row mb-2">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="{{ form.checkup.id_for_label }}">Select CheckUp</label>
+                    <select class="form-control" id="{{ form.checkup.id_for_label }}" name="checkup" required>
+                      {% for item in form.fields.checkup.queryset %}
+                        <option value="{{ item.id }}">{{ item.checkup_name }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- CheckUp Name (readonly) -->
+              <div class="row mb-2">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="{{ form.checkup_name.id_for_label }}">CheckUp Name</label>
+                    <input type="text" class="form-control" id="{{ form.checkup_name.id_for_label }}" name="checkup_name" readonly>
+                  </div>
+                </div>
+              </div>
+
+              <!-- CheckUp Type (readonly) -->
+              <div class="row mb-2">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="{{ form.checkup_type.id_for_label }}">CheckUp Type</label>
+                    <input type="text" class="form-control" id="{{ form.checkup_type.id_for_label }}" name="checkup_type" readonly>
+                  </div>
+                </div>
+              </div>
+
+              <!-- CheckUp Cost (readonly) -->
+              <div class="row mb-2">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="{{ form.checkup_cost.id_for_label }}">CheckUp Cost</label>
+                    <input type="number" class="form-control" id="{{ form.checkup_cost.id_for_label }}" name="checkup_cost" readonly>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="btn-box">
+                <button id="postcheckupsales_button" type="submit" class="btn btn-sm btn-light bg-secondary text-white">Post</button>
+              </div>
+
+            </form>
+          </div>
+        </section>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>

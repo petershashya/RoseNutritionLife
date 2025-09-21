@@ -1,0 +1,94 @@
+{% load static %}
+<div class="modal fade" id="diseaseformModal" tabindex="-1" aria-labelledby="diseaseformModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+     
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h5 class="modal-title" id="diseaseformModalLabel">Add Disease</h5>
+        <button type="button" class="btn btn-sm btn-outline-secondary btn-close" data-bs-dismiss="modal"></button>
+      </div>
+     
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <section class="book_section mb-2" id="details">
+          <div class="container">
+            <form id="postdiseaseForm" method="post" action="{% url 'post_disease' %}" enctype="multipart/form-data">
+              {% csrf_token %}
+              <h4>FILL <span>DISEASE</span></h4>
+             
+              <div class="row">
+                <!-- Disease Name -->
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="{{ form.disease_name.id_for_label }}">Disease Name</label>
+                    <input type="text" class="form-control" id="{{ form.disease_name.id_for_label }}" name="disease_name" placeholder="Enter disease name" required>
+                  </div>
+                </div>
+              </div>
+             
+              <div class="row">
+                <!-- Symptoms -->
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="{{ form.symptoms.id_for_label }}">Symptoms</label>
+                    <textarea class="form-control" id="{{ form.symptoms.id_for_label }}" name="symptoms" rows="3" placeholder="List disease symptoms" required></textarea>
+                  </div>
+                </div>
+              </div>
+             
+              <div class="row">
+                <!-- Causes -->
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="{{ form.causes.id_for_label }}">Causes</label>
+                    <textarea class="form-control" id="{{ form.causes.id_for_label }}" name="causes" rows="3" placeholder="What causes this disease?" required></textarea>
+                  </div>
+                </div>
+              </div>
+             
+              <div class="row">
+                <!-- Treatment -->
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="{{ form.treatment.id_for_label }}">Treatment</label>
+                    <textarea class="form-control" id="{{ form.treatment.id_for_label }}" name="treatment" rows="3" placeholder="How to treat/manage this disease?" required></textarea>
+                  </div>
+                </div>
+              </div>
+
+                <div class="row">
+                <!-- Additonal Comment -->
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="{{ form.additional_comment.id_for_label }}">Additonal Comment</label>
+                    <textarea class="form-control" id="{{ form.additional_comment.id_for_label }}" name="additional_comment" rows="3" placeholder="What additonal comment to this disease!" required></textarea>
+                  </div>
+                </div>
+              </div>
+             
+              <div class="row">
+                <!-- Image -->
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="{{ form.image_file.id_for_label }}">Disease Image (Optional)</label>
+                    <input type="file" class="form-control" id="{{ form.image_file.id_for_label }}" name="image_file" accept="image/*">
+                  </div>
+                </div>
+              </div>
+             
+              <div class="btn-box">
+                <button type="submit" class="btn btn-sm btn-light bg-secondary text-white">Post</button>
+              </div>
+            </form>
+          </div>
+        </section>
+      </div>
+     
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

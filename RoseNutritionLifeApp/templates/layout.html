@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+   <html>
+   {% load static %}
+   {%load crispy_forms_tags%}
+
+   <head>
+     <!-- Basic -->
+     <meta charset="utf-8" />
+     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+     <!-- Mobile Metas -->
+     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+     <!-- Site Metas -->
+     <meta name="keywords" content="" />
+     <meta name="description" content="" />
+     <meta name="author" content="" />
+     <title>RoseNutrtionCare</title>
+     
+       <!-- bootstrap-->
+       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+     <!-- boostratp icons -->
+     <!-- link file -->
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+     <!-- bootstrap core css -->
+     <link rel="stylesheet" type="text/css" href="{% static '/css/bootstrap.css' %}" />
+   
+     <!-- fonts style -->
+     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+   
+     <!--owl slider stylesheet -->
+     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+   
+     <!-- font awesome style -->
+     {% comment %} <link href="{% static '/css/font-awesome.min.css' %}" rel="stylesheet" /> {% endcomment %}
+     <!-- nice select -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" integrity="sha256-mLBIhmBvigTFWPSCtvdu6a76T+3Xyt+K571hupeFLg4=" crossorigin="anonymous" />
+     <!-- datepicker -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css">
+     <!-- Custom styles for this template -->
+     <link href=" {% static '/css/style.css' %}" rel="stylesheet" />
+     <!-- responsive style -->
+     <link href=" {% static '/css/responsive.css' %}" rel="stylesheet" />
+   
+
+     <!-- for about slide design -->
+      <!-- Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<!-- Swiper CSS -->
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<!-- Boxicons CSS -->
+<link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet" />
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+     <style>
+      .body{
+        font-family: 'Roboto', 'Open Sans', sans-serif;
+        font-size: 14px;
+        color: #333; /* Dark gray color */
+        line-height: 1.6;
+    }
+
+      #offcanvas{
+        background-color:#0a4e49";
+      }
+
+      {% comment %} .homeimg{
+        height: 100vh;
+        width: 103%;
+        display: block; 
+        object-fill:cover;
+        align-items: center;
+        background-image:linear-gradient(to top,rgb(5, 46, 65), 40%, transparent 60%),
+        url("{% static '/images/paintingimg.jpeg' %}") ;
+        background-size:cover; /* Light background image */
+        background-position:center;
+        backgroud-repeat:no-repeate; 
+        color: transparent;
+    }  {% endcomment %}
+
+    .homeimg{
+      width: 100%;
+      object-fill:cover;
+      align-items: center;
+      background-image:linear-gradient(to top,rgb(6, 75, 49), 40%, transparent 60%),
+      url("{% static '/images/eternal/alovela.jpeg' %}") ;
+      background-size:cover; /* Light background image */
+      background-position:center;
+      backgroud-repeat:no-repeate; 
+      color: transparent;
+  } 
+
+    {% comment %} .homeimg{
+      background-image: 
+          linear-gradient(to left, black 60%, rgba(139, 69, 19, 0.5) 100%, transparent 40%),
+          url("{% static '/images/paintingimg.jpeg' %}") ;
+      color: transparent;
+    }  {% endcomment %}
+
+
+    #getservice{
+      color:white;
+      background-color:rgb(4, 70, 39);
+      border:1px solid white;
+      border-radius:20px;
+      font-size:16px;
+      padding-left:15px;
+      padding-right:15px;
+      padding-top:5px;
+      padding-bottom:5px;
+      /* border-left:1px solid rgb(241, 248, 248) ;
+      box-shadow:0px 1px 2px white;  */
+    }
+
+    #getservice:hover{
+      padding-left:16px;
+      padding-right:16px;
+      padding-top:5px;
+      padding-bottom:5px;
+    }
+
+    .navbarbutton {
+      color: #ffffff;
+      border: 0;
+      padding: 5px 0px;
+      height: 35px;
+      width: 40px;
+      overflow: hidden;
+      white-space: nowrap; 
+      transition: all 0.8s ease;
+      border-radius: 20px;
+      display: inline-flex; 
+      align-items: center;
+      justify-content: center; 
+      font-size: 1rem;
+      position: relative;
+    }
+    
+    .navbarbutton:hover {
+      width: 150px; /* expand width on hover */
+      padding: 5px 15px;
+      background-color: #ffffff;
+      color:rgb(4, 70, 39);
+      cursor:pointer;
+    }
+    
+    .navbarbutton:hover::after {
+      content: attr(data-label);
+      margin-left: 10px;
+      color:rgb(4, 70, 39);
+      cursor:pointer;
+    } 
+
+    .hometab{
+      color:white;
+      font-size: 1.3rem;
+      transition: all 0.3s ease;
+    }
+    .hometab:hover{
+      color:white;
+      font-size: 1.5rem;
+      cursor:pointer;
+    }
+
+    .adveradds{
+      font-size:2rem;
+      transition:all 0.5s ease;
+      cursor:pointer;
+    }
+
+    .adveradds:hover{
+      font-size:2.5rem;
+      transition: all 0.5s ease;
+      cursor:pointer;
+    }
+
+    #footer{
+      width:100%%;
+    }
+
+    #socialbtn{
+      font-size:1.5rem;
+      transition: all 0.5s ease;
+      cursor:pointer;
+    }
+
+    #socialbtn:hover{
+      font-size:2rem;
+      transition: all 0.5s ease;
+      cursor:pointer;
+    }
+
+    .servicesdiv{
+    display: flex;
+    overflow-x: auto; /* Enable horizontal scrolling */
+  }
+
+
+
+
+
+    .top_providers{
+      border-radius:30px;
+    }
+
+    #provider_category{
+      background-color:rgb(219, 228, 231);
+      border-radius:20px;
+    }
+
+
+    .nav-link{
+      color:rgb(4, 70, 39);
+      background-color:rgb(226, 240, 233);
+    }
+
+    .nav-link:hover{
+      color:white;
+      background-color:rgb(4, 70, 39);
+    }
+
+    .nav-link:active{
+      color:white;
+      background-color:rgb(4, 70, 39);
+    }
+
+    .categoryimg{
+      border-radius:15px;
+    }
+
+    .form_img{
+      width: 100%;
+      background-image:url("{% static '/images/loginimg2.jpeg' %}") ;
+      background-size:cover; /* Light background image */
+      background-position:center;
+      backgroud-repeat:no-repeate; 
+      color: transparent;
+      border-radius:25px;
+    }
+
+    .formbody{
+      background: rgb(37, 85, 63);
+      backdrop-filter: blur(15px);
+      border-radius:25px;
+      padding-top:70px;
+      padding-bottom:70px;
+    }
+
+    .coverform{
+      margin-left:100px;
+      margin-right:100px;
+    }
+
+    {% comment %} .message{
+      background-color:rgba(214, 220, 228, 0.32);
+      padding:7px;
+      color:white;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      border-radius: 10px;
+      width:100%;
+      margin:auto;
+      text:center;
+    } {% endcomment %}
+
+    #category_title{
+      border-left:3px solid rgb(4, 70, 65);
+    }
+
+    #getservice{
+      background-color:rgb(4, 70, 39);
+      //font-size:1rem;
+      font-style:bold;
+      transition: all 0.5s ease;
+    }
+
+    #getservice:hover{
+      background-color:rgb(7, 92, 52);
+      //font-size:1.1rem;
+      font-style:bold;
+      cursor:pointer;
+      transition: all 0.5s ease;
+    }
+
+    #advertisment{
+      background-color:rgb(4, 70, 39);
+      font-style:bold;
+      transition: all 0.5s ease;
+    }
+
+    #advertisment:hover{
+      background-color:rgb(6, 104, 58);
+      font-style:bold;
+      cursor:pointer;
+      transition: all 0.5s ease;
+    }
+
+    #add_list{
+       border-radius:25px; 
+       color:rgb(4, 70, 39); 
+       background-color:rgba(73, 150, 114, 1);
+    }
+      #add_list:hover{
+       border-radius:25px; 
+       color:white; 
+       background-color:rgba(46, 94, 72, 1);
+       cursor:pointer;
+    }
+
+
+    
+     /*start animation for offcanvas */
+    @keyframes slideDown {
+      from {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    } 
+     
+    #offcanvas{
+      animation: slideDown 1.3s ease-out;
+    } 
+
+
+  /* Slide and transilate */
+    @keyframes slideIn {
+      from { transform: translateX(-100px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+
+    /* Slide and transilate from right to left description */
+    @keyframes slideFromRight{
+      from { transform: translateX(100px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    #description {
+      animation: slideFromRight 1.5s ease-out;
+    }
+
+
+    /* Slide and transilate from left to right getservice */
+    @keyframes slideFromLeft{
+      from { transform: translateX(-100px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    #getservice {
+      animation: slideFromLeft 1.3s ease-out;
+    }
+
+      
+    /* Slide and transilate from left to right advertisment */
+    @keyframes slideFromLeft{
+      from { transform: translateX(-100px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    #advertisment {
+      animation: slideFromLeft 1.3s ease-out;
+    }
+
+
+  /* Slide and transilate from right to left */
+@keyframes slideFromRight{
+  from { transform: translateX(100px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+.servicesdiv {
+  animation: slideFromRight 1.3s ease-out;
+}
+
+
+/* Slide and transilate from bottom to top */
+@keyframes slideFromBottom{
+  from { transform: translateY(100px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+#footer, .footer_section {
+  animation: slideFromBottom 1.3s ease-out;
+}
+
+      
+    {% comment %} /*animation for  description*/
+     @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+    .description {
+      overflow: hidden;
+      white-space: nowrap;
+      width: 0;
+      animation: typing 5s steps(30, end) forwards;
+    }  {% endcomment %}
+
+
+    {% comment %} /*start animation for description */
+    @keyframes slideFromBottom{
+      from { transform: translateY(100px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    #footer, #description {
+      animation: slideFromBottom 0.3s ease-out;
+    } {% endcomment %}
+
+
+</style>
+</head>
+<script>
+	setTimeout(function() {
+		var messages = document.querySelectorAll('.message');
+		messages.forEach(function(message) {
+			message.style.display = 'none';
+		});
+	}, 3000);
+</script>
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/clan_image2.jpg' %}">
+
+      <body class="bg-white">
+
+  <!-- Navbar -->
+  <div class="d-flex justify-content-between align-items-center p-2 fixed-top w-100"
+       id="offcanvas" style="background-color:rgb(4, 70, 39);">
+
+    <span>
+      <a class="text-light text-decoration-none align-items-end" style="font-size:1.5rem;" href="{% url 'home' %}">
+        <i class="bi bi-amazon text-success bg-light p-1 mx-1" style="border-radius:35px; font-size:1rem"></i>
+        RNL
+      </a>
+    </span>
+
+    <!-- login messages -->
+    {% if messages %}
+      {% for message in messages %}
+        <div class="d-flex justify-content-center align-items-center w-100 position-absolute" style="top:90px;">
+          <span class="message py-1 px-3 text-center"
+                style="color:#fff; border-radius:15px; background-color:rgba(25, 138, 85, 1);">
+            {{ message }}
+          </span>
+        </div>
+      {% endfor %}
+    {% endif %}
+    <!-- end login message -->
+
+    <span class="p-1" style="background-color:rgb(6, 104, 58); border-radius:25px;">
+      <span class="navbartabs text-decoration-none" id="navbartabs">
+        {% if user.is_authenticated %}
+          <a class="bi bi-basket-fill text-decoration-none ml-1 navbarbutton" data-label="Services" href="{% url 'services' %}"></a>
+          <a class="bi bi-badge-ad-fill text-decoration-none ml-2 navbarbutton" data-label="Advertisment" href="{% url 'advertisment' %}"></a>
+          <a class="bi bi-graph-up-arrow text-decoration-none ml-2 navbarbutton" data-label="Analysis" href="{% url 'analysis' %}"></a>
+          {% comment %} <a class="bi bi-currency-exchange text-decoration-none ml-2 navbarbutton" data-label="PV-Exchange"  ></a> {% endcomment %}
+          <a class="bi bi-person-fill text-decoration-none ml-2 navbarbutton" data-label="Account" href="{% url 'account' %}"  ></a>
+          <a class="bi bi-arrow-left-circle text-decoration-none ml-2 navbarbutton" data-label="Logout" href="{% url 'logout' %}"></a>
+        {% else %}
+          <a class="bi bi-basket-fill text-decoration-none ml-1 navbarbutton" data-label="Services" href="{% url 'services' %}"></a>
+          <a class="bi bi-badge-ad-fill text-decoration-none ml-2 navbarbutton" data-label="Advertisment" href="{% url 'advertisment' %}"></a>
+          <a class="bi bi-graph-up-arrow text-decoration-none ml-2 navbarbutton" data-label="Analysis" href="{% url 'analysis' %}"></a>
+          {% comment %} <a class="bi bi-info-circle-fill text-decoration-none ml-2 navbarbutton" data-label="About"></a> {% endcomment %}
+          {% comment %} <a class="bi bi-person-fill text-decoration-none ml-2 navbarbutton" data-label="Account" href="{% url 'admin_manage' %}" ></a> {% endcomment %}
+          <a class="bi bi-arrow-right-circle text-decoration-none ml-2 navbarbutton" data-label="Login" href="{% url 'login' %}"></a>
+          {% endif %}
+      </span>
+    </span>
+
+  </div>
+  <!-- End Navbar -->
+
+  <!-- Main body -->
+  {% block content %}
+  {% endblock content %}
+
+  <!-- Footer Info Section -->
+  <section class="row p-4 m-0 w-100" id="footer" style="background-color:rgb(4, 70, 39);">
+    <div class="col-sm">
+      <h5 class="text-light text-center mb-3">ABOUT US</h5>
+      <p class="text-light">
+        Rose Nutrition provides health education on proper nutrition, prevention and control of chronic
+        non-communicable diseases such as diabetes, hypertension, and heart problems.
+        We provide alternative and scientific guidance through supplements and lifestyle counseling.
+        Our mission is to improve community health, increase awareness, and empower members
+        to earn income through services and the sale of health products.
+      </p>
+      <h5 class="text-light mt-3">CONTACT US</h5>
+      <p class="text-light">
+        <i class="bi bi-phone"></i> +225 676896769<br>
+        <i class="bi bi-envelope"></i> P.O.BOX 1002<br>
+        <i class="bi bi-geo-alt"></i> Dar-es-Salaam<br>
+        <i class="bi bi-envelope"></i> localservicepro@gmail.com
+      </p>
+    </div>
+
+    <div class="col-sm">
+      <h5 class="text-light text-center mb-3">OUR SERVICES</h5>
+      <p class="text-light">
+        We offer affordable diagnostic tests (30,000 TZS) to help detect chronic diseases such as
+        heart disease, diabetes, and kidney problems early.
+        All treatments are available, aiming to address the root cause until full recovery.
+        By joining Rose Nutrition as a member, you benefit from bonus points known as PV (Profit Value),
+        which accumulate into profit points, earning you additional income along with quality health services.
+      </p>
+    </div>
+
+    <div class="col-sm">
+      <h5 class="text-light text-center mb-3">OUR SOCIAL MEDIA</h5>
+      <div class="d-flex justify-content-center align-items-center gap-3">
+        <a href="{{admin.instagram}}" class="text-decoration-none"><i class="bi bi-instagram text-light"></i></a>
+        <a href="{{admin.facebook}}" class="text-decoration-none"><i class="bi bi-facebook text-light"></i></a>
+        <a href="{{admin.twitter}}" class="text-decoration-none"><i class="bi bi-twitter text-light"></i></a>
+        <a href="{{admin.youtube}}" class="text-decoration-none"><i class="bi bi-linkedin text-light"></i></a>
+        <a href="{{admin.tiktok}}" class="text-decoration-none"><i class="bi bi-tiktok text-light"></i></a>
+      </div>
+    </div>
+  </section>
+  <!-- End Footer Info -->
+
+  <!-- Footer Section -->
+  <footer class="footer_section w-100" style="background-color:rgb(4, 70, 39);">
+    <hr class="mt-0 border border-light">
+    <div class="container text-center">
+      <p class="text-light mb-0">
+        &copy; <span id="displayYear"></span> All Rights Reserved
+      </p>
+    </div>
+  </footer>
+
+   
+</section>
+
+
+  <!-- Bootstrap JS and Dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- footer section -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- jQery -->
+  <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+  <!-- bootstrap js -->
+  <script src="{% static 'js/bootstrap.js' %}"></script>
+  <!-- nice select -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js" integrity="sha256-Zr3vByTlMGQhvMfgkQ5BtWRSKBGa2QlspKYJnkjZTmo=" crossorigin="anonymous"></script>
+  <!-- owl slider -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+  <!-- datepicker -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+  <!-- custom js -->
+  <script src="{% static 'js/custom.js' %}"></script>
+  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+
+  <!-- Start Make Javascript fussions -->
+  <script>
+    const navbarbutton = document.querySelector('.navbarbutton');
+    const navbartabs = document.getElementById('navbartabs');
+  
+    navbarbutton.addEventListener('click', () => {
+      navbartabs.classList.toggle('active');
+      navbarbutton.focus();
+    });
+  </script>
+
+  
+
+<!-- start graphs of analysis -->
+  <!-- for line graph -->
+  <!-- minimal Chart.js setup (include Chart.js CDN before this script) -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const ctx = document.getElementById('lineChartResponsive').getContext('2d');
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['Mon','Tue','Wed','Thu','Fri'],
+      datasets: [{
+        label: 'Visitors',
+        data: [120, 150, 90, 200, 170],
+        fill: false,
+        tension: 0.3
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false // allow canvas to match container height
+    }
+  });
+</script>
+
+
+<!-- for bar graph -->
+<script>
+  const ctxBarR = document.getElementById('barChartResponsive').getContext('2d');
+  new Chart(ctxBarR, {
+    type: 'bar',
+    data: {
+      labels: ['Red', 'Blue', 'Green', 'Yellow', 'Purple'],
+      datasets: [{
+        label: 'Votes',
+        data: [12, 19, 3, 5, 2],
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false
+    }
+  });
+  </script>
+
+<!-- stack graph -->
+<script>
+  const ctxStackR = document.getElementById('stackedChartResponsive').getContext('2d');
+  new Chart(ctxStackR, {
+    type: 'bar',
+    data: {
+      labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+      datasets: [
+        { label: 'Sales A', data: [50, 60, 70, 80] },
+        { label: 'Sales B', data: [30, 40, 20, 50] }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        x: { stacked: true },
+        y: { stacked: true }
+      }
+    }
+  });
+  </script>
+
+  <!-- pie chart grpah -->
+  <script>
+    const ctxPieR = document.getElementById('pieChartResponsive').getContext('2d');
+    new Chart(ctxPieR, {
+      type: 'pie',
+      data: {
+        labels: ['Apple', 'Banana', 'Cherry'],
+        datasets: [{
+          data: [10, 20, 30]
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false
+      }
+    });
+    </script>
+
+
+
+    <!-- GENERAL STARTING POSTING FORMS -->
+    <!-- start post disease -->
+     <script>
+$(document).ready(function() {
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    var csrftoken = getCookie('csrftoken');
+
+    // Show disease post modal
+    $(document).on('click', '.disease-post-btn', function() {
+        $.ajax({
+            url: `/post_disease/`,   // this loads the form page
+            method: 'GET',
+            success: function(response) {
+                $('body').append(response);
+                $('#diseasePostModal').modal('show');
+                // Remove modal from DOM when hidden to avoid duplicate IDs
+                $('#diseasePostModal').on('hidden.bs.modal', function() {
+                    $(this).remove();
+                });
+            },
+            error: function(xhr, status, error) {
+                alert('An error occurred while loading disease form.');
+            }
+        });
+    });
+
+    // Handle posting disease form
+    $(document).on('click', '#postdisease_button', function() {
+        var button = $(this);
+        var form = $('#postdiseaseForm')[0];
+        var formData = new FormData(form);
+
+        // Disable button to prevent multiple submissions
+        button.prop('disabled', true);
+
+        $.ajax({
+            url: $(form).attr('action'),
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: {
+                'X-CSRFToken': csrftoken
+            },
+            success: function(response) {
+                $('#diseasePostModal').modal('hide');
+                button.prop('disabled', false);
+                location.reload(); // Refresh page to show new disease
+            },
+            error: function(xhr) {
+                button.prop('disabled', false); // re-enable button
+                if (xhr.status === 400) {
+                    alert('You have already posted this disease.');
+                } else {
+                    alert('An error occurred while posting the disease.');
+                }
+            }
+        });
+    });
+});
+</script>
+
+
+
+
+<!-- START POSTING GENERAL FORMS POST  -->
+<script>
+$(document).ready(function () {
+
+    // ---------------- CSRF Helper ----------------
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let cookie of cookies) {
+                cookie = cookie.trim();
+                if (cookie.startsWith(name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    const csrftoken = getCookie('csrftoken');
+
+    // ---------------- Generic function to show modal ----------------
+    function showModal(buttonClass, url, modalId) {
+        $(document).on('click', buttonClass, function () {
+            $.ajax({
+                url: url,
+                method: 'GET',
+                success: function (response) {
+                    // Remove any existing modal first
+                    if ($(modalId).length) $(modalId).remove();
+
+                    $('body').append(response);
+                    $(modalId).modal('show');
+
+                    // Remove modal after closing
+                    $(modalId).on('hidden.bs.modal', function () {
+                        $(this).remove();
+                    });
+                },
+                error: function () {
+                    alert('An error occurred while loading the form.');
+                }
+            });
+        });
+    }
+
+    // ---------------- Generic function to post form ----------------
+    function postForm(buttonId, formId, modalId) {
+        $(document).on('click', buttonId, function (e) {
+            e.preventDefault();
+            const button = $(this);
+            const form = $(formId)[0];
+            if (!form) {
+                alert('Form not found!');
+                return;
+            }
+            const formData = new FormData(form);
+            button.prop('disabled', true);
+
+            $.ajax({
+                url: $(form).attr('action'),
+                method: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                headers: { 'X-CSRFToken': csrftoken },
+                success: function () {
+                    $(modalId).modal('hide');
+                    button.prop('disabled', false);
+                    location.reload(); // Refresh page to show new entry
+                },
+                error: function (xhr) {
+                    button.prop('disabled', false);
+                    if (xhr.status === 400) {
+                        alert('You have already posted this entry.');
+                    } else {
+                        alert('An error occurred while posting the form.');
+                    }
+                }
+            });
+        });
+    }
+
+    // ---------------- Initialize Modals and Form Posts ----------------
+    const modalConfigs = [
+        // Medicine
+        { btn: '.medicine-post-btn', url: '/post_medicine/', modal: '#medicineModal', submitBtn: '#postmedicine_button', form: '#postMedicineForm' },
+        // CheckUp
+        { btn: '.checkup-post-btn', url: '/post_checkup/', modal: '#checkupModal', submitBtn: '#postcheckup_button', form: '#postCheckUpForm' },
+        // Business Plan
+        { btn: '.businessplan-post-btn', url: '/post_businessplan/', modal: '#businessPlanModal', submitBtn: '#postbusinessplan_button', form: '#postBusinessPlanForm' },
+        // Business Level
+        { btn: '.businesslevel-post-btn', url: '/post_businesslevel/', modal: '#businessLevelModal', submitBtn: '#postbusinesslevel_button', form: '#postBusinessLevelForm' },
+         // Advertisement
+        { btn: '.advertisement-post-btn', url: '/post_advertisement/', modal: '#advertisementPostModal', submitBtn: '#postadvertisement_button', form: '#postAdvertisementForm' },
+        // Patient
+        { btn: '.patient-post-btn', url: '/post_patient/', modal: '#patientModal', submitBtn: '#postpatient_button', form: '#postPatientForm' },
+        // CheckUp Sales
+        { btn: '.checkup-sales-post-btn', url: '/post_checkup_sales/', modal: '#checkupSalesModal', submitBtn: '#postcheckupsales_button', form: '#postCheckUpSalesForm' },
+        // Medicine Sales
+        { btn: '.medicine-sales-post-btn', url: '/post_medicine_sales/', modal: '#medicineSalesModal', submitBtn: '#postmedicinesales_button', form: '#postMedicineSalesForm' },
+    ];
+
+    modalConfigs.forEach(cfg => {
+        showModal(cfg.btn, cfg.url, cfg.modal);
+        postForm(cfg.submitBtn, cfg.form, cfg.modal);
+    });
+
+});
+</script>
+
+<!-- start general post -->
+{% comment %} <script>
+$(document).ready(function() {
+    // CSRF helper
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    var csrftoken = getCookie('csrftoken');
+
+    // ---------------- Generic function to show modal ----------------
+    function showModal(buttonClass, url, modalId) {
+        $(document).on('click', buttonClass, function() {
+            $.ajax({
+                url: url,
+                method: 'GET',
+                success: function(response) {
+                    $('body').append(response);
+                    $(modalId).modal('show');
+                    $(modalId).on('hidden.bs.modal', function() {
+                        $(this).remove();
+                    });
+                },
+                error: function() {
+                    alert('An error occurred while loading the form.');
+                }
+            });
+        });
+    }
+
+    // ---------------- Generic function to post form ----------------
+    function postForm(buttonId, formId, modalId) {
+        $(document).on('click', buttonId, function() {
+            var button = $(this);
+            var form = $(formId)[0];
+            var formData = new FormData(form);
+            button.prop('disabled', true);
+
+            $.ajax({
+                url: $(form).attr('action'),
+                method: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                headers: { 'X-CSRFToken': csrftoken },
+                success: function(response) {
+                    $(modalId).modal('hide');
+                    button.prop('disabled', false);
+                    location.reload(); // Refresh page to show new entry
+                },
+                error: function(xhr) {
+                    button.prop('disabled', false);
+                    if (xhr.status === 400) {
+                        alert('You have already posted this entry.');
+                    } else {
+                        alert('An error occurred while posting the form.');
+                    }
+                }
+            });
+        });
+    }
+
+    // ---------------- Initialize Modals and Form Posts ----------------
+    showModal('.medicine-post-btn', '/post_medicine/', '#medicinePostModal');
+    postForm('#postmedicine_button', '#medicineForm', '#medicinePostModal');
+
+    showModal('.checkup-post-btn', '/post_checkup/', '#checkupPostModal');
+    postForm('#postcheckup_button', '#checkupForm', '#checkupPostModal');
+
+    showModal('.businessplan-post-btn', '/post_businessplan/', '#businessplanPostModal');
+    postForm('#postbusinessplan_button', '#businessplanForm', '#businessplanPostModal');
+
+    showModal('.businesslevel-post-btn', '/post_businesslevel/', '#businesslevelPostModal');
+    postForm('#postbusinesslevel_button', '#businesslevelForm', '#businesslevelPostModal');
+
+    showModal('.patient-post-btn', '/post_patient/', '#patientPostModal');
+    postForm('#postpatient_button', '#patientForm', '#patientPostModal');
+
+    showModal('.checkup-sales-post-btn', '/post_checkup_sales/', '#checkupSalesPostModal');
+    postForm('#postcheckupsales_button', '#checkupSalesForm', '#checkupSalesPostModal');
+
+    showModal('.medicine-sales-post-btn', '/post_medicine_sales/', '#medicineSalesPostModal');
+    postForm('#postmedicinesales_button', '#medicineSalesForm', '#medicineSalesPostModal');
+});
+</script> {% endcomment %}
+
+</script>
+
+</body>
+
+</html>

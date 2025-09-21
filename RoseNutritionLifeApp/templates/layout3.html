@@ -1,0 +1,126 @@
+<body class="bg-white">
+
+    <div class="d-flex justify-content-between p-2 fixed-top" id="offcanvas" style="background-color:rgb(4, 70, 39); ">
+         <span class="">
+                <a class="text-light text-decoration-none align-items-end" style="font-size:1.5rem;" href="{% url 'home' %}">
+                  <i class="bi bi-amazon text-success bg-light p-1 mx-1" style="border-radius:35px; font-size:1rem"></i>RNL</a>
+        </span> 
+
+           <!-- show login message -->
+           {% if messages %}
+           {% for message in messages %}
+           <div class="d-flex justify-content-center align-items-center p-2 mt-2">
+               <span class="message py-2 mt-3 text-center fixed-top" style="color:rgb(4, 70, 39); border-radius:15px; background-color:rgb(4, 70, 39); margin-right:80px; margin-left:80px;">
+                 {{ message }}
+             </span>
+           </div>
+         {% endfor %}
+         {% endif %}
+     <!-- end for login message -->
+
+           <span class="p-1" style="border-radius:25px; background-color:rgb(6, 104, 58);">
+        <span class="navbartabs text-decoration-none" id="navbartabs">
+
+          {% if user.is_authenticated %}
+          {% else %}
+          <a class="bi bi-basket-fill text-decoration-none ml-1 navbarbutton" data-label="Services" href="{% url 'services' %}"></a>
+          <a class="bi bi-badge-ad-fill text-decoration-none ml-2 navbarbutton" data-label="Advertisment" href="{% url 'advertisment' %}"></a>
+          {% comment %} <a class="bi bi-info-circle-fill text-decoration-none ml-2 navbarbutton" data-label="About"></a> {% endcomment %}
+          <a class="bi bi-graph-up-arrow text-decoration-none ml-2 navbarbutton" data-label="Analysis" href="{% url 'analysis' %}"></a>
+          {% comment %} <a class="bi bi-cart4 text-decoration-none ml-2 navbarbutton" data-label="Booked"></a> {% endcomment %}
+          {% comment %} <a class="bi bi-info-circle-fill text-decoration-none ml-2 navbarbutton" data-label="About" href="{% url 'about_form' %}"></a> {% endcomment %}
+          {% comment %} <a class="bi bi-arrow-left-circle text-decoration-none ml-2 navbarbutton" data-label="Logout" href="{% url 'logout' %}"></a> {% endcomment %}
+          <a class="bi bi-currency-exchange text-decoration-none ml-2 navbarbutton" data-label="PV-Exchange"  ></a>
+          {% comment %} <a class="bi bi-person-fill text-decoration-none ml-2 navbarbutton" data-label="Account" href="{% url 'admin_manage' %}" ></a> {% endcomment %}
+          <a class="bi bi-person-fill text-decoration-none ml-2 navbarbutton" data-label="Account" href="{% url 'account' %}"  ></a>
+          {% comment %} <a class="bi bi-arrow-right-circle text-decoration-none ml-2 navbarbutton" data-label="Login" href="{% url 'login' %}"></a> {% endcomment %}
+          {% endif %}
+
+        </span>
+      </span>
+</div>
+    
+       </div>
+    <!-- end header section -->
+  
+
+
+<!-- start main body -->
+  {% block content %}
+  {% endblock content%}
+
+
+
+  <!-- info section -->
+  <section class="row p-4 "  id="footer" style="background-color:rgb(4, 70, 39);">
+              <div class="col-sm">
+                <span class="text-light d-flex justify-content-center align-items-center" style="font-size:1.5rem;">KUHUSU SISI</span>
+                <span class="mb-4 text-light float-left">
+                  Rose Nutrition inajihusisha na kutoa elimu ya afya juu ya lishe bora, 
+                  kuzuia na kudhibiti magonjwa sugu yasiyo ya kuambukiza kama kisukari, 
+                  shinikizo la damu na matatizo ya moyo. Tunatoa mwongozo wa tiba mbadala 
+                  na kisayansi kupitia virutubisho na ushauri wa maisha bora. Dhumuni letu
+                   ni kuboresha afya ya jamii, kuongeza uelewa, na pia kuwawezesha wanachama
+                    kupata kipato kupitia huduma na mauzo ya bidhaa za kiafya.
+                </span>
+
+                
+                  <span class="text-light" style="font-size:1.5rem;">MAWASILIANO YETU</span>
+                  <span class="text-light float-left">
+                    <a class="text-light text-decoration-none"><i class="bi bi-phone" style="font-size:1rem;"></i>+225 676896769</a><br>
+                    <a class="text-light text-decoration-none"><i class="bi bi-phone" style="font-size:1rem;"></i>P.O.BOX 1002</a><br>
+                    <a class="text-light text-decoration-none"><i class="bi bi-phone" style="font-size:1rem;"></i>Dar-es-salaam</a><br>
+                    <a class="text-light text-decoration-none"><i class="bi bi-phone" style="font-size:1rem;"></i>localservicepro@gmail.com</a>
+                  </span>
+              </div>
+
+
+              <div class="col-sm">
+              <span class="text-light d-flex justify-content-center align-items-center" style="font-size:1.5rem;">HUDUMA ZETU</span>
+              <span class="text-light float-left">
+                Tunatoa huduma ya vipimo vyote kwa gharama nafuu ya shilingi elfu thelathini tu, 
+                ambavyo husaidia kugundua mapema magonjwa yote sugu kama moyo, kisukari, 
+                figo na mengine. Tiba zote za dawa zipo, zikilenga kutibu chanzo cha tatizo hadi kupona kabisa.
+                 Ukijiunga kama mwanachama wa Rose Nutrition, unapata faida kupitia bonus points zinazojulikana kama PV (Profit Value), 
+                 ambazo hukusanywa na kuongezeka kama profit points,
+                 hivyo kukuingizia kipato cha ziada pamoja na huduma bora za afya.
+                </span>
+              </div>
+
+                <div class="col-sm ">
+                  <span class="text-light d-flex justify-content-center align-items-center" style="font-size:1.5rem;">MITANDAO YETU YA KIJAMII</span>
+                  <span class="d-flex justify-content-center align-items-center gap-2">
+                    <a href="" class="text-decoration-none" id="socialbtn">
+                        <i href="{{admin.instagram}}" class="bi bi-instagram " aria-hidden="true" style="color:white"></i>
+                      </a>
+                    <a href="" class="bntext-decoration-none" id="socialbtn">
+                      <i  href="{{admin.facebook}}" class="bi bi-facebook " aria-hidden="true" style="color:white"></i>
+                    </a>
+                    <a href=""class="text-decoration-none" id="socialbtn">
+                      <i href="{{admin.twitter}}" class="bi bi-twitter " aria-hidden="true" style="color:white"></i>
+                    </a>
+                    <a href="" class="text-decoration-none" id="socialbtn">
+                      <i href="{{admin.youtube}}" class="bi bi-linkedin " aria-hidden="true" style="color:white"></i>
+                    </a>
+                    <a href="" class="text-decoration-none" id="socialbtn">
+                        <i href="{{admin.tiktok}}" class="bi bi-tiktok " aria-hidden="true" style="color:white"></i>
+                      </a>
+                    </span>
+
+                  </div>
+                </div>
+
+  <!-- end info_section -->
+
+
+  <!-- footer section -->
+  <footer class="footer_section" style="background-color:rgb(4, 70, 39);">
+    <hr class="mt-0 border border-light mt-3">
+    <div class="container">
+      <p>
+        &copy; <span id="displayYear"></span> All Rights Reserved<br>
+        {% comment %} <span class="text-light">Developed & Mantained by <b style="color:rgb(218, 214, 30);">Peter Shahya</b> [+225 617 9990 99] </span> {% endcomment %}
+        {% comment %} <a href="https://html.design/">Free Html Templates</a> {% endcomment %}
+      </p>
+    </div>
+  </footer>
