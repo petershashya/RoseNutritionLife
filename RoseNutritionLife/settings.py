@@ -118,16 +118,16 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'rosenutritionlife_db',
-        'USER': 'rosenutritionlife_db_user',
-        'PASSWORD': 'uj2U3w8PPZvIUxZeeYb07TbIpw22E7cL',
+        'USER': 'postgres',
+        'PASSWORD': '12345',
         'HOST': 'localhost',
         'PORT': '5432',
     }
 }
 
 
-database_url = os.environ.get("DATABASE_URL")
-DATABASES["default"] = dj_database_url.parse(database_url)
+# database_url = os.environ.get("DATABASE_URL")
+# DATABASES["default"] = dj_database_url.parse(database_url)
 DATABASES["default"] = dj_database_url.parse("postgresql://rosenutritionlife_db_user:uj2U3w8PPZvIUxZeeYb07TbIpw22E7cL@dpg-d384ifhr0fns73fei8kg-a.oregon-postgres.render.com/rosenutritionlife_db")
 
 
