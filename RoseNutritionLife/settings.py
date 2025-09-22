@@ -125,9 +125,6 @@ DATABASES = {
     }
 }
 
-
-# database_url = os.environ.get("DATABASE_URL")
-# DATABASES["default"] = dj_database_url.parse(database_url)
 DATABASES["default"] = dj_database_url.parse("postgresql://rosenutritionlife_db_user:uj2U3w8PPZvIUxZeeYb07TbIpw22E7cL@dpg-d384ifhr0fns73fei8kg-a.oregon-postgres.render.com/rosenutritionlife_db")
 
 
