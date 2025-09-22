@@ -118,8 +118,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'rosenutritionlife_db',
-        'USER': 'postgres',
-        'PASSWORD': '12345',
+        'USER': 'rosenutritionlife_db_user',
+        'PASSWORD': 'uj2U3w8PPZvIUxZeeYb07TbIpw22E7cL',
         'HOST': 'localhost',
         'PORT': '5432',
     }
