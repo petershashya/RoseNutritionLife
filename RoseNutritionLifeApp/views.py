@@ -18,104 +18,69 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from datetime import datetime
 import pytz
+from django.core.paginator import Paginator
+from django.utils.timesince import timesince
+from django.shortcuts import render
 
 
 def home(request):
-    return render(request, 'index.html')
+    # Get the first posted (earliest) item for each table
+    first_disease = Disease.objects.order_by("date_created").first()
+    first_medicine = Medicine.objects.order_by("date_created").first()
+    first_checkup = CheckUp.objects.order_by("date_created").first()
+    first_business_plan = BusinessPlan.objects.order_by("date_created").first()
+    first_business_level = BusinessLevel.objects.order_by("date_created").first()
 
-def register(request):
-    if request.method == 'POST':
-        # SuperUser
-        if 'register_admin' in request.POST:
-            form = SuperUserRegistrationForm(request.POST, request.FILES)
-            if form.is_valid():
-                admin = form.save(commit=False)
-                admin.is_staff = True
-                admin.is_superuser = True
-                admin.save()
-                form.save(commit=True)
-                messages.success(request, "Admin registered successfully.")
-                return redirect('login')
+    context = {
+        "disease": first_disease,
+        "medicine": first_medicine,
+        "checkup": first_checkup,
+        "business_plan": first_business_plan,
+        "business_level": first_business_level,
+    }
+    return render(request, "index.html", context)
+
+
+
+
+def paginate_and_prepare(request, queryset, page_param):
+    """
+    Reusable pagination + truncate description to 25 chars
+    """
+    paginator = Paginator(queryset.order_by("date_created"), 10)
+    page_number = request.GET.get(page_param)
+    page_obj = paginator.get_page(page_number)
+
+    for obj in page_obj:
+        # Add time since posted
+        if hasattr(obj, "date_created"):
+            obj.time_since_posted = timesince(obj.date_created)
+
+        # Truncate description field if exists
+        if hasattr(obj, "description") and obj.description:
+            if len(obj.description) > 25:
+                obj.short_description = obj.description[:25] + "..."
             else:
-                return render(request, 'register_admin.html', {'admin_form': form})
-
-        # Member
-        elif 'register_member' in request.POST:
-            form = MemberRegistrationForm(request.POST, request.FILES)
-            if form.is_valid():
-                member = form.save()
-                messages.success(request, "Member registered successfully.")
-                return redirect('login')
-            else:
-                return render(request, 'register.html', {'member_form': form})
-
-        # Viewer
-        elif 'register_viewer' in request.POST:
-            form = ViewerRegistrationForm(request.POST)
-            if form.is_valid():
-                viewer = form.save()
-                messages.success(request, "Viewer registered successfully.")
-                return redirect('login')
-            else:
-                return render(request, 'register_viewer.html', {'viewer_form': form})
-
-    else:
-        admin_form = SuperUserRegistrationForm()
-        member_form = MemberRegistrationForm()
-        viewer_form = ViewerRegistrationForm()
-
-    if request.resolver_match.url_name == 'register_admin':
-        return render(request, 'register_admin.html', {'admin_form': admin_form})
-    elif request.resolver_match.url_name == 'register_member':
-        return render(request, 'register.html', {'member_form': member_form})
-    else:  # register_viewer
-        return render(request, 'register_viewer.html', {'viewer_form': viewer_form})
-
-def login_view(request):
-    form = AuthenticationForm()
-
-    if request.method == 'POST':
-        login_method = request.POST.get('login_method')
-        login_input = request.POST.get('login_input')
-        password = request.POST.get('password')
-
-        user = None
-        if login_method == 'username':
-            user = authenticate(request, username=login_input, password=password)
-        elif login_method == 'email':
-            try:
-                user_obj = User.objects.get(email=login_input)
-                user = authenticate(request, username=user_obj.username, password=password)
-            except User.DoesNotExist:
-                user = None
-        elif login_method == 'mobile':
-            # Check UserDetail
-            from .models import UserDetail, Viewer
-            try:
-                user_detail = UserDetail.objects.get(mobile_contact=login_input)
-                user = authenticate(request, username=user_detail.user.username, password=password)
-            except UserDetail.DoesNotExist:
-                # Check Viewer
-                try:
-                    viewer_detail = Viewer.objects.get(mobile_contact=login_input)
-                    user = authenticate(request, username=viewer_detail.user.username, password=password)
-                except Viewer.DoesNotExist:
-                    user = None
-
-        if user is not None:
-            login(request, user)
-            messages.success(request, "Logged in successfully")
-            return redirect('/')
+                obj.short_description = obj.description
         else:
-            messages.error(request, "Invalid login credentials.")
+            obj.short_description = ""
 
-    return render(request, 'login.html', {'form': form})
+    return page_obj
 
-@login_required
-def logout_view(request):
-    logout(request)
-    messages.success(request, "Logged out successfully.")
-    return redirect('login')
+def services(request):
+    context = {
+        "disease_page_obj": paginate_and_prepare(request, Disease.objects.all(), "disease_page"),
+        "medicine_page_obj": paginate_and_prepare(request, Medicine.objects.all(), "medicine_page"),
+        "checkup_page_obj": paginate_and_prepare(request, CheckUp.objects.all(), "checkup_page"),
+        "bp_page_obj": paginate_and_prepare(request, BusinessPlan.objects.all(), "bp_page"),
+        "bl_page_obj": paginate_and_prepare(request, BusinessLevel.objects.all(), "bl_page"),
+    }
+    return render(request, "service.html", context)
+
+
+def advertisment(request):
+    return render(request, 'advertisement.html')
+
 
 
 # Utility to check user rank
@@ -126,7 +91,6 @@ def get_user_rank(user):
         return None
 
 # ----------------- POST VIEWS WITH PERMISSIONS -----------------
-
 
 @login_required
 def post_disease(request):
@@ -495,20 +459,113 @@ def post_medicine_sales(request):
     form = MedicineSalesForm()
     return render(request, 'medicine_sales_form.html', {'medicine_sales_form': form})
     
-def comment(request):
-    return render(request, 'comment.html')
-
-def services(request):
-    return render(request, 'service.html')
-
-def advertisment(request):
-    return render(request, 'advertisment.html')
 
 def analysis(request):
     return render(request, 'analysis.html')
 
+def comment(request):
+    return render(request, 'comment.html')
+
 def account(request):
     return render(request, 'account.html')
+
+
+###START REGISTER AND LOGIN AUTHORZATION
+def register(request):
+    if request.method == 'POST':
+        # SuperUser
+        if 'register_admin' in request.POST:
+            form = SuperUserRegistrationForm(request.POST, request.FILES)
+            if form.is_valid():
+                admin = form.save(commit=False)
+                admin.is_staff = True
+                admin.is_superuser = True
+                admin.save()
+                form.save(commit=True)
+                messages.success(request, "Admin registered successfully.")
+                return redirect('login')
+            else:
+                return render(request, 'register_admin.html', {'admin_form': form})
+
+        # Member
+        elif 'register_member' in request.POST:
+            form = MemberRegistrationForm(request.POST, request.FILES)
+            if form.is_valid():
+                member = form.save()
+                messages.success(request, "Member registered successfully.")
+                return redirect('login')
+            else:
+                return render(request, 'register.html', {'member_form': form})
+
+        # Viewer
+        elif 'register_viewer' in request.POST:
+            form = ViewerRegistrationForm(request.POST)
+            if form.is_valid():
+                viewer = form.save()
+                messages.success(request, "Viewer registered successfully.")
+                return redirect('login')
+            else:
+                return render(request, 'register_viewer.html', {'viewer_form': form})
+
+    else:
+        admin_form = SuperUserRegistrationForm()
+        member_form = MemberRegistrationForm()
+        viewer_form = ViewerRegistrationForm()
+
+    if request.resolver_match.url_name == 'register_admin':
+        return render(request, 'register_admin.html', {'admin_form': admin_form})
+    elif request.resolver_match.url_name == 'register_member':
+        return render(request, 'register.html', {'member_form': member_form})
+    else:  # register_viewer
+        return render(request, 'register_viewer.html', {'viewer_form': viewer_form})
+
+def login_view(request):
+    form = AuthenticationForm()
+
+    if request.method == 'POST':
+        login_method = request.POST.get('login_method')
+        login_input = request.POST.get('login_input')
+        password = request.POST.get('password')
+
+        user = None
+        if login_method == 'username':
+            user = authenticate(request, username=login_input, password=password)
+        elif login_method == 'email':
+            try:
+                user_obj = User.objects.get(email=login_input)
+                user = authenticate(request, username=user_obj.username, password=password)
+            except User.DoesNotExist:
+                user = None
+        elif login_method == 'mobile':
+            # Check UserDetail
+            from .models import UserDetail, Viewer
+            try:
+                user_detail = UserDetail.objects.get(mobile_contact=login_input)
+                user = authenticate(request, username=user_detail.user.username, password=password)
+            except UserDetail.DoesNotExist:
+                # Check Viewer
+                try:
+                    viewer_detail = Viewer.objects.get(mobile_contact=login_input)
+                    user = authenticate(request, username=viewer_detail.user.username, password=password)
+                except Viewer.DoesNotExist:
+                    user = None
+
+        if user is not None:
+            login(request, user)
+            messages.success(request, "Logged in successfully")
+            return redirect('/')
+        else:
+            messages.error(request, "Invalid login credentials.")
+
+    return render(request, 'login.html', {'form': form})
+
+@login_required
+def logout_view(request):
+    logout(request)
+    messages.success(request, "Logged out successfully.")
+    return redirect('login')
+
+
 
 
 # def post_medicine_sales(request):

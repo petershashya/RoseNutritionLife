@@ -66,34 +66,44 @@
     <i class="bi bi-file-medical-fill text-success mx-1" style="font-size:1.2rem;"></i>DISEASES
 </span>
 <!-- start list of diseases -->
+            {% for disease in disease_page_obj %}
   <a href="{% url 'services' %}" class="text-decoration-none">
  <div class="d-flex justify-content-center align-items-center mx-2 rounded my-1 p-2 bg-light" >
     <div class="p-1 mx-1">
+        <span class="d-flex justify-content-center align-items-center">
         <img class="categoryimg" style="width:100px; height:100px;" src="{% static '/images/eternal/uzazi (3).jpg' %}">
+        </span>
     </div>
     <div class="rounded" style="background-color:rgb(226, 240, 233);">
-        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-3 bg-white mt-1 text-black"><b>DIABETS MELLITUS</b><br>
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-3 bg-white mt-1 text-black"><b class="text-uppercase">{{disease.disease_name}}</b><br>
             <span style="color:rgb(4, 70, 39); ">
-            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu...
+            {{disease.description}}
         </div>
     </div>
 </div>
 </a>
+                {% endfor %}
+                 <!-- Pagination for Diseases -->
+    <div class="pagination">
+        {% if disease_page_obj.has_previous %}
+            <a href="?disease_page=1">&laquo; first</a>
+            <a href="?disease_page={{ disease_page_obj.previous_page_number }}">previous</a>
+        {% endif %}
 
+        {% for num in disease_page_obj.paginator.page_range %}
+            {% if num == disease_page_obj.number %}
+                <span class="current">{{ num }}</span>
+            {% else %}
+                <a href="?disease_page={{ num }}">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
 
- <a href="{% url 'services' %}" class="text-decoration-none">
- <div class="d-flex justify-content-center align-items-center mx-2 rounded my-1 p-2 bg-light">
-    <div class="p-1 mx-1">
-        <img class="categoryimg" style="width:100px; height:100px;" src="{% static '/images/eternal/uzazi (3).jpg' %}">
+        {% if disease_page_obj.has_next %}
+            <a href="?disease_page={{ disease_page_obj.next_page_number }}">next</a>
+            <a href="?disease_page={{ disease_page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
     </div>
-    <div class="rounded" style="background-color:rgb(226, 240, 233);">
-        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-3 bg-white mt-1 text-black"><b>DIABETS MELLITUS</b><br>
-            <span style="color:rgb(4, 70, 39); ">
-            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu...
-        </div>
-    </div>
-</div>
-</a>
+
 <!-- finish diseases list -->
 
 
@@ -104,20 +114,22 @@
  <i class="bi bi-bandaid-fill text-success mx-1" style="font-size:1.2rem;"></i>MEDICINE
 </span>
 <!-- start list of medicine -->
+            {% for medicine in medicine_page_obj %}
   <a href="{% url 'services' %}" class="text-decoration-none">
  <div class="d-flex justify-content-center align-items-center mx-2 rounded my-1 p-2 bg-light">
     <div class="p-1 mx-1">
+        <span class="d-flex justify-content-center align-items-center" >
         <img class="categoryimg" style="width:100px; height:100px;" src="{% static '/images/eternal/dawa4.jpg' %}">
     </div>
     <div class="rounded" style="background-color:rgb(226, 240, 233);">
-        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-3 bg-white mt-1 text-black"><b>SOFT CAPSUAL SOAP</b><br>
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-3 bg-white mt-1 text-black"><b class="text-uppercase">{{medicine.medicine_name}}</b><br>
             <span style="color:rgb(4, 70, 39); ">
-            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu...
+           {{medicine.description}}
         </div>
     </div>
 </div>
 </a>
-
+            {% endfor %}
 
 
 
@@ -126,19 +138,23 @@
  <i class="bi bi-person-arms-up text-success mx-1" style="font-size:1.2rem;"></i>CHECK-UPS
 </span>
 <!-- start list of medicine -->
+                {% for checkup in checkup_page_obj %}
   <a href="{% url 'services' %}" class="text-decoration-none">
  <div class="d-flex justify-content-center align-items-center mx-2 rounded my-1 p-2 bg-light" >
     <div class="p-1 mx-1">
+        <span class="d-flex justify-content-center align-items-center">
         <img class="categoryimg" style="width:100px; height:100px;" src="{% static '/images/eternal/download.jpeg' %}">
+        <span>
     </div>
     <div class="rounded" style="background-color:rgb(226, 240, 233);">
-        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-3 bg-white mt-1 text-black"><b>BODY MASSAGE</b><br>
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-3 bg-white mt-1 text-black"><b class="text-uppercase">{{checkup.checkup_name}} </b><br>
             <span style="color:rgb(4, 70, 39); ">
-            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu...
+           {{checkup.description}}
         </div>
     </div>
 </div>
 </a>
+            {% endfor %}
 
 
 
@@ -148,20 +164,23 @@
  <i class="bi bi-briefcase-fill text-success mx-1" style="font-size:1.2rem;"></i>BUSINESS PLAN
 </span>
 <!-- start list of business plan -->
+            {% for business_plan in bp_page_obj %}
   <a href="{% url 'services' %}" class="text-decoration-none">
  <div class="d-flex justify-content-center align-items-center mx-2 rounded my-1 p-2 bg-light">
     <div class="p-1 mx-1">
+        <span class="d-flex justify-content-center align-items-center">
         <img class="categoryimg" style="width:100px; height:100px;" src="{% static '/images/eternal/sales.jpeg' %}">
+        <span>
     </div>
     <div class="rounded" style="background-color:rgb(226, 240, 233);">
-        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-3 bg-white mt-1 text-black"><b>SALES & MARKETING</b><br>
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-3 bg-white mt-1 text-black"><b class="text-uppercase">BUSINESS PLAN </b><br>
             <span style="color:rgb(4, 70, 39); ">
-            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu...
+            {{business_plan.description}}
         </div>
     </div>
 </div>
 </a>
-
+        {% endfor %}
 
 
 
@@ -170,19 +189,23 @@
  <i class="bi bi-briefcase text-success mx-1" style="font-size:1.2rem;"></i>BUSINESS LEVELS
 </span>
 <!-- start list of business level -->
+            {% for business_level in bl_page_obj%}
  <a href="{% url 'services' %}" class="text-decoration-none">
  <div class="d-flex justify-content-center align-items-center mx-2 rounded my-1 p-2 bg-light">
     <div class="p-1 mx-1">
+        <span class="d-flex justify-content-center align-items-center">
         <img class="categoryimg" style="width:100px; height:100px;" src="{% static '/images/eternal/sales.jpeg' %}">
+        </span>
     </div>
     <div class="rounded" style="background-color:rgb(226, 240, 233);">
-        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-3 bg-white mt-1 text-black"><b>LEVEL 1</b><br>
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-3 bg-white mt-1 text-black"><b class="text-uppercase">{{business_level.level_name}}</b><br>
             <span style="color:rgb(4, 70, 39); ">
-            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu...
+            {{business_level.description}}
         </div>
     </div>
 </div>
 </a>
+            {% endfor %}
 <!-- finish general services lists -->
 
 

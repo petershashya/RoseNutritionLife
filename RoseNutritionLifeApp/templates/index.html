@@ -2,15 +2,53 @@
 
 
 {% block content %}
-{% load static %}  
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
 
 
 <!-- services image and descriptions navigation -->
+<div class="homevideo">
+  <!-- Background Video -->
+  <video autoplay muted loop playsinline>
+    <source src="{% static 'images/eternal/homevideo.mp4' %}" type="video/mp4">
+    <!--Your browser does not support the video tag. -->
+  </video>
 
+  <!-- Gradient Overlay -->
+  <div class="overlay"></div>
 
-<div class="homeimg p-4">
+  <!-- Content Over Video -->
+  <div id="description" class="text-center">
+    <span class="homefont mt-5 row display-2 text-light d-flex justify-content-center align-items-center">
+      Rose Nutrition Life
+    </span><br>
+    <span class="row d-flex justify-content-center align-items-center ">
+      <span id="description" class="col-sm-10 text-light text-center">
+        Mfumo wa Rose Nutrition Life unalenga kukuza afya kwa kutoa elimu juu ya kuzuia na
+        kudhibiti magonjwa yasiyo ya kuambukiza kama vile kisukari, shinikizo la damu, saratani
+        na matatizo ya moyo. Unasisitiza ulaji bora, mtindo sahihi wa maisha na uelewa wa tiba.
+        Pia, unawawezesha wanachama kupata kipato kupitia mpango wa biashara unaohusisha rufaa
+        za wagonjwa, mauzo ya dawa na virutubisho. Huu ni mfumo wa kuunganisha afya na
+        ujasiriamali kwa manufaa ya jamii.
+      </span>
+    </span>
+    {% if user.is_authenticated %}
+      <a class="btn btn-sm text-light mt-3" id="getservice">
+        <i class="bi bi-basket-fill text-light mx-2" style="font-size:1rem;"></i>Add Service
+      </a>
+    {% else %}
+      <a class="btn btn-sm text-light mt-2" id="getservice">
+        <i class="bi bi-basket-fill text-light mx-2" style="font-size:1rem;"></i> Get Started
+      </a>
+    {% endif %}
+  </div>
+</div>
+
+{% comment %} <div class="homevideo p-4">
+      <video class="homevideo p-4" autoplay muted loop playsinline>
+    <source src="{% static 'images/eternal/homevideo.mp4' %}" type="video/mp4">
     <div id="description" class="text-center" style="padding-top:200px;">
-        <span class="row display-2 text-light d-flex justify-content-center align-items-center">
+        <span class="homefont row display-2 text-light d-flex justify-content-center align-items-center">
             Rose Nutrition Life
         </span><br>
 
@@ -24,20 +62,19 @@
         </span>
     </span>
 
-    {% if user.is_authenticated %}
-    {% comment %} <a class="btn btn-sm text-light mt-3" id="getservice"  href="{% url 'post_service' %}"> {% endcomment %}
+    {% if user.is_authenticated %} 
         <a class="btn btn-sm text-light mt-3" id="getservice" >
        <i class="bi bi-basket-fill text-light mx-2" style="font-size:1rem;" ></i>Add Service
     </a>
-    {% else %}
-    {% comment %} <a class="btn btn-sm text-light mt-3" id="getservice"  href="{% url 'login' %}"> {% endcomment %}
-        <a class="btn btn-sm text-light mt-3" id="getservice" >
+    {% else %} 
+     <a class="btn btn-sm text-light mt-3" id="getservice" >
         <i class="bi bi-basket-fill text-light mx-2" style="font-size:1rem;"></i> Get Started
      </a>
      {% endif %}
 
     </div>
-</div>
+      </video>
+</div> {% endcomment %}
 
 
 
@@ -89,11 +126,13 @@
 <div class="d-flex justify-content-center align-items-start mx-3 rounded my-1 p-3" style="background-color:rgb(226, 240, 233);">
     <div class="row ">
     <div class="col-sm-3 mx-2 mt-3 " >
+        <span class="d-flex justify-content-center align-items-center">
            <img class="categoryimg" style="width:300px; height:250px;" src="{% static '/images/eternal/uzazi (3).jpg' %}">
+        </span>
 
            <!-- posture category -->
            <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
-                <span class="d-flex justify-content-center align-items-center px-3 py-2 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(226, 240, 233);" >
+                <span class="d-flex justify-content-center align-items-center px-2 py-2 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(226, 240, 233);" >
                     <i class="bi bi-image-fill text-success mx-1" style="font-size:1.3rem;"></i>Posture
                 </span>
 
@@ -144,30 +183,30 @@
 </div>
 
     <div class=" col-sm p-2 rounded" style="background-color:rgb(226, 240, 233);">
-        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2"><b>DIABETS MELLITUS</b></div>
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2"><b class="text-uppercase">{{disease.disease_name}}</b></div>
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>Disease Description</b></span><br>
+         {{disease.description}}
+        </div>
         <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
             <span style="color:rgb(4, 70, 39); "><b>Disease Symptoms</b></span><br>
-            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
-            au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
-             pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha.
+            {{disease.symptoms}}
         </div>
         <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
-            <span style="color:rgb(4, 70, 39); "><b>Disease Effects</b></span><br>
-            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
-            au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
-             pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha.
+            <span style="color:rgb(4, 70, 39); "><b>Disease Causes</b></span><br>
+            {{disease.causes}}
         </div>
         <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
-            <span style="color:rgb(4, 70, 39); "><b>Disease Precautions</b></span><br>
-            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
-            au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
-             pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha.
+            <span style="color:rgb(4, 70, 39); "><b>Disease treatment</b></span><br>
+            {{disease.treatment}}
         </div>
+        {% if disease.additional_comment %}
         <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
-            <span style="color:rgb(4, 70, 39); "><b>Other about disease</b></span><br>
-            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
-            au kushindwa kusukuma damu
+            <span style="color:rgb(4, 70, 39); "><b>About disease</b></span><br>
+            {{disease.additional_comment}}
         </div>
+        {% else %}
+        {% endif %}
     </div>
 <!-- finish disease-->
  <!-- start more disease button -->
@@ -194,11 +233,13 @@
 <div class="d-flex justify-content-center align-items-start mx-3 rounded my-1 p-3" style="background-color:rgb(226, 240, 233);">
         <div class="row ">
     <div class="col-sm-3 mx-2 mt-3 " >
+        <span class="d-flex justify-content-center align-items-center">
            <img class="categoryimg" style="width:300px; height:250px;" src="{% static '/images/eternal/dawa4.jpg' %}">
+        </span>
 
            <!-- posture category -->
            <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
-                <span class="d-flex justify-content-center align-items-center px-3 py-2 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(226, 240, 233);" >
+                <span class="d-flex justify-content-center align-items-center px-2 py-2 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(226, 240, 233);" >
                     <i class="bi bi-image-fill text-success mx-1" style="font-size:1.3rem;"></i>Posture
                 </span>
 
@@ -248,7 +289,7 @@
                                   <!-- order category -->
                                   <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
                                     <span class="d-flex justify-content-center align-items-center px-3 py-2 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(226, 240, 233);" >
-                                        <i class="bi bi-capsule text-success mx-1" style="font-size:1.3rem;"></i>Make Product Order
+                                        <i class="bi bi-capsule text-success mx-1" style="font-size:1.3rem;"></i>Make Order
                                     </span>
                     
                                 <div class="d-flex justify-content-center align-items-start mx-1 gap-1 p-2" style="border-radius:25px; background-color:rgb(226, 240, 233);">
@@ -260,40 +301,29 @@
 </div>
 
     <div class="col-sm p-2 rounded" style="background-color:rgb(226, 240, 233);">
-        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2"><b>SOFT CAPTSUAL SOAP</b></div>
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2"><b class="text-uppercase">{{medicine.medicine_name}}</b></div>
         <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
             <span style="color:rgb(4, 70, 39); "><b>Medicine Decsription</b></span><br>
-            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
-            au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
-             pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha.
+            {{medicine.description}}
         </div>
         <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
-            <span style="color:rgb(4, 70, 39); "><b>Accumulated Items</b></span><br>
-            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
-            au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
-             pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha.
+            <span style="color:rgb(4, 70, 39); "><b>Accumulated Solution</b></span><br>
+            {{medicine.solution}}
         </div>
         <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
-            <span style="color:rgb(4, 70, 39); "><b>Medicine Precautions</b></span><br>
-            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
-            au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
-             pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha.
+            <span style="color:rgb(4, 70, 39); "><b>Medicine Dose</b></span><br>
+            {{medicine.dose}}
         </div>
         <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
-            <span style="color:rgb(4, 70, 39); "><b>Medicine Solution</b></span><br>
-            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
-            au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
-             pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha.
+            <span style="color:rgb(4, 70, 39); "><b>Medicine Cost</b></span><br>
+            {{medicine.cost}}
         </div>
-        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
-            <span style="color:rgb(4, 70, 39); "><b>Other about medicine</b></span><br>
-            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
-            au kushindwa kusukuma damu
+                {% if medicine.additional_comment %}
+            <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>About medicine</b></span><br>
+            {{medicine.additional_comment}}
         </div>
-        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
-            <span style="color:rgb(4, 70, 39); "><b>Medicine Dose and Cost</b></span><br>
-            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa.
-        </div>
+        {% endif %}
     </div>
 <!-- finish Medicine-->
 
@@ -317,11 +347,13 @@
 <div class="d-flex justify-content-center align-items-start mx-3 rounded my-1 p-3" style="background-color:rgb(226, 240, 233);">
             <div class="row ">
     <div class="col-sm-3 mx-2 mt-3 " >
+        <span class="d-flex justify-content-center align-items-center">
            <img class="categoryimg" style="width:300px; height:200px;" src="{% static '/images/eternal/download.jpeg' %}">
+        </span>
 
            <!-- posture category -->
            <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
-                <span class="d-flex justify-content-center align-items-center px-3 py-2 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(226, 240, 233);" >
+                <span class="d-flex justify-content-center align-items-center px-2 py-2 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(226, 240, 233);" >
                     <i class="bi bi-image-fill text-success mx-1" style="font-size:1.3rem;"></i>Posture
                 </span>
 
@@ -370,7 +402,7 @@
                   <!-- order category -->
                   <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
                     <span class="d-flex justify-content-center align-items-center px-3 py-2 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(226, 240, 233);" >
-                        <i class="bi bi-person-arms-up text-success mx-1" style="font-size:1.3rem;"></i>Order Body CheckUp
+                        <i class="bi bi-person-arms-up text-success mx-1" style="font-size:1.3rem;"></i>Order CheckUp
                     </span>
     
                 <div class="d-flex justify-content-center align-items-start mx-1 gap-1 p-2" style="border-radius:25px; background-color:rgb(226, 240, 233);">
@@ -382,34 +414,30 @@
 </div>
 
     <div class="col-sm p-2 rounded" style="background-color:rgb(226, 240, 233);">
-        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2"><b>MASAGE CHECK-UP</b></div>
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2"><b class="text-uppercase">{{checkup.checkup_name}}</b></div>
         <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
             <span style="color:rgb(4, 70, 39); "><b>Check-Up Decsription</b></span><br>
-            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
-            au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
-             pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha.
+           {{checkup.description}}
         </div>
         <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
             <span style="color:rgb(4, 70, 39); "><b>Check-Up treatment</b></span><br>
-            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
-            au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
-             pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha.
+            {{checkup.treatment}}
         </div>
         <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
-            <span style="color:rgb(4, 70, 39); "><b>Check-Up attention</b></span><br>
-            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
-            au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
-             pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha.
-        </div>
-        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
-            <span style="color:rgb(4, 70, 39); "><b>Other about check-up</b></span><br>
-            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
-            au kushindwa kusukuma damu
+            <span style="color:rgb(4, 70, 39); "><b>Check-Up Solution</b></span><br>
+            {{checkup.solution}}
         </div>
         <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
             <span style="color:rgb(4, 70, 39); "><b>Check-Up Cost</b></span><br>
-            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa.
+            {{checkup.cost}}
         </div>
+
+        {% if checkup.additional_comment %}
+            <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>About checkup</b></span><br>
+            {{checkup.additional_comment}}
+        </div>
+        {% endif %}
     </div>
 <!-- finish Medicine-->
                          <!-- start more checkup button -->
@@ -452,12 +480,14 @@
 
         <div class="d-flex justify-content-center align-items-start rounded gap-2" >
                 <div class="row ">
-                <div class="col-sm-3 mt-3 " >
-           <img class="categoryimg" style="width:300px; height:250px;" src="{% static '/images/eternal/sales.jpeg' %}">
+                <div class="col-sm-5 mt-3 " >
+        <span class="d-flex justify-content-center align-items-center ">
+           <img class="categoryimg" style="width:320px; height:300px;" src="{% static '/images/eternal/sales.jpeg' %}">
+        </span>
 
            <!-- posture category -->
            <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
-                <span class="d-flex justify-content-center align-items-center px-3 py-2 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(226, 240, 233);" >
+                <span class="d-flex justify-content-center align-items-center px-2 py-2 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(226, 240, 233);" >
                     <i class="bi bi-image-fill text-success mx-1" style="font-size:1.3rem;"></i>Posture
                 </span>
 
@@ -520,31 +550,28 @@
 </div>
 
     <div class="col-sm p-2 rounded" style="background-color:rgb(226, 240, 233);">
-        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+        <div  style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
             <span style="color:rgb(4, 70, 39); "><b>Business Decsription</b></span><br>
-            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
-            au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
-             pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha.
+           {{business_plan.description}}
         </div>
         <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
             <span style="color:rgb(4, 70, 39); "><b>Sales & Marketing</b></span><br>
-            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
-            au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
-             pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha.
+            {{business_plan.sales_and_marketing}}
         </div>
         <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
             <span style="color:rgb(4, 70, 39); "><b>Business Members</b></span><br>
-            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
-            au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
-             pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha.
+            {{business_plan.business_member}}
         </div>
         <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
             <span style="color:rgb(4, 70, 39); "><b>Product PV points</b></span><br>
-            Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
-            au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
-             pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha.
-             Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
+            {{business_plan.pv_points}}
         </div>
+        {% if business_plan.additional_comment %}
+                <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>About Product</b></span><br>
+            {{business_plan.additional_comment}}
+        </div>
+        {% endif %}
     </div>
     </div>
 </div>
@@ -570,7 +597,10 @@
 
             <div class="d-flex justify-content-center align-items-start rounded gap-2" >
                             <div class="row ">
-                    <div class="col-sm-3 mt-3 " >
+                    <div class="col-sm-4 mt-3 " >
+        <span class="d-flex justify-content-center align-items-center ">
+           <img class="categoryimg" style="width:300px; height:260px;" src="{% static '/images/eternal/sales.jpeg' %}">
+        </span>
                       <!-- posture category -->
                       <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
                         <span class="d-flex justify-content-center align-items-center px-3 py-2 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(226, 240, 233);" >
@@ -633,22 +663,22 @@
                             </div>
                             
             </div>
-                    <div style="border-left:3px solid rgb(4, 70, 39);" class="col-sm rounded p-2  bg-white my-2">
-                        <span style="color:rgb(4, 70, 39); "><b>Level 1</b></span><br>
-                        Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
-                        au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
-                        pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha.
-                         pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha.
-                         pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha.
-                      pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha
-                      pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha.
-                      pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha
-                      pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha.
-                      pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha
-                      pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha.
-                      pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha
+                    <div class="col-sm p-2 rounded" style="background-color:rgb(226, 240, 233);">
+                    <div  style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+                        <span style="color:rgb(4, 70, 39); "><b>{{business_level.level_name}}</b></span><br>
                     </div>
+                    <div  style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+                        <span style="color:rgb(4, 70, 39); "><b>Levels Description</b></span><br>
+                        {{business_level.description}}
+                    </div>
+                    {% if business_level.additional_comment %}
+                     <div  style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+                        <span style="color:rgb(4, 70, 39); "><b>About Levels</b></span><br>
+                        {{business_level.additional_comment}}
+                    </div>
+                    {% endif %}
              </div>
+            </div>
             <!-- finish business plan-->
             </div>
 
@@ -790,7 +820,7 @@
         </span>
         <span class="d-flex justify-content-center align-items-center gap-2" style="color:rgb(4, 70, 39);"><b>Branch Manager</b></span>
         <div class="d-flex justify-content-center align-items-center ">
-            <img class="categoryimg rounded-circle" style="width:90px; height:90px;" src="{% static '/images/person2.jpg' %}">
+            <img class="categoryimg rounded-circle" style="width:90px; height:90px;" src="{% static '/images/eternal/person2.jpg' %}">
         </div>
     </div>
 
