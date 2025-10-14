@@ -19,7 +19,7 @@ urlpatterns = [
     path('analysis/', analysis, name='analysis'),
     path('account/', account, name='account'),
     
-    
+    path('post_disease/', post_disease, name='post_disease'),
     path('post_medicine/', post_medicine, name='post_medicine'),
     path('post_checkup/', post_checkup, name='post_checkup'),
     path('post_businessplan/', post_businessplan, name='post_businessplan'),
