@@ -34,23 +34,20 @@ from django.contrib.auth import update_session_auth_hash
 
 import csv
 from io import BytesIO
-import xlsxwriter
+# ReportLab imports
 from reportlab.lib import colors
-from reportlab.lib.pagesizes import letter
+from reportlab.lib.pagesizes import letter, A4, landscape
 from reportlab.lib.units import inch
-from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
-
-import base64
-from reportlab.lib.pagesizes import A4
-from reportlab.lib.utils import ImageReader
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph
 from reportlab.pdfgen import canvas
+from reportlab.lib.utils import ImageReader
+
+# Other imports
+import xlsxwriter
+import base64
 import json
 import textwrap
-
-from reportlab.lib.pagesizes import letter, landscape
-from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from reportlab.lib.units import inch
-from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph
 
 
 def home(request):
@@ -1135,7 +1132,7 @@ def print_chart_pdf(request):
         # --- Draw description text ---
         p.setFont("Helvetica-Bold", 13)
         p.setFillColor(colors.black)
-        p.drawString(60, chart_y - 40, "Chart Description:")
+        p.drawString(60, chart_y - 40, "Maelezo ya Utafiti:")
 
         p.setFont("Helvetica", 12)
         wrapped_lines = textwrap.wrap(description, width=90)
