@@ -42,7 +42,7 @@ class UserDetail(models.Model):
         validators=[validate_image_file]
     )
     mobile_contact = models.CharField(max_length=15, unique=True)  # Not null
-    email = models.EmailField(blank=True, null=True)  #Nullable
+    #email = models.EmailField(blank=True, null=True)  #Nullable
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=False, null=False)#Not null
     age = models.PositiveIntegerField(blank=False, null=False) #Not Null
     region = models.CharField(max_length=100)  # Not null
@@ -54,6 +54,11 @@ class UserDetail(models.Model):
         return f'{self.user.username} - Details'
 
 class Viewer(models.Model):
+    profile_image = models.ImageField(
+        upload_to='viewerdetail/images/',
+        blank=True,
+        validators=[validate_image_file]
+    )
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='viewer_detail')
     full_name = models.CharField(max_length=255)
     mobile_contact = models.CharField(max_length=15, unique=True)
@@ -76,6 +81,12 @@ class Disease(models.Model):
     additional_comment = models.TextField(blank=True, null=True)
 
     # Image & Video fields (refactored like Song model)
+    profile_image = models.ImageField(
+        upload_to="disease/profile_images/",
+        blank=True,
+        null=True,
+        validators=[validate_image_file]
+    )
     image = models.ImageField(
         upload_to="disease/images/",
         blank=True,
@@ -105,6 +116,12 @@ class Medicine(models.Model):
     dose = models.CharField(max_length=100)
     cost = models.DecimalField(max_digits=10, decimal_places=2)
 
+    profile_image = models.ImageField(
+        upload_to="medicine/profile_images/",
+        blank=True,
+        null=True,
+        validators=[validate_image_file]
+    )
     image = models.ImageField(
         upload_to="medicine/images/",
         blank=True,
@@ -135,6 +152,13 @@ class CheckUp(models.Model):
     dose = models.CharField(max_length=100)
     cost = models.DecimalField(max_digits=10, decimal_places=2)
 
+
+    profile_image = models.ImageField(
+        upload_to="checkup/profile_images/",
+        blank=True,
+        null=True,
+        validators=[validate_image_file]
+    )
     image = models.ImageField(
         upload_to="checkup/images/",
         blank=True,
@@ -163,6 +187,13 @@ class BusinessPlan(models.Model):
     pv_points = models.TextField()
     additional_comment = models.TextField(blank=True, null=True)
 
+
+    profile_image = models.ImageField(
+        upload_to="businessplan/profile_images/",
+        blank=True,
+        null=True,
+        validators=[validate_image_file]
+    )
     image = models.ImageField(
         upload_to="businessplan/images/",
         blank=True,
@@ -189,6 +220,13 @@ class BusinessLevel(models.Model):
     description = models.TextField()
     additional_comment = models.TextField(blank=True, null=True)
 
+
+    profile_image = models.ImageField(
+        upload_to="businesslevel/profile_images/",
+        blank=True,
+        null=True,
+        validators=[validate_image_file]
+    )
     image = models.ImageField(
         upload_to="businesslevel/images/",
         blank=True,
@@ -260,6 +298,93 @@ class Advertisement(models.Model):
 
     def __str__(self):
         return f"Advertisement - {self.infoname} ({self.user.username})"
+    
+    
+    # ---------------- Shop Model ----------------
+class Shop(models.Model):
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="shops"
+    )
+    infoname = models.CharField(max_length=255)
+    description = models.TextField()
+    location = models.CharField(max_length=255)
+    image = models.ImageField(
+        upload_to="shop/images/",
+        blank=True,
+        null=True,
+        validators=[validate_image_file]
+    )
+    video = models.FileField(
+        upload_to="shop/videos/",
+        blank=True,
+        null=True,
+        validators=[validate_video_file]
+    )
+    date_created = models.DateTimeField(default=timezone.now)
+    date_modified = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"Shop - {self.infoname} ({self.user.username})"
+    
+    
+# ---------------- Meeting Model ----------------
+class Meeting(models.Model):
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="meetings"
+    )
+    infoname = models.CharField(max_length=255)
+    description = models.TextField()
+    location = models.CharField(max_length=255)
+    image = models.ImageField(
+        upload_to="meeting/images/",
+        blank=True,
+        null=True,
+        validators=[validate_image_file]
+    )
+    video = models.FileField(
+        upload_to="meeting/videos/",
+        blank=True,
+        null=True,
+        validators=[validate_video_file]
+    )
+    date_created = models.DateTimeField(default=timezone.now)
+    date_modified = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"Meeting - {self.infoname} ({self.user.username})"
+    
+    
+# ---------------- Branch Model ----------------
+class Branch(models.Model):
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="branchs"
+    )
+    infoname = models.CharField(max_length=255)
+    description = models.TextField()
+    location = models.CharField(max_length=255)
+    image = models.ImageField(
+        upload_to="branch/images/",
+        blank=True,
+        null=True,
+        validators=[validate_image_file]
+    )
+    video = models.FileField(
+        upload_to="branch/videos/",
+        blank=True,
+        null=True,
+        validators=[validate_video_file]
+    )
+    date_created = models.DateTimeField(default=timezone.now)
+    date_modified = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"Branch - {self.infoname} ({self.user.username})" 
 
 
 # ---------------- CheckUp Sales Model ----------------
@@ -306,3 +431,113 @@ class Medicine_SalesForm(models.Model):
 
     def __str__(self):
         return f"Medicine Sale: {self.medicine_name} - {self.medicine_cost}"
+
+class Log(models.Model):
+    user_id = models.IntegerField(null=True, blank=True)
+    home_page_count = models.PositiveIntegerField(default=0)
+    time = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f"Home: {self.home_page_count} - {self.user.username if self.user else 'Anonymous'}"
+
+
+# Custom validators for image files
+class About(models.Model):
+    COMPANY_RANK_CHOICES = [
+        ('director', 'Director'),
+        ('vice_director', 'Vice Director'),
+        ('business_teacher', 'Business Teacher'),
+        ('manager', 'Manager'),
+        ('doctor', 'Doctor'),
+        ('it_officer', 'IT Officer'),
+        ('supervisor', 'Supervisor'),
+        ('reception', 'Reception'),
+        ('accountant', 'Accountant'),
+    ]
+    
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='about')  
+    firstname = models.CharField(max_length=255)
+    lastname = models.CharField(max_length=255)
+    image = models.ImageField(upload_to='about/images/', blank=True, null=False, validators=[validate_image_file])
+    description = models.TextField(blank=True, null=True)
+    mobileno = models.CharField(max_length=15, blank=True, null=True)
+    company_rank = models.CharField(max_length=50, choices=COMPANY_RANK_CHOICES, blank=True, null=True)
+
+
+    def __str__(self):
+        return f'{self.firstname} {self.lastname} - {self.company_rank}'
+    
+    
+#for leave comments
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='comments')
+    comment = models.TextField()
+    confirmed = models.BooleanField(default=False, null=True, blank=True)
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_modified = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.comment[:20]
+    
+    
+#tables for storing comments
+# Disease comment model
+class DiseaseComment(models.Model):
+    disease = models.ForeignKey(Disease, on_delete=models.CASCADE, related_name='comments')
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='disease_comments')
+    comment = models.TextField()
+    confirmed = models.BooleanField(default=False, null=True, blank=True)
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_modified = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.comment[:20]
+    
+
+# Medicine comment model
+class MedicineComment(models.Model):
+    medicine = models.ForeignKey(Medicine, on_delete=models.CASCADE, related_name='comments')
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='medicine_comments')
+    comment = models.TextField()
+    confirmed = models.BooleanField(default=False, null=True, blank=True)
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_modified = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.comment[:20]
+
+# Checkup comment model
+class CheckupComment(models.Model):
+    checkup = models.ForeignKey(CheckUp, on_delete=models.CASCADE, related_name='comments')
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='checkup_comments')
+    comment = models.TextField()
+    confirmed = models.BooleanField(default=False, null=True, blank=True)
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_modified = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.comment[:20]
+
+# Businessplan comment model
+class BusinessplanComment(models.Model):
+    businessplan = models.ForeignKey(BusinessPlan, on_delete=models.CASCADE, related_name='comments')
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='businessplan_comments')
+    comment = models.TextField()
+    confirmed = models.BooleanField(default=False, null=True, blank=True)
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_modified = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.comment[:20]
+
+# Businesslevel comment model
+class BusinesslevelComment(models.Model):
+    businesslevel = models.ForeignKey(BusinessLevel, on_delete=models.CASCADE, related_name='comments')
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='businesslevel_comments')
+    comment = models.TextField()
+    confirmed = models.BooleanField(default=False, null=True, blank=True)
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_modified = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.comment[:20]

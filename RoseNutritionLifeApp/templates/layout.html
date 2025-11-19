@@ -52,6 +52,8 @@
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
 
 
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -322,7 +324,57 @@
 
     #category_title{
       border-left:3px solid rgb(4, 70, 65);
+      background-color:rgb(226, 240, 233);
+      transition: all 0.5s ease;
     }
+
+    #category_title:hover{
+      background-color:rgba(196, 221, 207, 1);
+      border-left:3px solid rgba(131, 172, 168, 1);
+      font-style:bold;
+      cursor:pointer;
+      transition: all 0.5s ease;
+    }
+
+     #category_container{
+      background-color:rgb(226, 240, 233);
+      transition: all 0.5s ease;
+    }
+
+    #category_container:hover{
+      background-color:rgb(226, 240, 233);
+      box-shadow: 0px 2px 3px 2px rgba(200, 204, 203, 1);
+      font-style:bold;
+      cursor:pointer;
+      transition: all 0.5s ease;
+    }
+
+    #business_plan{
+      background-color:rgb(226, 240, 233);
+      transition: all 0.5s ease;
+    }
+
+    #business_plan:hover{
+      background-color:rgb(226, 240, 233);
+      box-shadow: 0px 2px 3px 2px rgba(200, 204, 203, 1);
+      font-style:bold;
+      cursor:pointer;
+      transition: all 0.5s ease;
+    }
+
+    #business_levels{
+      background-color:rgb(226, 240, 233);
+      transition: all 0.5s ease;
+    }
+
+    #business_levels:hover{
+      background-color:rgb(226, 240, 233);
+      box-shadow: 0px 2px 3px 2px rgba(200, 204, 203, 1);
+      font-style:bold;
+      cursor:pointer;
+      transition: all 0.5s ease;
+    }
+
 
     #getservice{
       background-color:rgb(4, 70, 39);
@@ -332,7 +384,7 @@
     }
 
     #getservice:hover{
-      background-color:rgb(7, 92, 52);
+      background-color:rgba(22, 138, 84, 1);
       //font-size:1.1rem;
       font-style:bold;
       cursor:pointer;
@@ -346,7 +398,7 @@
     }
 
     #advertisment:hover{
-      background-color:rgb(6, 104, 58);
+      background-color:rgba(22, 138, 84, 1);
       font-style:bold;
       cursor:pointer;
       transition: all 0.5s ease;
@@ -364,8 +416,125 @@
        cursor:pointer;
     }
 
+      .image-box {
+      width: 250px;
+      height: 150px;
+      overflow: hidden;
+      border-radius:10px;
+  }
 
+  .image-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+  }
     
+  .advertisementimg-box {
+      width: 220px;
+      height: 200px;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius:10px;
+  }
+
+  .advertisementimg-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+  }
+
+  .profileimage-box {
+      width: 90px;
+      height: 90px;
+      overflow: hidden;
+      border-radius:10px;
+  }
+
+  .profileimage-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+  }
+
+    .listimage-box {
+      width: 40px;
+      height: 40px;
+      overflow: hidden;
+      border-radius:10px;
+  }
+
+  .listimage-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+  }
+
+  .adsimg-box {
+      width: 150px;
+      height: 100px;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius:10px;
+  }
+
+  .adsimg-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+  }
+
+
+    .adsvideo-box {
+      width: 150px;
+      height: 100px;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius:10px;
+  }
+
+  .adsvideo-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+  }
+
+      /* animation division div styling */
+    .animation_division{
+    }
+
+    /* Class to trigger fade-in animation */
+    .fade-in {
+        animation: fadeIn 1s ease-in-out forwards;
+    } 
+
+    /* 
+    animation: fadeIn 1.5s ease-in-out forwards;
+    animation: fadeOut 1.5s ease-in-out forwards;
+    */
+
+   /*start animation for description  @keyframes slideFromBottom{
+      from { transform: translateY(100px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+     .fade-in {
+      animation: slideFromBottom 0.3s ease-out;
+    }  
+*/
+
+
+
      /*start animation for offcanvas */
     @keyframes slideDown {
       from {
@@ -507,19 +676,19 @@
     <span class="p-1" style="background-color:rgb(6, 104, 58); border-radius:25px;">
       <span class="navbartabs text-decoration-none" id="navbartabs">
         {% if user.is_authenticated %}
-          <a class="bi bi-basket-fill text-decoration-none ml-1 navbarbutton" data-label="Services" href="{% url 'services' %}"></a>
-          <a class="bi bi-badge-ad-fill text-decoration-none ml-2 navbarbutton" data-label="Advertisment" href="{% url 'advertisment' %}"></a>
-          <a class="bi bi-graph-up-arrow text-decoration-none ml-2 navbarbutton" data-label="Analysis" href="{% url 'analysis' %}"></a>
+          {% comment %} <a class="bi bi-basket-fill text-decoration-none ml-1 navbarbutton" data-label="Services" href="{% url 'services' %}"></a>
+          <a class="bi bi-badge-ad-fill text-decoration-none ml-2 navbarbutton" data-label="Advertisment" href="{% url 'advertisement' %}"></a> {% endcomment %}
+          <a class="bi bi-graph-up-arrow text-decoration-none ml-2 navbarbutton" data-label="Uchambuzi" href="{% url 'analysis' %}"></a>
           {% comment %} <a class="bi bi-currency-exchange text-decoration-none ml-2 navbarbutton" data-label="PV-Exchange"  ></a> {% endcomment %}
-          <a class="bi bi-person-fill text-decoration-none ml-2 navbarbutton" data-label="Account" href="{% url 'account' %}"  ></a>
-          <a class="bi bi-arrow-left-circle text-decoration-none ml-2 navbarbutton" data-label="Logout" href="{% url 'logout' %}"></a>
+          <a class="bi bi-person-fill text-decoration-none ml-2 navbarbutton" data-label="Akaunti" href="{% url 'account' %}"  ></a>
+          <a class="bi bi-arrow-left-circle text-decoration-none ml-2 navbarbutton" data-label="Toka" href="{% url 'logout' %}"></a>
         {% else %}
-          <a class="bi bi-basket-fill text-decoration-none ml-1 navbarbutton" data-label="Services" href="{% url 'services' %}"></a>
-          <a class="bi bi-badge-ad-fill text-decoration-none ml-2 navbarbutton" data-label="Advertisment" href="{% url 'advertisment' %}"></a>
-          <a class="bi bi-graph-up-arrow text-decoration-none ml-2 navbarbutton" data-label="Analysis" href="{% url 'analysis' %}"></a>
+          {% comment %} <a class="bi bi-basket-fill text-decoration-none ml-1 navbarbutton" data-label="Services" href="{% url 'services' %}"></a>
+          <a class="bi bi-badge-ad-fill text-decoration-none ml-2 navbarbutton" data-label="Advertisment" href="{% url 'advertisment' %}"></a> {% endcomment %}
+          <a class="bi bi-graph-up-arrow text-decoration-none ml-2 navbarbutton" data-label="Uchambuzi" href="{% url 'analysis' %}"></a>
           {% comment %} <a class="bi bi-info-circle-fill text-decoration-none ml-2 navbarbutton" data-label="About"></a> {% endcomment %}
           {% comment %} <a class="bi bi-person-fill text-decoration-none ml-2 navbarbutton" data-label="Account" href="{% url 'admin_manage' %}" ></a> {% endcomment %}
-          <a class="bi bi-arrow-right-circle text-decoration-none ml-2 navbarbutton" data-label="Login" href="{% url 'login' %}"></a>
+          <a class="bi bi-arrow-right-circle text-decoration-none ml-2 navbarbutton" data-label="Ingia" href="{% url 'login' %}"></a>
           {% endif %}
       </span>
     </span>
@@ -534,43 +703,44 @@
   <!-- Footer Info Section -->
   <section class="row p-4 m-0 w-100" id="footer" style="background-color:rgb(4, 70, 39);">
     <div class="col-sm">
-      <h5 class="text-light text-center mb-3">ABOUT US</h5>
+      <h5 class="text-light text-center mb-3"><!-- ABOUT US --> KUTUHUSU</h5>
       <p class="text-light">
-        Rose Nutrition provides health education on proper nutrition, prevention and control of chronic
-        non-communicable diseases such as diabetes, hypertension, and heart problems.
-        We provide alternative and scientific guidance through supplements and lifestyle counseling.
-        Our mission is to improve community health, increase awareness, and empower members
-        to earn income through services and the sale of health products.
+        Rose Nutrition Life hutoa elimu ya afya kuhusu lishe bora, kinga na udhibiti wa magonjwa sugu
+         yasiyo ya kuambukiza kama vile kisukari, shinikizo la damu, na matatizo ya moyo. 
+         Tunatoa mbinu mbadala na mwongozo wa kisayansi kupitia virutubisho na ushauri wa 
+         mabadiliko ya maisha. Dhamira yetu ni kuboresha afya ya jamii, kuongeza uelewa, 
+         na kuwawezesha wanachama kupata kipato kupitia huduma na uuzaji wa bidhaa za afya.
       </p>
-      <h5 class="text-light mt-3">CONTACT US</h5>
+      <h5 class="text-light mt-3"><!-- CONTACT US --> MAWASILIANO </h5>
       <p class="text-light">
-        <i class="bi bi-phone"></i> +225 676896769<br>
-        <i class="bi bi-envelope"></i> P.O.BOX 1002<br>
+        <i class="bi bi-phone"></i> +225 765375657 | +225 767377559<br>
+        <i class="bi bi-envelope"></i><!-- P.O.BOX 1002 --> S.L.P 1002 <br>
         <i class="bi bi-geo-alt"></i> Dar-es-Salaam<br>
-        <i class="bi bi-envelope"></i> localservicepro@gmail.com
+        <i class="bi bi-envelope"></i> rosenutritionlife@gmail.com
       </p>
     </div>
 
     <div class="col-sm">
-      <h5 class="text-light text-center mb-3">OUR SERVICES</h5>
+      <h5 class="text-light text-center mb-3"><!-- OUR SERVICES --> HUDUMA </h5>
       <p class="text-light">
-        We offer affordable diagnostic tests (30,000 TZS) to help detect chronic diseases such as
-        heart disease, diabetes, and kidney problems early.
-        All treatments are available, aiming to address the root cause until full recovery.
-        By joining Rose Nutrition as a member, you benefit from bonus points known as PV (Profit Value),
-        which accumulate into profit points, earning you additional income along with quality health services.
+        Tunatoa vipimo vya uchunguzi kwa gharama nafuu (30,000 TZS)
+         vinavyosaidia kubaini mapema magonjwa sugu kama vile maradhi ya moyo,
+          kisukari, na matatizo ya figo. Tiba zote zinapatikana, 
+          zikiwa na lengo la kutatua chanzo cha tatizo hadi kupona kabisa.
+           Kwa kujiunga na Rose Nutrition kama mwanachama, unafaidika na
+            alama za bonasi zinazojulikana kama PV (Profit Value), 
+            ambazo hukusanyika na kuwa alama za faida zinazokupatia kipato cha ziada
+             sambamba na huduma bora za afya.
       </p>
     </div>
 
     <div class="col-sm">
-      <h5 class="text-light text-center mb-3">OUR SOCIAL MEDIA</h5>
+      <h5 class="text-light text-center mb-3"><!--  OUR SOCIAL MEDIA--> MITANDAO YA KIJAMII </h5>
       <div class="d-flex justify-content-center align-items-center gap-3">
-        <a href="{{admin.instagram}}" class="text-decoration-none"><i class="bi bi-instagram text-light"></i></a>
-        <a href="{{admin.facebook}}" class="text-decoration-none"><i class="bi bi-facebook text-light"></i></a>
-        <a href="{{admin.twitter}}" class="text-decoration-none"><i class="bi bi-twitter text-light"></i></a>
-        <a href="{{admin.youtube}}" class="text-decoration-none"><i class="bi bi-linkedin text-light"></i></a>
-        <a href="{{admin.tiktok}}" class="text-decoration-none"><i class="bi bi-tiktok text-light"></i></a>
-      </div>
+       <a data-bs-toggle="tooltip" title="rosenutritionlife"  class="text-decoration-none" style="cursor:pointer;"><i class="bi bi-instagram text-light" style="font-size:1.8rem"></i></a>
+        <a data-bs-toggle="tooltip" title="rosenutritionlife"  class="text-decoration-none" style="cursor:pointer;"><i class="bi bi-facebook text-light" style="font-size:1.8rem"></i></a>
+        <a data-bs-toggle="tooltip" title="rosenutritionlife" class="text-decoration-none" style="cursor:pointer;"><i class="bi bi-tiktok text-light" style="font-size:1.8rem"></i></a>
+        <a data-bs-toggle="tooltip" title="rosenutrtionlife" href="https://www.youtube.com/rosenutritionlife" class="text-decoration-none" style="cursor:pointer;"><i class="bi bi-youtube text-light" style="font-size:2.5rem"></i></a>
     </div>
   </section>
   <!-- End Footer Info -->
@@ -578,16 +748,20 @@
   <!-- Footer Section -->
   <footer class="footer_section w-100" style="background-color:rgb(4, 70, 39);">
     <hr class="mt-0 border border-light">
-    <div class="container text-center">
-      <p class="text-light mb-0">
-        &copy; <span id="displayYear"></span> All Rights Reserved
-      </p>
+    <div class="container text-center text-light">
+        <b class="text-lowercase">rosenutritionlife</b><br>
+        &copy; <span id="displayYear"></span> All Rights Reserved<br>
+        <span class="text-light">Developed By peterprogrammer (+255 617999099)</span>
     </div>
   </footer>
 
    
 </section>
 
+
+{% comment %} <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> {% endcomment %}
 
   <!-- Bootstrap JS and Dependencies -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -624,92 +798,172 @@
     });
   </script>
 
-  
 
-<!-- start graphs of analysis -->
-  <!-- for line graph -->
-  <!-- minimal Chart.js setup (include Chart.js CDN before this script) -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-  const ctx = document.getElementById('lineChartResponsive').getContext('2d');
-  new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: ['Mon','Tue','Wed','Thu','Fri'],
-      datasets: [{
-        label: 'Visitors',
-        data: [120, 150, 90, 200, 170],
-        fill: false,
-        tension: 0.3
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false // allow canvas to match container height
-    }
-  });
+$(document).ready(function() {
+  let charts = {};
+
+  function loadChart(type, canvasId) {
+    $.ajax({
+      url: `/ajax/show_chart/${type}/`,
+      type: 'GET',
+      success: function(response) {
+        const ctx = document.getElementById(canvasId).getContext('2d');
+
+        if (charts[canvasId]) charts[canvasId].destroy(); // destroy old chart
+
+        if (type === 'linechart') {
+          charts[canvasId] = new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: response.models,
+              datasets: [{
+                label: 'Total Records',
+                data: response.ids,
+                borderColor: '#2e7d32',
+                backgroundColor: 'rgba(46,139,87,0.2)',
+                fill: true,
+                tension: 0.4
+              }]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+          });
+        }
+
+        else if (type === 'bargraph') {
+          charts[canvasId] = new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: response.models,
+              datasets: [{
+                label: 'Total Records',
+                data: response.ids,
+                backgroundColor: '#2e7d32'
+              }]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+          });
+        }
+
+        else if (type === 'stackgraph') {
+          charts[canvasId] = new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: response.models,
+              datasets: [
+                { label: 'Male', data: response.stack_data.male, backgroundColor: '#2e7d32' },
+                { label: 'Female', data: response.stack_data.female, backgroundColor: '#864058ff' }
+              ]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              scales: { x: { stacked: true }, y: { stacked: true } }
+            }
+          });
+        }
+
+         // Population chart
+        else if (type === 'populationchart') {
+          const labels = response.population.labels;
+          const data = response.population.ages;
+          const bgColors = response.population.genders.map(g => g === 'M' ? '#2e7d32' : '#f06292');
+
+          charts[canvasId] = new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: labels,
+              datasets: [{
+                label: 'Age Distribution',
+                data: data,
+                backgroundColor: bgColors
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              scales: {
+                x: { title: { display: true, text: 'Patient ID' } },
+                y: { title: { display: true, text: 'Age' } }
+              }
+            }
+          });
+        }
+
+
+        else if (type === 'piechart') {
+          charts[canvasId] = new Chart(ctx, {
+            type: 'pie',
+            data: {
+              labels: response.models,
+              datasets: [{
+                data: response.pie_data,
+                backgroundColor: ['#2e7d32', '#253826ff', '#3f7c7eff', '#50631cff']
+              }]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+          });
+        }
+      },
+      error: function(xhr) {
+        console.error('Error loading chart data:', xhr.statusText);
+      }
+    });
+  }
+
+  // Load all charts when page is ready
+  loadChart('linechart', 'lineChartResponsive');
+  loadChart('bargraph', 'barChartResponsive');
+  loadChart('stackgraph', 'stackedChartResponsive');
+  loadChart('piechart', 'pieChartResponsive');
+  loadChart('populationchart', 'populationChartResponsive');
+});
 </script>
 
 
-<!-- for bar graph -->
-<script>
-  const ctxBarR = document.getElementById('barChartResponsive').getContext('2d');
-  new Chart(ctxBarR, {
-    type: 'bar',
-    data: {
-      labels: ['Red', 'Blue', 'Green', 'Yellow', 'Purple'],
-      datasets: [{
-        label: 'Votes',
-        data: [12, 19, 3, 5, 2],
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false
-    }
-  });
-  </script>
 
-<!-- stack graph -->
-<script>
-  const ctxStackR = document.getElementById('stackedChartResponsive').getContext('2d');
-  new Chart(ctxStackR, {
-    type: 'bar',
-    data: {
-      labels: ['Q1', 'Q2', 'Q3', 'Q4'],
-      datasets: [
-        { label: 'Sales A', data: [50, 60, 70, 80] },
-        { label: 'Sales B', data: [30, 40, 20, 50] }
-      ]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      scales: {
-        x: { stacked: true },
-        y: { stacked: true }
-      }
-    }
-  });
-  </script>
+    <script>
+    const smallDiv = document.getElementById('scrollDiv');
+    let hasFadedIn = false; // To ensure it fades only once
 
-  <!-- pie chart grpah -->
-  <script>
-    const ctxPieR = document.getElementById('pieChartResponsive').getContext('2d');
-    new Chart(ctxPieR, {
-      type: 'pie',
-      data: {
-        labels: ['Apple', 'Banana', 'Cherry'],
-        datasets: [{
-          data: [10, 20, 30]
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false
-      }
+    const smallDiv2 = document.getElementById('scrollDiv2');
+    let hasFadedIn2 = false; // To ensure it fades only once
+
+    const smallDiv3 = document.getElementById('scrollDiv3');
+    let hasFadedIn3 = false; // To ensure it fades only once
+
+    const smallDiv4 = document.getElementById('scrollDiv4');
+    let hasFadedIn4 = false; // To ensure it fades only once
+
+    const smallDiv5 = document.getElementById('scrollDiv5');
+    let hasFadedIn5 = false; // To ensure it fades only once
+
+
+    window.addEventListener('scroll', () => {
+        if (!hasFadedIn && window.scrollY > 200) { // Trigger after 100px scroll
+            smallDiv.classList.add('fade-in');
+            hasFadedIn = true; // Prevent further fade-ins
+        }
+        if (!hasFadedIn2 && window.scrollY > 1300) { // Trigger after 100px scroll
+            smallDiv2.classList.add('fade-in');
+            hasFadedIn2 = true; // Prevent further fade-ins
+        }
+        if (!hasFadedIn3 && window.scrollY > 1700) { // Trigger after 100px scroll
+            smallDiv3.classList.add('fade-in');
+            hasFadedIn3 = true; // Prevent further fade-ins
+        }
+        if (!hasFadedIn4 && window.scrollY > 2100) { // Trigger after 100px scroll
+            smallDiv4.classList.add('fade-in');
+            hasFadedIn4 = true; // Prevent further fade-ins
+        }
+        if (!hasFadedIn5 && window.scrollY > 2500) { // Trigger after 100px scroll
+            smallDiv5.classList.add('fade-in');
+            hasFadedIn5 = true; // Prevent further fade-ins
+        }
     });
-    </script>
+</script>
 
 
 
@@ -790,121 +1044,8 @@ $(document).ready(function() {
 
 
 
-
-<!-- START POSTING GENERAL FORMS POST  -->
-<script>
-$(document).ready(function () {
-
-    // ---------------- CSRF Helper ----------------
-    function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let cookie of cookies) {
-                cookie = cookie.trim();
-                if (cookie.startsWith(name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
-
-    const csrftoken = getCookie('csrftoken');
-
-    // ---------------- Generic function to show modal ----------------
-    function showModal(buttonClass, url, modalId) {
-        $(document).on('click', buttonClass, function () {
-            $.ajax({
-                url: url,
-                method: 'GET',
-                success: function (response) {
-                    // Remove any existing modal first
-                    if ($(modalId).length) $(modalId).remove();
-
-                    $('body').append(response);
-                    $(modalId).modal('show');
-
-                    // Remove modal after closing
-                    $(modalId).on('hidden.bs.modal', function () {
-                        $(this).remove();
-                    });
-                },
-                error: function () {
-                    alert('An error occurred while loading the form.');
-                }
-            });
-        });
-    }
-
-    // ---------------- Generic function to post form ----------------
-    function postForm(buttonId, formId, modalId) {
-        $(document).on('click', buttonId, function (e) {
-            e.preventDefault();
-            const button = $(this);
-            const form = $(formId)[0];
-            if (!form) {
-                alert('Form not found!');
-                return;
-            }
-            const formData = new FormData(form);
-            button.prop('disabled', true);
-
-            $.ajax({
-                url: $(form).attr('action'),
-                method: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                headers: { 'X-CSRFToken': csrftoken },
-                success: function () {
-                    $(modalId).modal('hide');
-                    button.prop('disabled', false);
-                    location.reload(); // Refresh page to show new entry
-                },
-                error: function (xhr) {
-                    button.prop('disabled', false);
-                    if (xhr.status === 400) {
-                        alert('You have already posted this entry.');
-                    } else {
-                        alert('An error occurred while posting the form.');
-                    }
-                }
-            });
-        });
-    }
-
-    // ---------------- Initialize Modals and Form Posts ----------------
-    const modalConfigs = [
-        // Medicine
-        { btn: '.medicine-post-btn', url: '/post_medicine/', modal: '#medicineModal', submitBtn: '#postmedicine_button', form: '#postMedicineForm' },
-        // CheckUp
-        { btn: '.checkup-post-btn', url: '/post_checkup/', modal: '#checkupModal', submitBtn: '#postcheckup_button', form: '#postCheckUpForm' },
-        // Business Plan
-        { btn: '.businessplan-post-btn', url: '/post_businessplan/', modal: '#businessPlanModal', submitBtn: '#postbusinessplan_button', form: '#postBusinessPlanForm' },
-        // Business Level
-        { btn: '.businesslevel-post-btn', url: '/post_businesslevel/', modal: '#businessLevelModal', submitBtn: '#postbusinesslevel_button', form: '#postBusinessLevelForm' },
-         // Advertisement
-        { btn: '.advertisement-post-btn', url: '/post_advertisement/', modal: '#advertisementPostModal', submitBtn: '#postadvertisement_button', form: '#postAdvertisementForm' },
-        // Patient
-        { btn: '.patient-post-btn', url: '/post_patient/', modal: '#patientModal', submitBtn: '#postpatient_button', form: '#postPatientForm' },
-        // CheckUp Sales
-        { btn: '.checkup-sales-post-btn', url: '/post_checkup_sales/', modal: '#checkupSalesModal', submitBtn: '#postcheckupsales_button', form: '#postCheckUpSalesForm' },
-        // Medicine Sales
-        { btn: '.medicine-sales-post-btn', url: '/post_medicine_sales/', modal: '#medicineSalesModal', submitBtn: '#postmedicinesales_button', form: '#postMedicineSalesForm' },
-    ];
-
-    modalConfigs.forEach(cfg => {
-        showModal(cfg.btn, cfg.url, cfg.modal);
-        postForm(cfg.submitBtn, cfg.form, cfg.modal);
-    });
-
-});
-</script>
-
 <!-- start general post -->
-{% comment %} <script>
+ <script>
 $(document).ready(function() {
     // CSRF helper
     function getCookie(name) {
@@ -976,31 +1117,1217 @@ $(document).ready(function() {
     }
 
     // ---------------- Initialize Modals and Form Posts ----------------
-    showModal('.medicine-post-btn', '/post_medicine/', '#medicinePostModal');
-    postForm('#postmedicine_button', '#medicineForm', '#medicinePostModal');
+    showModal('.disease-post-btn', '/post_disease/', '#diseaseModal');
+    postForm('#postdisease_button', '#diseaseForm', '#diseaseModal');
 
-    showModal('.checkup-post-btn', '/post_checkup/', '#checkupPostModal');
-    postForm('#postcheckup_button', '#checkupForm', '#checkupPostModal');
+    showModal('.medicine-post-btn', '/post_medicine/', '#medicineModal');
+    postForm('#postmedicine_button', '#medicineForm', '#medicineModal');
 
-    showModal('.businessplan-post-btn', '/post_businessplan/', '#businessplanPostModal');
-    postForm('#postbusinessplan_button', '#businessplanForm', '#businessplanPostModal');
+    showModal('.checkup-post-btn', '/post_checkup/', '#checkupModal');
+    postForm('#postcheckup_button', '#checkupForm', '#checkupModal');
 
-    showModal('.businesslevel-post-btn', '/post_businesslevel/', '#businesslevelPostModal');
-    postForm('#postbusinesslevel_button', '#businesslevelForm', '#businesslevelPostModal');
+    showModal('.businessplan-post-btn', '/post_businessplan/', '#businessplanModal');
+    postForm('#postbusinessplan_button', '#businessplanForm', '#businessplanModal');
 
-    showModal('.patient-post-btn', '/post_patient/', '#patientPostModal');
-    postForm('#postpatient_button', '#patientForm', '#patientPostModal');
+    showModal('.businessplevel-post-btn', '/post_businesslevel/', '#businesslevelModal');
+    postForm('#postbusinesslevel_button', '#businesslevelForm', '#businesslevelModal');
 
-    showModal('.checkup-sales-post-btn', '/post_checkup_sales/', '#checkupSalesPostModal');
-    postForm('#postcheckupsales_button', '#checkupSalesForm', '#checkupSalesPostModal');
+    showModal('.advertisement-post-btn', '/post_advertisement/', '#advertisementModal');
+    postForm('#postadvertisement_button', '#advertisementForm', '#advertisementModal');
 
-    showModal('.medicine-sales-post-btn', '/post_medicine_sales/', '#medicineSalesPostModal');
-    postForm('#postmedicinesales_button', '#medicineSalesForm', '#medicineSalesPostModal');
+    showModal('.shop-post-btn', '/post_shop/', '#shopModal');
+    postForm('#postshop_button', '#shopForm', '#shopModal');
+
+    showModal('.meeting-post-btn', '/post_meeting/', '#meetingModal');
+    postForm('#postmeeting_button', '#meetingForm', '#meetingModal');
+
+    showModal('.branch-post-btn', '/post_branch/', '#branchModal');
+    postForm('#postbranch_button', '#branchForm', '#branchModal');
+
+    showModal('.patient-post-btn', '/post_patient/', '#patientModal');
+    postForm('#postpatient_button', '#patientForm', '#patientModal');
+
+    showModal('.checkup-sales-post-btn', '/post_checkup_sales/', '#checkupsalesModal');
+    postForm('#postcheckupsales_button', '#checkupsalesForm', '#checkupsalesModal');
+
+    showModal('.medicine-sales-post-btn', '/post_medicine_sales/', '#medicinesalesModal');
+    postForm('#postmedicinesales_button', '#medicinesalesForm', '#medicinesalesModal');
+
+    showModal('.about-post-btn', '/post_about/', '#aboutModal');
+    postForm('#postabout_button', '#aboutForm', '#aboutModal');
+
 });
-</script> {% endcomment %}
+
+
+
+//for postures Modals
+$(document).ready(function() {
+  // ---------- CSRF Helper ----------
+  function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+          const cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+              const cookie = cookies[i].trim();
+              if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+              }
+          }
+      }
+      return cookieValue;
+  }
+  const csrftoken = getCookie('csrftoken');
+
+  // ---------- Click Event ----------
+  $(document).on('click', '.btn-posture', function() {
+      const id = $(this).data('id');
+      const type = $(this).data('type');
+      const url = `/ajax/posture-details/${type}/${id}/`;
+
+      $.ajax({
+          url: url,
+          type: 'GET',
+          success: function(response) {
+              $('body').append(response);  // append the modal HTML
+              $('#postureModal').modal('show');
+              $('#postureModal').on('hidden.bs.modal', function() {
+                  $(this).remove(); // remove modal from DOM when closed
+              });
+          },
+          error: function(xhr) {
+              alert('An error occurred: ' + xhr.statusText);
+          }
+      });
+  });
+
+});
+
+
+
+//for videos Modals
+$(document).ready(function() {
+  // ---------- CSRF Helper ----------
+  function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+          const cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+              const cookie = cookies[i].trim();
+              if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+              }
+          }
+      }
+      return cookieValue;
+  }
+  const csrftoken = getCookie('csrftoken');
+
+  // ---------- Click Event ----------
+  $(document).on('click', '.btn-video', function() {
+      const id = $(this).data('id');
+      const type = $(this).data('type');
+      const url = `/ajax/video-details/${type}/${id}/`;
+
+      $.ajax({
+          url: url,
+          type: 'GET',
+          success: function(response) {
+              $('body').append(response);  // append the modal HTML
+              $('#videoModal').modal('show');
+              $('#videoModal').on('hidden.bs.modal', function() {
+                  $(this).remove(); // remove modal from DOM when closed
+              });
+          },
+          error: function(xhr) {
+              alert('An error occurred: ' + xhr.statusText);
+          }
+      });
+  });
+});
+
+
+//for lists Modals
+$(document).ready(function() {
+  // ---------- CSRF Helper ----------
+  function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+          const cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+              const cookie = cookies[i].trim();
+              if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+              }
+          }
+      }
+      return cookieValue;
+  }
+  const csrftoken = getCookie('csrftoken');
+
+  // ---------- Click Event ----------
+  $(document).on('click', '.btn-lists', function() {
+      const type = $(this).data('type');
+      const url = `/ajax/lists-details/${type}/`;
+
+      $.ajax({
+          url: url,
+          type: 'GET',
+          success: function(response) {
+              $('body').append(response);  // append the modal HTML
+              $('#listModal').modal('hide');
+              $('#listsModal').modal('show');
+              $('#listsModal').on('hidden.bs.modal', function() {
+                  $(this).remove(); // remove modal from DOM when closed
+              });
+          },
+          error: function(xhr) {
+              alert('An error occurred: ' + xhr.statusText);
+          }
+      });
+  });
+});
+
+
+
+
+//for list Modals
+$(document).ready(function() {
+  // ---------- CSRF Helper ----------
+  function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+          const cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+              const cookie = cookies[i].trim();
+              if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+              }
+          }
+      }
+      return cookieValue;
+  }
+  const csrftoken = getCookie('csrftoken');
+
+  // ---------- Click Event ----------
+  $(document).on('click', '.btn-list', function() {
+      const id = $(this).data('id');
+      const type = $(this).data('type');
+      const url = `/ajax/list-details/${type}/${id}/`;
+
+      $.ajax({
+          url: url,
+          type: 'GET',
+          success: function(response) {
+              $('body').append(response);  // append the modal HTML
+              $('#listsModal').modal('hide');
+              $('#listModal').modal('show');
+              $('#listModal').on('hidden.bs.modal', function() {
+                  $(this).remove(); // remove modal from DOM when closed
+              });
+          },
+          error: function(xhr) {
+              alert('An error occurred: ' + xhr.statusText);
+          }
+      });
+  });
+});
+
+
+
+//for business Modals
+$(document).ready(function() {
+  // ---------- CSRF Helper ----------
+  function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+          const cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+              const cookie = cookies[i].trim();
+              if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+              }
+          }
+      }
+      return cookieValue;
+  }
+  const csrftoken = getCookie('csrftoken');
+
+  // ---------- Click Event ----------
+  $(document).on('click', '.btn-business', function() {
+      const id = $(this).data('id');
+      const type = $(this).data('type');
+      const url = `/ajax/business-details/${type}/${id}/`;
+
+      $.ajax({
+          url: url,
+          type: 'GET',
+          success: function(response) {
+              $('body').append(response);  // append the modal HTML
+              $('#businessModal').modal('show');
+              $('#businessModal').on('hidden.bs.modal', function() {
+                  $(this).remove(); // remove modal from DOM when closed
+              });
+          },
+          error: function(xhr) {
+              alert('An error occurred: ' + xhr.statusText);
+          }
+      });
+  });
+});
+
+//for advertisement Modals
+$(document).ready(function() {
+  // ---------- CSRF Helper ----------
+  function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+          const cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+              const cookie = cookies[i].trim();
+              if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+              }
+          }
+      }
+      return cookieValue;
+  }
+  const csrftoken = getCookie('csrftoken');
+
+  // ---------- Click Event ----------
+  $(document).on('click', '.btn-advertisement', function() {
+      const type = $(this).data('type');
+      const url = `/ajax/advertisement-details/${type}/`;
+
+      $.ajax({
+          url: url,
+          type: 'GET',
+          success: function(response) {
+              $('body').append(response);  // append the modal HTML
+              $('#advertisementModal').modal('hide');
+              $('#advertisementModal').modal('show');
+              $('#advertisementModal').on('hidden.bs.modal', function() {
+                  $(this).remove(); // remove modal from DOM when closed
+              });
+          },
+          error: function(xhr) {
+              alert('An error occurred: ' + xhr.statusText);
+          }
+      });
+  });
+});
+
+
+//for adslist Modals
+$(document).ready(function() {
+  // ---------- CSRF Helper ----------
+  function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+          const cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+              const cookie = cookies[i].trim();
+              if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+              }
+          }
+      }
+      return cookieValue;
+  }
+  const csrftoken = getCookie('csrftoken');
+
+  // ---------- Click Event ----------
+  $(document).on('click', '.btn-adstable', function() {
+      const type = $(this).data('type');
+      const url = `/ajax/advertisement-tables/${type}/`;
+
+      $.ajax({
+          url: url,
+          type: 'GET',
+          success: function(response) {
+              $('body').append(response);  // append the modal HTML
+              $('#advertisementtablesModal').modal('show');
+              $('#advertisementtablesModal').on('hidden.bs.modal', function() {
+                  $(this).remove(); // remove modal from DOM when closed
+              });
+          },
+          error: function(xhr) {
+              alert('An error occurred: ' + xhr.statusText);
+          }
+      });
+  });
+});
+
+
+//start edit and delete Modals
+$(document).ready(function() {
+
+    // ---------------------- CSRF Helper ----------------------
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    const csrftoken = getCookie('csrftoken');
+
+    // ---------------------- Generic Modal Loader ----------------------
+    function showModal(buttonClass) {
+        $(document).on('click', buttonClass, function(e) {
+            e.preventDefault(); // Stop normal navigation
+            e.stopPropagation();
+
+            const button = $(this);
+            const url = button.data('url');
+            const modalId = button.data('target');
+
+            // Optional: remove any old modals to avoid duplicates
+            $(modalId).remove();
+
+            $.ajax({
+                url: url,
+                method: 'GET',
+                success: function(response) {
+                    // Append the returned modal HTML to the page body
+                    $('body').append(response);
+
+                    // Show modal
+                    $(modalId).modal('show');
+
+                    // Remove modal when hidden to prevent duplicates
+                    $(modalId).on('hidden.bs.modal', function() {
+                        $(this).remove();
+                    });
+                },
+                error: function(xhr) {
+                    console.error('Modal load failed:', xhr.statusText);
+                    alert('Failed to load form. Please try again.');
+                }
+            });
+        });
+    }
+
+    // ---------------------- Generic Form Submit ----------------------
+    function handleFormSubmit(buttonClass) {
+        $(document).on('click', buttonClass, function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const button = $(this);
+            const formSelector = button.data('form');
+            const modalSelector = button.data('modal');
+            const form = $(formSelector)[0];
+            const formData = new FormData(form);
+
+            button.prop('disabled', true);
+
+            $.ajax({
+                url: $(form).attr('action'),
+                method: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                headers: { 'X-CSRFToken': csrftoken },
+                success: function() {
+                    $(modalSelector).modal('hide');
+                    button.prop('disabled', false);
+                    location.reload(); // reload after success
+                },
+                error: function(xhr) {
+                    button.prop('disabled', false);
+                    if (xhr.status === 403) {
+                        alert('Permission denied.');
+                    } else {
+                        alert('Error submitting form. Try again.');
+                    }
+                }
+            });
+        });
+    }
+
+    // ---------------------- Initialize All ----------------------
+    showModal('.generic-edit-btn');
+    showModal('.generic-delete-btn');
+    handleFormSubmit('.submit-edit-btn');
+    handleFormSubmit('.submit-delete-btn');
+});
+
+
+
+
+//start edit and delete Modals
+$(document).ready(function() {
+
+    // ---------------------- CSRF Helper ----------------------
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    const csrftoken = getCookie('csrftoken');
+
+    // ---------------------- Generic Modal Loader ----------------------
+    function showModal(buttonClass) {
+        $(document).on('click', buttonClass, function(e) {
+            e.preventDefault(); // Stop normal navigation
+            e.stopPropagation();
+
+            const button = $(this);
+            const url = button.data('url');
+            const modalId = button.data('target');
+
+            // Optional: remove any old modals to avoid duplicates
+            $(modalId).remove();
+
+            $.ajax({
+                url: url,
+                method: 'GET',
+                success: function(response) {
+                    // Append the returned modal HTML to the page body
+                    $('body').append(response);
+
+                    // Show modal
+                    $(modalId).modal('show');
+
+                    // Remove modal when hidden to prevent duplicates
+                    $(modalId).on('hidden.bs.modal', function() {
+                        $(this).remove();
+                    });
+                },
+                error: function(xhr) {
+                    console.error('Modal load failed:', xhr.statusText);
+                    alert('Failed to load form. Please try again.');
+                }
+            });
+        });
+    }
+
+    // ---------------------- Generic Form Submit ----------------------
+    function handleFormSubmit(buttonClass) {
+        $(document).on('click', buttonClass, function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const button = $(this);
+            const formSelector = button.data('form');
+            const modalSelector = button.data('modal');
+            const form = $(formSelector)[0];
+            const formData = new FormData(form);
+
+            button.prop('disabled', true);
+
+            $.ajax({
+                url: $(form).attr('action'),
+                method: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                headers: { 'X-CSRFToken': csrftoken },
+                success: function() {
+                    $(modalSelector).modal('hide');
+                    button.prop('disabled', false);
+                    location.reload(); // reload after success
+                },
+                error: function(xhr) {
+                    button.prop('disabled', false);
+                    if (xhr.status === 403) {
+                        alert('Permission denied.');
+                    } else {
+                        alert('Error submitting form. Try again.');
+                    }
+                }
+            });
+        });
+    }
+
+    // ---------------------- Initialize All ----------------------
+    showModal('.user-edit-btn');
+    showModal('.user-delete-btn');
+    handleFormSubmit('.usersubmit-edit-btn');
+    handleFormSubmit('.usersubmit-delete-btn');
+});
+
+
+
+//starting prints for excel,csv and pdf
+$(document).on('click', '.export-btn', function(e) {
+    e.preventDefault();
+    const model = $(this).data('model');
+    const format = $(this).data('format');
+
+    $.ajax({
+        url: `/export/${model}/${format}/`,
+        method: 'GET',
+        xhrFields: { responseType: 'blob' }, // handle file
+        success: function(data, status, xhr) {
+            const blob = new Blob([data]);
+            const link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = xhr.getResponseHeader('Content-Disposition')
+                .split('filename=')[1].replace(/"/g, '');
+            link.click();
+        },
+        error: function(xhr) {
+            if (xhr.status === 403) {
+                alert("You don't have permission to export this data.");
+            } else {
+                alert('Error exporting data. Try again.');
+            }
+        }
+    });
+});
+
+
+
+// Javascripts Codes
+function shareContent(type,id) {
+    // 🔧 Create a clean, SEO-friendly slug
+    const cleanName = name.replace(/\s+/g, '').replace(/[^a-zA-Z0-9]/g, '');
+    const baseUrl = 'http://127.0.0.1:9000/sharedcontent';
+    const shareUrl = `${baseUrl}/${type}/${id}`;
+    //const shareUrl = `${baseUrl}/${type}/${id}${cleanName}`;
+
+    const title = `${type === 'song' ? 'Listen to this song' : 'Check out this album'}: ${name}`;
+
+    if (navigator.share) {
+        // ✅ Native share (mobile + some desktop)
+        navigator.share({
+            title: title,
+            url: shareUrl
+        }).then(() => {
+            console.log('Thanks for sharing!');
+        }).catch((error) => {
+            console.error('Error sharing:', error);
+        });
+    } else {
+        // ❌ Fallback popup for browsers without Web Share API
+        const encodedUrl = encodeURIComponent(shareUrl);
+        const encodedTitle = encodeURIComponent(title);
+
+        const existingPopup = document.getElementById('share-popup');
+        if (existingPopup) existingPopup.remove();
+
+        const popupHTML = `
+            <div id="share-popup" style="
+                position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+                background: rgba(0, 0, 0, 0.4);
+                display: flex; align-items: center; justify-content: center;
+                z-index: 9999;">
+                <div style="
+                    background: #fff;
+                    border-radius: 20px;
+                    padding: 25px 20px;
+                    text-align: center;
+                    width: 320px;
+                    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+                    animation: fadeIn 0.3s ease;">
+                   
+                    <h5 style="color: #333; font-weight: 600; margin-bottom: 15px;">
+                        Share <span style="color:#f17c90;">${name}</span>
+                    </h5>
+
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <a href="https://wa.me/?text=${encodedTitle}%20${encodedUrl}"
+                           target="_blank"
+                           style="background:#25D366; color:#fff; padding:8px; border-radius:12px; text-decoration:none;">
+                           <i class="bi bi-whatsapp"></i> WhatsApp
+                        </a>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}"
+                           target="_blank"
+                           style="background:#1877f2; color:#fff; padding:8px; border-radius:12px; text-decoration:none;">
+                           <i class="bi bi-facebook"></i> Facebook
+                        </a>
+                        <a href="https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}"
+                           target="_blank"
+                           style="background:#000; color:#fff; padding:8px; border-radius:12px; text-decoration:none;">
+                           <i class="bi bi-twitter-x"></i> X (Twitter)
+                        </a>
+                        <button onclick="copyToClipboard('${shareUrl}')"
+                                style="background:#f17c90; color:#fff; border:none; padding:8px; border-radius:12px;">
+                            <i class="bi bi-link-45deg"></i> Copy Link
+                        </button>
+                    </div>
+
+                    <button onclick="document.getElementById('share-popup').remove()"
+                            style="margin-top:15px; background:none; border:none; color:#888; font-size:14px;">
+                        Close
+                    </button>
+                </div>
+            </div>
+        `;
+
+        document.body.insertAdjacentHTML('beforeend', popupHTML);
+    }
+}
+
+// ✅ Copy link function
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+        const btn = document.querySelector('#share-popup button[onclick^="copyToClipboard"]');
+        if (btn) {
+            btn.innerHTML = '<i class="bi bi-check-circle"></i> Copied!';
+            btn.style.background = '#4caf50';
+            setTimeout(() => {
+                btn.innerHTML = '<i class="bi bi-link-45deg"></i> Copy Link';
+                btn.style.background = '#f17c90';
+            }, 2000);
+        }
+    }).catch(() => {
+        alert('Unable to copy link.');
+    });
+}
+
+// ✅ Fade-in animation
+const style = document.createElement('style');
+style.textContent = `
+@keyframes fadeIn {
+  from {opacity: 0; transform: scale(0.9);}
+  to {opacity: 1; transform: scale(1);}
+}`;
+document.head.appendChild(style);
+
+
+
+//start delete comment
+$(document).ready(function () {
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie !== "") {
+            const cookies = document.cookie.split(";").map(c => c.trim());
+            for (let cookie of cookies) {
+                if (cookie.startsWith(name + "=")) {
+                    cookieValue = decodeURIComponent(cookie.split("=")[1]);
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    const csrftoken = getCookie("csrftoken");
+
+
+    // 🔥 1. OPEN DELETE MODAL AND LOAD COMMENT DATA
+    $(document).on("click", ".btn-deletecomment", function () {
+        const url = $(this).data("url");
+
+        $.ajax({
+            url: url,
+            method: "GET",
+            success: function (res) {
+                // Load HTML into modal container
+                $("#deletecommentModal").remove();
+                $("body").append(res.html);
+
+                // Show modal
+                $("#deletecommentModal").modal("show");
+            },
+            error: function () {
+                alert("Failed to load delete modal.");
+            }
+        });
+    });
+
+
+    // 🔥 2. SUBMIT DELETE COMMENT
+    $(document).on("click", ".submit-deletecomment-btn", function () {
+
+        const deleteUrl = $("#deletecommentForm-url").val();
+
+        $.ajax({
+            url: deleteUrl,
+            method: "POST",
+            headers: { "X-CSRFToken": csrftoken },
+            success: function (res) {
+                if (res.success) {
+                    $("#deletecommentModal").modal("hide");
+                    location.reload();
+                }
+            },
+            error: function () {
+                alert("Delete failed.");
+            }
+        });
+
+    });
+
+});
+
+
+//start able confirm and unconfirm comment
+document.addEventListener("DOMContentLoaded", function() {
+
+    document.addEventListener("click", function(e) {
+        const btn = e.target.closest(".open-confirm-modal");
+        if (!btn) return;
+
+        const itemId = btn.dataset.id;
+        const itemType = btn.dataset.type;
+        const action = btn.dataset.action;
+        const url = btn.dataset.url;
+
+        // Fetch modal HTML
+        fetch(`${url}?item_id=${itemId}&item_type=${itemType}&action=${action}`)
+            .then(resp => resp.text())
+            .then(html => {
+
+                // Remove old modal if exists
+                const oldModal = document.getElementById("confirmCommentModal");
+                if (oldModal) oldModal.remove();
+
+                // Insert new modal directly into body
+                const tempDiv = document.createElement("div");
+                tempDiv.innerHTML = html;
+                document.body.appendChild(tempDiv);
+
+                const modalEl = tempDiv.querySelector(".modal");
+
+                // Initialize Bootstrap modal and show it
+                const modal = new bootstrap.Modal(modalEl, {
+                    backdrop: 'static', // prevent closing by clicking outside
+                    keyboard: false     // prevent closing with ESC
+                });
+                modal.show();
+
+                // Confirm button inside modal
+                modalEl.querySelector("#modalConfirmBtn").addEventListener("click", function() {
+                    const form = modalEl.querySelector("#confirmActionForm");
+                    const formData = new FormData(form);
+
+                    fetch(`/${action}/`, {
+                        method: "POST",
+                        body: formData,
+                        headers: {"X-CSRFToken": getCookie("csrftoken")}
+                    })
+                    .then(r => r.json())
+                    .then(data => {
+                        if (data.status === "success") {
+                            location.reload();
+                        } else {
+                            alert(data.message || "Action failed");
+                        }
+                    })
+                    .catch(err => console.error(err));
+                });
+
+                // Remove modal from DOM after hiding
+                modalEl.addEventListener("hidden.bs.modal", function() {
+                    tempDiv.remove();
+                });
+
+            });
+    });
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie) {
+            document.cookie.split(";").forEach(cookie => {
+                cookie = cookie.trim();
+                if (cookie.startsWith(name + "=")) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                }
+            });
+        }
+        return cookieValue;
+    }
+});
+
+
+
+
+// start printing chart views images
+document.addEventListener("DOMContentLoaded", function() {
+  document.querySelectorAll(".print-chart-btn").forEach(button => {
+    button.addEventListener("click", function() {
+      const chartId = this.getAttribute("data-chart-id");
+      const title = this.getAttribute("data-title");
+      const description = this.getAttribute("data-description");
+      const canvas = document.getElementById(chartId);
+
+      if (!canvas) {
+        alert("Chart not found!");
+        return;
+      }
+
+      // Convert chart canvas to image (base64)
+      const chartImage = canvas.toDataURL("image/png");
+
+      // Send to Django view via AJAX
+      fetch("{% url 'print_chart_pdf' %}", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": getCookie("csrftoken"),
+        },
+        body: JSON.stringify({
+          title: title,
+          description: description,
+          image: chartImage
+        })
+      })
+      .then(response => {
+        if (!response.ok) throw new Error("PDF generation failed.");
+        return response.blob();
+      })
+      .then(blob => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = title + ".pdf";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      })
+      .catch(error => {
+        console.error(error);
+        alert("Error creating PDF.");
+      });
+    });
+  });
+
+  // Get CSRF token helper
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+      const cookies = document.cookie.split(";");
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.startsWith(name + "=")) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+});
+
+
+
+
+
+  //start post models comments
+{% comment %}
+ $(document).ready(function() {
+
+  function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      var cookies = document.cookie.split(';');
+      for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+  const csrftoken = getCookie('csrftoken');
+
+  function showModal(buttonClass) {
+    $(document).on('click', buttonClass, function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      const button = $(this);
+      const url = button.data('url');
+      const modalId = button.data('target');
+      $(modalId).remove();
+      $.ajax({
+        url: url,
+        method: 'GET',
+        success: function(response) {
+          $('body').append(response);
+          $(modalId).modal('show');
+          $(modalId).on('hidden.bs.modal', function() {
+            $(this).remove();
+          });
+        },
+        error: function(xhr) {
+          console.error('Modal load failed:', xhr.statusText);
+          alert('Failed to load modal.');
+        }
+      });
+    });
+  }
+
+  function handleFormSubmit(buttonClass) {
+    $(document).on('click', buttonClass, function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      const button = $(this);
+      const formSelector = button.data('form');
+      const modalSelector = button.data('modal');
+      const form = $(formSelector)[0];
+      const formData = new FormData(form);
+      button.prop('disabled', true);
+      $.ajax({
+        url: $(form).attr('action'),
+        method: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        headers: { 'X-CSRFToken': csrftoken },
+        success: function() {
+          $(modalSelector).modal('hide');
+          button.prop('disabled', false);
+          location.reload(); // refresh to see updates
+        },
+        error: function(xhr) {
+          button.prop('disabled', false);
+          if (xhr.status === 403) {
+            alert('Permission denied.');
+          } else {
+            alert('Error submitting form.');
+          }
+        }
+      });
+    });
+  }
+
+  // ✅ Initialize modal handlers
+  showModal('.generic-postcomment-btn');
+  showModal('.generic-deletecomment-btn');
+  handleFormSubmit('.submit-postcomment-btn');
+  handleFormSubmit('.submit-deletecomment-btn');
+}); {% endcomment %}
+
+
+
+
+
+//start showing graphs ( but codes doesn't able to show charts models ) 
+{% comment %} function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.substring(0, name.length + 1) === (name + '=')) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
+const csrftoken = getCookie('csrftoken');
+
+let chartInstance = null;
+
+// Click handler for all chart buttons
+$(document).on('click', '.btn-charts', function() {
+  const type = $(this).data('type');
+  const url = `/ajax/show_chart/${type}/`;
+
+  $.ajax({
+    url: url,
+    type: 'GET',
+    success: function(response) {
+      const modal = new bootstrap.Modal(document.getElementById('chartModal'));
+      modal.show();
+
+      // Destroy existing chart if already shown
+      if (chartInstance) chartInstance.destroy();
+      const ctx = document.getElementById('dynamicChart').getContext('2d');
+
+      // --- Chart Switch by Type ---
+      if (type === 'linechart') {
+        chartInstance = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: response.models,
+            datasets: [{
+              label: 'Total Records',
+              data: response.ids,
+              borderColor: '#2e8b57',
+              backgroundColor: 'rgba(46,139,87,0.2)',
+              fill: true,
+              tension: 0.4
+            }]
+          },
+          options: { responsive: true, maintainAspectRatio: false }
+        });
+      }
+      else if (type === 'stackgraph') {
+        chartInstance = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: response.models,
+            datasets: [
+              { label: 'Male', data: response.stack_data.male, backgroundColor: '#4caf50' },
+              { label: 'Female', data: response.stack_data.female, backgroundColor: '#f06292' }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: { x: { stacked: true }, y: { stacked: true } }
+          }
+        });
+      }
+      else if (type === 'piechart') {
+        chartInstance = new Chart(ctx, {
+          type: 'pie',
+          data: {
+            labels: response.models,
+            datasets: [{
+              data: response.pie_data,
+              backgroundColor: ['#2e7d32', '#66bb6a', '#81c784', '#a5d6a7']
+            }]
+          },
+          options: { responsive: true, maintainAspectRatio: false }
+        });
+      }
+      else if (type === 'populationchart') {
+        const ages = response.population.map(p => p.age);
+        const genders = response.population.map(p => p.gender);
+        const idsLabel = response.population.map(p => `ID-${p.id}`);
+
+        chartInstance = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: idsLabel,
+            datasets: [{
+              label: 'Age Distribution',
+              data: ages,
+              backgroundColor: genders.map(g => g === 'M' ? '#4caf50' : '#f06292')
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              x: { title: { display: true, text: 'Patient ID' } },
+              y: { title: { display: true, text: 'Age' } }
+            }
+          }
+        });
+      }
+    },
+    error: function(xhr) {
+      alert('Error loading chart data: ' + xhr.statusText);
+    }
+  });
+}); {% endcomment %}
+
+
+
 
 </script>
 
+
+
+<!-- show graphs with consant values of analysis -->
+  <!-- for line graph -->
+  <!-- minimal Chart.js setup (include Chart.js CDN before this script) -->
+{% comment %} <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const ctx = document.getElementById('lineChartResponsive').getContext('2d');
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['Mon','Tue','Wed','Thu','Fri'],
+      datasets: [{
+        label: 'Visitors',
+        data: [120, 150, 90, 200, 170],
+        fill: false,
+        tension: 0.3
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false // allow canvas to match container height
+    }
+  });
+</script>
+
+
+<!-- for bar graph -->
+<script>
+  const ctxBarR = document.getElementById('barChartResponsive').getContext('2d');
+  new Chart(ctxBarR, {
+    type: 'bar',
+    data: {
+      labels: ['Red', 'Blue', 'Green', 'Yellow', 'Purple'],
+      datasets: [{
+        label: 'Votes',
+        data: [12, 19, 3, 5, 2],
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false
+    }
+  });
+  </script>
+
+<!-- stack graph -->
+<script>
+  const ctxStackR = document.getElementById('stackedChartResponsive').getContext('2d');
+  new Chart(ctxStackR, {
+    type: 'bar',
+    data: {
+      labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+      datasets: [
+        { label: 'Sales A', data: [50, 60, 70, 80] },
+        { label: 'Sales B', data: [30, 40, 20, 50] }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        x: { stacked: true },
+        y: { stacked: true }
+      }
+    }
+  });
+  </script>
+
+  <!-- pie chart grpah -->
+  <script>
+    const ctxPieR = document.getElementById('pieChartResponsive').getContext('2d');
+    new Chart(ctxPieR, {
+      type: 'pie',
+      data: {
+        labels: ['Apple', 'Banana', 'Cherry'],
+        datasets: [{
+          data: [10, 20, 30]
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false
+      }
+    });
+    </script> {% endcomment %}
+    
 </body>
 
 </html>

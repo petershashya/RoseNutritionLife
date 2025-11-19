@@ -1,0 +1,112 @@
+{% extends 'layout.html' %}
+
+
+{% block content %}
+{% load static %}  
+
+
+<div class="p-2 mt-5"></div>
+
+<!-- Disease details -->
+            {% if object %}
+            <span id="category_title" class="d-flex justify-content-center align-items-start mt-3 mx-2 mb-2 p-1 rounded bg-light" style=" color:rgb(4, 70, 39); font-size:1.2rem;">
+                <i class="bi bi-file-medical-fill text-success mx-1" style="font-size:1.2rem;"></i><b class="text-uppercase">{{ object }} </b>
+            </span>
+             {% endif %}
+
+    <div class="d-flex justify-content-center align-items-start mx-2 gap-2 rounded">
+
+
+              {% if object.image %}
+        <div class="row rounded my-1 p-3" >
+          <div class="col-sm mx-auto" >
+                <img class="categoryimg rounded mb-1" style="width:100%; height:100%;" src="{{ object.image.url }}" alt="{{ model_type }}">
+          </div>
+
+            
+          <div class="col-sm mx-3 p-2 rounded mt-2 mx-auto" style="background-color:rgb(226, 240, 233);">
+              {% if object %}
+              <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2"><b class="text-uppercase">{{object}}</b></div>
+              {% endif %}
+
+              {% if object.description %}
+              <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+                  <span style="color:rgb(4, 70, 39); "><b>{{model_type}} Description</b></span><br>
+              {{object.description}}
+              </div>
+              {% endif %}
+
+              {% if object.symptoms %}
+              <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+                  <span style="color:rgb(4, 70, 39); "><b>{{model_type}} Symptoms</b></span><br>
+                  {{object.symptoms}}
+              </div>
+              {% endif %}
+
+              {% if object.causes %}
+              <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+                  <span style="color:rgb(4, 70, 39); "><b>{{model_type}} Causes</b></span><br>
+                  {{object.causes}}
+              </div>
+              {% endif %}
+
+              {% if object.treatment %}
+              <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+                  <span style="color:rgb(4, 70, 39); "><b>{{model_type}} Treatment</b></span><br>
+                  {{object.treatment}}
+              </div>
+              {% endif %}
+
+                      {% if object.solution %}
+              <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+                  <span style="color:rgb(4, 70, 39); "><b>{{model_type}} Solution</b></span><br>
+                  {{object.solution}}
+              </div>
+              {% endif %}
+
+                      {% if object.dose %}
+              <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+                  <span style="color:rgb(4, 70, 39); "><b>{{model_type}} Dose</b></span><br>
+                  {{object.dose}}
+              </div>
+              {% endif %}
+
+              {% if object.cost %}
+              <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+                  <span style="color:rgb(4, 70, 39); "><b>{{model_type}} Cost</b></span><br>
+                  {{object.cost}}
+              </div>
+              {% endif %}
+
+              {% if object.additional_comment %}
+              <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+                  <span style="color:rgb(4, 70, 39); "><b>About {{model_type}}</b></span><br>
+                  {{object.additional_comment}}
+              </div>
+              {% endif %}
+
+          </div>
+        </div>
+
+          {% endif %}
+     </div>
+
+                {# --------- Detect and show video--------- #}
+              {% comment %} {% if object.video %}
+            <div>
+                <video controls style="width:100%; height:100%; border-radius:20px;">
+                  <source src="{{ object.video.url }}" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+
+              <div class="d-flex justify-content-center align-items-start mx-1 gap-1 p-2" style="border-radius:25px;">
+                <span class="p-1 bg-black" style="border-radius:35px; cursor:pointer;">
+                  <i class="bi bi-share text-light mx-2" style="font-size:1rem;"></i>
+                </span>
+              </div>
+          </div>
+               {% endif %} {% endcomment %}
+
+
+<div class="mb-5"></div>
+{% endblock %}

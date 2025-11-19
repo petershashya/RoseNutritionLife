@@ -1,0 +1,237 @@
+{% extends 'layout.html' %}
+
+
+{% block content %}
+{% load static %} 
+
+
+<div class="p-2 mt-5"></div>
+<!-- start account page -->
+
+     <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-light my-2 d-flex justify-content-center align-items-center mx-2"><b>
+          <!-- POSTURES --> MATANGAZO YA PICHA
+     </b></div>
+     <div class="shadow bg-white p-2 mx-2 mb-3">
+        <!-- start diseases postures -->
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="row col-sm-6 mx-auto rounded p-2 bg-light my-2  mx-2"><b class="d-flex justify-content-center align-items-center">
+          <!-- Disease Postures --> Tangazo la Ugonjwa
+          </b></div>
+          <!-- Responsive Disease Images Section -->
+          <div class="container-fluid">
+          <div class="row g-2 justify-content-start mx-2 my-2">
+          {% for disease_img in disease_imgs %}
+               {% if disease_img.image %}
+               <div class="col-6 col-sm-4 col-md-3 col-lg-2 d-flex justify-content-center" style="cursor:pointer;">
+                    <div data-type="disease" data-id="{{ disease_img.id }}" class="btn-posture adsimg-box">
+                    <img src="{{ disease_img.image.url }}" class="img-fluid rounded" alt="disease image">
+                    </div>
+               </div>
+               {% endif %}
+          {% endfor %}
+          </div>
+          </div>
+        <!-- finish diseases postures -->
+        <hr class="bg-light">
+
+        <!-- start medicine postures -->
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="row col-sm-6 mx-auto rounded p-2 bg-light my-2  mx-2"><b class="d-flex justify-content-center align-items-center">
+          <!-- Medicine Postures --> Tangazo la Dawa
+          </b></div>
+          <!-- Responsive Medicine Images Section -->
+          <div class="container-fluid">
+          <div class="row g-2 justify-content-start mx-2 my-2">
+          {% for medicine_img in medicine_imgs %}
+               {% if medicine_img.image %}
+               <div class="col-6 col-sm-4 col-md-3 col-lg-2 d-flex justify-content-center" style="cursor:pointer;">
+                    <div data-type="medicine" data-id="{{ medicine_img.id }}" class="btn-posture adsimg-box">
+                    <img src="{{ medicine_img.image.url }}" class="img-fluid rounded" alt="medicine image">
+                    </div>
+               </div>
+               {% endif %}
+          {% endfor %}
+          </div>
+          </div>
+        <!-- finish medicine postures-->
+
+        <hr class="bg-light">
+
+        <!-- start diseases postures -->
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="row col-sm-6 mx-auto rounded p-2 bg-light my-2  mx-2"><b class="d-flex justify-content-center align-items-center">
+          <!-- Checkup PosturesCheckup Postures --> Tangazo la Kipimo
+          </b></div>
+          <!-- Responsive Checkup Images Section -->
+          <div class="container-fluid">
+          <div class="row g-2 justify-content-start mx-2 my-2">
+          {% for checkup_img in checkup_imgs %}
+               {% if checkup_img.image %}
+               <div class="col-6 col-sm-4 col-md-3 col-lg-2 d-flex justify-content-center" style="cursor:pointer;">
+                    <div data-type="checkup" data-id="{{ checkup_img.id }}" class="btn-posture adsimg-box">
+                    <img src="{{ checkup_img.image.url }}" class="img-fluid rounded" alt="checkup image">
+                    </div>
+               </div>
+               {% endif %}
+          {% endfor %}
+          </div>
+          </div>
+        <!-- finish checkup postures -->
+     </div>
+
+{% comment %} 
+    <ul class="nav nav-pills d-flex justify-content-center aling-items-center gap-2 mt-2">
+        <li class="nav-item">
+          <a class="nav-link " data-bs-toggle="pill" href="#postures" >
+            <i class="bi bi-graph-up-arrow text-success mx-1" style="font-size:1rem;"></i>
+            Postures Ads</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link " data-bs-toggle="pill" href="#videos" >
+            <i class="bi bi-bar-chart text-success mx-1" style="font-size:1rem;"></i>
+            Videos Ads</a>
+        </li>
+      </ul>
+      
+      <!-- Tab panes -->
+      <div class="tab-content p-4">
+   
+         <!-- start ads-->
+<div class="tab-pane container active rounded mb-3" id="postures" style="background-color:rgb(226, 240, 233);">   
+<div class="p-2 rounded" style="background-color:rgb(226, 240, 233);">
+                
+<!-- start postures -->
+<div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2 d-flex justify-content-center align-items-center"><b>POSTURES</b></div>
+    <div class="p-2 bg-light mb-3 mt-2 gap-2 " style="border-radius:10px;">
+
+        <!-- start diseases postures -->
+        <div class="d-flex justify-content-start align-items-center mb-1 mt-1 gap-2">
+        {% for disease_img in disease_imgs %}
+
+        {% if disease_img.image %}
+        <div class="row">
+        <div data-type="disease" data-id="{{disease_img.id}}" class="btn-posture col-sm adsimg-box">
+             <img src="{{disease_img.image.url}}" class="rounded">
+        </div>
+        </div>
+        
+        {% endif %}
+        {% endfor %}
+        </div>
+        <!-- finish diseases postures -->
+
+        <hr class="bg-light">
+
+        <!-- start diseases postures -->
+        <div class="d-flex justify-content-start align-items-center mb-1 mt-1 gap-2">
+        {% for medicine_img in medicine_imgs %}
+
+        {% if medicine_img.image %}
+        <div class="row">
+        <div  data-type="medicine" data-id="{{medicine_img.id}}" class="col-sm adsimg-box">
+             <img src="{{medicine_img.image.url}}" class="rounded">
+        </div>
+        </div>
+        
+        {% endif %}
+        {% endfor %}
+        </div>
+        <!-- finish medicine postures-->
+
+        <hr class="bg-light">
+
+        <!-- start diseases postures -->
+        <div class="d-flex justify-content-start align-items-center mb-1 mt-1 gap-2">
+        {% for checkup_img in checkup_imgs %}
+
+        {% if checkup_img.image %}
+        <div class="row">
+        <div data-type="checkup" data-id="{{checkup_img.id}}" class="col-sm adsimg-box">
+             <img src="{{checkup_img.image.url}}" class="rounded">
+        </div>
+        </div>
+        
+        {% endif %}
+        {% endfor %}
+         </div>
+        <!-- finish checkup postures -->
+
+    </div>
+</div>
+</div>
+
+
+
+
+<!-- start videos -->
+<div class="tab-pane container fade rounded mb-3" id="videos" style="background-color:rgb(226, 240, 233);">   
+<div class="p-2 rounded" style="background-color:rgb(226, 240, 233);">
+<div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2 d-flex justify-content-center align-items-center"><b>VIDEOS</b></div>
+    <div class="p-2bg-light mb-3 mt-2 gap-2" style="border-radius:10px;">
+
+        <!-- start diseases postures -->
+        <div class="d-flex justify-content-start align-items-center mb-1 mt-1 gap-2">
+        {% for disease_video in disease_videos %}
+
+        {% if disease_video.video %}
+        <div class="row">
+        <div data-type="disease" data-id="{{disease_video.id}}" class="btn-posture col-sm adsvideo-box">
+                <video controls style="width:100%; height:100%; border-radius:10px;">
+                  <source src="{{disease_video.video.url }}" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+        </div>
+        </div>
+        
+        {% endif %}
+        {% endfor %}
+        </div>
+        <!-- finish diseases postures -->
+
+        <hr class="bg-light">
+
+        <!-- start diseases postures -->
+        <div class="d-flex justify-content-start align-items-center mb-1 mt-1 gap-2">
+        {% for medicine_video in medicine_videos %}
+
+        {% if medicine_video.video %}
+        <div class="row">
+        <div data-type="medicine" data-id="{{medicine_video.id}}" class="btn-posture col-sm adsvideo-box">
+                <video controls style="width:100%; height:100%; border-radius:10px;">
+                  <source src="{{medicine_video.video.url }}" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+        </div>
+        </div>
+        
+        {% endif %}
+        {% endfor %}
+        </div>
+        <!-- finish medicine postures-->
+
+        <hr class="bg-light">
+
+        <!-- start diseases postures -->
+        <div class="d-flex justify-content-start align-items-center mb-1 mt-1 gap-2">
+        {% for checkup_video in checkup_videos %}
+
+        {% if checkup_video.video %}
+        <div class="row">
+        <div data-type="checkup" data-id="{{checkup_video.id}}" class="btn-posture col-sm adsvideo-box">
+                <video controls style="width:100%; height:100%; border-radius:10px;">
+                  <source src="{{checkup_video.video.url }}" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+        </div>
+        </div>
+        
+        {% endif %}
+        {% endfor %}
+         </div>
+        <!-- finish checkup postures -->
+
+    </div>
+</div>
+</div> 
+</div>{% endcomment %}
+
+
+{% endblock %}

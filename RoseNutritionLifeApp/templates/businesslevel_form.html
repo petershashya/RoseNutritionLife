@@ -1,13 +1,13 @@
 {% load static %}
 
 <!-- BusinessLevel Form Modal -->
-<div class="modal fade" id="businessLevelModal" tabindex="-1" aria-labelledby="businessLevelModalLabel" aria-hidden="true">
+<div class="modal fade" id="businesslevelModal" tabindex="-1" aria-labelledby="businessLevelModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h5 class="modal-title" id="businessLevelModalLabel">Add Business Level</h5>
+        {% comment %} <h5 class="modal-title" id="businessLevelModalLabel">Add Business Level</h5> {% endcomment %}
         <button type="button" class="btn btn-sm btn-outline-secondary btn-close" data-bs-dismiss="modal"></button>
       </div>
 
@@ -15,7 +15,7 @@
       <div class="modal-body">
         <section class="book_section mb-2" id="details">
           <div class="container">
-            <form id="postBusinessLevelForm" method="post" action="{% url 'post_businesslevel' %}" enctype="multipart/form-data">
+            <form id="businesslevelForm" method="post" action="{% url 'post_businesslevel' %}" enctype="multipart/form-data">
               {% csrf_token %}
               <h4>FILL <span>BUSINESS LEVEL</span></h4>
 
@@ -45,6 +45,16 @@
                   <div class="form-group">
                     <label for="{{ form.additional_comment.id_for_label }}">Additional Comment</label>
                     <textarea class="form-control" id="{{ form.additional_comment.id_for_label }}" name="additional_comment" rows="3" placeholder="Additional comments..." required></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Profile Image -->
+              <div class="row mb-2">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="{{ form.profile_image.id_for_label }}">BusinessLevel Profile Image (Optional)</label>
+                    <input type="file" class="form-control" id="{{ form.profile_image.id_for_label }}" name="profile_image" accept="image/*">
                   </div>
                 </div>
               </div>

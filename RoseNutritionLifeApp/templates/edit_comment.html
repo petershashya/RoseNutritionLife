@@ -1,0 +1,50 @@
+<!-- Comment Modal -->
+<div class="modal fade" id="editGenericModal" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header bg-light">
+        {% comment %} <h5 class="modal-title" id="commentModalLabel">Leave a Comment</h5> {% endcomment %}
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body py-5">
+        <section class="book_section mb-2" id="advertisement-details">
+          <div class="container">
+            <form id="editGenericForm" method="post"
+                  action="{% url 'generic_edit' model object.id %}"
+                  enctype="multipart/form-data">
+              {% csrf_token %}
+              <h4>EDIT <span>{{ model|upper }}</span></h4>
+
+          <!-- Comment Field -->
+          <div class="mb-3">
+            <label for="{{ form.comment.id_for_label }}" class="form-label">Comment</label>
+            <textarea class="form-control" 
+                      id="{{ form.comment.id_for_label }}" 
+                      name="{{ form.comment.html_name }}" 
+                      rows="3" 
+                      placeholder="Enter your comment..." required>{{ form.comment.value|default_if_none:'' }}
+                    </textarea>
+          </div>
+
+            </form>
+          </div>
+        </section>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="modal-footer bg-light">
+        <button type="button" class="btn btn-outline-warning submit-edit-btn"
+                data-form="#editGenericForm"
+                data-modal="#editGenericModal">
+          Save Changes
+        </button>
+        <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,67 @@
+<div class="modal fade" id="listsModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title text-success text-uppercase">
+          {% comment %} {{ model_type }} DETAILS {% endcomment %}
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="corediv_service mx-1" style="border-radius:35px;">
+
+            <div class="shadow bg-light p-1" style="border-radius:25px;">
+            <div class="core_service d-flex justify-content-center align-items-center px-2">
+            <b class="text-uppercase mt-1" style="font-size:18px;">
+             <!-- LIST OF  --> 
+                {% if model_type == "disease" %}
+                ORODHA YA UGONJWA
+                {% endif %}
+
+                {% if model_type == "medicine" %}
+                ORODHA YA DAWA
+                {% endif %}
+
+                {% if model_type == "checkup" %}
+                ORODHA YA KIPIMO
+                {% endif %}
+
+                {% if model_type == "businesslevel" %}
+                ORODHA YA LEVEL
+                {% endif %}
+            
+            </b>
+          </div>
+          {% for object in objects %}
+                <a data-type="{{model_type}}" data-id="{{object.id}}" class="btn-list text-decoration-none" style="cursor:pointer">
+                <div class="d-flex justify-content-center align-items-center rounded  p-1 gap-1">
+                    <div>
+                        <span class="d-flex justify-content-start align-items-center">
+                            {% if object.profile_image %}
+                        <img class="categoryimg rounded-pill p-1 mx-1" style="width:60px; height:60px; border:1px solid rgb(4, 70, 39);" src="{{ object.profile_image.url }}" alt="{{ model_type }}">
+                        {% endif %}
+                        </span>
+                    </div>
+                    <div class="row col-sm rounded">
+                        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-3 bg-white mt-1 text-black">
+                            {{object}}
+                        </div>
+                    </div>
+                </div>
+                </a>
+
+            <div class="d-flex justify-content-center align-items-center">
+                <hr class="mt-2 mb-1 bg-light">
+            </div>
+            {% endfor %}
+          </div>
+
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

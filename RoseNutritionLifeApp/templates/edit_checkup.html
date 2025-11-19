@@ -1,0 +1,193 @@
+{% comment %} <div class="modal fade" id="editGenericModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form id="editGenericForm" method="post"
+            action="{% url 'generic_edit' model object.id %}"
+            enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="modal-header">
+          <h5>Edit {{ model|capfirst }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">{{ form.as_p }}</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary submit-edit-btn"
+                  data-form="#editGenericForm" data-modal="#editGenericModal">
+            Save Changes
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div> {% endcomment %}
+
+
+
+<!-- CheckUp Edit Modal -->
+<div class="modal fade" id="editGenericModal" tabindex="-1" aria-labelledby="editGenericModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header bg-light">
+        <button type="button" class="btn btn-sm btn-outline-secondary btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <section class="book_section mb-2" id="checkup-details">
+          <div class="container">
+            <form id="editGenericForm" method="post"
+                  action="{% url 'generic_edit' model object.id %}"
+                  enctype="multipart/form-data">
+              {% csrf_token %}
+              <h4>EDIT <span>{{ model|upper }}</span></h4>
+
+              <!-- Row 1: CheckUp Name, Description, Treatment -->
+              <div class="form-row">
+                <!-- CheckUp Name -->
+                <div class="form-group col-md-4">
+                  <label for="{{ form.checkup_name.id_for_label }}">CheckUp Name</label>
+                  <input type="text" class="form-control"
+                         id="{{ form.checkup_name.id_for_label }}"
+                         name="{{ form.checkup_name.html_name }}"
+                         value="{{ form.checkup_name.value|default_if_none:'' }}"
+                         placeholder="Enter checkup name" required>
+                </div>
+
+                <!-- Description -->
+                <div class="form-group col-md-4">
+                  <label for="{{ form.description.id_for_label }}">Description</label>
+                  <textarea class="form-control"
+                            id="{{ form.description.id_for_label }}"
+                            name="{{ form.description.html_name }}"
+                            rows="3"
+                            placeholder="Enter description...">{{ form.description.value|default_if_none:'' }}</textarea>
+                </div>
+
+                <!-- Treatment -->
+                <div class="form-group col-md-4">
+                  <label for="{{ form.treatment.id_for_label }}">Treatment</label>
+                  <textarea class="form-control"
+                            id="{{ form.treatment.id_for_label }}"
+                            name="{{ form.treatment.html_name }}"
+                            rows="3"
+                            placeholder="Provide treatment details...">{{ form.treatment.value|default_if_none:'' }}</textarea>
+                </div>
+              </div>
+
+              <!-- Row 2: Solution, Dose, Cost -->
+              <div class="form-row mt-2">
+                <!-- Solution -->
+                <div class="form-group col-md-4">
+                  <label for="{{ form.solution.id_for_label }}">Solution</label>
+                  <textarea class="form-control"
+                            id="{{ form.solution.id_for_label }}"
+                            name="{{ form.solution.html_name }}"
+                            rows="3"
+                            placeholder="Enter solution...">{{ form.solution.value|default_if_none:'' }}</textarea>
+                </div>
+
+                <!-- Dose -->
+                <div class="form-group col-md-4">
+                  <label for="{{ form.dose.id_for_label }}">Dose</label>
+                  <input type="text" class="form-control"
+                         id="{{ form.dose.id_for_label }}"
+                         name="{{ form.dose.html_name }}"
+                         value="{{ form.dose.value|default_if_none:'' }}"
+                         placeholder="Enter dose">
+                </div>
+
+                <!-- Cost -->
+                <div class="form-group col-md-4">
+                  <label for="{{ form.cost.id_for_label }}">Cost</label>
+                  <input type="text" class="form-control"
+                         id="{{ form.cost.id_for_label }}"
+                         name="{{ form.cost.html_name }}"
+                         value="{{ form.cost.value|default_if_none:'' }}"
+                         placeholder="Enter cost">
+                </div>
+              </div>
+
+              <!-- Row 3: Additional Comment -->
+              <div class="form-row mt-2">
+                <div class="form-group col-md-12">
+                  <label for="{{ form.additional_comment.id_for_label }}">Additional Comment</label>
+                  <textarea class="form-control"
+                            id="{{ form.additional_comment.id_for_label }}"
+                            name="{{ form.additional_comment.html_name }}"
+                            rows="3"
+                            placeholder="Additional comments...">{{ form.additional_comment.value|default_if_none:'' }}</textarea>
+                </div>
+              </div>
+
+              <!-- Row 4: Profile Image, Image, Video -->
+              <div class="form-row mt-2">
+                <!-- Profile Image -->
+                <div class="form-group col-md-4">
+                  <label for="{{ form.profile_image.id_for_label }}">CheckUp Profile Image</label>
+                  <input type="file" class="form-control"
+                         id="{{ form.profile_image.id_for_label }}"
+                         name="{{ form.profile_image.html_name }}"
+                         accept="image/*">
+                  {% if form.profile_image.value %}
+                    <div class="mt-1">
+                      <a href="{{ form.profile_image.value.url }}" target="_blank" class="text-info small">
+                        View Current Profile Image
+                      </a>
+                    </div>
+                  {% endif %}
+                </div>
+
+                <!-- CheckUp Image -->
+                <div class="form-group col-md-4">
+                  <label for="{{ form.image.id_for_label }}">CheckUp Image</label>
+                  <input type="file" class="form-control"
+                         id="{{ form.image.id_for_label }}"
+                         name="{{ form.image.html_name }}"
+                         accept="image/*">
+                  {% if form.image.value %}
+                    <div class="mt-1">
+                      <a href="{{ form.image.value.url }}" target="_blank" class="text-info small">
+                        View Current Image
+                      </a>
+                    </div>
+                  {% endif %}
+                </div>
+
+                <!-- CheckUp Video -->
+                <div class="form-group col-md-4">
+                  <label for="{{ form.video.id_for_label }}">CheckUp Video</label>
+                  <input type="file" class="form-control"
+                         id="{{ form.video.id_for_label }}"
+                         name="{{ form.video.html_name }}"
+                         accept="video/*">
+                  {% if form.video.value %}
+                    <div class="mt-1">
+                      <a href="{{ form.video.value.url }}" target="_blank" class="text-info small">
+                        View Current Video
+                      </a>
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </section>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="modal-footer bg-light">
+        <button type="button" class="btn btn-outline-warning submit-edit-btn"
+        data-form="#editGenericForm"
+        data-modal="#editGenericModal">
+        Save Changes
+        </button>
+        <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>

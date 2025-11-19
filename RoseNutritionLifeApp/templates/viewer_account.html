@@ -1,0 +1,57 @@
+{% extends 'layout.html' %}
+
+
+{% block content %}
+{% load static %} 
+
+
+<div class="p-2 mt-5"></div>
+<!-- start account page -->
+ 
+
+<!-- start personal details -->
+<div class="shadow mx-2 mt-2 py-4 mb-3 px-3" style="border-radius:25px;">
+    <span class="h4 mx-4 d-flex justify-content-center align-items-center"  style="color:rgb(4, 70, 39);">MY PROFILE</span>
+<div class="d-flex justify-content-center align-items-start gap-1 mx-2" >
+        <div>
+        <span class="profileimage-box d-flex justify-content-center align-items-start mx-1">
+             {% if viewer_detail.profile_image %}
+            <img src="{{userdetail.profile_image.url}}" alt="Profile Picture" class="img-thumbnail rounded-circle p-2" style="border:1px solid #563419;" >
+            {% else %} 
+            <span class="p-3" style="border-radius:25px; border:1px solid rgb(4, 70, 39);">
+              <i class="bi bi-person-fill mb-1" style="font-size: 3rem"></i>
+            </span>
+            {% endif %}
+         </span>
+    </div>
+    <div class="details" style="background-color:white; color:rgb(4, 70, 39);">
+        <span class="" style="color:rgb(4, 70, 39);">
+            {{ viewer_detail.full_name }}
+        </span><br>
+        <span class="" style="color:rgb(4, 70, 39);">
+            {{ viewer_detail.email }} 
+        </span><br>
+        <span class="job " style="color:rgb(4, 70, 39);"><i class="bi bi-phone" style=" font-size:15px; color:#563419;"></i>
+            {{ viewer_detail.mobile_contact }} 
+            </span><br>
+            <span class="job " style="color:rgb(4, 70, 39);">
+            {{ viewer_detail.postal_address }} ,{{ viewer_detail.region }}
+            </span><br><br>
+
+            <div class="d-flex flex-nowrap overflow-x-auto gap-2" >
+        {% comment %} <a id="add_list" class="p-2  rounded-pill text-decoration-none" href="{% url 'edit_user_details' %}"  ><i class="bi bi-pencil mx-1 text-bold text-light" style=" font-size:15px;"></i>Edit My Acount</a> {% endcomment %}
+            </div>
+
+    </div>
+</div>
+
+<div class="social_box align-items d-flex justify-content-center align-items-center gap-2">
+      {% comment %} <a href="{{userdetail.instagram_account}}" class="text-decoration-none"> <i class="bi bi-instagram " style="color:#563419; font-size:18px;"></i> </a>{% endcomment %}
+  </div>
+</div>
+</div>
+<!-- finish personal details -->
+ 
+
+
+{% endblock %}

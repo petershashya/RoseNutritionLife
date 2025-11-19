@@ -1,13 +1,13 @@
 {% load static %}
 
 <!-- BusinessPlan Form Modal -->
-<div class="modal fade" id="businessPlanModal" tabindex="-1" aria-labelledby="businessPlanModalLabel" aria-hidden="true">
+<div class="modal fade" id="businessplanModal" tabindex="-1" aria-labelledby="businessPlanModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h5 class="modal-title" id="businessPlanModalLabel">Add Business Plan</h5>
+        {% comment %} <h5 class="modal-title" id="businessPlanModalLabel">Add Business Plan</h5> {% endcomment %}
         <button type="button" class="btn btn-sm btn-outline-secondary btn-close" data-bs-dismiss="modal"></button>
       </div>
 
@@ -15,7 +15,7 @@
       <div class="modal-body">
         <section class="book_section mb-2" id="details">
           <div class="container">
-            <form id="postBusinessPlanForm" method="post" action="{% url 'post_businessplan' %}" enctype="multipart/form-data">
+            <form id="businessplanForm" method="post" action="{% url 'post_businessplan' %}" enctype="multipart/form-data">
               {% csrf_token %}
               <h4>FILL <span>BUSINESS PLAN</span></h4>
 
@@ -65,6 +65,16 @@
                   <div class="form-group">
                     <label for="{{ form.additional_comment.id_for_label }}">Additional Comment</label>
                     <textarea class="form-control" id="{{ form.additional_comment.id_for_label }}" name="additional_comment" rows="3" placeholder="Additional comments..." required></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Profile Image -->
+              <div class="row mb-2">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="{{ form.profile_image.id_for_label }}">BusinessPlan Profile Image (Optional)</label>
+                    <input type="file" class="form-control" id="{{ form.profile_image.id_for_label }}" name="profile_image" accept="image/*">
                   </div>
                 </div>
               </div>

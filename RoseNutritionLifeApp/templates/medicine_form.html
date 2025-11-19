@@ -1,13 +1,13 @@
 {% load static %}
 
 <!-- Medicine Form Modal -->
-<div class="modal fade" id="medicineformModal" tabindex="-1" aria-labelledby="medicineformModalLabel" aria-hidden="true">
+<div class="modal fade" id="medicineModal" tabindex="-1" aria-labelledby="medicineformModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h5 class="modal-title" id="medicineformModalLabel">Add Medicine</h5>
+        {% comment %} <h5 class="modal-title" id="medicineformModalLabel">Add Medicine</h5> {% endcomment %}
         <button type="button" class="btn btn-sm btn-outline-secondary btn-close" data-bs-dismiss="modal"></button>
       </div>
 
@@ -15,7 +15,7 @@
       <div class="modal-body">
         <section class="book_section mb-2" id="details">
           <div class="container">
-            <form id="postmedicineForm" method="post" action="{% url 'post_medicine' %}" enctype="multipart/form-data">
+            <form id="medicineForm" method="post" action="{% url 'post_medicine' %}" enctype="multipart/form-data">
               {% csrf_token %}
               <h4>FILL <span>MEDICINE</span></h4>
 
@@ -75,6 +75,16 @@
                   <div class="form-group">
                     <label for="{{ form.cost.id_for_label }}">Cost</label>
                     <input type="number" class="form-control" id="{{ form.cost.id_for_label }}" name="cost" placeholder="Enter cost" required>
+                  </div>
+                </div>
+              </div>
+
+             <!-- Profile Image -->
+              <div class="row mb-2">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="{{ form.profile_image.id_for_label }}">Medicine Profile Image (Optional)</label>
+                    <input type="file" class="form-control" id="{{ form.profile_image.id_for_label }}" name="profile_image" accept="image/*">
                   </div>
                 </div>
               </div>

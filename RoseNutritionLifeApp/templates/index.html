@@ -33,12 +33,16 @@
       </span>
     </span>
     {% if user.is_authenticated %}
-      <a class="btn btn-sm text-light mt-3" id="getservice">
-        <i class="bi bi-basket-fill text-light mx-2" style="font-size:1rem;"></i>Add Service
-      </a>
+      <a class="btn btn-sm text-light mt-3" id="getservice" href="{% url 'services' %}">
+        <i class="bi bi-basket-fill text-light mx-2" style="font-size:1rem;"></i>
+        <!-- Our services -->
+        Huduma Zetu
+      </a> 
     {% else %}
-      <a class="btn btn-sm text-light mt-2" id="getservice">
-        <i class="bi bi-basket-fill text-light mx-2" style="font-size:1rem;"></i> Get Started
+      <a class="btn btn-sm text-light mt-2" id="getservice" href="{% url 'register_member' %}">
+        <i class="bi bi-basket-fill text-light mx-2" style="font-size:1rem;"></i>
+        <!-- Get Started --> 
+        Anza Nasi
       </a>
     {% endif %}
   </div>
@@ -81,89 +85,110 @@
 <!-- Our services -->
  <div class="d-flex justify-content-center">
 <div  class="d-flex flex-nowrap overflow-x-auto  gap-3 p-3 mx-2" style="display: flex;">
-    <div id="getservice" class="top_providers  p-4 text-light flex-shrink-0"  >
+    <a href="{% url 'services' %}" id="getservice" class="top_providers text-decoration-none  p-4 text-light flex-shrink-0" style="min-width:150px;" >
      {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
-     OUR SERVICES
+    <!-- OUR SERVICES --> <span class="d-flex justify-content-center align-items-center"> HUDUMA </span>
      <span class="d-flex justify-content-center align-items-center ">
          <i class="bi bi-basket-fill text-light mx-2" style="font-size:2.5rem;"></i>
          <span>
-     </div>
+         </a>
 
-     <div  id="getservice" class="top_providers  p-4 text-light flex-shrink-0" >
+     <a href="{% url 'advertisement' %}"  id="getservice" class="top_providers text-decoration-none  p-4 text-light flex-shrink-0" style="min-width:150px;">
          {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
-         ADVERTISMENT
-         <span class="d-flex justify-content-center align-items-center">
+       <!--ADVERTISMENT  --> <span class="d-flex justify-content-center"> MATANGAZO </span>
+         <span class="d-flex justify-content-center align-items-center align-items-center">
              <i class="bi bi-badge-ad-fill text-light mx-2" style="font-size:2.5rem;"></i>
              <span>
-         </div>
+             </a>
 
-         <div  id="getservice" class="top_providers  p-4 text-light flex-shrink-0"  >
-             {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
-             PV-EXCHANGE
+         {% comment %} <a href="{% url 'pv-exchange' %}"   id="getservice" class="top_providers text-decoration-none  p-4 text-light flex-shrink-0"  style="min-width:150px;">
+            <!-- PV-EXCHANGE --> <span class="d-flex justify-content-center">  BADILISHA PV </span>
              <span class="d-flex justify-content-center align-items-center">
                  <i class="bi bi-currency-exchange text-light mx-2" style="font-size:2.5rem;"></i>
                  <span>
-             </div>
+                 </a> {% endcomment %}
 
-             <div  id="getservice" class="top_providers  p-4 text-light flex-shrink-0"  >
+             <a href="{% url 'analysis' %}"   id="getservice" class="top_providers text-decoration-none  p-4 text-light flex-shrink-0" style="min-width:150px;" >
                  {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
-                 OUR ANALYSIS
+                <!-- OUR ANALYSIS --> <span class="d-flex justify-content-center align-items-center"> UCHAMBUZI </span>
                  <span class="d-flex justify-content-center align-items-center">
                      <i class="bi bi-graph-up-arrow text-light mx-2" style="font-size:2.5rem;"></i>
                      <span>
-                 </div>
+                     </a>
 </div>
 </div>
 
 
-
+{% comment %} <div class="animation_division fade" id="scrollDiv" > {% endcomment %}
+<div >
 <!-- disease categories -->
-<span id="category_title" class="d-flex justify-content-center align-items-center mt-3 mx-3 p-1 rounded" style="background-color:rgb(226, 240, 233); color:rgb(4, 70, 39); font-size:1.2rem;">
-    <i class="bi bi-file-medical-fill text-success mx-1" style="font-size:1.2rem;"></i>DISEASES
+<span id="category_title" class="d-flex justify-content-center align-items-center mt-3 mx-3 p-1 rounded" style=" color:rgb(4, 70, 39); font-size:1.2rem;">
+    <i class="bi bi-file-medical-fill text-success mx-1" style="font-size:1.2rem;"></i>
+    <!-- DISEASES --> MAGONJWA
 </span>
 
 <!-- start diseases -->
-<div class="d-flex justify-content-center align-items-start mx-3 rounded my-1 p-3" style="background-color:rgb(226, 240, 233);">
-    <div class="row ">
-    <div class="col-sm-3 mx-2 mt-3 " >
-        <span class="d-flex justify-content-center align-items-center">
-           <img class="categoryimg" style="width:300px; height:250px;" src="{% static '/images/eternal/uzazi (3).jpg' %}">
-        </span>
+<div class="row rounded my-1 p-3 mx-2" id="category_container">
+    <div class="col-sm-3 mt-3" >
+        <div class="image-box mx-auto">
+            {% if disease.profile_image %}
+           <img class="categoryimg" src="{{disease.profile_image.url}}">
+           {% endif %}
+        </div>
 
+            <!-- Advertisement title -->
+            <div class="d-flex justify-content-center align-items-center mt-2 p-1 rounded" style=" color:rgb(4, 70, 39); font-size:1.2rem;">
+               <span id="category_title" class="bg-light mx-2 px-3 py-1" style="font-size: 1rem;"> <!-- DISEASES --> TANGAZO LA UGONJWA </span>
+            </div>
+            
            <!-- posture category -->
-           <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
-                <span class="d-flex justify-content-center align-items-center px-2 py-2 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(226, 240, 233);" >
-                    <i class="bi bi-image-fill text-success mx-1" style="font-size:1.3rem;"></i>Posture
+           <div class="d-flex justify-content-center align-items-center  gap-1 px-1 py-2 " style="border-radius:25px; ">
+            <div class="d-flex justify-content-center align-items-center mx-1 gap-1 p-1 bg-light" style="border-radius:25px; cursor:pointer;">
+                <span class="btn-posture  d-flex justify-content-center align-items-center px-3 py-2 " style="border-radius:35px; background-color:rgb(226, 240, 233);"
+                    data-type="disease"
+                    data-id="{{ disease.id }}">
+                    <i class="bi bi-image-fill text-success mx-1" style="font-size:1rem;"></i>
+                    <!-- Posture --> Picha
                 </span>
 
-            <div class="d-flex justify-content-center align-items-start mx-1 gap-1 p-2" style="border-radius:25px; background-color:rgb(226, 240, 233);">
-                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
-                    <i class="bi bi-eye-fill text-success mx-2" style="font-size:1rem;"></i>
-                </span>
-                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
-                    <i class="bi bi-emoji-heart-eyes-fill text-success mx-2" style="font-size:1rem;"></i>
-                </span>
-                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
-                    <i class="bi bi-share-fill text-success mx-2" style="font-size:1rem;"></i>
+                <span class="py-1 " style="background-color:rgb(226, 240, 233);font-size:1rem; border-radius:30px;">
+                     {% comment %} <a class="text-success mx-1 px-2 py-1 generic-postcomment-btn"
+                    data-url="generic_postcomment"
+                    data-type="disease"
+                    data-id="{{ disease.id }}"
+                    data-target="#commentModal"
+                    style="font-size:1rem; border-radius:20px;">
+                    <i class="bi bi-envelope-heart-fill text-success"></i></a> {% endcomment %}
+                    <a onclick="shareContent('diseaseimage','{{ disease.id }}')" class="share-button text-success mx-1 px-2 py-1 bg-light text-decoration-none d-flex align-items-center" style="font-size:1rem; border-radius:20px;">
+                    share
+                    <i class="bi bi-share-fill mx-3"></i>
+                    </a>
                 </span>
             </div>
         </div>
 
             <!-- video category -->
-            <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
-                <span class="d-flex justify-content-center align-items-center px-3 py-2 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(226, 240, 233);" >
-                    <i class="bi bi-play-btn-fill text-success mx-1" style="font-size:1.3rem;"></i>Video
+            <div class="d-flex justify-content-center align-items-center gap-1 px-1 py-2 " style="border-radius:25px; ">
+            <div class="d-flex justify-content-center align-items-center mx-1 gap-1 p-1 bg-light" style="border-radius:25px; cursor:pointer;">
+                <span class="btn-video d-flex justify-content-center align-items-center px-3 py-2 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(226, 240, 233);" 
+                    data-type="disease"
+                    data-id="{{ disease.id }}">
+                    <i class="bi bi-play-btn-fill text-success mx-1" style="font-size:1rem;"></i>
+                    <!-- Video --> Video
                 </span>
 
-            <div class="d-flex justify-content-center align-items-start mx-1 gap-1 p-2" style="border-radius:25px; background-color:rgb(226, 240, 233);">
-                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
-                    <i class="bi bi-eye-fill text-success mx-2" style="font-size:1rem;"></i>
-                </span>
-                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
-                    <i class="bi bi-emoji-heart-eyes-fill text-success mx-2" style="font-size:1rem;"></i>
-                </span>
-                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
-                    <i class="bi bi-share-fill text-success mx-2" style="font-size:1rem;"></i>
+                <span class="py-1" style="background-color:rgb(226, 240, 233);font-size:1rem; border-radius:30px;">
+                    {% comment %}  <a class="text-success mx-1 px-2 py-1  generic-postcomment-btn"
+                    data-url="generic_postcomment"
+                    data-type="disease"
+                    data-id="{{ disease.id }}"
+                    data-target="#commentModal"
+                    style="font-size:1rem; border-radius:20px;">
+                    <i class="bi bi-envelope-heart-fill text-success"></i></a>{% endcomment %}
+                    <a onclick="shareContent('diseasevideo','{{ disease.id }}')" class="share-button text-success mx-1 px-2 py-1 bg-light text-decoration-none d-flex align-items-center" style="font-size:1rem; border-radius:20px;">
+                    share
+                    <i class="bi bi-share-fill mx-3"></i>
+                    </a>
                 </span>
            </div>
     </div>
@@ -171,123 +196,177 @@
 
 
          <!-- comment category -->
-         <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-3 py-2 bg-light" style="border-radius:25px; ">
-            <textarea class="form-control  bg-light" rows="1" style="border-top:0px solid white; border-left:0px solid white; border-right:0px solid white; border-bottom:2px solid rgb(4, 70, 39);"></textarea>
-        <div class="d-flex justify-content-center align-items-start mx-1 gap-1 p-2" style="border-radius:25px; background-color:rgb(226, 240, 233);">
-            <span class="p-1 bg-light btn" style="border-radius:35px; color:rgb(4, 70, 39);" >
-                <i class="bi bi-plus-lg text-success mx-1" style="font-size:1rem;"></i>
-            </span>
-       </div>
-</div>
+        {% comment %} <div class="d-flex justify-content-center align-items-center gap-1 px-1 py-2 " style="border-radius:25px; ">
+        <form id="commentForm" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="d-flex justify-content-center align-items-center mx-2 gap-2 py-2 px-3 bg-light"
+            style="border-radius:25px;">
+            <textarea class="form-control bg-light"
+                    name="comment"
+                    rows="1"
+                    required
+                    style="border:0; border-bottom:2px solid rgb(4,70,39); max-width:160px;"></textarea>
+
+            <button class="p-1 btn submit-postcomment-btn" type="submit"
+                    data-form="#commentForm"
+                    data-modal="#commentModal"
+                    data-url="generic_postcomment"
+                    data-type="disease"
+                    data-id="{{ disease.id }}"
+                    style="border-radius:35px; color:rgb(4,70,39); background-color:rgb(226,240,233);">
+            <i class="bi bi-plus-lg text-success mx-1" style="font-size:1rem;"></i>
+            </button>
+        </div>
+        </form>
+</div> {% endcomment %}
 
 </div>
 
-    <div class=" col-sm p-2 rounded" style="background-color:rgb(226, 240, 233);">
+    <div class="col-sm p-2 rounded" style="background-color:rgb(226, 240, 233);">
         <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2"><b class="text-uppercase">{{disease.disease_name}}</b></div>
         <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
-            <span style="color:rgb(4, 70, 39); "><b>Disease Description</b></span><br>
+            <span style="color:rgb(4, 70, 39); "><b><!-- Disease Description  --> Maelezo ya Ugonjwa</b></span><br>
          {{disease.description}}
         </div>
         <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
-            <span style="color:rgb(4, 70, 39); "><b>Disease Symptoms</b></span><br>
+            <span style="color:rgb(4, 70, 39); "><b> <!-- Disease Symptoms  --> Dalili ya Ugonjwa </b></span><br>
             {{disease.symptoms}}
         </div>
         <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
-            <span style="color:rgb(4, 70, 39); "><b>Disease Causes</b></span><br>
+            <span style="color:rgb(4, 70, 39); "><b> <!-- Disease Causes --> Visababishi vya Ugonjwa</b></span><br>
             {{disease.causes}}
         </div>
         <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
-            <span style="color:rgb(4, 70, 39); "><b>Disease treatment</b></span><br>
+            <span style="color:rgb(4, 70, 39); "><b><!-- Disease treatment --> Tiba ya Ugonjwa  </b></span><br>
             {{disease.treatment}}
         </div>
         {% if disease.additional_comment %}
         <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
-            <span style="color:rgb(4, 70, 39); "><b>About disease</b></span><br>
+            <span style="color:rgb(4, 70, 39); "><b><!-- About disease --> Kuhusu Zaidi </b></span><br>
             {{disease.additional_comment}}
         </div>
         {% else %}
         {% endif %}
-    </div>
+        </div>
+
 <!-- finish disease-->
  <!-- start more disease button -->
-        <div class="d-flex justify-content-center align-items-center">
-            <a class="btn btn-sm text-light px-3 py-2" style="background-color:rgb(4, 70, 39);  border-radius:35px;" href="{% url 'services' %}">
-                <i class="bi bi-arrow-right-circle text-success mx-1" style="font-size:1rem; font-style:bold;"></i>More Diseases</a>
+        <div data-type="disease" class="btn-lists d-flex justify-content-center align-items-center" style="cursor:pointer;">
+            <a class="btn btn-sm text-light px-3 py-2" style="background-color:rgb(4, 70, 39);  border-radius:35px;">
+                <i class="bi bi-arrow-right-circle  mx-1" style="font-size:1rem; font-style:bold;"></i><!-- More Diseases --> Magonjwa Mengine </a>
         </div>
         <!-- finish more diseases btn-->
 </div>
-</div>
 <!-- finish disease category-->
 
+</div>
 
 
 
 
 
 <!-- medicine categories -->
-<span id="category_title" class="d-flex justify-content-center align-items-center mt-4 mx-3 p-1 rounded" style="background-color:rgb(226, 240, 233); color:rgb(4, 70, 39); font-size:1.2rem;">
-    <i class="bi bi-bandaid-fill text-success mx-1" style="font-size:1.2rem;"></i>MEDICINE
+<span id="category_title" class="d-flex justify-content-center align-items-center mt-4 mx-3 p-1 rounded" style=" color:rgb(4, 70, 39); font-size:1.2rem;">
+    <i class="bi bi-bandaid-fill text-success mx-1" style="font-size:1.2rem;"></i><!-- MEDICINE --> MADAWA
 </span>
 
 <!-- start diseases -->
-<div class="d-flex justify-content-center align-items-start mx-3 rounded my-1 p-3" style="background-color:rgb(226, 240, 233);">
-        <div class="row ">
-    <div class="col-sm-3 mx-2 mt-3 " >
-        <span class="d-flex justify-content-center align-items-center">
-           <img class="categoryimg" style="width:300px; height:250px;" src="{% static '/images/eternal/dawa4.jpg' %}">
-        </span>
+<div class="row rounded my-1 p-3 mx-2" id="category_container">
+    <div class="col-sm-3 mt-3" >
+        <div class="image-box mx-auto">
+            {% if medicine.profile_image %}
+           <img class="categoryimg" src="{{medicine.profile_image.url}}">
+           {% endif %}
+        </div>
 
+            <!-- Advertisement title -->
+            <div class="d-flex justify-content-center align-items-center mt-2 p-1 rounded" style=" color:rgb(4, 70, 39); font-size:1.2rem;">
+               <span id="category_title" class="bg-light mx-2 px-3 py-1" style="font-size: 1rem;"> <!-- DISEASES --> TANGAZO LA DAWA </span>
+            </div>
+          
            <!-- posture category -->
-           <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
-                <span class="d-flex justify-content-center align-items-center px-2 py-2 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(226, 240, 233);" >
-                    <i class="bi bi-image-fill text-success mx-1" style="font-size:1.3rem;"></i>Posture
+           <div class="d-flex justify-content-center align-items-center  gap-1 px-1 py-2 " style="border-radius:25px; ">
+            <div class="d-flex justify-content-center align-items-center mx-1 gap-1 p-1 bg-light" style="border-radius:25px; cursor:pointer;">
+                <span class="btn-posture  d-flex justify-content-center align-items-center px-3 py-2 " style="border-radius:35px; background-color:rgb(226, 240, 233);"
+                    data-type="medicine"
+                    data-id="{{ medicine.id }}">
+                    <i class="bi bi-image-fill text-success mx-1" style="font-size:1rem;"></i>
+                    <!-- Posture --> 
+                    Picha  
                 </span>
 
-            <div class="d-flex justify-content-center align-items-start mx-1 gap-1 p-2" style="border-radius:25px; background-color:rgb(226, 240, 233);">
-                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
-                    <i class="bi bi-eye-fill text-success mx-2" style="font-size:1rem;"></i>
-                </span>
-                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
-                    <i class="bi bi-emoji-heart-eyes-fill text-success mx-2" style="font-size:1rem;"></i>
-                </span>
-                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
-                    <i class="bi bi-share-fill text-success mx-2" style="font-size:1rem;"></i>
+                <span class="py-1 " style="background-color:rgb(226, 240, 233);font-size:1rem; border-radius:30px;" >
+                    {% comment %} <a class="text-success mx-1 px-2 py-1 bg-light generic-postcomment-btn"
+                    data-url="generic_postcomment"
+                    data-type="medicine"
+                    data-id="{{ medicine.id }}"
+                    data-target="#commentModal"
+                    style="font-size:1rem; border-radius:20px;">
+                    <i class="bi bi-envelope-heart-fill text-success"></i></a> {% endcomment %}
+                     <a onclick="shareContent('medicineimage','{{ medicine.id }}')" class="share-button text-success mx-1 px-2 py-1 bg-light text-decoration-none d-flex align-items-center" style="font-size:1rem; border-radius:20px;">
+                        share
+                    <i class="bi bi-share-fill mx-3"></i>
+                    </a>
                 </span>
             </div>
         </div>
 
             <!-- video category -->
-            <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
-                <span class="d-flex justify-content-center align-items-center px-3 py-2 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(226, 240, 233);" >
-                    <i class="bi bi-play-btn-fill text-success mx-1" style="font-size:1.3rem;"></i>Video
+            <div class="d-flex justify-content-center align-items-center gap-1 px-1 py-2 " style="border-radius:25px; ">
+            <div class="d-flex justify-content-center align-items-center mx-1 gap-1 p-1 bg-light" style="border-radius:25px; cursor:pointer;">
+                <span class="btn-video d-flex justify-content-center align-items-center px-3 py-2 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(226, 240, 233);" 
+                    data-type="medicine"
+                    data-id="{{ medicine.id }}">
+                    <i class="bi bi-play-btn-fill text-success mx-1" style="font-size:1rem;"></i>
+                    <!--  Video --> 
+                    Video
                 </span>
 
-            <div class="d-flex justify-content-center align-items-start mx-1 gap-1 p-2" style="border-radius:25px; background-color:rgb(226, 240, 233);">
-                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
-                    <i class="bi bi-eye-fill text-success mx-2" style="font-size:1rem;"></i>
-                </span>
-                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
-                    <i class="bi bi-emoji-heart-eyes-fill text-success mx-2" style="font-size:1rem;"></i>
-                </span>
-                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
-                    <i class="bi bi-share-fill text-success mx-2" style="font-size:1rem;"></i>
+                <span class="py-1 " style="background-color:rgb(226, 240, 233);font-size:1rem; border-radius:30px;">
+                     {% comment %} <a class="text-success mx-1 px-2 py-1 bg-light generic-postcomment-btn"
+                    data-url="generic_postcomment"
+                    data-type="medicine"
+                    data-id="{{ medicine.id }}"
+                    data-target="#commentModal"
+                    style="font-size:1rem; border-radius:20px;">
+                    <i class="bi bi-envelope-heart-fill text-success"></i></a> {% endcomment %}
+                     <a onclick="shareContent('medicinevideo','{{ medicine.id }}')" class="share-button text-success mx-1 px-2 py-1 bg-light text-decoration-none d-flex align-items-center" style="font-size:1rem; border-radius:20px;">
+                        share
+                    <i class="bi bi-share-fill mx-3"></i>
+                    </a>
                 </span>
            </div>
     </div>
+    
 
 
-                 <!-- comment category -->
-                 <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-3 py-2 bg-light" style="border-radius:25px; ">
-                    <textarea class="form-control  bg-light" rows="1" style="border-top:0px solid white; border-left:0px solid white; border-right:0px solid white; border-bottom:2px solid rgb(4, 70, 39);"></textarea>
-                <div class="d-flex justify-content-center align-items-start mx-1 gap-1 p-2" style="border-radius:25px; background-color:rgb(226, 240, 233);">
-                    <span class="p-1 bg-light btn" style="border-radius:35px; color:rgb(4, 70, 39);" >
-                        <i class="bi bi-plus-lg text-success mx-1" style="font-size:1rem;"></i>
-                    </span>
-               </div>
+         <!-- comment category -->
+        {% comment %} <div class="d-flex justify-content-center align-items-center gap-1 px-1 py-2 " style="border-radius:25px; ">
+        <form id="commentForm" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="d-flex justify-content-center align-items-center mx-2 gap-2 py-2 px-3 bg-light"
+            style="border-radius:25px;">
+            <textarea class="form-control bg-light"
+                    name="comment"
+                    rows="1"
+                    required
+                    style="border:0; border-bottom:2px solid rgb(4,70,39); max-width:160px;"></textarea>
+
+            <button class="p-1 btn submit-postcomment-btn" type="submit"
+                    data-form="#commentForm"
+                    data-modal="#commentModal"
+                    data-url="generic_postcomment"
+                    data-type="medicine"
+                    data-id="{{ medicine.id }}"
+                    style="border-radius:35px; color:rgb(4,70,39); background-color:rgb(226,240,233);">
+            <i class="bi bi-plus-lg text-success mx-1" style="font-size:1rem;"></i>
+            </button>
         </div>
+        </form>
+        </div> {% endcomment %}
 
                                   <!-- order category -->
-                                  <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
+                                  {% comment %} <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
                                     <span class="d-flex justify-content-center align-items-center px-3 py-2 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(226, 240, 233);" >
                                         <i class="bi bi-capsule text-success mx-1" style="font-size:1.3rem;"></i>Make Order
                                     </span>
@@ -297,110 +376,147 @@
                                         <i class="bi bi-cart-fill text-success mx-2" style="font-size:1rem;"></i>
                                     </a>
                                </div>
-                            </div>
+                            </div> {% endcomment %}
 </div>
 
     <div class="col-sm p-2 rounded" style="background-color:rgb(226, 240, 233);">
         <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2"><b class="text-uppercase">{{medicine.medicine_name}}</b></div>
         <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
-            <span style="color:rgb(4, 70, 39); "><b>Medicine Decsription</b></span><br>
+            <span style="color:rgb(4, 70, 39); "><b><!-- Medicine Decsription -->  Maelezo ya Dawa </b></span><br>
             {{medicine.description}}
         </div>
         <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
-            <span style="color:rgb(4, 70, 39); "><b>Accumulated Solution</b></span><br>
+            <span style="color:rgb(4, 70, 39); "><b><!-- Accumulated Solution --> Tiba ya Dawa </b></span><br>
             {{medicine.solution}}
         </div>
         <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
-            <span style="color:rgb(4, 70, 39); "><b>Medicine Dose</b></span><br>
+            <span style="color:rgb(4, 70, 39); "><b><!--Medicine Dose  --> Dozi ya Dawa  </b></span><br>
             {{medicine.dose}}
         </div>
         <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
-            <span style="color:rgb(4, 70, 39); "><b>Medicine Cost</b></span><br>
+            <span style="color:rgb(4, 70, 39); "><b><!-- Medicine Cost --> Gharama ya Dawa </b></span><br>
             {{medicine.cost}}
         </div>
                 {% if medicine.additional_comment %}
             <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
-            <span style="color:rgb(4, 70, 39); "><b>About medicine</b></span><br>
+            <span style="color:rgb(4, 70, 39); "><b><!-- About medicine --> Kuhusu Dawa  </b></span><br>
             {{medicine.additional_comment}}
         </div>
         {% endif %}
-    </div>
+        </div>
 <!-- finish Medicine-->
 
         <!-- start more medicine button -->
-        <div class="d-flex justify-content-center align-items-center">
-            <a class="btn btn-sm text-light px-3 py-2" style="background-color:rgb(4, 70, 39);  border-radius:35px;" href="{% url 'services' %}">
-                <i class="bi bi-arrow-right-circle text-success mx-1" style="font-size:1rem; font-style:bold;"></i>More Medicine</a>
+        <div data-type="medicine" class="btn-lists d-flex justify-content-center align-items-center; cursor:pointer;">
+            <a class="btn btn-sm text-light px-3 py-2" style="background-color:rgb(4, 70, 39);  border-radius:35px;">
+                <i class="bi bi-arrow-right-circle  mx-1" style="font-size:1rem; font-style:bold;"></i><!-- More Medicine --> Dawa Zengine </a>
         </div>
         <!-- finish more medicine btn-->
          
 </div>
-</div>
 
 
 <!-- check-up categories -->
-<span id="category_title" class="d-flex justify-content-center align-items-center mt-4 mx-3 p-1 rounded" style="background-color:rgb(226, 240, 233); color:rgb(4, 70, 39); font-size:1.2rem;">
-    <i class="bi bi-person-arms-up text-success mx-1" style="font-size:1.3rem;"></i>CHECK-UPS
+<span id="category_title" class="d-flex justify-content-center align-items-center mt-4 mx-3 p-1 rounded" style="color:rgb(4, 70, 39); font-size:1.2rem;">
+    <i class="bi bi-person-arms-up text-success mx-1" style="font-size:1.3rem;"></i><!--CHECK-UPS  -->  VIPIMO
 </span>
 
 <!-- start diseases -->
-<div class="d-flex justify-content-center align-items-start mx-3 rounded my-1 p-3" style="background-color:rgb(226, 240, 233);">
-            <div class="row ">
-    <div class="col-sm-3 mx-2 mt-3 " >
-        <span class="d-flex justify-content-center align-items-center">
-           <img class="categoryimg" style="width:300px; height:200px;" src="{% static '/images/eternal/download.jpeg' %}">
-        </span>
+<div class="row rounded my-1 p-3 mx-2" id="category_container">
+    <div class="col-sm-3 mt-3" >
+        <div class="image-box mx-auto">
+        {% if checkup.profile_image %}
+           <img class="categoryimg" src="{{checkup.profile_image.url}}">
+           {% endif %}
+        </div>
+
+            <!-- Advertisement title -->
+            <div class="d-flex justify-content-center align-items-center mt-2 p-1 rounded" style=" color:rgb(4, 70, 39); font-size:1.2rem;">
+               <span id="category_title" class="bg-light mx-2 px-3 py-1" style="font-size: 1rem;"> <!-- DISEASES --> TANGAZO LA KIPIMO </span>
+            </div>
 
            <!-- posture category -->
-           <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
-                <span class="d-flex justify-content-center align-items-center px-2 py-2 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(226, 240, 233);" >
-                    <i class="bi bi-image-fill text-success mx-1" style="font-size:1.3rem;"></i>Posture
+           <div class="d-flex justify-content-center align-items-center gap-1 px-1 py-2 " style="border-radius:25px; ">
+            <div class="d-flex justify-content-center align-items-center mx-1 gap-1 p-1 bg-light" style="border-radius:25px; cursor:pointer;">
+                <span class="btn-posture  d-flex justify-content-center align-items-center px-3 py-2 " style="border-radius:35px; background-color:rgb(226, 240, 233);"
+                    data-type="checkup"
+                    data-id="{{ checkup.id }}">
+                    <i class="bi bi-image-fill text-success mx-1" style="font-size:1rem;"></i>
+                     <!-- Posture -->
+                     Picha
                 </span>
 
-            <div class="d-flex justify-content-center align-items-start mx-1 gap-1 p-2" style="border-radius:25px; background-color:rgb(226, 240, 233);">
-                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
-                    <i class="bi bi-eye-fill text-success mx-2" style="font-size:1rem;"></i>
-                </span>
-                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
-                    <i class="bi bi-emoji-heart-eyes-fill text-success mx-2" style="font-size:1rem;"></i>
-                </span>
-                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
-                    <i class="bi bi-share-fill text-success mx-2" style="font-size:1rem;"></i>
+                <span class="py-1 " style="background-color:rgb(226, 240, 233);font-size:1rem; border-radius:30px;">
+                    {% comment %} <a class="text-success mx-1 px-2 py-1 bg-light generic-postcomment-btn"
+                    data-url="generic_postcomment"
+                    data-type="checkup"
+                    data-id="{{ checkup.id }}"
+                    data-target="#commentModal"
+                    style="font-size:1rem; border-radius:20px;">
+                    <i class="bi bi-envelope-heart-fill text-success"></i></a> {% endcomment %}
+                    <a onclick="shareContent('checkupimage','{{ checkup.id }}')" class="share-button text-success mx-1 px-2 py-1 bg-light text-decoration-none d-flex align-items-center" style="font-size:1rem; border-radius:20px;">
+                        share
+                    <i class="bi bi-share-fill mx-3"></i>
+                    </a>
                 </span>
             </div>
         </div>
 
             <!-- video category -->
-            <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
-                <span class="d-flex justify-content-center align-items-center px-3 py-2 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(226, 240, 233);" >
-                    <i class="bi bi-play-btn-fill text-success mx-1" style="font-size:1.3rem;"></i>Video
+            <div class="d-flex justify-content-center align-items-center gap-1 px-1 py-2 " style="border-radius:25px; ">
+            <div class="d-flex justify-content-center align-items-center mx-1 gap-1 p-1 bg-light" style="border-radius:25px; cursor:pointer;">
+                <span class="btn-video d-flex justify-content-center align-items-center px-3 py-2 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(226, 240, 233);" 
+                    data-type="checkup"
+                    data-id="{{ checkup.id }}">
+                    <i class="bi bi-play-btn-fill text-success mx-1" style="font-size:1rem;"></i>Video
                 </span>
 
-            <div class="d-flex justify-content-center align-items-start mx-1 gap-1 p-2" style="border-radius:25px; background-color:rgb(226, 240, 233);">
-                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
-                    <i class="bi bi-eye-fill text-success mx-2" style="font-size:1rem;"></i>
-                </span>
-                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
-                    <i class="bi bi-emoji-heart-eyes-fill text-success mx-2" style="font-size:1rem;"></i>
-                </span>
-                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
-                    <i class="bi bi-share-fill text-success mx-2" style="font-size:1rem;"></i>
+                <span class="py-2 " style="background-color:rgb(226, 240, 233);font-size:1rem; border-radius:30px;">
+                     {% comment %} <a class="text-success mx-1 px-2 py-1 bg-light generic-postcomment-btn"
+                    data-url="generic_postcomment"
+                    data-type="checkup"
+                    data-id="{{ checkup.id }}"
+                    data-target="#commentModal"
+                    style="font-size:1rem; border-radius:20px;">
+                    <i class="bi bi-envelope-heart-fill text-success"></i></a> {% endcomment %}
+                    <a onclick="shareContent('checkupvideo','{{ checkup.id }}')" class="share-button text-success mx-1 px-2 py-1 bg-light text-decoration-none d-flex align-items-center" style="font-size:1rem; border-radius:20px;">
+                        share
+                    <i class="bi bi-share-fill mx-3"></i>
+                    </a>
                 </span>
            </div>
     </div>
+    
 
-                     <!-- comment category -->
-         <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-3 py-2 bg-light" style="border-radius:25px; ">
-            <textarea class="form-control  bg-light" rows="1" style="border-top:0px solid white; border-left:0px solid white; border-right:0px solid white; border-bottom:2px solid rgb(4, 70, 39);"></textarea>
-        <div class="d-flex justify-content-center align-items-start mx-1 gap-1 p-2" style="border-radius:25px; background-color:rgb(226, 240, 233);">
-            <span class="p-1 bg-light btn" style="border-radius:35px; color:rgb(4, 70, 39);" >
-                <i class="bi bi-plus-lg text-success mx-1" style="font-size:1rem;"></i>
-            </span>
-       </div>
-</div>
+{% comment %} 
+         <!-- comment category -->
+        <div class="d-flex justify-content-center align-items-center gap-1 px-1 py-2 " style="border-radius:25px; ">
+        <form id="commentForm" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="d-flex justify-content-center align-items-center mx-2 gap-2 py-2 px-3 bg-light"
+            style="border-radius:25px;">
+            <textarea class="form-control bg-light"
+                    name="comment"
+                    rows="1"
+                    required
+                    style="border:0; border-bottom:2px solid rgb(4,70,39); max-width:160px;"></textarea>
+
+            <button class="p-1 btn submit-postcomment-btn" type="submit"
+                    data-form="#commentForm"
+                    data-modal="#commentModal"
+                    data-url="generic_postcomment"
+                    data-type="checkup"
+                    data-id="{{ checkup.id }}"
+                    style="border-radius:35px; color:rgb(4,70,39); background-color:rgb(226,240,233);">
+            <i class="bi bi-plus-lg text-success mx-1" style="font-size:1rem;"></i>
+            </button>
+        </div>
+        </form>
+</div> {% endcomment %}
+
                     
                   <!-- order category -->
-                  <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
+                  {% comment %} <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
                     <span class="d-flex justify-content-center align-items-center px-3 py-2 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(226, 240, 233);" >
                         <i class="bi bi-person-arms-up text-success mx-1" style="font-size:1.3rem;"></i>Order CheckUp
                     </span>
@@ -410,44 +526,43 @@
                         <i class="bi bi-person-arms-up text-success mx-2" style="font-size:1rem;"></i>
                     </a>
                </div>
-            </div>
+            </div> {% endcomment %}
 </div>
 
     <div class="col-sm p-2 rounded" style="background-color:rgb(226, 240, 233);">
         <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2"><b class="text-uppercase">{{checkup.checkup_name}}</b></div>
         <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
-            <span style="color:rgb(4, 70, 39); "><b>Check-Up Decsription</b></span><br>
+            <span style="color:rgb(4, 70, 39); "><b><!-- Check-Up Decsription --> Maelezo ya Kipimo  </b></span><br>
            {{checkup.description}}
         </div>
         <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
-            <span style="color:rgb(4, 70, 39); "><b>Check-Up treatment</b></span><br>
+            <span style="color:rgb(4, 70, 39); "><b><!-- Check-Up treatment --> Tiba ya Kipimo  </b></span><br>
             {{checkup.treatment}}
         </div>
         <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
-            <span style="color:rgb(4, 70, 39); "><b>Check-Up Solution</b></span><br>
+            <span style="color:rgb(4, 70, 39); "><b><!-- Check-Up Solution --> Suluhisho la Kipimo  </b></span><br>
             {{checkup.solution}}
         </div>
         <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
-            <span style="color:rgb(4, 70, 39); "><b>Check-Up Cost</b></span><br>
+            <span style="color:rgb(4, 70, 39); "><b><!-- Check-Up Cost --> Gharama ya Kipimo  </b></span><br>
             {{checkup.cost}}
         </div>
 
         {% if checkup.additional_comment %}
             <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
-            <span style="color:rgb(4, 70, 39); "><b>About checkup</b></span><br>
+            <span style="color:rgb(4, 70, 39); "><b><!-- About checkup --> Kuhusu Kipimo </b></span><br>
             {{checkup.additional_comment}}
         </div>
         {% endif %}
-    </div>
+        </div>
 <!-- finish Medicine-->
                          <!-- start more checkup button -->
-        <div class="d-flex justify-content-center align-items-center">
-            <a class="btn btn-sm text-light px-3 py-2" style="background-color:rgb(4, 70, 39);  border-radius:35px;" href="{% url 'services' %}">
-                <i class="bi bi-arrow-right-circle text-success mx-1" style="font-size:1rem; font-style:bold;"></i>More checkups</a>
+        <div data-type="checkup" class="btn-lists d-flex justify-content-center align-items-center; cursor:pointer;">
+            <a class="btn btn-sm text-light px-3 py-2" style="background-color:rgb(4, 70, 39);  border-radius:35px;">
+                <i class="bi bi-arrow-right-circle  mx-1" style="font-size:1rem; font-style:bold;"></i><!--  More checkups --> Vipimo vingine</a>
         </div>
         <!-- finish more checkup btn-->
 
-</div>
 </div>
 <!-- finish medicine category-->
 
@@ -459,14 +574,14 @@
 
 <!-- business categories -->
 <div >
-    <span id="category_title" class="d-flex justify-content-center align-items-center mt-4  mx-3 p-1 rounded" style="background-color:rgb(226, 240, 233); color:rgb(4, 70, 39);font-size:1.2rem;">
-        <i class="bi bi-briefcase-fill text-success mx-1" style="font-size:1.2rem;"></i>BUSINESS</span>
+    <span id="category_title" class="d-flex justify-content-center align-items-center mt-4  mx-3 p-1 rounded" style="color:rgb(4, 70, 39);font-size:1.2rem;">
+        <i class="bi bi-briefcase-fill text-success mx-1" style="font-size:1.2rem;"></i><!-- BUSINESS --> BIASHARA </span>
     <ul class="nav nav-pills d-flex justify-content-center aling-items-center gap-2 mt-2">
         <li class="nav-item">
-          <a class="nav-link " data-bs-toggle="pill" href="#business_plan" >Business Plan</a>
+          <a class="nav-link " data-bs-toggle="pill" href="#business_plan" ><!--Business Plan  --> Biashara ya Kiafya </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " data-bs-toggle="pill" href="#business_levels" >Business Levels</a>
+          <a class="nav-link " data-bs-toggle="pill" href="#business_levels" ><!-- Business Levels -->Hatua za Biashara  </a>
         </li>
       </ul>
       
@@ -474,69 +589,107 @@
       <div class="tab-content p-4">
 
         <!-- start business plan -->
-        <div class="tab-pane container active p-2 rounded" id="business_plan" style="background-color:rgb(226, 240, 233);">   
-         <div class="p-2 rounded" style="background-color:rgb(226, 240, 233);">
-        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2 d-flex justify-content-center align-items-center"><b>BUSINESS THEORY</b></div>
+        <div class="tab-pane container active p-2 rounded" id="business_plan" >   
+         <div class="p-2 rounded" >
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2 d-flex justify-content-center align-items-center"><b><!-- BUSINESS THEORY --> BIASHARA KIUJUMLA  </b></div>
 
-        <div class="d-flex justify-content-center align-items-start rounded gap-2" >
-                <div class="row ">
-                <div class="col-sm-5 mt-3 " >
-        <span class="d-flex justify-content-center align-items-center ">
-           <img class="categoryimg" style="width:320px; height:300px;" src="{% static '/images/eternal/sales.jpeg' %}">
-        </span>
+        <div class="row gap-2" >
+        <div class="col-sm-3 mt-3" >
+       <div class="image-box mx-auto">
+        {% if business_plan.profile_image %}
+           <img class="categoryimg" src="{{business_plan.profile_image.url}}">
+           {% endif %}
+       </div>
+
+
+              <!-- Advertisement title -->
+            <div class="d-flex justify-content-center align-items-center mt-2 p-1 rounded" style=" color:rgb(4, 70, 39); font-size:1.2rem;">
+               <span id="category_title" class="bg-light mx-2 px-3 py-1" style="font-size: 1rem;"> <!-- DISEASES --> TANGAZO LA BIASHARA </span>
+            </div>
 
            <!-- posture category -->
-           <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
-                <span class="d-flex justify-content-center align-items-center px-2 py-2 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(226, 240, 233);" >
-                    <i class="bi bi-image-fill text-success mx-1" style="font-size:1.3rem;"></i>Posture
+           <div class="d-flex justify-content-center align-items-center  gap-1 px-1 py-2 " style="border-radius:25px; ">
+            <div class="d-flex justify-content-center align-items-center mx-1 gap-1 p-1 bg-light" style="border-radius:25px; cursor:pointer;">
+                <span class="btn-posture  d-flex justify-content-center align-items-center px-3 py-2 " style="border-radius:35px; background-color:rgb(226, 240, 233);"
+                    data-type="businessplan"
+                    data-id="{{ business_plan.id }}">
+                    <i class="bi bi-image-fill text-success mx-1" style="font-size:1rem;"></i>
+                    <!-- Posture  --> 
+                    Picha
                 </span>
 
-            <div class="d-flex justify-content-center align-items-start mx-1 gap-1 p-2" style="border-radius:25px; background-color:rgb(226, 240, 233);">
-                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
-                    <i class="bi bi-eye-fill text-success mx-2" style="font-size:1rem;"></i>
-                </span>
-                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
-                    <i class="bi bi-emoji-heart-eyes-fill text-success mx-2" style="font-size:1rem;"></i>
-                </span>
-                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
-                    <i class="bi bi-share-fill text-success mx-2" style="font-size:1rem;"></i>
+                <span class="d-flex justify-content-center align-items-center py-1" style="background-color:rgb(226, 240, 233);font-size:1rem; border-radius:30px;">
+                     {% comment %} <a class="text-success mx-1 px-2 py-1 bg-light generic-postcomment-btn"
+                    data-url="generic_postcomment"
+                    data-type="businessplan"
+                    data-id="{{ business_plan.id }}"
+                    data-target="#commentModal"
+                    style="font-size:1rem; border-radius:20px;">
+                    <i class="bi bi-envelope-heart-fill text-success"></i></a> {% endcomment %}
+                    <a onclick="shareContent('businessplanimage','{{ businessplan.id }}')" class="share-button text-success mx-1 px-2 py-1 bg-light text-decoration-none d-flex align-items-center" style="font-size:1rem; border-radius:20px;">
+                        share
+                    <i class="bi bi-share-fill mx-3"></i>
+                    </a>
                 </span>
             </div>
         </div>
 
             <!-- video category -->
-            <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
-                <span class="d-flex justify-content-center align-items-center px-3 py-2 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(226, 240, 233);" >
-                    <i class="bi bi-play-btn-fill text-success mx-1" style="font-size:1.3rem;"></i>Video
+            <div class="d-flex justify-content-center align-items-center gap-1 px-1 py-2 " style="border-radius:25px; ">
+            <div class="d-flex justify-content-center align-items-center mx-1 gap-1 p-1 bg-light" style="border-radius:25px; cursor:pointer;">
+                <span class="btn-video d-flex justify-content-center align-items-center px-3 py-2 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(226, 240, 233);" 
+                    data-type="businessplan"
+                    data-id="{{ business_plan.id }}">
+                    <i class="bi bi-play-btn-fill text-success mx-1" style="font-size:1rem;"></i>
+                    <!-- Video -->  
+                    Video
                 </span>
 
-            <div class="d-flex justify-content-center align-items-start mx-1 gap-1 p-2" style="border-radius:25px; background-color:rgb(226, 240, 233);">
-                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
-                    <i class="bi bi-eye-fill text-success mx-2" style="font-size:1rem;"></i>
-                </span>
-                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
-                    <i class="bi bi-emoji-heart-eyes-fill text-success mx-2" style="font-size:1rem;"></i>
-                </span>
-                <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
-                    <i class="bi bi-share-fill text-success mx-2" style="font-size:1rem;"></i>
+                <span class="d-flex justify-content-center align-items-center py-1 " style="background-color:rgb(226, 240, 233);font-size:1rem; border-radius:30px;">
+                     {% comment %} <a class="text-success mx-1 px-2 py-1 bg-light generic-postcomment-btn"
+                    data-url="generic_postcomment"
+                    data-type="businessplan"
+                    data-id="{{ business_plan.id }}"
+                    data-target="#commentModal"
+                    style="font-size:1rem; border-radius:20px;">
+                    <i class="bi bi-envelope-heart-fill text-success"></i></a> {% endcomment %}
+                    <a onclick="shareContent('businessplanvideo','{{ businessplan.id }}')" class="share-button text-success mx-1 px-2 py-1 bg-light text-decoration-none d-flex align-items-center" style="font-size:1rem; border-radius:20px;">
+                        share
+                    <i class="bi bi-share-fill mx-3"></i>
+                    </a>
                 </span>
            </div>
     </div>
+    
 
 
-                                                 <!-- comment category -->
-         <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-3 py-2 bg-light" style="border-radius:25px; ">
-            <textarea class="form-control  bg-light" rows="1" style="border-top:0px solid white; border-left:0px solid white; border-right:0px solid white; border-bottom:2px solid rgb(4, 70, 39);"></textarea>
-        <div class="d-flex justify-content-center align-items-start mx-1 gap-1 p-2" style="border-radius:25px; background-color:rgb(226, 240, 233);">
-            <span class="p-1 bg-light btn" style="border-radius:35px; color:rgb(4, 70, 39);" >
-                <i class="bi bi-plus-lg text-success mx-1" style="font-size:1rem;"></i>
-            </span>
-       </div>
-</div>
+         <!-- comment category -->
+        {% comment %} <div class="d-flex justify-content-center align-items-center gap-1 px-1 py-2 " style="border-radius:25px; ">
+        <form id="commentForm" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="d-flex justify-content-center align-items-center mx-2 gap-2 py-2 px-3 bg-light"
+            style="border-radius:25px;">
+            <textarea class="form-control bg-light"
+                    name="comment"
+                    rows="1"
+                    required
+                    style="border:0; border-bottom:2px solid rgb(4,70,39); max-width:160px;"></textarea>
 
+            <button class="p-1 btn submit-postcomment-btn" type="submit"
+                    data-form="#commentForm"
+                    data-modal="#commentModal"
+                    data-url="generic_postcomment"
+                    data-type="businessplan"
+                    data-id="{{ business_plan.id }}"
+                    style="border-radius:35px; color:rgb(4,70,39); background-color:rgb(226,240,233);">
+            <i class="bi bi-plus-lg text-success mx-1" style="font-size:1rem;"></i>
+            </button>
+        </div>
+        </form>
+</div> {% endcomment %}
 
                   <!-- order category -->
-                  <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
+                  {% comment %} <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
                     <span class="d-flex justify-content-center align-items-center px-3 py-2 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(226, 240, 233);" >
                         <i class="bi bi-briefcase-fill text-success mx-1" style="font-size:1.3rem;"></i>Start Your Business
                     </span>
@@ -546,41 +699,40 @@
                         <i class="bi bi-plus-lg text-success mx-2" style="font-size:1rem;"></i>
                     </a>
                </div>
-            </div>
+            </div> {% endcomment %}
 </div>
 
     <div class="col-sm p-2 rounded" style="background-color:rgb(226, 240, 233);">
         <div  style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
-            <span style="color:rgb(4, 70, 39); "><b>Business Decsription</b></span><br>
+            <span style="color:rgb(4, 70, 39); "><b><!-- Business Decsription --> Maelezo ya Biashara </b></span><br>
            {{business_plan.description}}
         </div>
         <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
-            <span style="color:rgb(4, 70, 39); "><b>Sales & Marketing</b></span><br>
+            <span style="color:rgb(4, 70, 39); "><b><!-- Sales & Marketing --> Mauzo na Soko  </b></span><br>
             {{business_plan.sales_and_marketing}}
         </div>
         <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
-            <span style="color:rgb(4, 70, 39); "><b>Business Members</b></span><br>
+            <span style="color:rgb(4, 70, 39); "><b><!-- Business Members --> Wanachama wa Biashara </b></span><br>
             {{business_plan.business_member}}
         </div>
         <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
-            <span style="color:rgb(4, 70, 39); "><b>Product PV points</b></span><br>
+            <span style="color:rgb(4, 70, 39); "><b><!-- PV points --> PV pointi  </b></span><br>
             {{business_plan.pv_points}}
         </div>
         {% if business_plan.additional_comment %}
                 <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
-            <span style="color:rgb(4, 70, 39); "><b>About Product</b></span><br>
+            <span style="color:rgb(4, 70, 39); "><b><!-- About Product --> Kuhusu Biashara </b></span><br>
             {{business_plan.additional_comment}}
         </div>
         {% endif %}
     </div>
     </div>
-</div>
 <!-- finish business plan-->
 
                 <!-- start more busines button -->
-        <div class="d-flex justify-content-center align-items-center">
-            <a class="btn btn-sm text-light px-3 py-2" style="background-color:rgb(4, 70, 39);  border-radius:35px;" href="{% url 'services' %}">
-                <i class="bi bi-arrow-right-circle text-success mx-1" style="font-size:1rem; font-style:bold;"></i>about business</a>
+        <div data-type="businessplan" data-id="{{business_plan.id}}" class="btn-business d-flex justify-content-center align-items-center; cursor:pointer;">
+            <a class="btn btn-sm text-light px-3 py-2" style="background-color:rgb(4, 70, 39);  border-radius:35px;" >
+                <i class="bi bi-arrow-right-circle  mx-1" style="font-size:1rem; font-style:bold;"></i><!--about business  -->  Zaidi kuhusu Biashara</a>
         </div>
         <!-- finish about business btn-->
 
@@ -590,67 +742,107 @@
 
 
         <!-- start business plan -->
-        <div class="tab-pane container fade p-2 rounded" id="business_levels" style="background-color:rgb(226, 240, 233);">
+        <div class="tab-pane container fade p-2 rounded" id="business_levels" >
 
-                <div class="p-2 rounded" style="background-color:rgb(226, 240, 233);">
-                    <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2 d-flex justify-content-center align-items-center"><b>BUSINESS LEVELS</b></div>
+                <div class="p-2 rounded" >
+                    <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2 d-flex justify-content-center align-items-center"><b><!--  BUSINESS LEVELS --> HATUA ZA BIASHARA </b></div>
 
-            <div class="d-flex justify-content-center align-items-start rounded gap-2" >
-                            <div class="row ">
-                    <div class="col-sm-4 mt-3 " >
-        <span class="d-flex justify-content-center align-items-center ">
-           <img class="categoryimg" style="width:300px; height:260px;" src="{% static '/images/eternal/sales.jpeg' %}">
-        </span>
+            <div class="row rounded gap-2" >
+        <div class="col-sm-3 mt-3" >
+        <div class="image-box mx-auto">
+        {% if business_level.profile_image %}
+           <img class="categoryimg" src="{{business_level.profile_image.url}}">
+           {% endif %}
+        </div>
+
+
+            <!-- Advertisement title -->
+            <div class="d-flex justify-content-center align-items-center mt-2 p-1 rounded" style=" color:rgb(4, 70, 39); font-size:1.2rem;">
+               <span id="category_title" class="bg-light mx-2 px-3 py-1" style="font-size: 1rem;"> <!-- DISEASES --> TANGAZO LA LEVEL </span>
+            </div>
+
                       <!-- posture category -->
-                      <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
-                        <span class="d-flex justify-content-center align-items-center px-3 py-2 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(226, 240, 233);" >
-                            <i class="bi bi-image-fill text-success mx-1" style="font-size:1.3rem;"></i>Posture
-                        </span>
-        
-                    <div class="d-flex justify-content-center align-items-start mx-1 gap-1 p-2" style="border-radius:25px; background-color:rgb(226, 240, 233);">
-                        <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
-                            <i class="bi bi-eye-fill text-success mx-2" style="font-size:1rem;"></i>
-                        </span>
-                        <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
-                            <i class="bi bi-emoji-heart-eyes-fill text-success mx-2" style="font-size:1rem;"></i>
-                        </span>
-                        <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
-                            <i class="bi bi-share-fill text-success mx-2" style="font-size:1rem;"></i>
-                        </span>
-                    </div>
-                </div>
-        
-                    <!-- video category -->
-                    <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
-                        <span class="d-flex justify-content-center align-items-center px-3 py-2 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(226, 240, 233);" >
-                            <i class="bi bi-play-btn-fill text-success mx-1" style="font-size:1.3rem;"></i>Video
-                        </span>
-        
-                    <div class="d-flex justify-content-center align-items-start mx-1 gap-1 p-2" style="border-radius:25px; background-color:rgb(226, 240, 233);">
-                        <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
-                            <i class="bi bi-eye-fill text-success mx-2" style="font-size:1rem;"></i>
-                        </span>
-                        <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
-                            <i class="bi bi-emoji-heart-eyes-fill text-success mx-2" style="font-size:1rem;"></i>
-                        </span>
-                        <span class="p-1 bg-light" style="border-radius:35px; color:rgb(4, 70, 39);" >
-                            <i class="bi bi-share-fill text-success mx-2" style="font-size:1rem;"></i>
-                        </span>
-                   </div>
-                </div>
+           <div class="d-flex justify-content-center align-items-center  gap-1 px-1 py-2 " style="border-radius:25px; ">
+            <div class="d-flex justify-content-center align-items-center mx-1 gap-1 p-1 bg-light" style="border-radius:25px; cursor:pointer;">
+                <span class="btn-posture  d-flex justify-content-center align-items-center px-3 py-2 " style="border-radius:35px; background-color:rgb(226, 240, 233);"
+                    data-type="businesslevel"
+                    data-id="{{ business_level.id }}">
+                    <i class="bi bi-image-fill text-success mx-1" style="font-size:1rem;"></i>
+                    <!-- Posture -->  
+                    Picha
+                </span>
 
-                                 <!-- comment category -->
-         <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-3 py-2 bg-light" style="border-radius:25px; ">
-            <textarea class="form-control  bg-light" rows="1" style="border-top:0px solid white; border-left:0px solid white; border-right:0px solid white; border-bottom:2px solid rgb(4, 70, 39);"></textarea>
-        <div class="d-flex justify-content-center align-items-start mx-1 gap-1 p-2" style="border-radius:25px; background-color:rgb(226, 240, 233);">
-            <span class="p-1 bg-light btn" style="border-radius:35px; color:rgb(4, 70, 39);" >
-                <i class="bi bi-plus-lg text-success mx-1" style="font-size:1rem;"></i>
-            </span>
-       </div>
-</div>
+                <span class="d-flex justify-content-center align-items-center py-1" style="background-color:rgb(226, 240, 233);font-size:1rem; border-radius:30px;">
+                    {% comment %} <a class="text-success mx-1 px-2 py-1 bg-light generic-postcomment-btn"
+                    data-url="generic_postcomment"
+                    data-type="businesslevel"
+                    data-id="{{ business_level.id }}"
+                    data-target="#commentModal"
+                    style="font-size:1rem; border-radius:20px;">
+                    <i class="bi bi-envelope-heart-fill text-success"></i></a> {% endcomment %}
+                    <a onclick="shareContent('businesslevelimage','{{ businesslevel.id }}')" class="share-button text-success mx-1 px-2 py-1 bg-light  text-decoration-none d-flex align-items-center" style="font-size:1rem; border-radius:20px;">
+                        share
+                    <i class="bi bi-share-fill mx-3"></i>
+                    </a>
+                </span>
+            </div>
+        </div>
+
+            <!-- video category -->
+            <div class="d-flex justify-content-center align-items-center gap-1 px-1 py-2 " style="border-radius:25px; ">
+            <div class="d-flex justify-content-center align-items-center mx-1 gap-1 p-1 bg-light" style="border-radius:25px; cursor:pointer;">
+                <span class="btn-video d-flex justify-content-center align-items-center px-3 py-2 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(226, 240, 233);" 
+                    data-type="businesslevel"
+                    data-id="{{ business_level.id }}">
+                    <i class="bi bi-play-btn-fill text-success mx-1" style="font-size:1rem;"></i>
+                    <!-- Video --> Video
+                </span>
+
+                <span class="d-flex justify-content-center align-items-center py-1" style="border-radius:35px; color:rgb(4, 70, 39); background-color:rgb(226, 240, 233);" >
+                    {% comment %} <a class="text-success mx-1 px-2 py-1 bg-light generic-postcomment-btn"
+                    data-url="generic_postcomment"
+                    data-type="businesslevel"
+                    data-id="{{ business_level.id }}"
+                    data-target="#commentModal"
+                    style="font-size:1rem; border-radius:20px;">
+                    <i class="bi bi-envelope-heart-fill text-success"></i></a> {% endcomment %}
+                    <a onclick="shareContent('businesslevelvideo','{{ businesslevel.id }}')" class="share-button text-success mx-1 px-2 py-1 bg-light text-decoration-none d-flex align-items-center" style="font-size:1rem; border-radius:20px;">
+                        share
+                    <i class="bi bi-share-fill mx-3"></i>
+                    </a>
+                </span>
+           </div>
+    </div>
+    
+
+
+         <!-- comment category -->
+        {% comment %} <div class="d-flex justify-content-center align-items-center gap-1 px-1 py-2 " style="border-radius:25px; ">
+        <form id="commentForm" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="d-flex justify-content-center align-items-center mx-2 gap-2 py-2 px-3 bg-light"
+            style="border-radius:25px;">
+            <textarea class="form-control bg-light"
+                    name="comment"
+                    rows="1"
+                    required
+                    style="border:0; border-bottom:2px solid rgb(4,70,39); max-width:160px;"></textarea>
+
+            <button class="p-1 btn submit-postcomment-btn" type="submit"
+                    data-form="#commentForm"
+                    data-modal="#commentModal"
+                    data-url="generic_postcomment"
+                    data-type="businesslevel"
+                    data-id="{{ business_level.id }}"
+                    style="border-radius:35px; color:rgb(4,70,39); background-color:rgb(226,240,233);">
+            <i class="bi bi-plus-lg text-success mx-1" style="font-size:1rem;"></i>
+            </button>
+        </div>
+        </form>
+</div> {% endcomment %}
 
                                   <!-- order category -->
-                                  <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
+                                  {% comment %} <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
                                     <span class="d-flex justify-content-center align-items-center px-3 py-2 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(226, 240, 233);" >
                                         <i class="bi bi-briefcase-fill text-success mx-1" style="font-size:1.3rem;"></i>Start Your Business
                                     </span>
@@ -660,7 +852,7 @@
                                         <i class="bi bi-plus-lg text-success mx-2" style="font-size:1rem;"></i>
                                     </a>
                                </div>
-                            </div>
+                            </div> {% endcomment %}
                             
             </div>
                     <div class="col-sm p-2 rounded" style="background-color:rgb(226, 240, 233);">
@@ -668,23 +860,28 @@
                         <span style="color:rgb(4, 70, 39); "><b>{{business_level.level_name}}</b></span><br>
                     </div>
                     <div  style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
-                        <span style="color:rgb(4, 70, 39); "><b>Levels Description</b></span><br>
+                        <span style="color:rgb(4, 70, 39); "><b><!-- Levels Description --> Maelezo ya Biashara </b></span><br>
                         {{business_level.description}}
                     </div>
                     {% if business_level.additional_comment %}
                      <div  style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
-                        <span style="color:rgb(4, 70, 39); "><b>About Levels</b></span><br>
+                        <span style="color:rgb(4, 70, 39); "><b><!-- About Levels--> Kuhusu Hatua Hii</b></span><br>
                         {{business_level.additional_comment}}
                     </div>
                     {% endif %}
              </div>
+            <!-- finish business level-->
             </div>
-            <!-- finish business plan-->
-            </div>
+         </div>
 
-
+                            <!-- start more busines button -->
+        <div data-type="businesslevel" data-id="{{business_level.id}}" class="btn-lists d-flex justify-content-center align-items-center mb-2" style=" cursor:pointer;">
+            <a class="btn btn-sm text-light px-3 py-2" style="background-color:rgb(4, 70, 39);  border-radius:35px;" >
+                <i class="bi bi-arrow-right-circle  mx-1" style="font-size:1rem; font-style:bold;"></i><!-- about Levels--> Hatua Zengine </a>
         </div>
-      </div>
+        <!-- finish about business btn-->
+
+     </div>
 </div>
     </div> 
 <!-- finish business plan and levels -->
@@ -692,160 +889,207 @@
 
 
 <!-- advertisments -->
-<span id="category_title" class="d-flex justify-content-center align-items-center mt-4  mx-3 p-1 rounded" style="background-color:rgb(226, 240, 233); color:rgb(4, 70, 39);font-size:1.2rem;">
+<span id="category_title" class="d-flex justify-content-center align-items-center mt-4  mx-3 p-1 rounded" style="color:rgb(4, 70, 39);font-size:1.2rem;">
     <i class="bi bi-badge-ad-fill text-success mx-1" style="font-size:1.2rem;"></i>ADVERTISMENT & NEWS</span>
-    <div class="d-flex justify-content-center">
-<div class="d-flex flex-nowrap overflow-x-auto  gap-3 p-3 mx-2" >
-    <div id="advertisment" class="top_providers  p-5 text-light flex-shrink-0">
-     {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
-     OUR SHOPS
-     <span class="d-flex justify-content-center align-items-center ">
-         <i class="bi bi-shop-window text-light mx-2" style="font-size:3.5rem;"></i>
-         <span>
-     </div>
-
-     <div id="advertisment" class="top_providers  p-5 text-light flex-shrink-0" >
-         {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
-         OUR MEETINGS
-         <span class="d-flex justify-content-center align-items-center">
-             <i class="bi bi-people text-light mx-2" style="font-size:3.5rem;"></i>
-             <span>
-         </div>
-
-         <div id="advertisment" class="top_providers  p-5 text-light flex-shrink-0" >
-             {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
-             OUR UNIFORMS
-             <span class="d-flex justify-content-center align-items-center">
-                 <i class="bi bi-person-arms-up text-light mx-2" style="font-size:3.5rem;"></i>
-                 <span>
-             </div>
-
-             <div id="advertisment" class="top_providers  p-5 text-light flex-shrink-0"  >
+         <div class="d-flex justify-content-center">
+            <div class="d-flex flex-nowrap overflow-x-auto  gap-3 p-3 mx-2" >
+             <div id="advertisment" data-type="branch" class="btn-advertisement top_providers  p-5 text-light flex-shrink-0"  style="min-width:200px;" >
                  {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
-                OUR BRANCHS
+                <!-- OUR BRANCHS --> <span class="d-flex justify-content-center align-items-center"> VITUO VYETU </span>
                  <span class="d-flex justify-content-center align-items-center">
                      <i class="bi bi-houses text-light mx-2" style="font-size:3.5rem;"></i>
                      <span>
                  </div>
+
+                    <div id="advertisment" data-type="shop" class="btn-advertisement top_providers  p-5 text-light flex-shrink-0" style="min-width:200px;">
+                    {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
+                   <!--  OUR SHOPS --> <span class="d-flex justify-content-center align-items-center"> MADUKA YETU </span>
+                    <span class="d-flex justify-content-center align-items-center ">
+                        <i class="bi bi-shop-window text-light mx-2" style="font-size:3.5rem;"></i>
+                        <span>
+                    </div>
+
+                <div id="advertisment" data-type="meeting" class="btn-advertisement top_providers  p-5 text-light flex-shrink-0" style="min-width:200px;">
+                    {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
+                    <!-- OUR MEETINGS --> <span class="d-flex justify-content-center align-items-center"> MIHADHARA </span>
+                    <span class="d-flex justify-content-center align-items-center">
+                        <i class="bi bi-people text-light mx-2" style="font-size:3.5rem;"></i>
+                        <span>
+                    </div>
+
+                <div id="advertisment" data-type="advertisement" class="btn-advertisement top_providers  p-5 text-light flex-shrink-0" style="min-width:200px;">
+                    {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
+                    <!-- OTHER ADS --> <span class="d-flex justify-content-center align-items-center"> MATANGAZO </span>
+                    <span class="d-flex justify-content-center align-items-center">
+                        <i class="bi bi-badge-ad-fill text-light mx-2" style="font-size:3.5rem;"></i>
+                        <span>
+                    </div>
+
 </div>
 </div>
 <!-- finish advertisments -->
 
 
-    <!-- Terms and revies-->
-     
-    <span id="category_title" class="d-flex justify-content-center align-items-center mt-3 mb-1 mx-3 p-1 rounded" style="background-color:rgb(226, 240, 233); color:rgb(4, 70, 39); font-size:1.2rem;">
-        <i class="bi bi-star-fill mx-1" style="font-size:1.2rem; color:rgb(4, 70, 39);"></i>RATING & REVIEWS</span>
-    <div class="p-3 mx-3 rounded" style="background-color:rgb(226, 240, 233);">
-    <span class="mx-1 d-flex justify-content-center align-items-center p-2 mb-2 bg-light" style="background-color:rgb(219, 228, 231);  border-radius:15px;">
-        Rating and reviews are verified and are from people who use the same type of device you use
-        <i class="bi bi-info-circle-fill mx-1" style="font-size:1rem; color:rgb(4, 70, 39);"></i>
+<!-- space to leave a message -->
+<div class="p-3 mx-auto my-3 bg-llight mx-2">
+
+    <span id="category_title"  class="h5  px-3 py-2 mx-2 d-flex justify-content-center aling-items-center rounded">
+        <i class="bi bi-star-fill mx-1 text-success" style="font-size: 0.8rem"></i>
+        Fahamu zaidi Mfumo huu kutoka kwa Marejesho ya Ujumbe kwa watumiaji
     </span>
-    <div class="row mx-1  p-3 bg-light gap-2" style=" border-radius:15px;" >
-    <div class="col-sm-2 text-center mt-4 ml-3 mr-1" style="font-size:2rem;">
-        4.0
-        <span class="d-flex justify-content-center align-items-center">
-            <i class="bi bi-star-fill" style="font-size:1rem; color:rgb(4, 70, 39);"></i>
-            <i class="bi bi-star-fill" style="font-size:1rem; color:rgb(4, 70, 39);"></i>
-            <i class="bi bi-star-fill" style="font-size:1rem; color:rgb(4, 70, 39);"></i>
-            <i class="bi bi-star-fill" style="font-size:1rem; color:rgb(4, 70, 39);"></i>
-        </span>
-    </div>
-    <div class="col-sm-8 " style="color:rgb(4, 70, 39); font-size:1rem;">
-                <div class="progress mt-4 mb-2">
-            <div class="progress-bar progress-bar-animated progress-bar-striped" style="width:50%; height:70px; background-color:rgb(8, 71, 100);">
+
+            <!-- COMMENT POST FORM -->
+            <div class="gap-1 px-1 py-2" style="border-radius:25px;">
+                <form id="commentForm" 
+                    method="post" 
+                    enctype="multipart/form-data"
+                    action="{% url 'post_comment' 'comment' %}">
+
+                    {% csrf_token %}
+
+                    <div class="d-flex justify-content-center align-items-end gap-1 py-2 px-1" style="border-radius:25px;">
+                        
+                        <textarea class="form-control bg-light"
+                                name="comment"
+                                rows="4"
+                                placeholder="Tafadhari ,tuachie ujumbe wako hapa"
+                                required></textarea>
+
+                        <button class="p-1 btn btn-postcomment"
+                                type="submit"
+                                style="border-radius:35px; color:rgb(4,70,39); background-color:rgb(226,240,233);">
+                            <i class="bi bi-plus-lg text-success mx-1" style="font-size:1rem;"></i>
+                        </button>
+
+                    </div>
+                </form>
+
+            </div>
+
+
+    <!-- COMMENTS SECTION -->
+    <div class="comments-section mt-1 bg-light py-3 px-2 overflow-y-auto"
+         style="border-radius:25px; max-height:1000px;">
+
+        {% for c in comments %}
+        <div class="comment d-flex align-items-start mb-2 bg-white py-3 px-2 mx-2"
+             style="border-radius:25px;">
+
+            {% if c.profile_image %}
+                <img src="{{ c.profile_image }}" class="rounded-circle me-2"
+                     style="width:40px;height:40px;object-fit:cover;">
+            {% else %}
+                <i class="bi bi-person-fill mx-1 text-secondary" style="font-size:2rem;"></i>
+            {% endif %}
+
+            <div class="comment-content flex-grow-1">
+
+                <div class="comment-header d-flex justify-content-between align-items-end">
+                    <span class="name fw-bold">
+                    <!-- {{ c.username }} --> 
+                    {{ c.first_name }} {{ c.last_name }}
+                    </span>
+
+                    <span class="time text-muted d-flex justify-content-center align-items-center gap-1">
+                        {% if request_id == c.user_id %}
+                        <button class="btn btn-sm btn-warning generic-edit-btn rounded-pill"
+                                data-url="{% url 'generic_edit' 'commenttable' c.id %}"
+                                data-target="#editGenericModal">
+                            <i class="bi bi-pencil text-light"></i>
+                        </button>
+                        {% endif %}
+
+                        {% if it_officer_rank in "it_officer,director,vice_director" %}
+                        <button type="button"
+                                class="btn btn-sm btn-danger btn-deletecomment rounded-pill"
+                                data-url="{% url 'delete_comment' 'comment' c.id %}"
+                                data-id="{{ c.id }}"
+                                data-target="#deletecommentModal">
+                            <i class="bi bi-trash text-light"></i>
+                        </button>
+                        {% endif %}
+                    </span>
+                </div>
+
+                <div class="comment-text mt-1">{{ c.comment }}</div>
+
+                <span class="text-secondary" style="font-size:0.8rem;">
+                    {{ c.date_created|timesince }} ago
+                </span>
+
             </div>
         </div>
-
-                <div class="progress mb-2">
-            <div class="progress-bar progress-bar-animated progress-bar-striped" style="width:30%; height:70px; background-color:rgb(8, 71, 100);">
-            </div>
-        </div>
-
-                        <div class="progress mb-2">
-            <div class="progress-bar progress-bar-animated progress-bar-striped" style="width:20%; height:70px; background-color:rgb(8, 71, 100);">
-            </div>
-        </div>
-
-                        <div class="progress mb-2">
-            <div class="progress-bar progress-bar-animated progress-bar-striped" style="width:10%; height:70px; background-color:rgb(8, 71, 100);">
-            </div>
-        </div>
-        <span class="text-secondary" style="font-size:0.8rem;">More Than 45,999 People Review</span>
+        {% empty %}
+        <p class="text-muted text-center mb-2"><!-- No comments released yet. --> Hakuna Ujumbe Wowote</p>
+        {% endfor %}
     </div>
-    </div>
-
-    <div class="mt-2 p-3 bg-white" style=" border-radius:15px;">
-            <span class="d-flex justify-content-start align-items-center">
-                <i class="bi bi-star-fill mx-1" style="font-size:1rem; color:rgb(4, 70, 39);"></i>
-                <i class="bi bi-star-fill mx-1" style="font-size:1rem; color:rgb(4, 70, 39);"></i>
-                <i class="bi bi-star-fill mx-1" style="font-size:1rem; color:rgb(4, 70, 39);"></i>
-                <i class="bi bi-star-fill mx-1" style="font-size:1rem; color:rgb(4, 70, 39);"></i>
-                <span class="text-secondary mx-2">3 weeks Ago </span>
-            </span>
-        <span class="d-flex justify-content-start align-items-center">
-            This Web Application is exceptionaly great! Speed & Optional performance , is amaizing .
-             Overall I'd highly recommended this Web App currently. The security features excels the app high rank.
-             placing at the top of most web Apps categorised on providing Local Services with Better quality and efficiency.
-        </span>
-        <div class="row ">
-            <div class="col-sm- " style="color:rgb(4, 70, 39);">What This Review helpful?</div>
-            <div class="col-sm- ">
-            <span class="btn btn-sm px-3 py-1" style=" border-radius:15px; color:rgb(4, 70, 39);rgb(4, 70, 39);  background-color:rgb(219, 228, 231);">
-                <i class="bi bi-hand-thumbs-up-fill mx-1 text-secondary" style="font-size:1rem; color:rgb(4, 70, 39);"></i>Yes</span>
-            <span class="btn btn-sm px-3 py-1 " style=" border-radius:15px; color:rgb(4, 70, 39); rgb(4, 70, 39); background-color:rgb(219, 228, 231);">
-                <i class="bi bi-hand-thumbs-down-fill mx-1 text-secondary" style="font-size:1rem; color:rgb(4, 70, 39);"></i>No</span>
-            </div>
-         </div>
-    </div>
-
 </div>
 
 
 
+
 <!-- Our team section -->
-    <div class="mt-4 rounded p-5" style="background-color:rgb(226, 240, 233); ">
-        <div class="text-center mx-4 mt-4">
-            <span class="d-flex justify-content-center align-items-center" style="color:rgb(4, 70, 39); font-size:1.5rem;">OUR TEAM</span>
-            <i class="bi bi-quote mx-1" style="font-size:1.5rem; color:rgb(4, 70, 39);"></i>
-            Karibuni nyote katika mfumo wetu wa RoseNutrition system unaohusiana na kukusanya taarifa zote za wanachama 
-            na wagonjwa, pia unasaidia kuchakata taarifa hizi ili kujuwa mwenendo mzima wa biashara, pamoja na kusaidia 
-            kuongeza idadi ya wanachama kupitia mitandao ya kijamii na matangazo kwa njia ya picha na video pamoja na
-            kuwezesha ongezeko la manunuzi ya dawa kupitia matangazo ,mfumo huu unapatikana Online kupitia <a class="text-decoration-none text-success" style="cursor:pointer; color:rgb(4, 70, 39);" href="https://www.RoseNutritionLife.com">https://www.RoseNutritionLife.com</a>
-            <i class="bi bi-quote mx-1 " style="font-size:1.5rem; color:rgb(4, 70, 39);"></i>
-        </div>
-        <span class="d-flex justify-content-center align-items-center gap-2">
-            <i class="bi bi-telephone-fill mx-1" style="font-size:1.4rem; color:rgb(4, 70, 39);"></i>
-            <i class="bi bi-envelope-fill mx-1" style="font-size:1.5rem; color:rgb(4, 70, 39);"></i>
-        </span>
-        <span class="d-flex justify-content-center align-items-center gap-2" style="color:rgb(4, 70, 39);"><b>Branch Manager</b></span>
-        <div class="d-flex justify-content-center align-items-center ">
-            <img class="categoryimg rounded-circle" style="width:90px; height:90px;" src="{% static '/images/eternal/person2.jpg' %}">
-        </div>
-    </div>
+       <div class="corediv_service" style="border-radius:35px;">
+            <div class="shadow p-1" style="border-radius:25px;background-color:rgb(226, 240, 233);">
+            <div class="animation_division" id="scrollDiv5">
+            <div class="about_us">
+                {% if abouts %}
+                <!-- Carousel -->
+                <div id="ourteamCarousel" class="carousel slide" data-bs-ride="carousel">
 
+                <!-- Indicators/dots -->
+                <div class="carousel-indicators">
+                    {% for about in abouts %}
+                    <button type="button"
+                            data-bs-target="#ourteamCarousel"
+                            data-bs-slide-to="{{ forloop.counter0 }}"
+                            class="{% if forloop.first %}active{% endif %}">
+                    </button>
+                    {% endfor %}
+                </div>
 
+                <!-- The slideshow/carousel -->
+                <div class="carousel-inner">
+                    {% for about_detail in abouts %}
+                    <div class="mt-4 rounded p-5" style="background-color:rgb(226, 240, 233); ">
+                        <div class="text-center mx-4 mt-4">
+                            <span class="d-flex justify-content-center align-items-center" style="color:rgb(4, 70, 39); font-size:1.5rem;"><b><!-- OUR TEAM --> VIONGOZI</b></span>
+                            -- {{about_detail.description}} --
+                        </div>
+                        <span class="d-flex justify-content-center align-items-center gap-2" style="color:rgb(4, 70, 39);">
+                            <b class="text-uppercase" style="font-size:13px;">{{about_detail.company_rank}}</b></span>
+                        <span class="d-flex justify-content-center align-items-center gap-2" style="color:rgb(4, 70, 39);">
+                            {{about_detail.firstname}} {{about_detail.lastname}}</span>
+                        <span class="d-flex justify-content-center align-items-center gap-2">
+                            <i class="bi bi-telephone-fill mx-1" style="font-size:1.2rem; color:rgb(4, 70, 39);"></i>{{about_detail.mobileno}}
+                        </span>
 
-    <!-- login/logout tag -->
-     <div class="fixed_tag d-flex justify-content-end align-items-center p-2 fixed-bottom mb-3 mx-3 gap-1">
-        <span class="p-1" style="border-radius:25px; background-color:rgb(6, 104, 58);">
-        <span class="navbartabs text-decoration-none" >
-            {% if user.is_authenticated %}
-            {% comment %} <a id="disease-post-btn" class="p-2 bi bi-plus-lg mx-1 text-decoration-none ml-2 navbarbutton" data-label="Add disease" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);" ></a> {% endcomment %}
-            <a id="medicine-post-btn" class="p-2 bi bi-basket-fill mx-1 text-decoration-none ml-2 navbarbutton" data-label="Add Medicine" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);" ></a>
-            {% comment %} <a id="checkup-post-btn" class="p-2 bi bi-plus-lg mx-1 text-decoration-none ml-2 navbarbutton" data-label="Add checkup" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);" ></a>
-            <a id="businessplan-post-btn" class="p-2 bi bi-plus-lg mx-1 text-decoration-none ml-2 navbarbutton" data-label="Add Business Plan" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);" ></a>
-            <a id="businessplevel-post-btn" class="p-2 bi bi-plus-lg mx-1 text-decoration-none ml-2 navbarbutton" data-label="Add Business Level" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);" ></a>
-            <a id="patient-post-btn" class="p-2 bi bi-plus-lg mx-1 text-decoration-none ml-2 navbarbutton" data-label="Add Patient" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);" ></a>
-            <a id="advertisement-post-btn" class="p-2 bi bi-plus-lg mx-1 text-decoration-none ml-2 navbarbutton" data-label="Add Advertisement" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);" ></a> {% endcomment %}
+                            {% if about_detail.image %}
+                            <div class="profileimage-box mx-auto ">
+                            <img class="categoryimg rounded-circle" src="{{about_detail.image.url}}">
+                            </div>
+                            {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Left and right controls/icons -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#ourteamCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#ourteamCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+
+                </div>
                 {% else %}
-            <a class="p-2 bi bi-arrow-right-circle mx-1 text-decoration-none ml-2 navbarbutton" data-label="Login" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39); "></a>
-            {% endif %}
-        </span>
-    </span>
-     </div> 
+                <p class="text-center mt-3 text-muted mx-2 mb-3 bg-light">No Our Team details available yet.</p>
+                {% endif %}
+            </div>
+            </div>
+            </div>
 
-
+            <!-- end of our team -->
 
 
 {% endblock %}

@@ -1,0 +1,137 @@
+<div class="modal fade" id="businessModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog  modal-fullscreen">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title text-success text-uppercase">
+          {% comment %} {{ model_type }} DETAILS {% endcomment %}
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="corediv_service mx-1" style="border-radius:35px;">
+
+            <div class="shadow " style="border-radius:25px; background-color:rgb(226, 240, 233);">
+            <div class="core_service d-flex justify-content-center align-items-center px-2">
+            <b class="text-uppercase mt-3" style="font-size:18px;">DETAILS OF {{model_type}}</b>
+          </div>
+          {% if object %}
+               
+<!-- start diseases -->
+<div class="row rounded my-1 p-3" >
+<div class="col-sm-3 mt-3" >
+        <div class="image-box mx-auto">
+            {% if object.profile_image %}
+           <img class="categoryimg" src="{{object.profile_image.url}}" >
+           {% endif %}
+        </div>
+
+                    <!-- Advertisement title -->
+            <div class="d-flex justify-content-center align-items-center mt-2 p-1 rounded" style=" color:rgb(4, 70, 39); font-size:1.2rem;">
+               <span id="category_title" class="bg-light mx-2 px-3 py-1" style="font-size: 1rem;"> <!-- DISEASES -->
+                TANGAZO LA  BIASHARA
+                </span>
+            </div>
+
+            <!-- posture category -->
+           <div class="d-flex justify-content-center align-items-center  gap-1 px-1 py-2 " style="border-radius:25px; ">
+            <div class="d-flex justify-content-center align-items-center mx-1 gap-1  p-1 bg-light" style="border-radius:25px; cursor:pointer;">
+                <span class="btn-posture  d-flex justify-content-center align-items-center px-2 py-2 " style="border-radius:35px; background-color:rgb(226, 240, 233);"
+                    data-type="{{model_type}}"
+                    data-id="{{ object.id }}">
+                    <i class="bi bi-image-fill text-success mx-1" style="font-size:1rem;"></i>
+                    <!-- Posture --> Picha
+                </span>
+                <span class="py-2 " style="background-color:rgb(226, 240, 233);font-size:1rem; border-radius:30px;" >
+                    {% comment %} <i class="bi bi-envelope-heart-fill text-success mx-2 px-2 py-1 bg-light  generic-postcomment-btn"  data-url="{% url 'generic_postcomment' model_type object.id %}" data-target="#commentModal" style="font-size:1rem; border-radius:20px;"></i> {% endcomment %}
+                    <a onclick="shareContent('{{model_type}}image','{{ object.id }}')" class="share-button text-success mx-1 px-2 py-1 bg-light text-decoration-none " style="font-size:1rem; border-radius:20px;">
+                        share
+                    <i class="bi bi-share-fill mx-3"></i>
+                    </a>
+                </span>
+            </div>
+        </div>
+
+            <!-- video category -->
+            <div class="d-flex justify-content-center align-items-center gap-1 px-1 py-2 " style="border-radius:25px; ">
+            <div class="d-flex justify-content-center align-items-center mx-1 gap-1 p-1 bg-light" style="border-radius:25px; cursor:pointer;">
+                <span class="btn-video d-flex justify-content-center align-items-center px-2 py-2 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(226, 240, 233);" 
+                    data-type="{{model_type}}"
+                    data-id="{{object.id }}">
+                    <i class="bi bi-play-btn-fill text-success mx-1" style="font-size:1rem;"></i>Video
+                </span>
+
+                <span class="py-2 " style="background-color:rgb(226, 240, 233);font-size:1rem; border-radius:30px;" >
+                    {% comment %} <i class="bi bi-envelope-heart-fill text-success mx-2 px-2 py-1 bg-light  generic-postcomment-btn"  data-url="{% url 'generic_postcomment' model_type object.id %}" data-target="#commentModal" style="font-size:1rem; border-radius:20px;"></i> {% endcomment %}
+                    <a onclick="shareContent('{{model_type}}video','{{ object.id }}')" class="share-button text-success mx-1  px-2 py-1 bg-light text-decoration-none " style="font-size:1rem; border-radius:20px;">
+                        share
+                    <i class="bi bi-share-fill mx-3"></i>
+                    </a>
+                </span>
+           </div>
+    </div>
+    
+
+        {% comment %} <!-- comment category -->
+        <div class="d-flex justify-content-center align-items-center gap-1 px-1 py-2 " style="border-radius:25px; ">
+        <form id="commentForm" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="d-flex justify-content-center align-items-center mx-2 gap-2 py-2 px-3 bg-light"
+            style="border-radius:25px;">
+            <textarea class="form-control bg-light"
+                    name="comment"
+                    rows="1"
+                    required
+                    style="border:0; border-bottom:2px solid rgb(4,70,39); max-width:160px;"></textarea>
+
+            <button class="p-1 btn submit-postcomment-btn" type="submit"
+                    data-form="#commentForm"
+                    data-modal="#commentModal"
+                    data-url="generic_postcomment"
+                    data-type="{{model_type}}"
+                    data-id="{{ object.id }}"
+                    style="border-radius:35px; color:rgb(4,70,39); background-color:rgb(226,240,233);">
+            <i class="bi bi-plus-lg text-success mx-1" style="font-size:1rem;"></i>
+            </button>
+        </div>
+        </form>
+</div> {% endcomment %}
+
+</div>
+    
+
+
+    <div class=" col-sm p-2 rounded" style="background-color:rgb(226, 240, 233);">
+        {% if object %}
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2"><b class="text-uppercase">{{object}}</b></div>
+        {% endif %}
+
+        {% if object.description %}
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>{{model_type}} Description</b></span><br>
+         {{object.description}}
+        </div>
+        {% endif %}
+
+        {% if object.additional_comment %}
+        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+            <span style="color:rgb(4, 70, 39); "><b>About {{model_type}}</b></span><br>
+            {{object.additional_comment}}
+        </div>
+        {% endif %}
+
+    </div>
+<!-- finish disease-->
+</div>
+<!-- finish disease category-->
+            {% endif %}
+          </div>
+
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,89 @@
+
+ {% load static %}
+
+<div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h5 class="modal-title" id="commentModalLabel">{{ model_name|title }} Comments</h5>
+        <button type="button" class="btn btn-sm btn-outline-secondary btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <div class="wrapper">
+          <!-- Input Box for New Comment -->
+          <div class="input-box">
+            <div class="tweet-area">
+              <div spellcheck="false">
+                <form id="commentForm" method="post" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <textarea class="form-control" name="comment" required></textarea>
+                    <div class="privacy mt-1 d-flex justify-content-between align-items-center">
+                    <div>
+                      <i class="bi bi-globe"></i>
+                      <span>share your idea</span>
+                    </div>
+                    <div>
+                  <div class="d-flex justify-content-end mt-2">
+                    <button class="btn submit-postcomment-btn"
+                            data-url="generic_postcomment"
+                            data-form="#commentForm"
+                            data-modal="#commentModal"
+                            data-type="{{model_name}}"
+                            data-id="{{ model.id }}"
+                            style="border-radius:35px; color:rgb(4,70,39); background-color:rgb(226,240,233);">
+                      <i class="bi bi-plus-lg text-success"></i>
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <!-- Comments Section -->
+          <div class="comments-section mt-3 bg-light py-3 px-2 overflow-y-auto" style="border-radius:25px; max-height:350px;">
+            {% for comment in model_comment %}
+            <div class="comment d-flex align-items-start mb-2 bg-white py-3 px-2" style="border-radius:25px;">
+              {% if comment.profile_image %}
+                <img src="{{ comment.profile_image }}" alt="Profile image" class="rounded-circle me-2" style="width:40px; height:40px; object-fit:cover;">
+              {% else %}
+                <i class="bi bi-person-fill mx-1 text-secondary" style="font-size: 2rem"></i>
+              {% endif %}
+              <div class="comment-content flex-grow-1">
+                <div class="comment-header d-flex justify-content-between align-items-end">
+                  <span class="name fw-bold">{{ comment.username }} </span>
+                  <span class="time text-muted d-flex justify-content-center align-items-center">
+                    <span>{{ comment.date_created|date:"F j, Y, g:i a" }}</span>
+                    <span>
+                      <!-- Delete Button -->
+                      <button type="button" class="btn btn-sm bg-white generic-deletecomment-btn rounded-pill"
+                              data-url="generic_deletecomment"
+                              data-type="{{model_name}}"
+                              data-id="{{ comment.id }}"
+                              data-target="#deletecommentModal">
+                        <i class="bi bi-trash text-danger"></i>
+                      </button>
+                    </span>
+                  </span>
+                </div>
+                <div class="comment-text mt-1">
+                  {{ comment.comment }}
+                </div>
+              </div>
+            </div>
+            {% empty %}
+            <p class="text-muted d-flex justify-content-center align-items-center mb-2">No comments yet. Be the First.</p>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

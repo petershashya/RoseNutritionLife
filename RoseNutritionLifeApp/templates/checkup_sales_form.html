@@ -1,13 +1,13 @@
 {% load static %}
 
 <!-- CheckUp Sales Form Modal -->
-<div class="modal fade" id="checkupSalesModal" tabindex="-1" aria-labelledby="checkupSalesModalLabel" aria-hidden="true">
+<div class="modal fade" id="checkupsalesModal" tabindex="-1" aria-labelledby="checkupSalesModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h5 class="modal-title" id="checkupSalesModalLabel">Add CheckUp Sale</h5>
+        {% comment %} <h5 class="modal-title" id="checkupSalesModalLabel">Add CheckUp Sale</h5> {% endcomment %}
         <button type="button" class="btn btn-sm btn-outline-secondary btn-close" data-bs-dismiss="modal"></button>
       </div>
 
@@ -15,7 +15,7 @@
       <div class="modal-body">
         <section class="book_section mb-2" id="details">
           <div class="container">
-            <form id="postCheckUpSalesForm" method="post" action="{% url 'post_checkup_sales' %}">
+            <form id="checkupsalesForm" method="post" action="{% url 'post_checkup_sales' %}">
               {% csrf_token %}
               <h4>FILL <span>CHECKUP SALE</span></h4>
 

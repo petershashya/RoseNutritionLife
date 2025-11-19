@@ -10,426 +10,805 @@
  
 
 <!-- start personal details -->
-<div class="shadow mx-2 mt-2 py-4 mb-3 " style="border-radius:25px;">
-    <span class="h4 mx-4 d-flex justify-content-center align-items-center"  style="color:rgb(4, 70, 39);">MY PROFILE</span>
-<div class="d-flex justify-content-center align-items-center gap-2 mx-2 " >
+<div class="shadow mx-2 mt-2 py-4 mb-3 px-3" style="border-radius:25px;">
+    <span class="h4 mx-4 d-flex justify-content-center align-items-center"  style="color:rgb(4, 70, 39);"><!-- MY PROFILE --> PROFILE</span>
+<div class="d-flex justify-content-center align-items-start gap-1 mx-2" >
     <div>
-        <span class="d-flex justify-content-center align-items-start mx-1">
-            {% comment %} {% if userdetail.profile_image %}
-            <img src="{{userdetail.profile_image.url}}" alt="Profile Picture" class="img-thumbnail rounded-circle p-2" style="border:1px solid #563419; height:90px; width:90px;" >
-            {% else %} {% endcomment %}
-
+        <span class="profileimage-box d-flex justify-content-center align-items-start mx-1">
+             {% if userdetail.profile_image %}
+            <img src="{{userdetail.profile_image.url}}" alt="Profile Picture" class="img-thumbnail rounded-circle p-2" style="border:1px solid #563419;" >
+            {% else %} 
             <span class="p-3" style="border-radius:25px; border:1px solid rgb(4, 70, 39);">
               <i class="bi bi-person-fill mb-1" style="font-size: 3rem"></i>
             </span>
-              {% comment %} {% endif %}  {% endcomment %}
+            {% endif %}
          </span>
     </div>
     <div class="details" style="background-color:white; color:rgb(4, 70, 39);">
-        {% comment %} <span class="">Details</span><br> {% endcomment %}
-        <span class="h6" style="color:rgb(4, 70, 39);">
-            {% comment %} {{about_detail.rank}} {% endcomment %}
-                Company manager
+        <span class="h6 text-uppercase" style="color:rgb(4, 70, 39);">
+          {% if userdetail.company_rank %}
+            {{userdetail.company_rank}}<br>
+           <b class="text-lowercase"> {{user.username}} </b>
+          {% endif %}
+        </span><br>
+       <span class="" style="color:rgb(4, 70, 39);">
+            ID-No <b>{{ userdetail.membership_no }}</b>
         </span><br>
         <span class="" style="color:rgb(4, 70, 39);">
-            {% comment %} {{ user.first_name }} {{ user.last_name }} {% endcomment %}
-            Rose John
+            {{ user.first_name }} {{ user.last_name }}
         </span><br>
-        <span class=" " style="color:rgb(4, 70, 39);">
-            {% comment %} {{ user.email }} {% endcomment %}
-            rosejohn@gmail.com
+        <span class="" style="color:rgb(4, 70, 39);">
+            {{ user.email }} 
         </span><br>
         <span class="job " style="color:rgb(4, 70, 39);"><i class="bi bi-phone" style=" font-size:15px; color:#563419;"></i>
-             {% comment %} {{ userdetail.mobile_contact }} {% endcomment %}
-             +255 775987677
-            </span>
-        <span class="job " style="color:rgb(4, 70, 39);"><i class="bi bi-whatsapp" style=" font-size:15px; color:#563419;"></i>
-             {% comment %} {{ userdetail.whatsapp_no }} {% endcomment %}
-             +255 775987677
+            {{ userdetail.mobile_contact }} 
+            </span><br>
+        <span class="job " style="color:rgb(4, 70, 39);">
+            Gender ( {{ userdetail.gender }} ), Age {{ userdetail.age }}
+            </span><br>
+            <span class="job " style="color:rgb(4, 70, 39);">
+            {{ userdetail.postal_address }} ,{{ userdetail.region }}
             </span><br><br>
-        <span id="add_list" class="p-2" ><i class="bi bi-pencil mx-1 text-bold text-light" style=" font-size:12px;"></i>Edit My Acount</span>
+
     </div>
 </div>
+      <div class="d-flex justify-content-center align-items-center">
+          <div class="d-flex flex-nowrap overflow-x-auto gap-2" >
+          <span><a id="add_list" class="p-2  rounded-pill text-decoration-none d-flex justify-content-center align-items-center " href="{% url 'edit_user_details' %}"  ><i class="bi bi-pencil mx-1 text-bold text-light" style=" font-size:15px;"></i><!--Edit_Acount --> Badili_Akaunti </a></span>
+          <span  id="add_list"  class="about-post-btn p-2 flex-shrink-0" ><i class="bi bi-plus mx-1 text-bold text-light" style=" font-size:18px;"></i><!-- Add About --> Ongeza Kukuhusu </span>
+          <span  id="add_list"  class=" p-2 generic-edit-btn flex-shrink-0"  data-url="{% url 'edit_about' 'abouttable' about_detail.id %}" data-target="#editGenericModal"><i class="bi bi-pencil mx-1 text-bold text-light " style=" font-size:15px;"></i><!-- Edit About --> Badili Kuhusu</span>
+          </div>
+      </div>
 
-<hr class="col-10 mx-auto">
+{% if about_detail %}
+<hr class="col-10 mx-auto mt-3 mb-3">
 <div class="p-3 mx-3" style="background-color:rgb(226, 240, 233); border-radius:25px;">
-<h5 class="mt-2 p-2 d-flex justify-content-center bg-light" style="color:rgb(4, 70, 39); border-radius:25px;">About</h5>
+<h5 class="mt-2 p-2 d-flex justify-content-center bg-light" style="color:rgb(4, 70, 39); border-radius:25px;"><!-- About --> Maelezo Kunihusu </h5>
 <div class="px-3 d-flex justify-content-center">
     <p class="px-3 d-flex justify-content-center" style="color:rgb(4, 70, 39);">
-        <i class="bi bi-quote"></i> 
-        {% comment %} {{about_detail.description}}  {% endcomment %}
-             au kushindwa kusukuma damu. Dalili ni maumivu ya kifua, mapigo yasiyo ya kawaida, upungufu wa
-             pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha.
-             Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
-             pumzi na uchovu. Tiba hutegemea aina, ikiwemo dawa za presha, upasuaji au mabadiliko ya maisha.
-             Magonjwa ya moyo ni hali inayoharibu kazi ya moyo kama shinikizo la damu, kuziba kwa mishipa
-        <i class="bi bi-quote"></i>
+        {% comment %} <i class="bi bi-quote"></i>  {% endcomment %}
+        ' {{about_detail.description}} '
+        {% comment %} <i class="bi bi-quote"></i> {% endcomment %}
     </p>
 </div>
+{% endif %}
 
 <div class="social_box align-items d-flex justify-content-center align-items-center gap-2">
-    <a href="{{userdetail.instagram_account}}" class="text-decoration-none">
-        <i class="bi bi-instagram" aria-hidden="true" style="color:rgb(4, 70, 39); font-size:20px;"></i>
-      </a>
-    <a href="{{userdetail.facebook}}" class="bntext-decoration-none">
-      <i   class="bi bi-facebook " aria-hidden="true" style="color:rgb(4, 70, 39); font-size:20px;"></i>
-    </a>
-    <a href="{{userdetail.twitter}}" class="text-decoration-none">
-      <i  class="bi bi-twitter-x " aria-hidden="true" style="color:rgb(4, 70, 39); font-size:20px;"></i>
-    </a>
-    <a href="{{userdetail.youtube}}" class="text-decoration-none">
-      <i  class="bi bi-youtube " aria-hidden="true" style="color:rgb(4, 70, 39); font-size:20px;"></i>
-    </a>
-    <a href="{{userdetail.tiktok}}" class="text-decoration-none">
-        <i class="bi bi-tiktok" class="bi bi-tiktok " aria-hidden="true" style="color:rgb(4, 70, 39); font-size:20px;"></i>
-      </a>
-      {% comment %} <a href="{{userdetail.instagram_account}}" class="text-decoration-none"> <i class="bi bi-instagram " style="color:#563419; font-size:18px;"></i> </a>
-      <a href="{{userdetail.facebook_account}}" class="text-decoration-none"> <i class="bi bi-facebook " style="color:#563419; font-size:18px;"></i> </a>
-      <a href="{{userdetail.twitter_account}}" class="text-decoration-none"> <i class="bi bi-twitter-x " style="color:#563419; font-size:18px;"></i> </a>
-      <a href="{{userdetail.tiktok_account}}" class="text-decoration-none"> <i class="bi bi-tiktok " style="color:#563419; font-size:18px;"></i> </a>
-      <a href="{{userdetail.youtube_account}}" class="text-decoration-none"> <i class="bi bi-youtube" style="color:#563419; font-size:18px;"></i> </a> {% endcomment %}
+      {% comment %} <a href="{{userdetail.instagram_account}}" class="text-decoration-none"> <i class="bi bi-instagram " style="color:#563419; font-size:18px;"></i> </a>{% endcomment %}
   </div>
 </div>
 </div>
 <!-- finish personal details -->
  
 
+{% comment %}  
+  option for check for it_officer only 
+  {% if it_officer_rank == "it_officer" %} 
+ {% endcomment %}
+
+{% if it_officer_rank in "it_officer,director,vice_director,business_teacher,manager" %}
                 <!-- start Add list -->
-            <div class="d-flex justify-content-center align-items-center mt-4 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
-                <span id="add_list" class="d-flex justify-content-center align-items-center px-3 py-2 "  >
-                    <i class="bi bi-basket-fill text-light mx-1" style="font-size:1.3rem;"></i>Add Service
+          <div class="d-flex justify-content-center align-items-center bg-light mt-4 px-1 py-2 mx-2 mb-3 rounded">
+            <div class="d-flex justify flex-nowrap overflow-x-auto gap-2" >
+              {% if it_officer_rank in "it_officer,director,vice_director" %}
+                <span id="add_list" data-type="shoptable" class="btn-adstable mx-auto  px-3 py-2 d-flex justify-content-center align-items-center flex-shrink-0" style="border-radius:25px; " >
+                    <i class="bi bi-badge-ad-fill text-light mx-1" style="font-size:1.3rem;"></i><!-- Shops --> Maduka
                 </span>
-                <span id="add_list" class="d-flex justify-content-center align-items-center px-3 py-2 " >
-                    <i class="bi bi-badge-ad-fill text-light mx-1" style="font-size:1.3rem;"></i>Add Advertisment
+                <span id="add_list" data-type="branchtable" class="btn-adstable   mx-auto  px-3 py-2 d-flex justify-content-center align-items-center flex-shrink-0" style="border-radius:25px; " >
+                    <i class="bi bi-badge-ad-fill text-light mx-1" style="font-size:1.3rem;"></i><!-- Branchs --> Vituo
+                </span>
+                 <span id="add_list" data-type="commenttable" class="btn-adstable  d-flex justify-content-center align-items-center mx-auto  px-3 py-2 flex-shrink-0" style="border-radius:25px;" >
+                    <i class="bi bi-badge-ad-fill text-light mx-1" style="font-size:1.3rem;"></i><!-- comments --> Ujumbe
+                </span>
+                <span id="add_list" data-type="abouttable" class="btn-adstable  d-flex justify-content-center align-items-center mx-auto  px-3 py-2 flex-shrink-0" style="border-radius:25px;" >
+                    <i class="bi bi-badge-ad-fill text-light mx-1" style="font-size:1.3rem;"></i><!-- About -->Kuhusu Viongozi
+                </span>
+                {% endif %}
+                  <span id="add_list" data-type="meetingtable" class="btn-adstable  d-flex justify-content-center align-items-center mx-auto px-3 py-2 flex-shrink-0" style="border-radius:25px; " >
+                    <i class="bi bi-badge-ad-fill text-light mx-1" style="font-size:1.3rem;"></i><!-- Meetings --> Mihadhara
+                </span>
+                 <span id="add_list" data-type="otheradstable" class="btn-adstable  d-flex justify-content-center align-items-center mx-auto  px-3 py-2 flex-shrink-0" style="border-radius:25px;" >
+                    <i class="bi bi-badge-ad-fill text-light mx-1" style="font-size:1.3rem;"></i><!-- OtherAds --> Matangazo
                 </span>
            </div>
+          </div>
 
-
-
+  {% endif %}
  
- <!-- start members list -->
-        <div class="p-3 mt-4 mb-2 mx-2 bg-light" style="border-radius:25px;">
-                <span id="category_title" class="d-flex justify-content-center align-items-center mt-2  mx-3 p-1 rounded" style="background-color:rgb(226, 240, 233); color:rgb(4, 70, 39);font-size:1.2rem;">
-        <i class="bi bi-person-arms-up text-success mx-1" style="font-size:1.2rem;"></i>LIST OF MEMBERS</span>
-              <!-- analysis bars category -->
-            <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
-                 <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
-                    <i class="bi bi-eye text-success mx-1" style="font-size:0.7rem;"></i>View
-                </span>
-                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
-                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>Word
-                </span> 
-                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
-                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>PDF
-                </span>
-                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
-                    <i class="bi bi-download text-success mx-1" style="font-size:0.7rem;"></i>Save
-                </span>
-        </div>
-
-           <div class="table-responsive" >
-        <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Patient Name</th>
-        <th>Patient Mobile</th>
-        <th>Member Name</th>
-        <th>Member Mobile</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-          <tr>
-        <td>Melitus Soap</td>
-        <td>+2255 676879876</td>
-        <td>Melitus Soap</td>
-        <td>+2255 676879876</td>
-        <td>
-            <div class="d-flex justify-content-center align-items-center gap-1">
-        <span class="bg-primary p-2" style="border-radius:25px;">
-         <i class="bi bi-database-add text-light mx-1" style="font-size:1rem;"></i>
-        </span>
-        <span class="bg-warning p-2" style="border-radius:25px;">
-         <i class="bi bi-pencil text-light mx-1" style="font-size:1rem;"></i>
-        </span>
-        <span class="bg-danger p-2" style="border-radius:25px;">
-         <i class="bi bi-trash text-light mx-1" style="font-size:1rem;"></i>
-        </span></td>
-            </div>
-      </tr>
-         <tr>
-        <td>Melitus Soap</td>
-        <td>+2255 676879876</td>
-        <td>Melitus Soap</td>
-        <td>+2255 676879876</td>
-        <td>
-            <div class="d-flex justify-content-center align-items-center gap-1">
-            <span class="bg-primary p-2" style="border-radius:25px;">
-         <i class="bi bi-database-add text-light mx-1" style="font-size:1rem;"></i>
-        </span>
-        <span class="bg-warning p-2" style="border-radius:25px;">
-         <i class="bi bi-pencil text-light mx-1" style="font-size:1rem;"></i>
-        </span>
-        <span class="bg-danger p-2" style="border-radius:25px;">
-         <i class="bi bi-trash text-light mx-1" style="font-size:1rem;"></i>
-        </span>
-            </div>
-            </td>
-      </tr>
-    </tbody>
-</table>
-</div>
-</div>
- <!-- finish members list -->
-
- <!-- start patients list -->
-        <div class="p-3 mt-4 mb-2 mx-2 bg-light" style="border-radius:25px;">
-                <span id="category_title" class="d-flex justify-content-center align-items-center mt-2  mx-3 p-1 rounded" style="background-color:rgb(226, 240, 233); color:rgb(4, 70, 39);font-size:1.2rem;">
-        <i class="bi bi-bandaid text-success mx-1" style="font-size:1.2rem;"></i>LIST OF PATIENTS</span>
-              <!-- analysis bars category -->
-             <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
-                 <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
-                    <i class="bi bi-eye text-success mx-1" style="font-size:0.7rem;"></i>View
-                </span>
-                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
-                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>Word
-                </span> 
-                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
-                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>PDF
-                </span>
-                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
-                    <i class="bi bi-download text-success mx-1" style="font-size:0.7rem;"></i>Save
-                </span>
-        </div>
-
-           <div class="table-responsive" >
-        <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Patient Name</th>
-        <th>Patient Mobile</th>
-        <th>Member Name</th>
-        <th>Member Mobile</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-          <tr>
-        <td>Melitus Soap</td>
-        <td>+2255 676879876</td>
-        <td>Melitus Soap</td>
-        <td>+2255 676879876</td>
-        <td>
-            <div class="d-flex justify-content-center align-items-center gap-1">
-        <span class="bg-primary p-2" style="border-radius:25px;">
-         <i class="bi bi-database-add text-light mx-1" style="font-size:1rem;"></i>
-        </span>
-        <span class="bg-warning p-2" style="border-radius:25px;">
-         <i class="bi bi-pencil text-light mx-1" style="font-size:1rem;"></i>
-        </span>
-        <span class="bg-danger p-2" style="border-radius:25px;">
-         <i class="bi bi-trash text-light mx-1" style="font-size:1rem;"></i>
-        </span></td>
-            </div>
-      </tr>
-         <tr>
-        <td>Melitus Soap</td>
-        <td>+2255 676879876</td>
-        <td>Melitus Soap</td>
-        <td>+2255 676879876</td>
-        <td>
-            <div class="d-flex justify-content-center align-items-center gap-1">
-        <span class="bg-primary p-2" style="border-radius:25px;">
-         <i class="bi bi-database-add text-light mx-1" style="font-size:1rem;"></i>
-        </span>
-        <span class="bg-warning p-2" style="border-radius:25px;">
-         <i class="bi bi-pencil text-light mx-1" style="font-size:1rem;"></i>
-        </span>
-        <span class="bg-danger p-2" style="border-radius:25px;">
-         <i class="bi bi-trash text-light mx-1" style="font-size:1rem;"></i>
-        </span>
-            </div>
-            </td>
-      </tr>
-    </tbody>
-</table>
-</div>
-</div>
- <!-- finish patients list -->
 
 
+{% if it_officer_rank in "it_officer,director,vice_director" %}
+<!-- first division for showing users list -->
+ <div class="mb-4 mt-2 d-flex justify-content-center  align-items-center">
+<div class="shadow  container bg-white p-3 "
+     style=" border-radius:20px;">
 
- <div class="p-3 mt-3 mb-2 mx-2 bg-light" style="border-radius:25px;">
-                <span id="category_title" class="d-flex justify-content-center align-items-center mt-2  mx-3 p-1 rounded" style="background-color:rgb(226, 240, 233); color:rgb(4, 70, 39);font-size:1.2rem;">
-        <i class="bi bi-basket-fill text-success mx-1" style="font-size:1.2rem;"></i>LIST OF PRODUCTS</span>
-              <!-- analysis bars category -->
-            <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
-                 <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
-                    <i class="bi bi-eye text-success mx-1" style="font-size:0.7rem;"></i>View
-                </span>
-                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
-                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>Word
-                </span> 
-                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
-                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>PDF
-                </span>
-                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
-                    <i class="bi bi-download text-success mx-1" style="font-size:0.7rem;"></i>Save
-                </span>
-        </div>
+  <div class="tab-content">
+    <div id="users" class="tab-pane active">
+     
+      <h3 class="d-flex justify-content-center mt-3">Staffs & Nonstaffs</h3>
+     
+      <!-- counts + add -->
+      <span class="d-flex justify-content-center align-items-center gap-2 mb-2">
+        <a class="text-light btn btn-sm" style="background-color: rgb(4, 70, 39);">
+          Staffs <span class="badge badge-pill" style="background-color: rgb(4, 70, 39);">
+            {{ staff_users_count }}
+          </span>
+        </a>
+        <a class="text-light btn btn-sm" style="background-color: rgb(4, 70, 39);">
+          NonStaffs <span class="badge badge-pill" style="background-color: rgb(4, 70, 39);">
+            {{ non_staff_users_count }}
+          </span>
+        </a>
+        <a class="text-light btn btn-sm" style="background-color: rgb(4, 70, 39);">
+          Viewers <span class="badge badge-pill" style="background-color: rgb(4, 70, 39);">
+            {{ homepage_logs }}
+          </span>
+        </a>
+      </span>
 
-           <div class="table-responsive" >
-        <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Product Name</th>
-        <th>Memmber Name</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Capsual Meritus</td>
-        <td>Doe John</td>
-        <td>
-            <div class="d-flex justify-content-center align-items-center gap-1">
-        <span class="d-flex align-items-center bg-secondary p-2 gap-1" style="border-radius:25px;">
-         <i class="bi bi-bag-plus text-light mx-1" style="font-size:1rem;"></i>2
-        </span>
-        <span class="d-flex align-items-center bg-primary p-2" style="border-radius:25px;">
-         <i class="bi bi-cart-check text-light mx-1" style="font-size:1rem;"></i>
-        </span>
-        <span class="d-flex align-items-center bg-primary p-2" style="border-radius:25px;">
-         <i class="bi bi-database-check text-light mx-1" style="font-size:1rem;"></i>
-        </span>
-        <span class="d-flex align-items-center bg-primary p-2" style="border-radius:25px;">
-         <i class="bi bi-check-circle text-light mx-1" style="font-size:1rem;"></i>
-        </span>
+            {% comment %} <h5  class="d-flex justify-content-center mt-3">Print As Members Details</h3> {% endcomment %}
+              <span class="d-flex justify-content-center align-items-center gap-2 mb-2 mt-2">
+        <button class="text-light btn btn-sm export-btn px-3 py-1" style="background-color: rgba(29, 116, 75, 1); border-radius:20px;"
+                data-model="userdetail" data-format="csv">
+            <i class="bi bi-filetype-csv"></i> CSV
+        </button>
+        <button class="text-light btn btn-sm export-btn px-3 py-1" style="background-color: rgba(29, 116, 75, 1); border-radius:20px;"
+                data-model="userdetail" data-format="excel">
+            <i class="bi bi-file-earmark-excel"></i> Excel
+        </button>
+        <button class="text-light btn btn-sm export-btn px-3 py-1" style="background-color: rgba(29, 116, 75, 1); border-radius:20px;"
+                data-model="userdetail" data-format="pdf">
+            <i class="bi bi-filetype-pdf"></i> PDF
+        </button>
+      </span>
+
+      <!-- table -->
+      <div class="table-responsive-sm">
+        <form method="GET" action="">
+          {% csrf_token %}
+          <table class="table table-bordered table-hover table-striped">
+            <thead>
+              <tr>
+                <th><input type="checkbox" id="select-all"></th>
+                {% comment %} <th>Profile</th> {% endcomment %}
+                <th>Username</th>
+                {% comment %} <th>Email</th> {% endcomment %}
+                <th>Active</th>
+                <th>Superuser</th>
+                <th class="d-flex justify-content-center align-items-center gap-1">
+                  <button type="submit" name="delete_selected"
+                          class="btn btn-sm btn-outline-danger d-flex justify-content-center">
+                    <i class="bi bi-trash"></i> Staffs
+                  </button>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for user in users %}
+              {% comment %} {% for usersdetail in usersdetails %} {% endcomment %}
+              <tr>
+                <td><input type="checkbox" name="selected_users" value="{{ user.id }}"></td>
+                {% comment %} <td>
+                {% if usersdetail.profile_image %}
+                <div class="listimage-box">
+                  <img src="{{ usersdetail.profile_image.url }}"  class="rounded-circle p-1" style="border:1px solid rgb(4, 70, 39);">
+                </div>
+                {% endif %}
+                </td> {% endcomment %}
+                <td>{{ user.username }}</td>
+                {% comment %} <td>{{ usersdetail.email }}</td> {% endcomment %}
+                <td>{{ user.is_active }}</td>
+                <td>{{ user.is_superuser }}</td>
+
+                <td class="d-flex justify-content-center align-items-center gap-2">
+                <button class="btn btn-sm user-edit-btn btn-warning rounded-pill" data-url="{% url 'edit_user' 'user' user.id %}" data-target="#editUserModal">
+                  <i class="bi bi-pencil"></i>
+                </button>
+                <button class="btn btn-sm user-delete-btn btn-danger rounded-pill" data-url="{% url 'delete_user' 'user' user.id %}" data-target="#deleteUserModal">
+                  <i class="bi bi-trash"></i>
+                </button>
+               </td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td colspan="6" class="text-center">No Staff found.</td>
+              </tr>
+              {% comment %} {% endfor %} {% endcomment %}
+              {% endfor %}
+            </tbody>
+          </table>
+        </form>
+      </div>
+
     </div>
-    </td>
-      </tr>
-      <tr>
-        <td>Melitus Soap</td>
-        <td>Farison John</td>
-        <td>
-        <div class="d-flex justify-content-center align-items-center gap-1">
-        <span class="bg-secondary p-2 gap-1" style="border-radius:25px;">
-         <i class="bi bi-bag-plus text-light mx-1" style="font-size:1rem;"></i>2
-        </span>
-        <span class="bg-primary p-2" style="border-radius:25px;">
-         <i class="bi bi-cart-check text-light mx-1" style="font-size:1rem;"></i>
-        </span>
-        <span class="bg-primary p-2" style="border-radius:25px;">
-         <i class="bi bi-database-check text-light mx-1" style="font-size:1rem;"></i>
-        </span>
-        <span class="bg-primary p-2" style="border-radius:25px;">
-         <i class="bi bi-check-circle text-light mx-1" style="font-size:1rem;"></i>
-        </span>
-     </div>
-    </td>
-      </tr>
-       <tr>
-        <td>Melitus Soap</td>
-        <td>Farison John</td>
-        <td>
-        <div class="d-flex justify-content-center align-items-center gap-1">
-        <span class="bg-secondary p-2 gap-1" style="border-radius:25px;">
-         <i class="bi bi-bag-plus text-light mx-1" style="font-size:1rem;"></i>2
-        </span>
-        <div class="d-flex justify-content-center align-items-center gap-1">
-        <span class="bg-primary p-2" style="border-radius:25px;">
-         <i class="bi bi-cart-check text-light mx-1" style="font-size:1rem;"></i>
-        </span>
-        <span class="bg-primary p-2" style="border-radius:25px;">
-         <i class="bi bi-database-check text-light mx-1" style="font-size:1rem;"></i>
-        </span>
-        <span class="bg-primary p-2" style="border-radius:25px;">
-         <i class="bi bi-check-circle text-light mx-1" style="font-size:1rem;"></i>
-        </span>
-    </div>
-    </td>
-      </tr>
-    </tbody>
+  </div>
+</div>
+
+
+</div>
+<script>
+  document.getElementById('select-all').addEventListener('click', function() {
+    var checkboxes = document.querySelectorAll('input[name="selected_users"]');
+    for (var checkbox of checkboxes) {
+      checkbox.checked = this.checked;
+    }
+  });
+</script>
+ <!-- endlisting users -->
+ {% endif %}
+
+
+<!-- start listing members -->
+<!-- Member Table -->
+{% if it_officer_rank in "it_officer,director,vice_director,doctor" %}
+  <div class="mb-4 mt-2 d-flex justify-content-center  align-items-center">
+<div class="shadow  container bg-white p-3 "
+     style=" border-radius:20px;">
+
+  <div class="tab-content">
+    <div id="users" class="tab-pane active">
+     
+      <h3 class="d-flex justify-content-center mt-3"><!-- List of Patients --> Orodha ya Wagonjwa </h3>
+            <!-- counts + add -->
+      <span class="d-flex justify-content-center align-items-center gap-2 mb-2">
+        <a class="text-light btn btn-sm" style="background-color: rgb(4, 70, 39);">
+          <!-- Total Patients --> Idadi ya Wagonjwa <span class="badge badge-pill" style="background-color: rgb(4, 70, 39);">
+            {{ patient_count }}
+        </a>
+      </span>
+
+        <span class="d-flex justify-content-center align-items-center gap-2 mb-2 mt-2">
+        <button class="text-light btn btn-sm export-btn px-3 py-1" style="background-color: rgba(29, 116, 75, 1); border-radius:20px;"
+                data-model="patient" data-format="csv">
+            <i class="bi bi-filetype-csv"></i> CSV
+        </button>
+        <button class="text-light btn btn-sm export-btn px-3 py-1" style="background-color: rgba(29, 116, 75, 1); border-radius:20px;"
+                data-model="patient" data-format="excel">
+            <i class="bi bi-file-earmark-excel"></i> Excel
+        </button>
+
+        <button class="text-light btn btn-sm export-btn px-3 py-1" style="background-color: rgba(29, 116, 75, 1); border-radius:20px;"
+                data-model="patient" data-format="pdf">
+            <i class="bi bi-filetype-pdf"></i> PDF
+        </button>
+      </span>
+
+
+      
+     <div class="table-responsive-sm">
+
+    <form method="GET" action="">
+          {% csrf_token %}
+<table class="table table-bordered table-hover table-striped">
+  <thead>
+    <tr>
+      <th><input type="checkbox" id="select-all-patients"></th>
+      <th>Name</th>
+      <th>Gender</th>
+      <th>Region</th>
+      <th>Email</th>
+      <th>MobileNo</th>
+      <th>MembershipNo</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for patient in patients %}
+    <tr>
+      <td><input type="checkbox" name="selected_patient" value="{{ patient.id }}"></td>
+      <td>{{ patient.full_name}}</td>
+      <td>{{ patient.gender}}</td>
+      <td>{{ patient.region}}</td>
+      <td>{{ patient.email }}</td>
+      <td>{{ patient.mobile_no}}</td>
+      <td>{{ patient.membership_no }}</td>
+      <td class="d-flex gap-1">
+        <button class="btn btn-sm  generic-edit-btn btn-warning rounded-pill" data-url="{% url 'generic_edit' 'patient' patient.id %}" data-target="#editGenericModal">
+          <i class="bi bi-pencil"></i>
+        </button>
+        <button class="btn btn-sm generic-delete-btn btn-danger rounded-pill" data-url="{% url 'generic_delete' 'patient' patient.id %}" data-target="#deleteGenericModal">
+          <i class="bi bi-trash"></i>
+        </button>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
 </table>
+</form>
+
 </div>
 </div>
- <!-- finish carts product list -->
+</div>
+</div>
+</div>
+
+<script>
+  document.getElementById('select-all-patients').addEventListener('click', function() {
+    var checkboxes = document.querySelectorAll('input[name="selected_patients"]');
+    for (var checkbox of checkboxes) {
+      checkbox.checked = this.checked;
+    }
+  });
+</script>
+
+{% endif %}
+<!-- end list of  members -->
 
 
 
- 
-             <!-- start check-up list -->
-        <div class="p-3 mt-4 mb-2 mx-2 bg-light" style="border-radius:25px;">
-                <span id="category_title" class="d-flex justify-content-center align-items-center mt-2  mx-3 p-1 rounded" style="background-color:rgb(226, 240, 233); color:rgb(4, 70, 39);font-size:1.2rem;">
-        <i class="bi bi-bandaid-fill text-success mx-1" style="font-size:1.2rem;"></i>LIST OF CHECK-UP</span>
-              <!-- analysis bars category -->
-           <div class="d-flex justify-content-center align-items-center mt-2 gap-1 px-1 py-2 bg-light" style="border-radius:25px; ">
-                 <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
-                    <i class="bi bi-eye text-success mx-1" style="font-size:0.7rem;"></i>View
-                </span>
-                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
-                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>Word
-                </span> 
-                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
-                    <i class="bi bi-printer text-success mx-1" style="font-size:0.7rem;"></i>PDF
-                </span>
-                <span class="d-flex justify-content-center align-items-center px-2 py-1 " style="border-radius:25px; color:rgb(4, 70, 39); background-color:rgb(122, 215, 228);" >
-                    <i class="bi bi-download text-success mx-1" style="font-size:0.7rem;"></i>Save
-                </span>
+<!-- start listing diseases -->
+<!-- diseases Table -->
+{% if it_officer_rank in "it_officer,director,vice_director,doctor" %}
+  <div class="mb-4 mt-2 d-flex justify-content-center  align-items-center">
+<div class="shadow container bg-white p-3 "
+     style=" border-radius:20px;">
+
+  <div class="tab-content">
+    <div id="users" class="tab-pane active">
+     
+      <h3 class="d-flex justify-content-center mt-3"><!-- List of Diseases --> Orodha ya Magonjwa </h3>
+            <!-- counts + add -->
+      <span class="d-flex justify-content-center align-items-center gap-2 mb-2">
+        <a class="text-light btn btn-sm" style="background-color: rgb(4, 70, 39);">
+          <!-- Total Diseases --> Idadi ya Magonjwa <span class="badge badge-pill" style="background-color: rgb(4, 70, 39);">
+            {{ diseases_count }}
+          </span>
+        </a>
+      </span>
+
+              <span class="d-flex justify-content-center align-items-center gap-2 mb-2 mt-2">
+        <button class="text-light btn btn-sm export-btn px-3 py-1" style="background-color: rgba(29, 116, 75, 1); border-radius:20px;"
+                data-model="disease" data-format="csv">
+            <i class="bi bi-filetype-csv"></i> CSV
+        </button>
+        <button class="text-light btn btn-sm export-btn px-3 py-1" style="background-color: rgba(29, 116, 75, 1); border-radius:20px;"
+                data-model="disease" data-format="excel">
+            <i class="bi bi-file-earmark-excel"></i> Excel
+        </button>
+
+        <button class="text-light btn btn-sm export-btn px-3 py-1" style="background-color: rgba(29, 116, 75, 1); border-radius:20px;"
+                data-model="disease" data-format="pdf">
+            <i class="bi bi-filetype-pdf"></i> PDF
+        </button>
+      </span>
+
+     <div class="table-responsive-sm">
+
+    <form method="GET" action="">
+          {% csrf_token %}
+<table class="table table-bordered table-hover table-striped">
+  <thead>
+    <tr>
+      <th><input type="checkbox" id="select-all-diseases"></th>
+      <th>Profile</th>
+      <th>Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for disease in diseases %}
+    <tr>
+      <td><input type="checkbox" name="selected_diseases" value="{{ disease.id }}"></td>
+      <td>
+        {% if disease.profile_image %}
+        <div class="listimage-box">
+          <img src="{{ disease.profile_image.url }}" class="rounded-circle p-1" style="border:1px solid rgb(4, 70, 39);">
         </div>
-
-           <div class="table-responsive" >
-        <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Patient Name</th>
-        <th>Patient Mobile</th>
-        <th>Member Name</th>
-        <th>Member Mobile</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-          <tr>
-        <td>Melitus Soap</td>
-        <td>+2255 676879876</td>
-        <td>Melitus Soap</td>
-        <td>+2255 676879876</td>
-        <td>
-            <div class="d-flex justify-content-center align-items-center gap-1">
-        <span class="bg-primary p-2" style="border-radius:25px;">
-         <i class="bi bi-database-add text-light mx-1" style="font-size:1rem;"></i>
-        </span>
-        <span class="bg-primary p-2" style="border-radius:25px;">
-         <i class="bi bi-pencil text-light mx-1" style="font-size:1rem;"></i>
-        </span>
-        <span class="bg-danger p-2" style="border-radius:25px;">
-         <i class="bi bi-trash text-light mx-1" style="font-size:1rem;"></i>
-        </span></td>
-            </div>
-      </tr>
-         <tr>
-        <td>Melitus Soap</td>
-        <td>+2255 676879876</td>
-        <td>Melitus Soap</td>
-        <td>+2255 676879876</td>
-        <td>
-            <div class="d-flex justify-content-center align-items-center gap-1">
-            <span class="bg-primary p-2" style="border-radius:25px;">
-         <i class="bi bi-database-add text-light mx-1" style="font-size:1rem;"></i>
-        </span>
-        <span class="bg-primary p-2" style="border-radius:25px;">
-         <i class="bi bi-pencil text-light mx-1" style="font-size:1rem;"></i>
-        </span>
-        <span class="bg-danger p-2" style="border-radius:25px;">
-         <i class="bi bi-trash text-light mx-1" style="font-size:1rem;"></i>
-        </span>
-            </div>
-            </td>
-      </tr>
-    </tbody>
+        {% endif %}
+      </td>
+      <td>{{ disease.disease_name}}</td>
+      <td class="d-flex gap-1">
+        <button class="btn btn-sm generic-edit-btn btn-warning rounded-pill" data-url="{% url 'generic_edit' 'disease' disease.id %}" data-target="#editGenericModal">
+          <i class="bi bi-pencil"></i>
+        </button>
+        <button class="btn btn-sm generic-delete-btn btn-danger rounded-pill" data-url="{% url 'generic_delete' 'disease' disease.id %}" data-target="#deleteGenericModal">
+          <i class="bi bi-trash"></i>
+        </button>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
 </table>
+</form>
+
 </div>
 </div>
- <!-- finish check-up list -->
+</div>
+</div>
+</div>
+
+<script>
+  document.getElementById('select-all-diseases').addEventListener('click', function() {
+    var checkboxes = document.querySelectorAll('input[name="selected_diseases"]');
+    for (var checkbox of checkboxes) {
+      checkbox.checked = this.checked;
+    }
+  });
+</script>
+
+{% endif %}
+<!-- end list of  diseases -->
+
+
+<!-- start listing mediciness -->
+<!-- medicines Table -->
+{% if it_officer_rank in "it_officer,director,vice_director,doctor" %}
+  <div class="mb-4 mt-2 d-flex justify-content-center  align-items-center">
+<div class="shadow container bg-white p-3 "
+     style=" border-radius:20px;">
+
+  <div class="tab-content">
+    <div id="users" class="tab-pane active">
+     
+      <h3 class="d-flex justify-content-center mt-3"><!-- List of Medicines--> Orodha ya Dawa </h3>
+            <!-- counts + add -->
+      <span class="d-flex justify-content-center align-items-center gap-2 mb-2">
+        <a class="text-light btn btn-sm" style="background-color: rgb(4, 70, 39);">
+          <!-- Total Medicines --> Idadi ya Dawa <span class="badge badge-pill" style="background-color: rgb(4, 70, 39);">
+            {{ medicines_count }}
+          </span>
+        </a>
+      </span>
+
+      <span class="d-flex justify-content-center align-items-center gap-2 mb-2 mt-2">
+        <button class="text-light btn btn-sm export-btn px-3 py-1" style="background-color: rgba(29, 116, 75, 1); border-radius:20px;"
+                data-model="medicine" data-format="csv">
+            <i class="bi bi-filetype-csv"></i> CSV
+        </button>
+        <button class="text-light btn btn-sm export-btn px-3 py-1" style="background-color: rgba(29, 116, 75, 1); border-radius:20px;"
+                data-model="medicine" data-format="excel">
+            <i class="bi bi-file-earmark-excel"></i> Excel
+        </button>
+
+        <button class="text-light btn btn-sm export-btn px-3 py-1" style="background-color: rgba(29, 116, 75, 1); border-radius:20px;"
+                data-model="medicine" data-format="pdf">
+            <i class="bi bi-filetype-pdf"></i> PDF
+        </button>
+      </span>
+
+     <div class="table-responsive-sm">
+
+    <form method="GET" action="">
+          {% csrf_token %}
+<table class="table table-bordered table-hover table-striped">
+  <thead>
+    <tr>
+      <th><input type="checkbox" id="select-all-medicines"></th>
+      <th>Profile</th>
+      <th>Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for medicine in medicines %}
+    <tr>
+      <td><input type="checkbox" name="selected_medicines" value="{{ medicine.id }}"></td>
+      <td>
+        {% if medicine.profile_image %}
+        <div class="listimage-box">
+          <img src="{{ medicine.profile_image.url }}"  class="rounded-circle p-1" style="border:1px solid rgb(4, 70, 39);">
+        </div>
+        {% endif %}
+      </td>
+      <td>{{ medicine.medicine_name }}</td>
+      <td class="d-flex gap-1">
+        <button class="btn btn-sm btn-warning generic-edit-btn rounded-pill" data-url="{% url 'generic_edit' 'medicine' medicine.id %}" data-target="#editGenericModal">
+          <i class="bi bi-pencil"></i>
+        </button>
+        <button class="btn btn-sm btn-danger generic-delete-btn rounded-pill" data-url="{% url 'generic_delete' 'medicine' medicine.id %}" data-target="#deleteGenericModal">
+          <i class="bi bi-trash"></i>
+        </button>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</form>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<script>
+  document.getElementById('select-all-medicines').addEventListener('click', function() {
+    var checkboxes = document.querySelectorAll('input[name="selected_medicines"]');
+    for (var checkbox of checkboxes) {
+      checkbox.checked = this.checked;
+    }
+  });
+</script>
+
+{% endif %}
+<!-- end list of  medicines -->
+
+
+
+<!-- start listing checkups -->
+<!-- checkups Table -->
+{% if it_officer_rank in "it_officer,director,vice_director,doctor" %}
+  <div class="mb-4 mt-2 d-flex justify-content-center  align-items-center">
+<div class="shadow container bg-white p-3 "
+     style=" border-radius:20px;">
+
+  <div class="tab-content">
+    <div id="users" class="tab-pane active">
+     
+      <h3 class="d-flex justify-content-center mt-3"><!-- List of Checkups --> Orodha ya Vipimo </h3>
+            <!-- counts + add -->
+      <span class="d-flex justify-content-center align-items-center gap-2 mb-2">
+        <a class="text-light btn btn-sm" style="background-color: rgb(4, 70, 39);">
+          <!-- Total Checkups --> Idadi ya vipimo <span class="badge badge-pill" style="background-color: rgb(4, 70, 39);">
+            {{ checkups_count }}
+          </span>
+        </a>
+      </span>
+
+        <span class="d-flex justify-content-center align-items-center gap-2 mb-2 mt-2">
+        <button class="text-light btn btn-sm export-btn px-3 py-1" style="background-color: rgba(29, 116, 75, 1); border-radius:20px;"
+                data-model="checkup" data-format="csv">
+            <i class="bi bi-filetype-csv"></i> CSV
+        </button>
+        <button class="text-light btn btn-sm export-btn px-3 py-1" style="background-color: rgba(29, 116, 75, 1); border-radius:20px;"
+                data-model="checkup" data-format="excel">
+            <i class="bi bi-file-earmark-excel"></i> Excel
+        </button>
+
+        <button class="text-light btn btn-sm export-btn px-3 py-1" style="background-color: rgba(29, 116, 75, 1); border-radius:20px;"
+                data-model="checkup" data-format="pdf">
+            <i class="bi bi-filetype-pdf"></i> PDF
+        </button>
+      </span>
+
+     <div class="table-responsive-sm">
+
+    <form method="GET" action="">
+          {% csrf_token %}
+<table class="table table-bordered table-hover table-striped">
+  <thead>
+    <tr>
+      <th><input type="checkbox" id="select-all-checkups"></th>
+      <th>Profile</th>
+      <th>description</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for checkup in checkups %}
+    <tr>
+      <td><input type="checkbox" name="selected_checkups" value="{{ checkup.id }}"></td>
+      <td>
+        {% if checkup.profile_image %}
+        <div class="listimage-box">
+          <img src="{{ checkup.profile_image.url }}"  class="rounded-circle p-1" style="border:1px solid rgb(4, 70, 39);">
+        </div>
+        {% endif %}
+      </td>
+      <td>{{ checkup.checkup_name }}</td>
+      <td class="d-flex gap-1">
+        <button class="btn btn-sm btn-warning generic-edit-btn rounded-pill" data-url="{% url 'generic_edit' 'checkup' checkup.id %}" data-target="#editGenericModal">
+          <i class="bi bi-pencil"></i>
+        </button>
+        <button class="btn btn-sm btn-danger generic-delete-btn rounded-pill" data-url="{% url 'generic_delete' 'checkup' checkup.id %}" data-target="#deleteGenericModal">
+          <i class="bi bi-trash"></i>
+        </button>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</form>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<script>
+  document.getElementById('select-all-checkups').addEventListener('click', function() {
+    var checkboxes = document.querySelectorAll('input[name="selected_checkups"]');
+    for (var checkbox of checkboxes) {
+      checkbox.checked = this.checked;
+    }
+  });
+</script>
+
+{% endif %}
+<!-- end list of  checkups -->
+
+
+<!-- start listing businesslevels -->
+<!-- businesslevel Table -->
+{% if it_officer_rank in "it_officer,director,vice_director,business_teacher" %}
+  <div class="mb-4 mt-2 d-flex justify-content-center  align-items-center">
+<div class="shadow container bg-white p-3 "
+     style=" border-radius:20px;">
+
+  <div class="tab-content">
+    <div id="users" class="tab-pane active">
+     
+      <h3 class="d-flex justify-content-center mt-3"><!-- List of Businesslevels --> Orodha ya Level </h3>
+            <!-- counts + add -->
+      <span class="d-flex justify-content-center align-items-center gap-2 mb-2">
+        <a class="text-light btn btn-sm" style="background-color: rgb(4, 70, 39);">
+          <!-- Total Businesslevels --> Idadi ya Level <span class="badge badge-pill" style="background-color: rgb(4, 70, 39);">
+            {{ businesslevel_count }}
+          </span>
+        </a>
+      </span>
+
+        <span class="d-flex justify-content-center align-items-center gap-2 mb-2 mt-2">
+        <button class="text-light btn btn-sm export-btn px-3 py-1" style="background-color: rgba(29, 116, 75, 1); border-radius:20px;"
+                data-model="businesslevel" data-format="csv">
+            <i class="bi bi-filetype-csv"></i> CSV
+        </button>
+        <button class="text-light btn btn-sm export-btn px-3 py-1" style="background-color: rgba(29, 116, 75, 1); border-radius:20px;"
+                data-model="businesslevel" data-format="excel">
+            <i class="bi bi-file-earmark-excel"></i> Excel
+        </button>
+
+        <button class="text-light btn btn-sm export-btn px-3 py-1" style="background-color: rgba(29, 116, 75, 1); border-radius:20px;"
+                data-model="businesslevel" data-format="pdf">
+            <i class="bi bi-filetype-pdf"></i> PDF
+        </button>
+      </span>
+
+     <div class="table-responsive-sm">
+
+    <form method="GET" action="">
+          {% csrf_token %}
+<table class="table table-bordered table-hover table-striped">
+  <thead>
+    <tr>
+      <th><input type="checkbox" id="select-all-businesslevels"></th>
+      <th>Profile</th>
+      <th>Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for businesslevel in businesslevels %}
+    <tr>
+      <td><input type="checkbox" name="selected_businesslevels" value="{{ businesslevel.id }}"></td>
+      <td>
+        {% if businesslevel.profile_image %}
+        <div class="listimage-box">
+          <img src="{{ businesslevel.profile_image.url }}"  class="rounded-circle p-1" style="border:1px solid rgb(4, 70, 39);">
+        </div>
+        {% endif %}
+      </td>
+      <td>{{ businesslevel.level_name }}</td>
+      <td class="d-flex gap-1">
+        <button class="btn btn-sm btn-warning generic-edit-btn rounded-pill" data-url="{% url 'generic_edit' 'businesslevel' businesslevel.id %}" data-target="#editGenericModal">
+          <i class="bi bi-pencil"></i>
+        </button>
+        <button class="btn btn-sm btn-danger generic-delete-btn rounded-pill" data-url="{% url 'generic_delete' 'businesslevel' businesslevel.id %}" data-target="#deleteGenericModal">
+          <i class="bi bi-trash"></i>
+        </button>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</form>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<script>
+  document.getElementById('select-all-businesslevels').addEventListener('click', function() {
+    var checkboxes = document.querySelectorAll('input[name="selected_businesslevels"]');
+    for (var checkbox of checkboxes) {
+      checkbox.checked = this.checked;
+    }
+  });
+</script>
+
+{% endif %}
+<!-- end list of  businesslevels -->
+
+
+<!-- start listing Businessplan -->
+<!-- businessplan Table -->
+{% if it_officer_rank in "it_officer,director,vice_director,business_teacher" %}
+  <div class="mb-4 mt-2 d-flex justify-content-center  align-items-center">
+<div class="shadow container bg-white p-3 "
+     style=" border-radius:20px;">
+
+  <div class="tab-content">
+    <div id="users" class="tab-pane active">
+     
+      <h3 class="d-flex justify-content-center mt-3"><!-- List of Businessplans --> Biashara </h3>
+            <!-- counts + add -->
+      <span class="d-flex justify-content-center align-items-center gap-2 mb-2">
+        <a class="text-light btn btn-sm" style="background-color: rgb(4, 70, 39);">
+          <!-- Total Businessplans --> Biashara Yetu<span class="badge badge-pill" style="background-color: rgb(4, 70, 39);">
+            {{ businessplan_count }}
+          </span>
+        </a>
+      </span>
+
+        <span class="d-flex justify-content-center align-items-center gap-2 mb-2 mt-2">
+        <button class="text-light btn btn-sm export-btn px-3 py-1" style="background-color: rgba(29, 116, 75, 1); border-radius:20px;"
+                data-model="businessplan" data-format="csv">
+            <i class="bi bi-filetype-csv"></i> CSV
+        </button>
+        <button class="text-light btn btn-sm export-btn px-3 py-1" style="background-color: rgba(29, 116, 75, 1); border-radius:20px;"
+                data-model="businessplan" data-format="excel">
+            <i class="bi bi-file-earmark-excel"></i> Excel
+        </button>
+
+        <button class="text-light btn btn-sm export-btn px-3 py-1" style="background-color: rgba(29, 116, 75, 1); border-radius:20px;"
+                data-model="businessplan" data-format="pdf">
+            <i class="bi bi-filetype-pdf"></i> PDF
+        </button>
+      </span>
+
+     <div class="table-responsive-sm">
+
+    <form method="GET" action="">
+          {% csrf_token %}
+<table class="table table-bordered table-hover table-striped">
+  <thead>
+    <tr>
+      <th><input type="checkbox" id="select-all-businessplans"></th>
+      <th>Profile</th>
+      <th>Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for businessplan in businessplans %}
+    <tr>
+      <td><input type="checkbox" name="selected_businessplans" value="{{ businessplan.id }}"></td>
+      <td>
+        {% if businessplan.profile_image %}
+        <div class="listimage-box">
+          <img src="{{ businessplan.profile_image.url }}"  class="rounded-circle p-1" style="border:1px solid rgb(4, 70, 39);">
+        </div>
+        {% endif %}
+      </td>
+      <td>
+        {% comment %} {{ businessplan.description }} {% endcomment %}
+        Maelezo ya biashara
+      </td>
+      <td class="d-flex gap-1">
+        <button class="btn btn-sm btn-warning generic-edit-btn rounded-pill" data-url="{% url 'generic_edit' 'businessplan' businessplan.id %}" data-target="#editGenericModal">
+          <i class="bi bi-pencil"></i>
+        </button>
+        <button class="btn btn-sm btn-danger generic-delete-btn rounded-pill" data-url="{% url 'generic_delete' 'businessplan' businessplan.id %}" data-target="#deleteGenericModal">
+          <i class="bi bi-trash"></i>
+        </button>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</form>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<script>
+  document.getElementById('select-all-businessplans').addEventListener('click', function() {
+    var checkboxes = document.querySelectorAll('input[name="selected_businessplans"]');
+    for (var checkbox of checkboxes) {
+      checkbox.checked = this.checked;
+    }
+  });
+</script>
+
+{% endif %}
+<!-- end list of  businessplans -->
+
+
 {% endblock %}

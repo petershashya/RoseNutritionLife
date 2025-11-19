@@ -1,0 +1,141 @@
+<div class="modal fade" id="advertisementtablesModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-xl">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title text-success text-uppercase">
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="corediv_service mx-1" style="border-radius:35px;">
+          
+                    <div class="mb-4 mt-2 d-flex justify-content-center  align-items-center">
+                    <div class="shadow container bg-white p-3 " style=" border-radius:20px;">
+
+                      <div class="tab-content">
+                        <div id="users" class="tab-pane active">
+                        
+                          <h3 class="d-flex justify-content-center mt-3">List of {{model_type}}</h3>
+
+                          <span class="d-flex justify-content-center align-items-center gap-2 mb-2">
+                            <a class="text-light btn btn-sm" style="background-color: rgb(4, 70, 39);">
+                              Total {{model_type}}
+                              <span class="badge badge-pill" style="background-color: rgb(4, 70, 39);">{{ objs_count }}</span>
+                            </a>
+                          </span>
+
+                        <div class="table-responsive-sm">
+                          <form method="GET" action="">
+                              {% csrf_token %}
+
+                    <table class="table table-bordered table-hover table-striped">
+
+                    {% if objects %}
+                    <thead>
+                      <tr>
+                        <th><input type="checkbox" id="select-all-adslists"></th>
+                        <th>Profile</th>
+                        <th>Fullname</th>
+                        <th>Comment</th>
+                        <th>Actions</th>
+                        <th>Confirm</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for obj in objects %}
+                    <tr>
+                      <!-- Correct ID reference -->
+                      <td><input type="checkbox" name="selected_adslists" value="{{ obj.object.id }}"></td>
+
+                      <td>
+                        {% if obj.profile_image %}
+                          <div class="listimage-box">
+                            <img src="{{ obj.profile_image }}" class="rounded-circle p-1" style="border:1px solid rgb(4, 70, 39);">
+                          </div>
+                        {% else %}
+                          <span class="p-3" style="border-radius:25px;">
+                            <i class="bi bi-person-fill mb-1" style="font-size: 1.5rem"></i>
+                          </span>
+                        {% endif %}
+                      </td>
+
+                      <td>{{ obj.first_name }} {{ obj.last_name }}</td>
+
+                      <td>{{ obj.object.comment }}</td>
+
+                      <td class="d-flex gap-1">
+                        <!-- Correct URL reference -->
+                        <button class="btn btn-sm generic-edit-btn btn-warning rounded-pill"
+                          data-url="{% url 'generic_edit' 'commenttable' obj.object.id %}"
+                          data-target="#editGenericModal">
+                          <i class="bi bi-pencil"></i>
+                        </button>
+
+                        <button class="btn btn-sm generic-delete-btn btn-danger rounded-pill"
+                          data-url="{% url 'generic_delete' 'commenttable' obj.object.id %}"
+                          data-target="#deleteGenericModal">
+                          <i class="bi bi-trash"></i>
+                        </button>
+                      </td>
+
+                      <td>
+                        {% if not obj.object.confirmed %}
+                          <button type="button"
+                            class="btn btn-sm btn-light rounded-pill d-flex align-items-center gap-1 open-confirm-modal"
+                            data-id="{{ obj.object.id }}"
+                            data-type="comment"
+                            data-action="confirm-item"
+                            data-url="{% url 'show-confirm-modal' %}"
+                            data-text="Are you sure you want to confirm this comment?">
+                            Confirm <i class="bi bi-bag-x" style="font-size:20px"></i>
+                          </button>
+                        {% else %}
+                          <button type="button"
+                            class="btn btn-sm btn-light rounded-pill d-flex align-items-center gap-1 open-confirm-modal"
+                            data-id="{{ obj.object.id }}"
+                            data-type="comment"
+                            data-action="unconfirm-item"
+                            data-url="{% url 'show-confirm-modal' %}"
+                            data-text="Are you sure you want to unconfirm this comment?">
+                            Unconfirm <i class="bi bi-bag" style="font-size:20px"></i>
+                          </button>
+                        {% endif %}
+                      </td>
+
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+
+                    {% else %}
+                      <p class="text-muted d-flex justify-content-center align-items-center mb-2 bg-light p-3" style='border-radius:25px;'>
+                        No Comments uploaded yet.
+                      </p>
+                    {% endif %}
+
+                    </table>
+
+                          </form>
+                        </div>
+
+            </div>
+          </div>
+
+        </div>
+        </div>
+
+<script>
+document.getElementById('select-all-adslists').addEventListener('click', function() {
+    var checkboxes = document.querySelectorAll('input[name="selected_adslists"]');
+    checkboxes.forEach(checkbox => checkbox.checked = this.checked);
+});
+</script>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

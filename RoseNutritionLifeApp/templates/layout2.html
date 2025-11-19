@@ -455,17 +455,19 @@
     <span class="p-1" style="background-color:rgb(6, 104, 58); border-radius:25px;">
       <span class="navbartabs text-decoration-none" id="navbartabs">
         {% if user.is_authenticated %}
-          <a class="bi bi-basket-fill text-decoration-none ml-1 navbarbutton" data-label="Services" href="{% url 'services' %}"></a>
-          <a class="bi bi-badge-ad-fill text-decoration-none ml-2 navbarbutton" data-label="Advertisment" href="{% url 'advertisment' %}"></a>
-          <a class="bi bi-graph-up-arrow text-decoration-none ml-2 navbarbutton" data-label="Analysis" href="{% url 'analysis' %}"></a>
-          <a class="bi bi-info-circle-fill text-decoration-none ml-2 navbarbutton" data-label="About"></a>
-          <a class="bi bi-arrow-right-circle text-decoration-none ml-2 navbarbutton" data-label="Login" href="{% url 'logout' %}"></a>
+          {% comment %} <a class="bi bi-basket-fill text-decoration-none ml-1 navbarbutton" data-label="Services" href="{% url 'services' %}"></a>
+          <a class="bi bi-badge-ad-fill text-decoration-none ml-2 navbarbutton" data-label="Advertisment" href="{% url 'advertisement' %}"></a> {% endcomment %}
+          <a class="bi bi-graph-up-arrow text-decoration-none ml-2 navbarbutton" data-label="Uchambuzi" href="{% url 'analysis' %}"></a>
+          {% comment %} <a class="bi bi-currency-exchange text-decoration-none ml-2 navbarbutton" data-label="PV-Exchange"  ></a> {% endcomment %}
+          <a class="bi bi-person-fill text-decoration-none ml-2 navbarbutton" data-label="Akaunti" href="{% url 'account' %}"  ></a>
+          <a class="bi bi-arrow-left-circle text-decoration-none ml-2 navbarbutton" data-label="Toka" href="{% url 'logout' %}"></a>
         {% else %}
-          <a class="bi bi-basket-fill text-decoration-none ml-1 navbarbutton" data-label="Services" href="{% url 'services' %}"></a>
-          <a class="bi bi-badge-ad-fill text-decoration-none ml-2 navbarbutton" data-label="Advertisment" href="{% url 'advertisment' %}"></a>
-          <a class="bi bi-graph-up-arrow text-decoration-none ml-2 navbarbutton" data-label="Analysis" href="{% url 'analysis' %}"></a>
-          <a class="bi bi-info-circle-fill text-decoration-none ml-2 navbarbutton" data-label="About"></a>
-          <a class="bi bi-arrow-right-circle text-decoration-none ml-2 navbarbutton" data-label="Login" href="{% url 'login' %}"></a>
+          {% comment %} <a class="bi bi-basket-fill text-decoration-none ml-1 navbarbutton" data-label="Services" href="{% url 'services' %}"></a>
+          <a class="bi bi-badge-ad-fill text-decoration-none ml-2 navbarbutton" data-label="Advertisment" href="{% url 'advertisment' %}"></a> {% endcomment %}
+          <a class="bi bi-graph-up-arrow text-decoration-none ml-2 navbarbutton" data-label="Uchambuzi" href="{% url 'analysis' %}"></a>
+          {% comment %} <a class="bi bi-info-circle-fill text-decoration-none ml-2 navbarbutton" data-label="About"></a> {% endcomment %}
+          {% comment %} <a class="bi bi-person-fill text-decoration-none ml-2 navbarbutton" data-label="Account" href="{% url 'admin_manage' %}" ></a> {% endcomment %}
+          <a class="bi bi-arrow-right-circle text-decoration-none ml-2 navbarbutton" data-label="Ingia" href="{% url 'login' %}"></a>
           {% endif %}
       </span>
     </span>
@@ -480,43 +482,44 @@
   <!-- Footer Info Section -->
   <section class="row p-4 m-0 w-100" id="footer" style="background-color:rgb(4, 70, 39);">
     <div class="col-sm">
-      <h5 class="text-light text-center mb-3">ABOUT US</h5>
+      <h5 class="text-light text-center mb-3"><!-- ABOUT US --> KUTUHUSU</h5>
       <p class="text-light">
-        Rose Nutrition provides health education on proper nutrition, prevention and control of chronic
-        non-communicable diseases such as diabetes, hypertension, and heart problems.
-        We provide alternative and scientific guidance through supplements and lifestyle counseling.
-        Our mission is to improve community health, increase awareness, and empower members
-        to earn income through services and the sale of health products.
+        Rose Nutrition Life hutoa elimu ya afya kuhusu lishe bora, kinga na udhibiti wa magonjwa sugu
+         yasiyo ya kuambukiza kama vile kisukari, shinikizo la damu, na matatizo ya moyo. 
+         Tunatoa mbinu mbadala na mwongozo wa kisayansi kupitia virutubisho na ushauri wa 
+         mabadiliko ya maisha. Dhamira yetu ni kuboresha afya ya jamii, kuongeza uelewa, 
+         na kuwawezesha wanachama kupata kipato kupitia huduma na uuzaji wa bidhaa za afya.
       </p>
-      <h5 class="text-light mt-3">CONTACT US</h5>
+      <h5 class="text-light mt-3"><!-- CONTACT US --> MAWASILIANO </h5>
       <p class="text-light">
-        <i class="bi bi-phone"></i> +225 676896769<br>
-        <i class="bi bi-envelope"></i> P.O.BOX 1002<br>
+        <i class="bi bi-phone"></i> +225 765375657 | +225 767377559<br>
+        <i class="bi bi-envelope"></i><!-- P.O.BOX 1002 --> S.L.P 1002 <br>
         <i class="bi bi-geo-alt"></i> Dar-es-Salaam<br>
-        <i class="bi bi-envelope"></i> localservicepro@gmail.com
+        <i class="bi bi-envelope"></i> rosenutritionlife@gmail.com
       </p>
     </div>
 
     <div class="col-sm">
-      <h5 class="text-light text-center mb-3">OUR SERVICES</h5>
+      <h5 class="text-light text-center mb-3"><!-- OUR SERVICES --> HUDUMA </h5>
       <p class="text-light">
-        We offer affordable diagnostic tests (30,000 TZS) to help detect chronic diseases such as
-        heart disease, diabetes, and kidney problems early.
-        All treatments are available, aiming to address the root cause until full recovery.
-        By joining Rose Nutrition as a member, you benefit from bonus points known as PV (Profit Value),
-        which accumulate into profit points, earning you additional income along with quality health services.
+        Tunatoa vipimo vya uchunguzi kwa gharama nafuu (30,000 TZS)
+         vinavyosaidia kubaini mapema magonjwa sugu kama vile maradhi ya moyo,
+          kisukari, na matatizo ya figo. Tiba zote zinapatikana, 
+          zikiwa na lengo la kutatua chanzo cha tatizo hadi kupona kabisa.
+           Kwa kujiunga na Rose Nutrition kama mwanachama, unafaidika na
+            alama za bonasi zinazojulikana kama PV (Profit Value), 
+            ambazo hukusanyika na kuwa alama za faida zinazokupatia kipato cha ziada
+             sambamba na huduma bora za afya.
       </p>
     </div>
 
     <div class="col-sm">
-      <h5 class="text-light text-center mb-3">OUR SOCIAL MEDIA</h5>
+      <h5 class="text-light text-center mb-3"><!--  OUR SOCIAL MEDIA--> MITANDAO YA KIJAMII </h5>
       <div class="d-flex justify-content-center align-items-center gap-3">
-        <a href="{{admin.instagram}}" class="text-decoration-none"><i class="bi bi-instagram text-light"></i></a>
-        <a href="{{admin.facebook}}" class="text-decoration-none"><i class="bi bi-facebook text-light"></i></a>
-        <a href="{{admin.twitter}}" class="text-decoration-none"><i class="bi bi-twitter text-light"></i></a>
-        <a href="{{admin.youtube}}" class="text-decoration-none"><i class="bi bi-linkedin text-light"></i></a>
-        <a href="{{admin.tiktok}}" class="text-decoration-none"><i class="bi bi-tiktok text-light"></i></a>
-      </div>
+       <a data-bs-toggle="tooltip" title="rosenutritionlife"  class="text-decoration-none" style="cursor:pointer;"><i class="bi bi-instagram text-light" style="font-size:1.8rem"></i></a>
+        <a data-bs-toggle="tooltip" title="rosenutritionlife"  class="text-decoration-none" style="cursor:pointer;"><i class="bi bi-facebook text-light" style="font-size:1.8rem"></i></a>
+        <a data-bs-toggle="tooltip" title="rosenutritionlife" class="text-decoration-none" style="cursor:pointer;"><i class="bi bi-tiktok text-light" style="font-size:1.8rem"></i></a>
+        <a data-bs-toggle="tooltip" title="rosenutrtionlife" href="https://www.youtube.com/rosenutritionlife" class="text-decoration-none" style="cursor:pointer;"><i class="bi bi-youtube text-light" style="font-size:2.5rem"></i></a>
     </div>
   </section>
   <!-- End Footer Info -->
@@ -524,10 +527,10 @@
   <!-- Footer Section -->
   <footer class="footer_section w-100" style="background-color:rgb(4, 70, 39);">
     <hr class="mt-0 border border-light">
-    <div class="container text-center">
-      <p class="text-light mb-0">
-        &copy; <span id="displayYear"></span> All Rights Reserved
-      </p>
+    <div class="container text-center text-light">
+        <b class="text-lowercase">rosenutritionlife</b><br>
+        &copy; <span id="displayYear"></span> All Rights Reserved<br>
+        <span class="text-light">Developed By peterprogrammer (+255 617999099)</span>
     </div>
   </footer>
 

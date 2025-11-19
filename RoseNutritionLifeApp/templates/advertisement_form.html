@@ -1,0 +1,88 @@
+
+{% load static %}
+
+<!-- BusinessPlan Form Modal -->
+<div class="modal fade" id="advertisementModal" tabindex="-1" aria-labelledby="advertisementModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        {% comment %} <h5 class="modal-title" id="advertisementModalLabel">Add Business Plan</h5> {% endcomment %}
+        <button type="button" class="btn btn-sm btn-outline-secondary btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <section class="book_section mb-2" id="details">
+          <div class="container">
+            <form id="advertisementForm" method="post" action="{% url 'post_advertisement' %}" enctype="multipart/form-data">
+              {% csrf_token %}
+                       <h4>FILL <span>ADVERTISEMENT</span></h4>
+
+          <!-- Medicine Name -->
+              <div class="row mb-2">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="{{ form.infoname.id_for_label }}">Advertsement Name</label>
+                    <input type="text" class="form-control" id="{{ form.infoname.id_for_label }}" name="infoname" placeholder="Enter Advertisement name" required>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Description -->
+              <div class="row mb-2">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="{{ form.description.id_for_label }}">Description</label>
+                    <textarea class="form-control" id="{{ form.description.id_for_label }}" name="description" rows="3" placeholder="Enter description..." required></textarea>
+                  </div>
+                </div>
+              </div>
+
+
+              <!-- Location -->
+              <div class="row mb-2">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="{{ form.location.id_for_label }}">Location</label>
+                    <textarea class="form-control" id="{{ form.location.id_for_label }}" name="location" rows="3" placeholder="Enter location..." required></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Image -->
+              <div class="row mb-2">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="{{ form.image.id_for_label }}">Advertisement Image (Optional)</label>
+                    <input type="file" class="form-control" id="{{ form.image.id_for_label }}" name="image" accept="image/*">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Video -->
+              <div class="row mb-2">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="{{ form.video.id_for_label }}">Advertisement Video (Optional)</label>
+                    <input type="file" class="form-control" id="{{ form.video.id_for_label }}" name="video" accept="video/*">
+                  </div>
+                </div>
+              </div>
+
+          <!-- Submit Button -->
+          <div class="btn-box">
+            <button  type="submit" id="postadvertisement_button" class="btn btn-sm btn-light bg-secondary text-white">Post</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <button  type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>

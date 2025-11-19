@@ -1,0 +1,171 @@
+{% comment %} <div class="modal fade" id="editGenericModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form id="editGenericForm" method="post"
+            action="{% url 'generic_edit' model object.id %}"
+            enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="modal-header">
+          <h5>Edit {{ model|capfirst }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">{{ form.as_p }}</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary submit-edit-btn"
+                  data-form="#editGenericForm" data-modal="#editGenericModal">
+            Save Changes
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div> {% endcomment %}
+
+
+
+<!-- BusinessPlan Edit Modal -->
+<div class="modal fade" id="editGenericModal" tabindex="-1" aria-labelledby="editGenericModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header bg-light">
+        <button type="button" class="btn btn-sm btn-outline-secondary btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <section class="book_section mb-2" id="businessplan-details">
+          <div class="container">
+            <form id="editGenericForm" method="post"
+                  action="{% url 'generic_edit' model object.id %}"
+                  enctype="multipart/form-data">
+              {% csrf_token %}
+              <h4>EDIT <span>{{ model|upper }}</span></h4>
+
+              <!-- Row 1: Description, Sales & Marketing, Business Members -->
+              <div class="form-row">
+                <!-- Description -->
+                <div class="form-group col-md-4">
+                  <label for="{{ form.description.id_for_label }}">Description</label>
+                  <textarea class="form-control"
+                            id="{{ form.description.id_for_label }}"
+                            name="{{ form.description.html_name }}"
+                            rows="3"
+                            placeholder="Enter business description...">{{ form.description.value|default_if_none:'' }}</textarea>
+                </div>
+
+                <!-- Sales & Marketing -->
+                <div class="form-group col-md-4">
+                  <label for="{{ form.sales_and_marketing.id_for_label }}">Sales & Marketing</label>
+                  <textarea class="form-control"
+                            id="{{ form.sales_and_marketing.id_for_label }}"
+                            name="{{ form.sales_and_marketing.html_name }}"
+                            rows="3"
+                            placeholder="Enter sales and marketing strategies...">{{ form.sales_and_marketing.value|default_if_none:'' }}</textarea>
+                </div>
+
+                <!-- Business Members -->
+                <div class="form-group col-md-4">
+                  <label for="{{ form.business_member.id_for_label }}">Business Members</label>
+                  <textarea class="form-control"
+                            id="{{ form.business_member.id_for_label }}"
+                            name="{{ form.business_member.html_name }}"
+                            rows="3"
+                            placeholder="How business members being profitable...">{{ form.business_member.value|default_if_none:'' }}</textarea>
+                </div>
+              </div>
+
+              <!-- Row 2: PV Points, Additional Comment -->
+              <div class="form-row mt-2">
+                <!-- PV Points -->
+                <div class="form-group col-md-6">
+                  <label for="{{ form.pv_points.id_for_label }}">PV Points</label>
+                  <textarea class="form-control"
+                            id="{{ form.pv_points.id_for_label }}"
+                            name="{{ form.pv_points.html_name }}"
+                            rows="3"
+                            placeholder="Explain how can archive Pv Points...">{{ form.pv_points.value|default_if_none:'' }}</textarea>
+                </div>
+
+                <!-- Additional Comment -->
+                <div class="form-group col-md-6">
+                  <label for="{{ form.additional_comment.id_for_label }}">Additional Comment</label>
+                  <textarea class="form-control"
+                            id="{{ form.additional_comment.id_for_label }}"
+                            name="{{ form.additional_comment.html_name }}"
+                            rows="3"
+                            placeholder="Additional comments...">{{ form.additional_comment.value|default_if_none:'' }}</textarea>
+                </div>
+              </div>
+
+              <!-- Row 3: Profile Image, Image, Video -->
+              <div class="form-row mt-2">
+                <!-- Profile Image -->
+                <div class="form-group col-md-4">
+                  <label for="{{ form.profile_image.id_for_label }}">BusinessPlan Profile Image</label>
+                  <input type="file" class="form-control"
+                         id="{{ form.profile_image.id_for_label }}"
+                         name="{{ form.profile_image.html_name }}"
+                         accept="image/*">
+                  {% if form.profile_image.value %}
+                    <div class="mt-1">
+                      <a href="{{ form.profile_image.value.url }}" target="_blank" class="text-info small">
+                        View Current Profile Image
+                      </a>
+                    </div>
+                  {% endif %}
+                </div>
+
+                <!-- BusinessPlan Image -->
+                <div class="form-group col-md-4">
+                  <label for="{{ form.image.id_for_label }}">BusinessPlan Image</label>
+                  <input type="file" class="form-control"
+                         id="{{ form.image.id_for_label }}"
+                         name="{{ form.image.html_name }}"
+                         accept="image/*">
+                  {% if form.image.value %}
+                    <div class="mt-1">
+                      <a href="{{ form.image.value.url }}" target="_blank" class="text-info small">
+                        View Current Image
+                      </a>
+                    </div>
+                  {% endif %}
+                </div>
+
+                <!-- BusinessPlan Video -->
+                <div class="form-group col-md-4">
+                  <label for="{{ form.video.id_for_label }}">BusinessPlan Video</label>
+                  <input type="file" class="form-control"
+                         id="{{ form.video.id_for_label }}"
+                         name="{{ form.video.html_name }}"
+                         accept="video/*">
+                  {% if form.video.value %}
+                    <div class="mt-1">
+                      <a href="{{ form.video.value.url }}" target="_blank" class="text-info small">
+                        View Current Video
+                      </a>
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </section>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="modal-footer bg-light">
+        <button type="button" class="btn btn-outline-warning submit-edit-btn"
+                data-form="#editGenericForm"
+                data-modal="#editGenericModal">
+          Save Changes
+        </button>
+        <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>

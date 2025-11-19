@@ -1,13 +1,13 @@
 {% load static %}
 
 <!-- Medicine Sales Form Modal -->
-<div class="modal fade" id="medicineSalesModal" tabindex="-1" aria-labelledby="medicineSalesModalLabel" aria-hidden="true">
+<div class="modal fade" id="medicinesalesModal" tabindex="-1" aria-labelledby="medicineSalesModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h5 class="modal-title" id="medicineSalesModalLabel">Add Medicine Sale</h5>
+        {% comment %} <h5 class="modal-title" id="medicineSalesModalLabel">Add Medicine Sale</h5> {% endcomment %}
         <button type="button" class="btn btn-sm btn-outline-secondary btn-close" data-bs-dismiss="modal"></button>
       </div>
 
@@ -15,7 +15,7 @@
       <div class="modal-body">
         <section class="book_section mb-2" id="details">
           <div class="container">
-            <form id="postMedicineSalesForm" method="post" action="{% url 'post_medicine_sales' %}">
+            <form id="medicinesalesForm" method="post" action="{% url 'post_medicine_sales' %}">
               {% csrf_token %}
               <h4>FILL <span>MEDICINE SALE</span></h4>
 

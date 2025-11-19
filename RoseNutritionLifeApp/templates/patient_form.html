@@ -15,7 +15,7 @@
       <div class="modal-body">
         <section class="book_section mb-2" id="details">
           <div class="container">
-            <form id="postPatientForm" method="post" action="{% url 'post_patient' %}">
+            <form id="patientForm" method="post" action="{% url 'post_patient' %}">
               {% csrf_token %}
               <h4>FILL <span>PATIENT</span></h4>
 

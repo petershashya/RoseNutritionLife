@@ -6,83 +6,95 @@
 
 
 <div class="p-2 mt-5"></div>
+
 <!-- Our services -->
  <div class="d-flex justify-content-center">
 <div  class="d-flex flex-nowrap overflow-x-auto  gap-3 p-3 mx-2" style="display: flex;">
-    <div id="getservice" class="top_providers  p-4 text-light flex-shrink-0"  >
+    <a href="{% url 'services' %}" id="getservice" class="top_providers text-decoration-none  p-4 text-light flex-shrink-0"  >
      {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
-     OUR SERVICES
+    <!-- OUR SERVICES -->  HUDUMA ZETU
      <span class="d-flex justify-content-center align-items-center ">
          <i class="bi bi-basket-fill text-light mx-2" style="font-size:2.5rem;"></i>
          <span>
-     </div>
+         </a>
 
-     <div  id="getservice" class="top_providers  p-4 text-light flex-shrink-0" >
+     <a href="{% url 'advertisement' %}"  id="getservice" class="top_providers text-decoration-none  p-4 text-light flex-shrink-0" >
          {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
-         ADVERTISMENT
+       <!--ADVERTISMENT  -->  MATANGAZO
          <span class="d-flex justify-content-center align-items-center">
              <i class="bi bi-badge-ad-fill text-light mx-2" style="font-size:2.5rem;"></i>
              <span>
-         </div>
+             </a>
 
-         <div  id="getservice" class="top_providers  p-4 text-light flex-shrink-0"  >
-             {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
-             PV-EXCHANGE
+         {% comment %} <a href="{% url 'pv-exchange' %}"   id="getservice" class="top_providers text-decoration-none  p-4 text-light flex-shrink-0"  >
+            <!-- PV-EXCHANGE --> BADILISHA PV
              <span class="d-flex justify-content-center align-items-center">
                  <i class="bi bi-currency-exchange text-light mx-2" style="font-size:2.5rem;"></i>
                  <span>
-             </div>
+                 </a> {% endcomment %}
 
-             <div  id="getservice" class="top_providers  p-4 text-light flex-shrink-0"  >
+             <a href="{% url 'analysis' %}"   id="getservice" class="top_providers text-decoration-none  p-4 text-light flex-shrink-0"  >
                  {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
-                 OUR ANALYSIS
+                <!-- OUR ANALYSIS --> UCHAMBUZI
                  <span class="d-flex justify-content-center align-items-center">
                      <i class="bi bi-graph-up-arrow text-light mx-2" style="font-size:2.5rem;"></i>
                      <span>
-                 </div>
+                     </a>
 </div>
 </div>
+
+
 
 
   <!-- models tags -->
+  {% if it_officer_rank in "it_officer,director" %}
      <div class="fixed_tag d-flex justify-content-end align-items-center p-2 fixed-bottom mb-3 mx-3 gap-1">
         <span class="p-1" style="border-radius:25px; background-color:rgb(6, 104, 58);">
         <span class="navbartabs text-decoration-none" >
-            <a id="disease-post-btn" class="p-2 bi bi-plus-lg mx-1 text-decoration-none ml-2 navbarbutton" data-label="Add disease" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);" ></a>
-            <a id="medicine-post-btn" class="p-2 bi bi-plus-lg mx-1 text-decoration-none ml-2 navbarbutton" data-label="Add Medicine" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);" ></a>
-            <a id="checkup-post-btn" class="p-2 bi bi-plus-lg mx-1 text-decoration-none ml-2 navbarbutton" data-label="Add checkup" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);" ></a>
-            <a id="businessplan-post-btn" class="p-2 bi bi-plus-lg mx-1 text-decoration-none ml-2 navbarbutton" data-label="Add Business Plan" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);" ></a>
-            <a id="businessplevel-post-btn" class="p-2 bi bi-plus-lg mx-1 text-decoration-none ml-2 navbarbutton" data-label="Add Business Level" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);" ></a>
-            <a id="patient-post-btn" class="p-2 bi bi-plus-lg mx-1 text-decoration-none ml-2 navbarbutton" data-label="Add Patient" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);" ></a>
-            <a id="advertisement-post-btn" class="p-2 bi bi-plus-lg mx-1 text-decoration-none ml-2 navbarbutton" data-label="Add Advertisement" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);" ></a> 
+            <a  class="disease-post-btn p-2 bi bi-ban-fill mx-1 text-decoration-none ml-2 navbarbutton m-1" data-label="disease" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);" ></a>
+            <a  class="medicine-post-btn p-2 bi bi-bandaid-fill mx-1 text-decoration-none ml-2 navbarbutton" data-label="Medicine" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);" ></a>
+            <a  class="checkup-post-btn p-2 bi bi-h-circle-fill mx-1 text-decoration-none ml-2 navbarbutton" data-label="checkup" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);" ></a>
+            <a  class="businessplan-post-btn p-2 bi bi-coin mx-1 text-decoration-none ml-2 navbarbutton" data-label="Business Plan" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);" ></a>
+            <a  class="businessplevel-post-btn p-2 bi bi-bar-chart-steps mx-1 text-decoration-none ml-2 navbarbutton" data-label="Business Level" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);" ></a>
+            <a  class="patient-post-btn p-2 bi bi-person-arms-up mx-1 text-decoration-none ml-2 navbarbutton" data-label="Patient" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);" ></a> 
+            <a  class="shop-post-btn p-2 bi bi-house-fill mx-1 text-decoration-none ml-2 navbarbutton" data-label="Shop" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);" ></a> 
+            <a  class="branch-post-btn p-2 bi bi-bank mx-1 text-decoration-none ml-2 navbarbutton" data-label="Branch" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);" ></a> 
+            <a  class="meeting-post-btn p-2 bi bi-people-fill mx-1 text-decoration-none ml-2 navbarbutton" data-label="Meeting" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);" ></a> 
+            <a  class="advertisement-post-btn p-2 bi bi-badge-ad-fill mx-1 text-decoration-none ml-2 navbarbutton" data-label="OtherAds" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);" ></a>
         </span>
     </span>
      </div> 
+     {% endif %}
 
 
 <!-- start general services categories -->
 <!-- disease categories -->
-<span id="category_title" class="d-flex justify-content-center align-items-center mt-3 mx-3 p-1 rounded bg-light" style=" color:rgb(4, 70, 39); font-size:1.2rem;">
-    <i class="bi bi-file-medical-fill text-success mx-1" style="font-size:1.2rem;"></i>DISEASES
+<span id="category_title" class="d-flex justify-content-center align-items-center mt-3 mx-2 mb-2 p-1 rounded bg-light" style=" color:rgb(4, 70, 39); font-size:1.2rem;">
+    <i class="bi bi-file-medical-fill text-success mx-1" style="font-size:1.2rem;"></i>
+    <!-- DISEASES --> MAGONJWA
 </span>
 <!-- start list of diseases -->
+                <div class=" py-3 shadow bg-light mx-2" style="border-radius:20px;">
             {% for disease in disease_page_obj %}
-  <a href="{% url 'services' %}" class="text-decoration-none">
- <div class="d-flex justify-content-center align-items-center mx-2 rounded my-1 p-2 bg-light" >
-    <div class="p-1 mx-1">
-        <span class="d-flex justify-content-center align-items-center">
-        <img class="categoryimg" style="width:100px; height:100px;" src="{% static '/images/eternal/uzazi (3).jpg' %}">
-        </span>
-    </div>
-    <div class="rounded" style="background-color:rgb(226, 240, 233);">
-        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-3 bg-white mt-1 text-black"><b class="text-uppercase">{{disease.disease_name}}</b><br>
-            <span style="color:rgb(4, 70, 39); ">
-            {{disease.description}}
-        </div>
-    </div>
-</div>
-</a>
+            <a data-type="disease" data-id="{{disease.id}}" class="btn-list text-decoration-none " style="cursor:pointer">
+                <div class="d-flex justify-content-center align-items-center rounded  p-1 gap-1 bg-light">
+                    <div>
+                        <span class="d-flex justify-content-start align-items-center">
+                            {% if disease.profile_image %}
+                        <img class="categoryimg rounded-pill p-1 mx-1" style="width:60px; height:60px; border:1px solid rgb(4, 70, 39);" src="{{ disease.profile_image.url }}" alt="disease">
+                        {% endif %}
+                        </span>
+                    </div>
+                    <div class="row col-sm rounded">
+                        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-3 bg-white mt-1 text-black">
+                            {{disease.disease_name}}
+                        </div>
+                    </div>
+                </div>
+                </a>
                 {% endfor %}
+            </div>
+                
                  <!-- Pagination for Diseases -->
     <div class="pagination">
         {% if disease_page_obj.has_previous %}
@@ -110,102 +122,120 @@
 
 
  <!-- medicine categories -->
-<span id="category_title" class="d-flex justify-content-center align-items-center mt-5 mx-3 p-1 rounded bg-light" style=" color:rgb(4, 70, 39); font-size:1.2rem;">
- <i class="bi bi-bandaid-fill text-success mx-1" style="font-size:1.2rem;"></i>MEDICINE
+<span id="category_title" class="d-flex justify-content-center align-items-center mt-5 mx-2 mb-2 p-1 rounded bg-light" style=" color:rgb(4, 70, 39); font-size:1.2rem;">
+ <i class="bi bi-bandaid-fill text-success mx-1" style="font-size:1.2rem;"></i>
+ <!-- MEDICINE --> MADAWA
 </span>
 <!-- start list of medicine -->
+        <div class=" py-3 shadow bg-light mx-2" style="border-radius:20px;">
             {% for medicine in medicine_page_obj %}
-  <a href="{% url 'services' %}" class="text-decoration-none">
- <div class="d-flex justify-content-center align-items-center mx-2 rounded my-1 p-2 bg-light">
-    <div class="p-1 mx-1">
-        <span class="d-flex justify-content-center align-items-center" >
-        <img class="categoryimg" style="width:100px; height:100px;" src="{% static '/images/eternal/dawa4.jpg' %}">
-    </div>
-    <div class="rounded" style="background-color:rgb(226, 240, 233);">
-        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-3 bg-white mt-1 text-black"><b class="text-uppercase">{{medicine.medicine_name}}</b><br>
-            <span style="color:rgb(4, 70, 39); ">
-           {{medicine.description}}
-        </div>
-    </div>
-</div>
-</a>
-            {% endfor %}
-
+            <a data-type="medicine" data-id="{{medicine.id}}" class="btn-list text-decoration-none" style="cursor:pointer">
+                <div class="d-flex justify-content-center align-items-center rounded  p-1 gap-1 bg-light">
+                    <div>
+                        <span class="d-flex justify-content-start align-items-center">
+                            {% if medicine.profile_image %}
+                        <img class="categoryimg rounded-pill p-1 mx-1" style="width:60px; height:60px; border:1px solid rgb(4, 70, 39);" src="{{ medicine.profile_image.url }}" alt="medicine">
+                        {% endif %}
+                        </span>
+                    </div>
+                    <div class="row col-sm rounded">
+                        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-3 bg-white mt-1 text-black">
+                            {{medicine.medicine_name}}
+                        </div>
+                    </div>
+                </div>
+                </a>
+                {% endfor %}
+            </div>
 
 
 <!-- checkups categories -->
-<span id="category_title" class="d-flex justify-content-center align-items-center mt-5 mx-3 p-1 rounded bg-light" style=" color:rgb(4, 70, 39); font-size:1.2rem;">
- <i class="bi bi-person-arms-up text-success mx-1" style="font-size:1.2rem;"></i>CHECK-UPS
+<span id="category_title" class="d-flex justify-content-center align-items-center mt-5 mx-2 mb-2 p-1 rounded bg-light" style=" color:rgb(4, 70, 39); font-size:1.2rem;">
+ <i class="bi bi-person-arms-up text-success mx-1" style="font-size:1.2rem;"></i>
+ <!--CHECK-UPS  -->  VIPIMO
 </span>
-<!-- start list of medicine -->
-                {% for checkup in checkup_page_obj %}
-  <a href="{% url 'services' %}" class="text-decoration-none">
- <div class="d-flex justify-content-center align-items-center mx-2 rounded my-1 p-2 bg-light" >
-    <div class="p-1 mx-1">
-        <span class="d-flex justify-content-center align-items-center">
-        <img class="categoryimg" style="width:100px; height:100px;" src="{% static '/images/eternal/download.jpeg' %}">
-        <span>
-    </div>
-    <div class="rounded" style="background-color:rgb(226, 240, 233);">
-        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-3 bg-white mt-1 text-black"><b class="text-uppercase">{{checkup.checkup_name}} </b><br>
-            <span style="color:rgb(4, 70, 39); ">
-           {{checkup.description}}
-        </div>
-    </div>
-</div>
-</a>
-            {% endfor %}
+<!-- start list of checkup -->
+     <div class=" py-3 shadow bg-light mx-2" style="border-radius:20px;">
+            {% for checkup in checkup_page_obj %}
+            <a data-type="checkup" data-id="{{checkup.id}}" class="btn-list text-decoration-none" style="cursor:pointer">
+                <div class="d-flex justify-content-center align-items-center rounded  p-1 gap-1 bg-light">
+                    <div>
+                        <span class="d-flex justify-content-start align-items-center">
+                            {% if checkup.profile_image %}
+                        <img class="categoryimg rounded-pill p-1 mx-1" style="width:60px; height:60px; border:1px solid rgb(4, 70, 39);" src="{{ checkup.profile_image.url }}" alt="checkup">
+                        {% endif %}
+                        </span>
+                    </div>
+                    <div class="row col-sm rounded">
+                        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-3 bg-white mt-1 text-black">
+                            {{checkup.checkup_name}}
+                        </div>
+                    </div>
+                </div>
+                </a>
+                {% endfor %}
+            </div>
 
 
 
 
  <!-- Business plan -->
-<span id="category_title" class="d-flex justify-content-center align-items-center mt-5 mx-3 p-1 rounded bg-light" style=" color:rgb(4, 70, 39); font-size:1.2rem;">
- <i class="bi bi-briefcase-fill text-success mx-1" style="font-size:1.2rem;"></i>BUSINESS PLAN
+<span id="category_title" class="d-flex justify-content-center align-items-center mt-5 mx-2 mb-2 p-1 rounded bg-light" style=" color:rgb(4, 70, 39); font-size:1.2rem;">
+ <i class="bi bi-briefcase-fill text-success mx-1" style="font-size:1.2rem;"></i>
+ <!-- BUSINESS --> BIASHARA
 </span>
 <!-- start list of business plan -->
+     <div class=" py-3 shadow bg-light mx-2" style="border-radius:20px;">
             {% for business_plan in bp_page_obj %}
-  <a href="{% url 'services' %}" class="text-decoration-none">
- <div class="d-flex justify-content-center align-items-center mx-2 rounded my-1 p-2 bg-light">
-    <div class="p-1 mx-1">
-        <span class="d-flex justify-content-center align-items-center">
-        <img class="categoryimg" style="width:100px; height:100px;" src="{% static '/images/eternal/sales.jpeg' %}">
-        <span>
-    </div>
-    <div class="rounded" style="background-color:rgb(226, 240, 233);">
-        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-3 bg-white mt-1 text-black"><b class="text-uppercase">BUSINESS PLAN </b><br>
-            <span style="color:rgb(4, 70, 39); ">
-            {{business_plan.description}}
-        </div>
-    </div>
-</div>
-</a>
-        {% endfor %}
+            <a data-type="businessplan" data-id="{{business_plan.id}}" class="btn-list text-decoration-none" style="cursor:pointer">
+                <div class="d-flex justify-content-center align-items-center rounded  p-1 gap-1 bg-light">
+                    <div>
+                        <span class="d-flex justify-content-start align-items-center">
+                            {% if business_plan.profile_image %}
+                        <img class="categoryimg rounded-pill p-1 mx-1" style="width:60px; height:60px; border:1px solid rgb(4, 70, 39);" src="{{ business_plan.profile_image.url }}" alt="businessplan">
+                        {% endif %}
+                        </span>
+                    </div>
+                    <div class="row col-sm rounded">
+                        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-3 bg-white mt-1 text-black">
+                            <b class="text-uppercase">business plan</b><br>
+                            {% comment %} {{business_plan.description}} {% endcomment %}
+                        </div>
+                    </div>
+                </div>
+                </a>
+                {% endfor %}
+            </div>
 
 
 
  <!-- business levels categories -->
-<span id="category_title" class="d-flex justify-content-center align-items-center mt-5 mx-3 p-1 rounded bg-light" style=" color:rgb(4, 70, 39); font-size:1.2rem;">
- <i class="bi bi-briefcase text-success mx-1" style="font-size:1.2rem;"></i>BUSINESS LEVELS
+<span id="category_title" class="d-flex justify-content-center align-items-center mt-5 mx-2 mb-2 p-1 rounded bg-light" style=" color:rgb(4, 70, 39); font-size:1.2rem;">
+ <i class="bi bi-briefcase text-success mx-1" style="font-size:1.2rem;"></i>
+ <!--  BUSINESS LEVELS --> HATUA ZA BIASHARA
 </span>
 <!-- start list of business level -->
-            {% for business_level in bl_page_obj%}
- <a href="{% url 'services' %}" class="text-decoration-none">
- <div class="d-flex justify-content-center align-items-center mx-2 rounded my-1 p-2 bg-light">
-    <div class="p-1 mx-1">
-        <span class="d-flex justify-content-center align-items-center">
-        <img class="categoryimg" style="width:100px; height:100px;" src="{% static '/images/eternal/sales.jpeg' %}">
-        </span>
-    </div>
-    <div class="rounded" style="background-color:rgb(226, 240, 233);">
-        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-3 bg-white mt-1 text-black"><b class="text-uppercase">{{business_level.level_name}}</b><br>
-            <span style="color:rgb(4, 70, 39); ">
-            {{business_level.description}}
-        </div>
-    </div>
-</div>
-</a>
-            {% endfor %}
+     <div class=" py-3 shadow bg-light mx-2" style="border-radius:20px;">
+            {% for business_level in bl_page_obj %}
+            <a data-type="businesslevel" data-id="{{business_level.id}}" class="btn-list text-decoration-none" style="cursor:pointer">
+                <div class="d-flex justify-content-center align-items-center rounded  p-1 gap-1 bg-light mx-2">
+                    <div>
+                        <span class="d-flex justify-content-start align-items-center">
+                            {% if business_level.profile_image %}
+                        <img class="categoryimg rounded-pill p-1 mx-1" style="width:60px; height:60px; border:1px solid rgb(4, 70, 39);" src="{{ business_level.profile_image.url }}" alt="businesslevel">
+                        {% endif %}
+                        </span>
+                    </div>
+                    <div class="row col-sm rounded">
+                        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-3 bg-white mt-1 text-black">
+                            <b class="text-uppercase">{{business_level.level_name}}</b><br>
+                            {% comment %} {{business_level.description}} {% endcomment %}
+                        </div>
+                    </div>
+                </div>
+                </a>
+                {% endfor %}
+            </div>
 <!-- finish general services lists -->
 
 

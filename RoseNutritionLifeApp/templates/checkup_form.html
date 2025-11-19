@@ -1,13 +1,13 @@
 {% load static %}
 
 <!-- CheckUp Form Modal -->
-<div class="modal fade" id="checkupFormModal" tabindex="-1" aria-labelledby="checkupFormModalLabel" aria-hidden="true">
+<div class="modal fade" id="checkupModal" tabindex="-1" aria-labelledby="checkupFormModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h5 class="modal-title" id="checkupFormModalLabel">Add CheckUp</h5>
+        {% comment %} <h5 class="modal-title" id="checkupFormModalLabel">Add CheckUp</h5> {% endcomment %}
         <button type="button" class="btn btn-sm btn-outline-secondary btn-close" data-bs-dismiss="modal"></button>
       </div>
 
@@ -15,7 +15,7 @@
       <div class="modal-body">
         <section class="book_section mb-2" id="details">
           <div class="container">
-            <form id="postCheckUpForm" method="post" action="{% url 'post_checkup' %}" enctype="multipart/form-data">
+            <form id="checkupForm" method="post" action="{% url 'post_checkup' %}" enctype="multipart/form-data">
               {% csrf_token %}
               <h4>FILL <span>CHECKUP</span></h4>
 
@@ -85,6 +85,16 @@
                   <div class="form-group">
                     <label for="{{ form.cost.id_for_label }}">Cost</label>
                     <input type="number" class="form-control" id="{{ form.cost.id_for_label }}" name="cost" placeholder="Enter cost" required>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Profile Image -->
+              <div class="row mb-2">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="{{ form.profile_image.id_for_label }}">Checkup Profile Image (Optional)</label>
+                    <input type="file" class="form-control" id="{{ form.profile_image.id_for_label }}" name="profile_image" accept="image/*">
                   </div>
                 </div>
               </div>

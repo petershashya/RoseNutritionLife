@@ -1,0 +1,82 @@
+<div class="modal fade" id="advertisementModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title text-success text-uppercase">
+          {% comment %} {{ model_type }} DETAILS {% endcomment %}
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="corediv_service" style="border-radius:35px;">
+
+            <div class="shadow bg-light p-1" style="border-radius:25px;">
+            <div class="animation_division" id="scrollDiv5">
+            <div class="about_us">
+                {% if objects %}
+                <!-- Carousel -->
+                <div id="advertisementCarousel" class="carousel slide" data-bs-ride="carousel">
+
+                <!-- Indicators/dots -->
+                <div class="carousel-indicators">
+                    {% for object in objects %}
+                    <button type="button"
+                            data-bs-target="#advertisementCarousel"
+                            data-bs-slide-to="{{ forloop.counter0 }}"
+                            class="{% if forloop.first %}active{% endif %}">
+                    </button>
+                    {% endfor %}
+                </div>
+
+                <!-- The slideshow/carousel -->
+                <div class="carousel-inner">
+                    {% for object in objects %}
+                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                    <div class="mt-4 rounded p-5 mb-1 text-center overflow-x-auto justify-content-center">
+                        <span class="d-flex justify-content-center align-items-center mb-2"
+                            style="color:rgba(9,53,71,1); font-size:1.5rem;">
+                        <b class="text-uppercase">{{model_type}}</b>
+                        </span>
+
+                        {% if object.image %}
+                        <div class="advertisementimg-box mx-auto mt-2 ">
+                        <img src="{{ object.image.url }}" style="border-radius:10px;" alt="{{ object }}">
+                        </div>
+                        {% endif %}
+
+                         <span class="d-block p-2 shadow bg-white mb-2 mt-2 ml-2" style="border-radius:10px;">
+                            --{{ object.description }}-- <br>
+                        Located at <b>{{ object.location }}</b>
+                        </span>
+
+                        <hr class="p-1" style="color:rgba(9,53,71,1);">
+                    </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Left and right controls/icons -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#advertisementCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#advertisementCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+
+                </div>
+                {% else %}
+                <p class="text-center mt-3 text-muted mx-2 mb-3 bg-light">No {{model_type}} available yet.</p>
+                {% endif %}
+            </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
