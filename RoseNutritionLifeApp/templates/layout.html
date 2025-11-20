@@ -655,8 +655,8 @@
 
     <span>
       <a class="text-light text-decoration-none align-items-end" style="font-size:1.5rem;" href="{% url 'home' %}">
-        <i class="bi bi-amazon text-success bg-light p-1 mx-1" style="border-radius:35px; font-size:1rem"></i>
-        RNL
+        {% comment %} <i class="bi bi-amazon text-success bg-light p-1 mx-1" style="border-radius:35px; font-size:1rem"></i> {% endcomment %}
+          <img  src="{% static 'images/eternal/logo.jpg' %}"  style="width:40px; height:40px; object-fit:cover; border-radius:30px;" >RNL
       </a>
     </span>
 
