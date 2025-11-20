@@ -660,18 +660,18 @@
       </a>
     </span>
 
-    <!-- login messages -->
+    <!-- notification messages -->
     {% if messages %}
       {% for message in messages %}
         <div class="d-flex justify-content-center align-items-center w-100 position-absolute" style="top:90px;">
           <span class="message py-1 px-3 text-center"
                 style="color:#fff; border-radius:15px; background-color:rgba(25, 138, 85, 1);">
-            {{ message }}
+           <i class="bi bi-bell text-light mx-1 " style="font-size: 1rem"></i>  {{ message }}
           </span>
         </div>
       {% endfor %}
     {% endif %}
-    <!-- end login message -->
+    <!-- end notification message -->
 
     <span class="p-1" style="background-color:rgb(6, 104, 58); border-radius:25px;">
       <span class="navbartabs text-decoration-none" id="navbartabs">

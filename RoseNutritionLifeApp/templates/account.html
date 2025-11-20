@@ -177,10 +177,14 @@
                 <th>Active</th>
                 <th>Superuser</th>
                 <th class="d-flex justify-content-center align-items-center gap-1">
+                   {% if it_officer_rank in "it_officer" %}
                   <button type="submit" name="delete_selected"
                           class="btn btn-sm btn-outline-danger d-flex justify-content-center">
                     <i class="bi bi-trash"></i> Staffs
                   </button>
+                  {% else %}
+                  Actions
+                  {% endif %}
                 </th>
               </tr>
             </thead>
@@ -205,9 +209,12 @@
                 <button class="btn btn-sm user-edit-btn btn-warning rounded-pill" data-url="{% url 'edit_user' 'user' user.id %}" data-target="#editUserModal">
                   <i class="bi bi-pencil"></i>
                 </button>
+
+                {% if it_officer_rank in "it_officer" %}
                 <button class="btn btn-sm user-delete-btn btn-danger rounded-pill" data-url="{% url 'delete_user' 'user' user.id %}" data-target="#deleteUserModal">
                   <i class="bi bi-trash"></i>
                 </button>
+                {% endif %}
                </td>
               </tr>
               {% empty %}

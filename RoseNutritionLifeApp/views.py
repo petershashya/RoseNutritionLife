@@ -1307,6 +1307,7 @@ def delete_comment(request, model, object_id):
     # DELETE request through AJAX
     if request.method == "POST":
         instance.delete()
+        messages.error(request, "Umefanikiwa kufuta ujumbe.")
         return JsonResponse({"success": True})
 
     # Return delete modal HTML for preview
