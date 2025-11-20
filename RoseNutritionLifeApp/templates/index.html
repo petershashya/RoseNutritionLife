@@ -1054,14 +1054,18 @@
                     <div class="mt-4 rounded p-5" style="background-color:rgb(226, 240, 233); ">
                         <div class="text-center mx-4 mt-4">
                             <span class="d-flex justify-content-center align-items-center" style="color:rgb(4, 70, 39); font-size:1.5rem;"><b><!-- OUR TEAM --> VIONGOZI</b></span>
+
+                            <span class="d-flex justify-content-center align-items-center gap-2" style="color:rgb(4, 70, 39);">
+                            <b class="text-uppercase" style="font-size:13px;">{{about_detail.company_rank}}</b>
+                            </span>
+
                             -- {{about_detail.description}} --
                         </div>
-                        <span class="d-flex justify-content-center align-items-center gap-2" style="color:rgb(4, 70, 39);">
-                            <b class="text-uppercase" style="font-size:13px;">{{about_detail.company_rank}}</b></span>
-                        <span class="d-flex justify-content-center align-items-center gap-2" style="color:rgb(4, 70, 39);">
-                            {{about_detail.firstname}} {{about_detail.lastname}}</span>
                         <span class="d-flex justify-content-center align-items-center gap-2">
                             <i class="bi bi-telephone-fill mx-1" style="font-size:1.2rem; color:rgb(4, 70, 39);"></i>{{about_detail.mobileno}}
+                        </span>
+                        <span class="d-flex justify-content-center align-items-center gap-2" style="color:rgb(4, 70, 39);">
+                                {{about_detail.firstname}} {{about_detail.lastname}}
                         </span>
 
                             {% if about_detail.image %}
