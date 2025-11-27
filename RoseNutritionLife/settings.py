@@ -24,7 +24,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
@@ -34,7 +33,18 @@ SECRET_KEY = 'django-insecure-1w6+0(z!7@bs*4d3haq1azntg29^_p(8r^j#+q+(knp&2@5#aa
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','172.236.13.137','RoseNutritionLife.onrender.com']
+# Max size Django will accept (in bytes)
+DATA_UPLOAD_MAX_MEMORY_SIZE = 5 * 1024 * 1024 * 1024  # 5 GB
+FILE_UPLOAD_MAX_MEMORY_SIZE = 5 * 1024 * 1024 * 1024  # 5 GB
+
+#For Nginx settups of domain for https
+# Allow CSRF trusted origins
+CSRF_TRUSTED_ORIGINS = [
+    'https://rosenutritionlife.com',
+    'https://www.rosenutritionlife.com',
+]
+
+ALLOWED_HOSTS = ['127.0.0.1','172.236.13.137','rosenutritionlife.com','www.rosenutritionlife.com','ns1.dns-parking.com','172.236.13.137:5000','RoseNutritionLife.onrender.com']
 
 
 # Application definition
@@ -48,7 +58,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'RoseNutritionLifeApp',
     'crispy_forms',
-    'crispy_bootstrap5'
+    #'crispy_bootstrap5'
 ]
 
 
@@ -116,8 +126,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'rosenutritionlife_db',
-        'USER': 'postgres',
-        'PASSWORD': '12345',
+        'USER': 'rosenutritionlifeuser',
+        'PASSWORD': 'rosenutritionlife2025',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -175,10 +185,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+
+STATIC_URL = '/static/'
+
+#STATIC_ROOT = '/var/www/rosenutritionlife/static/'   # must match nginx
+
 
 #for using whitenoise 
 STATIC_ROOT = "staticfiles"
+
 STATICFILES_STORAGE ="whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 
