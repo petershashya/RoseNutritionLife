@@ -21,9 +21,12 @@ COMPANY_RANK_CHOICES = [
     ('manager', 'Manager'),
     ('doctor', 'Doctor'),
     ('it_officer', 'IT Officer'),
-    ('supervisor', 'Supervisor'),
+    ('secretary', 'Secretary'),
+    ('stationary', 'Stationary'),
     ('reception', 'Reception'),
-    ('accountant', 'Accountant'),
+    #('accountant', 'Accountant'),
+    ('pharmacist','Pharmacist' ),
+    ('video grapher', 'Video Grapher')
 ]
 
 COMPANY_RANK_MEMBERCHOICES = [
@@ -93,7 +96,7 @@ class MemberRegistrationForm(forms.ModelForm):
     region = forms.CharField(max_length=100, required=True)
     postal_address = forms.CharField(max_length=255, required=False)
     company_rank = forms.ChoiceField(choices=COMPANY_RANK_MEMBERCHOICES, required=False)
-    membership_no = forms.CharField(max_length=50, required=True, label="Membership No")
+    membership_no = forms.CharField(max_length=7, required=True, label="Membership No")
     profile_image = forms.ImageField(required=False, widget=forms.ClearableFileInput(attrs={'accept': 'image/*'}))
 
     class Meta:

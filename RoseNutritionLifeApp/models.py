@@ -30,9 +30,12 @@ class UserDetail(models.Model):
         ('manager', 'Manager'),
         ('doctor', 'Doctor'),
         ('it_officer', 'IT Officer'),
-        ('supervisor', 'Supervisor'),
+    	('secretary', 'Secretary'),
+    	('stationary', 'Stationary'),
         ('reception', 'Reception'),
         ('accountant', 'Accountant'),
+    	('pharmacist','Pharmacist' ),
+    	('video grapher', 'Video Grapher')
     ]
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user_detail')

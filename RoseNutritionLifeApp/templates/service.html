@@ -47,7 +47,7 @@
 
 
   <!-- models tags -->
-  {% if it_officer_rank in "it_officer,director" %}
+  {% if it_officer_rank in "it_officer,director,vice_director" %}
      <div class="fixed_tag d-flex justify-content-end align-items-center p-2 fixed-bottom mb-3 mx-3 gap-1">
         <span class="p-1" style="border-radius:25px; background-color:rgb(6, 104, 58);">
         <span class="navbartabs text-decoration-none" >
@@ -61,8 +61,11 @@
             <a  class="branch-post-btn p-2 bi bi-bank mx-1 text-decoration-none ml-2 navbarbutton" data-label="Branch" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);" ></a> 
             <a  class="meeting-post-btn p-2 bi bi-people-fill mx-1 text-decoration-none ml-2 navbarbutton" data-label="Meeting" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);" ></a> 
             <a  class="advertisement-post-btn p-2 bi bi-badge-ad-fill mx-1 text-decoration-none ml-2 navbarbutton" data-label="OtherAds" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);" ></a>
+
+  {% if it_officer_rank in "it_officer,director,vice_director,manager,business_teacher,video grapher,doctor,secretary,stationay,pharmacist" %} 
 	    <a  class="about-post-btn p-2 bi bi-database-fill-add mx-1 text-decoration-none ml-2 navbarbutton" data-label="About" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);" ></a>
-        </span>
+  {% endif %}        
+</span>
     </span>
      </div> 
      {% endif %}

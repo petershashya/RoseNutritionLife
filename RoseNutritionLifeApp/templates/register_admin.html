@@ -15,7 +15,7 @@
              <form method="post" enctype="multipart/form-data">
           {% csrf_token %}
           <h4 style="color:rgba(18, 23, 26, 1);">
-            FILL ADMIN REGISTRATION <span class="text-success">DETAILS</span>
+           <!-- FILL ADMIN REGISTRATION --> SAJIRI TAARIFA ZA<span class="text-success"> <!-- DETAILS --> KIONGOZI </span>
           </h4>
         {{ admin_form.as_p }}
 
@@ -26,8 +26,8 @@
         </span>
 
           <div class="btn-box">
-            <button type="submit" class="btn btn-sm text-light"  style="background-color:rgb(4, 70, 39);" name="register_admin">Register</button>
-            <a href="{% url 'login' %}" class="btn btn-sm text-secondary bg-light p-2 mt-3">Login</a>
+            <button type="submit" class="btn btn-sm text-light"  style="background-color:rgb(4, 70, 39);" name="register_admin"> Sajiri <!-- Register --> </button>
+            <a href="{% url 'login' %}" class="btn btn-sm text-secondary bg-light p-2 mt-3"> <!-- Login --> Ingia</a>
           </div> 
         </form>  
         
