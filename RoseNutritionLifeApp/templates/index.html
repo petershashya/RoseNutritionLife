@@ -1088,73 +1088,100 @@
 
 
 
-
 <!-- Our team section -->
-       <div class="corediv_service" style="border-radius:35px;">
-            <div class="shadow p-1" style="border-radius:25px;background-color:rgb(226, 240, 233);">
-            <div class="animation_division" id="scrollDiv5">
+<div class="corediv_service" style="border-radius:35px;">
+    <div class="shadow p-1" style="border-radius:25px;background-color:rgb(226, 240, 233);">
+        <div class="animation_division" id="scrollDiv5">
             <div class="about_us">
+
                 {% if abouts %}
                 <!-- Carousel -->
                 <div id="ourteamCarousel" class="carousel slide" data-bs-ride="carousel">
 
-                <!-- Indicators/dots -->
-                <div class="carousel-indicators">
-                    {% for about in abouts %}
-                    <button type="button"
-                            data-bs-target="#ourteamCarousel"
-                            data-bs-slide-to="{{ forloop.counter0 }}"
-                            class="{% if forloop.first %}active{% endif %}">
-                    </button>
-                    {% endfor %}
-                </div>
-
-                <!-- The slideshow/carousel -->
-                <div class="carousel-inner">
-                    {% for about_detail in abouts %}
-                    <div class="mt-4 rounded p-5" style="background-color:rgb(226, 240, 233); ">
-                        <div class="text-center mx-4 mt-4">
-                            <span class="d-flex justify-content-center align-items-center" style="color:rgb(4, 70, 39); font-size:1.5rem;"><b><!-- OUR TEAM --> VIONGOZI</b></span>
-
-                            <span class="d-flex justify-content-center align-items-center gap-2" style="color:rgb(4, 70, 39);">
-                            <b class="text-uppercase" style="font-size:13px;">{{about_detail.company_rank}}</b>
-                            </span>
-
-                            -- {{about_detail.description}} --
-                        </div>
-                        <span class="d-flex justify-content-center align-items-center gap-2">
-                            <i class="bi bi-telephone-fill mx-1" style="font-size:1.2rem; color:rgb(4, 70, 39);"></i>{{about_detail.mobileno}}
-                        </span>
-                        <span class="d-flex justify-content-center align-items-center gap-2" style="color:rgb(4, 70, 39);">
-                                {{about_detail.firstname}} {{about_detail.lastname}}
-                        </span>
-
-                            {% if about_detail.image %}
-                            <div class="profileimage-box mx-auto ">
-                            <img class="categoryimg rounded-circle" src="{{about_detail.image.url}}">
-                            </div>
-                            {% endif %}
+                    <!-- Indicators -->
+                    <div class="carousel-indicators">
+                        {% for about in abouts %}
+                        <button type="button"
+                                data-bs-target="#ourteamCarousel"
+                                data-bs-slide-to="{{ forloop.counter0 }}"
+                                class="{% if forloop.first %}active{% endif %}"
+                                aria-current="{% if forloop.first %}true{% endif %}">
+                        </button>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
-                </div>
 
-                <!-- Left and right controls/icons -->
-                <button class="carousel-control-prev" type="button" data-bs-target="#ourteamCarousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon"></span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#ourteamCarousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon"></span>
-                </button>
+                    <!-- Carousel inner -->
+                    <div class="carousel-inner">
+
+                        {% for about_detail in abouts %}
+                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                            <div class="mt-4 rounded p-5 text-center"
+                                 style="background-color:rgb(226, 240, 233);">
+
+                                <span class="d-flex justify-content-center align-items-center"
+                                      style="color:rgb(4, 70, 39); font-size:1.5rem;">
+                                    <b>VIONGOZI</b>
+                                </span>
+
+                                <span class="d-flex justify-content-center align-items-center gap-2"
+                                      style="color:rgb(4, 70, 39);">
+                                    <b class="text-uppercase" style="font-size:13px;">
+                                        {{ about_detail.company_rank }}
+                                    </b>
+                                </span>
+
+                                <p class="mt-2 mb-2">
+                                    — {{ about_detail.description }} —
+                                </p>
+
+                                <span class="d-flex justify-content-center align-items-center gap-2">
+                                    <i class="bi bi-telephone-fill mx-1"
+                                       style="font-size:1.2rem; color:rgb(4, 70, 39);"></i>
+                                    {{ about_detail.mobileno }}
+                                </span>
+
+                                <span class="d-flex justify-content-center align-items-center gap-2"
+                                      style="color:rgb(4, 70, 39);">
+                                    {{ about_detail.firstname }} {{ about_detail.lastname }}
+                                </span>
+
+                                {% if about_detail.image %}
+                                <div class="profileimage-box mx-auto mt-3">
+                                    <img class="categoryimg rounded-circle"
+                                         src="{{ about_detail.image.url }}"
+                                         alt="profile image">
+                                </div>
+                                {% endif %}
+
+                            </div>
+                        </div>
+                        {% endfor %}
+
+                    </div>
+
+                    <!-- Controls -->
+                    <button class="carousel-control-prev" type="button"
+                            data-bs-target="#ourteamCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </button>
+
+                    <button class="carousel-control-next" type="button"
+                            data-bs-target="#ourteamCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </button>
 
                 </div>
                 {% else %}
-                <p class="text-center mt-3 text-muted mx-2 mb-3 bg-light">No Our Team details available yet.</p>
+                <p class="text-center mt-3 text-muted mx-2 mb-3 bg-light">
+                    No Our Team details available yet.
+                </p>
                 {% endif %}
-            </div>
-            </div>
-            </div>
 
-            <!-- end of our team -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end of our team -->
 
 
 {% endblock %}

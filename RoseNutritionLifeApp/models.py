@@ -35,6 +35,7 @@ class UserDetail(models.Model):
         ('reception', 'Reception'),
         ('accountant', 'Accountant'),
     	('pharmacist','Pharmacist' ),
+        ('displine','Displine' ),
     	('video grapher', 'Video Grapher')
     ]
 
