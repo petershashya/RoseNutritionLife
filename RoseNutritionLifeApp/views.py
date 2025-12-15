@@ -2176,7 +2176,7 @@ def post_medicine_sales(request):
 @login_required
 def post_about(request, about_id=None):
     user_rank = getattr(request.user.user_detail, 'company_rank', '').lower()
-    if user_rank not in ["manager", "doctor", "it_officer"]:
+    if user_rank not in ["it_officer,director,vice_director,manager,business_teacher,video grapher,doctor,secretary,stationay,pharmacist"]:
         messages.error(request, "You do not have permission to manage About.")
         return redirect('/')
 
