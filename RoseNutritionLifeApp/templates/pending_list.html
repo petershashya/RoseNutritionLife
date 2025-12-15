@@ -1,0 +1,76 @@
+<div class="modal fade" id="memberPendingModal" tabindex="-1">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+
+            <div class="modal-header btext-white">
+                {% comment %} <h5 class="modal-title">Member Pending Payment</h5> {% endcomment %}
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+           <div class="modal-body">
+
+                    <h5 class="mb-3 bg-success text-light p-2 rounded">Member Pending Information</h5>
+                    <table class="table table-bordered">
+                        <tr><th>Name</th><td>{{ member.user.first_name }} {{ member.user.last_name }}</td></tr>
+                        <tr><th>Membership No</th><td>{{ member.membership_no }}</td></tr>
+                    </table>
+
+                    <h5>Medicine Products</h5>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="text-start">Patient</th>
+                                <th class="text-start">Medicine</th>
+                                <th class="text-start">PV</th>
+                                <th class="text-start">Qty</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for p in products %}
+                            <tr>
+                                <td class="text-start">{{ p.medical.name }}</td>
+                                <td class="text-start">{{ p.medicine_name }}</td>
+                                <td class="text-start">{{ p.medicine_pv }}</td>
+                                <td class="text-start">{{ p.qty }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                    <div class="d-flex justify-content-start align-items-center gap-2">
+                        <!-- before calculations default level is no2 -->
+                    <h4>Total PV: <span id="totalPV">{{ total_pv }}</span></h4>
+
+                    <!-- LEVEL SELECT DROPDOWN -->
+                    <div class="mt-3 mb-3">
+                        {% comment %} <label class="fw-bold">Select Level</label> {% endcomment %}
+                        <select id="levelSelector" class="form-control">
+                            <option value="1">Level 1 (1%)</option>
+                            <option value="6">Level 2 (6%)</option>
+                            <option value="22">Level 3 (22%)</option>
+                            <option value="26">Level 4 (26%)</option>
+                            <option value="30">Level 5 (30%)</option>
+                            <option value="34">Level 6 (34%)</option>
+                            <option value="40">Level 7 (40%)</option>
+                            <option value="43">Level 8 (43%)</option>
+                            <option value="45">Level 9 (45%)</option>
+                            <option value="45">Level 10 (45%)</option>
+                        </select>
+                    </div>
+                </div>
+
+                    <h4>Total Money: <span id="totalMoney">{{ money }}</span> TZS</h4><br>
+
+                    <button class="btn btn-success w-100 mt-3" 
+                            id="confirm-payment"
+                                data-membership="{{ member.membership_no }}"
+                                data-totalpv="{{ total_pv }}"
+                                data-money="{{ money|floatformat:2 }}"
+                                data-month="{{ month }}">
+                        CONFIRM PAYMENT
+                    </button>
+                </div>
+
+        </div>
+    </div>
+</div>

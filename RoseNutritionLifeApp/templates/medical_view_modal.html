@@ -1,0 +1,151 @@
+<div class="modal fade" id="medical_view_Modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-fullscreen modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        {% comment %} <h5 class="modal-title">MEDICAL DETAILS - <span class="text-uppercase">{{ medical.name }}</span></h5> {% endcomment %}
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+          <div class="p-3 bg-white  mx-1 my-3">
+
+            <!-- LOGO + TITLE -->
+            <div class="text-center mb-2">
+                {% load static %} 
+                {% comment %} <span class="d-flex justify-content-center align-items-center">
+                <img  src="{% static 'images/eternal/logo2.png' %}"  style="width:90px; height:90px; object-fit:cover; border-radius:30px;" >
+                </span> {% endcomment %}
+                <h4 class="header-title text-dark">ETERNAL INTERNATIONAL</h4>
+                <h5 class="modal-title">MEDICAL FORM - <span class="text-uppercase" >{{ medical.name }} </span></h5>
+            </div>
+
+            <!-- REF NO + DATE -->
+            <div class="text-end mt-2">
+                <strong>Ref. No:</strong><span class="hand_fontstyle">  {{ medical.ref_no }} </span> <br>
+                <strong>Date:</strong><span class="hand_fontstyle">  {{ medical.date }} </span>
+            </div>
+
+            <!-- COMPANY DETAILS -->
+            <div class="text-start mb-3">
+                <strong>ETERNAL INTERNATIONAL TANZANIA LTD</strong><br>
+                Buguruni Sherry, Madenge Street near The Dreamers Hotel<br>
+                Dar Es Salaam<br>
+                Phone: 0750990508, 0673222116 / 0765375657<br>
+                Email: eternalbugurunishop@gmail.com
+            </div>
+
+            <hr>
+
+            <!-- PATIENT DETAILS -->
+            <h5 class="fw-bold">PATIENT DETAILS</h5>
+
+            <div class="row mb-2">
+                <div class="col-6">
+                    <strong>Office Name:</strong><span class="hand_fontstyle"> {{ medical.office_name }} </span>
+                </div>
+                <div class="col-6">
+                    <strong>ID Number:</strong><span class="hand_fontstyle"> {{ medical.id_number }} </span>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-4">
+                    <strong>Name:</strong><span class="hand_fontstyle"> {{ medical.name }} </span>
+                </div>
+                <div class="col-4">
+                    <strong>Sex:</strong><span class="hand_fontstyle"> {{ medical.sex }} </span>
+                </div>
+                <div class="col-4">
+                    <strong>Date of Birth:</strong><span class="hand_fontstyle"> {{ medical.dob }} </span>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-4">
+                    <strong>Weight (Kg):</strong><span class="hand_fontstyle"> {{ medical.weight }} </span>
+                </div>
+                <div class="col-4">
+                    <strong>Height (Cm):</strong><span class="hand_fontstyle"> {{ medical.height }} </span>
+                </div>
+            </div>
+
+            <!-- HEALTH PROBLEMS -->
+            <h5 class="fw-bold mb-2">HEALTH PROBLEMS / DOCTOR SUMMARY</h5>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Health Problems</th>
+                        <th>Doctor Summary</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            Diabetics<br>
+                            Hypertension<br>
+                            Respiratory System<br>
+                            Digestive System<br>
+                            Liver System<br>
+                            Renal & Urinary System<br>
+                            Skeletal System<br>
+                            Skin Disorders<br>
+                            Cerebral System<br>
+                            Male Reproductive System<br>
+                            Female Reproductive System<br>
+                            ENT (Eyes, Nose & Throat System)
+                        </td>
+                        <td>
+                         <textarea class="line-textarea w-100 text-start hand_fontstyle p-2" readonly>{{ medical.doctor_summary }}</textarea>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- NUTRITIONAL RECOMMENDATION -->
+            <h5 class="fw-bold mb-2">NUTRITIONAL RECOMMENDATION</h5>
+
+            <div class="row mb-3">
+                <div class="col-3 hand_fontstyle mx-1" style="background-color: #fafcffff">
+                    <strong class="title_fontstyle">Avoid/Reduce:</strong>
+                    <p>{{ medical.avoid_reduce|linebreaks }}</p>
+                </div>
+
+                <div class="col-4 hand_fontstyle mx-1" style="background-color: #fafcffff">
+                    <strong class="title_fontstyle">Eat Most:</strong>
+                    <p>{{ medical.eat_most|linebreaks }}</p>
+                </div>
+
+                <div class="col-4 hand_fontstyle mx-1" style="background-color: #fafcffff">
+                    <strong class="title_fontstyle">Products:</strong>
+                    <ul>
+                        {% for product in medical.medicine_products.all %}
+                            <li>{{ product.medicine_name }} 
+                                {% comment %} - {{ product.medicine_cost }} TZS {% endcomment %}
+                            </li>
+                        {% empty %}
+                            <li>No products selected</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <!-- FOOTER -->
+            <div class="row mb-3">
+                <div class="col-6">
+                    <strong>Doctor Signature:</strong> {{ medical.doctor_signature }}
+                </div>
+                <div class="col-6 text-end ">
+                    <strong>Charges:</strong><span class="hand_fontstyle"> {{ medical.charges }} </span>
+                </div>
+            </div>
+
+            <!-- MODAL FOOTER -->
+            {% comment %} <div class="modal-footer mt-3">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div> {% endcomment %}
+
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -85,6 +85,51 @@
 <!-- Our services -->
  <div class="d-flex justify-content-center">
 <div  class="d-flex flex-nowrap overflow-x-auto  gap-3 p-3 mx-2" style="display: flex;">
+
+      {% if it_officer_rank in "it_officer,reception" %}
+        <a href="{% url 'reception' %}" id="getservice" class="top_providers text-decoration-none  p-4 text-light flex-shrink-0" style="min-width:150px;" >
+     {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
+    <!-- OUR SERVICES --> <span class="d-flex justify-content-center align-items-center"> MAPOKEZI </span>
+     <span class="d-flex justify-content-center align-items-center ">
+         <i class="bi bi-person-workspace text-light mx-2" style="font-size:2.5rem;"></i>
+         <span>
+         </a>
+    {% endif %}
+
+
+         {% if it_officer_rank in "it_officer,doctor" %}
+         <a href="{% url 'doctor' %}" id="getservice" class="top_providers text-decoration-none  p-4 text-light flex-shrink-0" style="min-width:150px;" >
+     {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
+    <!-- OUR SERVICES --> <span class="d-flex justify-content-center align-items-center"> DAKTARI </span>
+     <span class="d-flex justify-content-center align-items-center ">
+         <i class="bi bi-h-circle-fill text-light mx-2" style="font-size:2.5rem;"></i>
+         <span>
+         </a>
+         {% endif %}
+
+
+         {% if it_officer_rank in "it_officer,pharmacist" %}
+         <a href="{% url 'pharmacy' %}" id="getservice" class="top_providers text-decoration-none  p-4 text-light flex-shrink-0" style="min-width:150px;" >
+     {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
+    <!-- OUR SERVICES --> <span class="d-flex justify-content-center align-items-center"> MADAWA </span>
+     <span class="d-flex justify-content-center align-items-center ">
+         <i class="bi bi-capsule-pill text-light mx-2" style="font-size:2.5rem;"></i>
+         <span>
+         </a>
+         {% endif %}
+
+
+        {% if it_officer_rank in "it_officer,vice_director" %}
+         <a href="{% url 'payment' %}" id="getservice" class="top_providers text-decoration-none  p-4 text-light flex-shrink-0" style="min-width:150px;" >
+     {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
+    <!-- OUR SERVICES --> <span class="d-flex justify-content-center align-items-center"> MALIPO </span>
+     <span class="d-flex justify-content-center align-items-center ">
+         <i class="bi bi-cash-coin text-light mx-2" style="font-size:2.5rem;"></i>
+         <span>
+         </a>
+        {% endif %}
+
+        
     <a href="{% url 'services' %}" id="getservice" class="top_providers text-decoration-none  p-4 text-light flex-shrink-0" style="min-width:150px;" >
      {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
     <!-- OUR SERVICES --> <span class="d-flex justify-content-center align-items-center"> HUDUMA </span>
@@ -92,6 +137,7 @@
          <i class="bi bi-basket-fill text-light mx-2" style="font-size:2.5rem;"></i>
          <span>
          </a>
+
 
      <a href="{% url 'advertisement' %}"  id="getservice" class="top_providers text-decoration-none  p-4 text-light flex-shrink-0" style="min-width:150px;">
          {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
@@ -108,6 +154,7 @@
                  <span>
                  </a> {% endcomment %}
 
+               {% if it_officer_rank in "it_officer,director.vice_director,business_teacher,manager,reception,stationary,secretary,pharmacist,video grapher" %}
              <a href="{% url 'analysis' %}"   id="getservice" class="top_providers text-decoration-none  p-4 text-light flex-shrink-0" style="min-width:150px;" >
                  {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
                 <!-- OUR ANALYSIS --> <span class="d-flex justify-content-center align-items-center"> UCHAMBUZI </span>
@@ -115,6 +162,7 @@
                      <i class="bi bi-graph-up-arrow text-light mx-2" style="font-size:2.5rem;"></i>
                      <span>
                      </a>
+                 {% endif %}
 </div>
 </div>
 
@@ -945,7 +993,7 @@
 
     <span id="category_title"  class="h5  px-3 py-2 mx-2 d-flex justify-content-center aling-items-center rounded" style="font-size: 1rem">
         <i class="bi bi-star-fill mx-1 text-success" style="font-size: 1rem"></i>
-        Fahamu zaidi Mfumo huu kutoka kwa Marejesho ya Ujumbe kwa watumiaji
+        Fahamu zaidi Mfumo huu kupitia Marejesho ya Ujumbe wa watumiaji
     </span>
 
             <!-- COMMENT POST FORM -->
@@ -990,6 +1038,7 @@
             {% if c.profile_image %}
                 <img src="{{ c.profile_image }}" class="rounded-circle me-2"
                      style="width:40px;height:40px;object-fit:cover;">
+
             {% else %}
                 <i class="bi bi-person-fill mx-1 text-secondary" style="font-size:2rem;"></i>
             {% endif %}

@@ -1,0 +1,26 @@
+{% for medical in medicals %}
+<tr class="clickable-row" data-url="{% url 'view_medical' medical.id %}" style="cursor:pointer;">
+    <td><input type="checkbox" name="selected_medicals" value="{{ medical.id }}"></td>
+                <td>{{ medical.id_number }}</td>
+                <td>{{ medical.office_name }}</td>
+                <td>{{ medical.name }}</td>
+                <td>{{ medical.sex }}</td>
+                <td>{{ medical.dob }}</td>
+                <td>{{ medical.weight }}</td>
+                <td>{{ medical.height }}</td>
+      {% if rank in "it_officer,pharmacist" %}
+                 <td class="d-flex justify-content-center align-items-center gap-1">
+                  <button class="btn btn-sm btn-success rounded-pill confirm-payment"
+                          data-url="{% url 'view_medicalpayment' medical.id_number %}">
+                      <i class="bi bi-database-add mx-1"></i>Pay
+                  </button>
+                </td>
+    {% else %}
+    <td>View</td>
+      {% endif %}
+</tr>
+{% empty %}
+<tr>
+    <td colspan="11" class="text-center">No results found</td>
+</tr>
+{% endfor %}

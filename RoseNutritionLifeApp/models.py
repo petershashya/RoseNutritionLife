@@ -54,7 +54,8 @@ class UserDetail(models.Model):
     membership_no = models.CharField(max_length=50, blank=False, null=False, unique=True)  # For SuperUser & Member
 
     def __str__(self):
-        return f'{self.user.username} - Details'
+        return f'{self.user.first_name} - {self.membership_no}'
+
 
 class Viewer(models.Model):
     profile_image = models.ImageField(
@@ -249,7 +250,7 @@ class BusinessLevel(models.Model):
     def __str__(self):
         return self.level_name
 
-# ---------------- PatientForm Model ----------------
+# Patient Form Model ----------------
 class PatientForm(models.Model):
     GENDER_CHOICES = [
         ('M', 'Male'),
@@ -258,20 +259,23 @@ class PatientForm(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="patients")
     full_name = models.CharField(max_length=255)
-    age = models.PositiveIntegerField(blank=False, null=False)#Not null
-    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=False, null=False)
-    mobile_no = models.CharField(max_length=15)  # required
+    age = models.PositiveIntegerField(blank=False, null=False)
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
+    mobile_no = models.CharField(max_length=15)
     email = models.EmailField(blank=True, null=True)
     region = models.CharField(max_length=100)
     postal_address = models.CharField(max_length=255, blank=True, null=True)
-    membership_no = models.CharField(max_length=50)
+
+    # CHARFIELD — NOT FK
+    membership_no = models.CharField(max_length=50, blank=False, null=False)
+    # NEW DATE FIELD
+    birth = models.DateField(default="2000-01-01")
 
     date_created = models.DateTimeField(default=timezone.now)
     date_modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f"Patient: {self.full_name}"
-
 
 
 # ---------------- Advertisement Model ----------------
@@ -415,8 +419,13 @@ class CheckUp_SalesForm(models.Model):
 # ---------------- Medicine Sales Model ----------------
 class Medicine_SalesForm(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="medicine_sales")
-    medicine = models.ForeignKey(Medicine, on_delete=models.CASCADE, related_name="sales")  # medicineId
-    medicine_name = models.CharField(max_length=200)  # store medicine name
+
+    # New fields
+    code = models.CharField(max_length=50, blank=True, null=True)
+    unit = models.CharField(max_length=50, blank=True, null=True)
+
+    # Fields stored directly from the form
+    medicine_name = models.CharField(max_length=200)
     medicine_type = models.CharField(max_length=255)
     medicine_cost = models.DecimalField(max_digits=10, decimal_places=2)
     medicine_pv = models.PositiveIntegerField()
@@ -425,15 +434,115 @@ class Medicine_SalesForm(models.Model):
     date_modified = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
-        # auto-fill fields from Medicine model
-        if self.medicine:
-            self.medicine_name = self.medicine.medicine_name
-            self.medicine_type = self.medicine.dose  # using 'dose' as type
-            self.medicine_cost = self.medicine.cost
+        # Nothing auto-fills because there is no FK to Medicine table
         super().save(*args, **kwargs)
 
     def __str__(self):
         return f"Medicine Sale: {self.medicine_name} - {self.medicine_cost}"
+
+class Medical(models.Model):
+    ref_no = models.CharField(max_length=50)
+    date = models.DateField(null=True, blank=True)
+    office_name = models.CharField(max_length=255)
+    id_number = models.CharField(max_length=50)
+    name = models.CharField(max_length=255)
+    sex = models.CharField(max_length=1)
+    dob = models.CharField(max_length=50,null=True, blank=True)
+    weight = models.FloatField(null=True, blank=True)
+    height = models.FloatField(null=True, blank=True)
+    doctor_summary = models.TextField(blank=True)
+    avoid_reduce = models.TextField(blank=True)
+    eat_most = models.TextField(blank=True)
+    doctor_signature = models.TextField(blank=True)
+    charges = models.CharField(max_length=50, default='30,000/=')
+    
+    date_created = models.DateTimeField(default=timezone.now)
+    date_modified = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"Medical Form - {self.name} ({self.ref_no})"
+    
+    
+class MedicalMessage(models.Model):
+    medical = models.ForeignKey(Medical, on_delete=models.CASCADE, related_name="messages")
+    message = models.TextField()
+
+    expires_at = models.DateTimeField()  # 24 hours from creation
+    date_created = models.DateTimeField(default=timezone.now)
+    date_modified = models.DateTimeField(auto_now=True)
+
+    def is_expired(self):
+        return timezone.now() > self.expires_at
+
+    def __str__(self):
+        return f"Message for {self.medical.name} ({self.medical.id_number})"
+
+    
+class MedicineProduct(models.Model):
+    medical = models.ForeignKey("Medical", on_delete=models.CASCADE, related_name="medicine_products")
+
+    # From Medical form
+    membership_no = models.CharField(max_length=50, blank=True, null=True)
+    patient_no = models.CharField(max_length=50, blank=True, null=True)
+
+    # New fields
+    code = models.CharField(max_length=50, blank=True, null=True)
+    unit = models.CharField(max_length=50, blank=True, null=True)
+    qty = models.PositiveIntegerField(null=True, blank=True)
+
+    # From Medicine_SalesForm
+    medicine = models.ForeignKey(Medicine_SalesForm, on_delete=models.CASCADE)
+    medicine_name = models.CharField(max_length=200)
+    medicine_pv = models.PositiveIntegerField()
+    medicine_cost = models.DecimalField(max_digits=10, decimal_places=2)
+    medicine_totalcost = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
+    confirm_payment = models.BooleanField(default=False)
+
+    date_created = models.DateTimeField(default=timezone.now)
+    date_modified = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.medicine_name} ({self.medicine_pv} PV)"
+
+
+class MemberPayment(models.Model):
+    membership_no = models.CharField(max_length=50)
+    member_name = models.CharField(max_length=255)
+    total_pv = models.PositiveIntegerField()
+    money = models.DecimalField(max_digits=12, decimal_places=2)
+    month = models.CharField(max_length=20)
+    status = models.CharField(max_length=20, default="paid")
+
+    date_created = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f"{self.member_name} ({self.membership_no}) - {self.money}"
+
+
+class PaymentProduct(models.Model):
+    payment = models.ForeignKey(
+        MemberPayment,
+        on_delete=models.CASCADE,
+        related_name="payment_products"
+    )
+
+    # Product details
+    medicine = models.ForeignKey(Medicine_SalesForm, on_delete=models.CASCADE)
+    medicine_name = models.CharField(max_length=200)
+    medicine_pv = models.PositiveIntegerField()
+    medicine_cost = models.DecimalField(max_digits=10, decimal_places=2)
+    qty = models.PositiveIntegerField(null=True, blank=True)
+
+    # NEW FIELDS (allow null first)
+    patient_name = models.CharField(max_length=255, null=True, blank=True)
+    patient_id = models.CharField(max_length=50, null=True, blank=True)
+
+    date_created = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f"{self.medicine_name} ({self.medicine_pv} PV)"
+
+
 
 class Log(models.Model):
     user_id = models.IntegerField(null=True, blank=True)
@@ -465,6 +574,9 @@ class About(models.Model):
     description = models.TextField(blank=True, null=True)
     mobileno = models.CharField(max_length=15, blank=True, null=True)
     company_rank = models.CharField(max_length=50, choices=COMPANY_RANK_CHOICES, blank=True, null=True)
+    
+    date_created = models.DateTimeField(default=timezone.now)
+    date_modified = models.DateTimeField(auto_now=True)
 
 
     def __str__(self):

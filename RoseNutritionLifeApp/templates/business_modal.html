@@ -14,7 +14,9 @@
 
             <div class="shadow " style="border-radius:25px; background-color:rgb(226, 240, 233);">
             <div class="core_service d-flex justify-content-center align-items-center px-2">
-            <b class="text-uppercase mt-3" style="font-size:18px;">DETAILS OF {{model_type}}</b>
+            <b class="text-uppercase mt-3" style="font-size:18px;">TAARIFA KUHUSU BIASHARA
+               {% comment %} {{model_type}} {% endcomment %}
+              </b>
           </div>
           {% if object %}
                
@@ -104,19 +106,23 @@
 
     <div class=" col-sm p-2 rounded" style="background-color:rgb(226, 240, 233);">
         {% if object %}
-        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2"><b class="text-uppercase">{{object}}</b></div>
+        <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2"><b class="text-uppercase">
+          {% comment %} {{object}} {% endcomment %}
+          MAELEZO YA BIASHARA
+
+        </b></div>
         {% endif %}
 
         {% if object.description %}
         <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
-            <span style="color:rgb(4, 70, 39); "><b>{{model_type}} Description</b></span><br>
+            <span style="color:rgb(4, 70, 39); "><b>Maelezo ya {{model_type}}</b></span><br>
          {{object.description}}
         </div>
         {% endif %}
 
         {% if object.additional_comment %}
         <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
-            <span style="color:rgb(4, 70, 39); "><b>About {{model_type}}</b></span><br>
+            <span style="color:rgb(4, 70, 39); "><b>Kuhusu {{model_type}}</b></span><br>
             {{object.additional_comment}}
         </div>
         {% endif %}

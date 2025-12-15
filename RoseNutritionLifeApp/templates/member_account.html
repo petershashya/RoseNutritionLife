@@ -7,6 +7,17 @@
 
 <div class="p-2 mt-5"></div>
 <!-- start account page -->
+
+<!-- show notification alert message after complete medical -->
+{% if message %}
+        <div class="alert alert-info alert-dismissible mx-3 mt-2 shadow bg-white" style="border-left: 2px solid #084b18ff; border-radius: 12px;">
+          <span class="d-flex justify-content-center align-items-center text-success">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            {{ message }}
+          </span>
+        </div>
+{% endif %}
+
  
 
 <!-- start personal details -->
@@ -63,6 +74,208 @@
 </div>
 <!-- finish personal details -->
  
+
+
+<div class="shadow mx-2 p-2">
+<div>
+
+  <ul class="nav nav-pills d-flex justify-content-center align-items-center gap-2 mt-2">
+    <li class="nav-item">
+      <a class="nav-link active" data-bs-toggle="pill" href="#members_list"> <i class="bi bi-coin mx-1" style="font-size:1rem;"></i> malipo yajayo</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="pill" href="#payments_list"> <i class="bi bi-cash-coin mx-1" style="font-size:1rem;"></i>malipo yako</a>
+    </li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content p-2">
+
+    <!-- ---------------------- PENDING MEMBERS TAB ---------------------- -->
+    <div class="tab-pane container-fill active rounded" id="members_list">
+      <div class="rounded">
+        <div class="alert alert-info alert-dismissible mx-3 mt-2 shadow border-0 bg-white">
+          <span class="d-flex justify-content-center align-items-center text-info">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <i class="bi bi-info-circle mx-2" style="font-size:1rem;"></i> Changua na bonyeza onyesha kuona malipo yajayo yote
+          </span>
+        </div>
+
+        <div class="mb-4 mt-2 d-flex justify-content-center align-items-center">
+          <div class="shadow container bg-white p-3" style="border-radius:20px;">
+            <h3 class="d-flex justify-content-center mt-3">Orodha ya malipo yajayo</h3>
+
+            <!-- counts + search -->
+            <div class="d-flex justify-content-center align-items-center mb-2 mx-2">
+              <div>
+                <span class="text-light btn btn-sm" style="background-color: rgb(4, 70, 39); border-radius:30px;">
+                  Idadi ya malipo {{ member_count|default:0 }}
+                </span>
+              </div>
+            </div>
+
+            <div class="table-responsive-sm">
+              <form method="GET" action="">
+                {% csrf_token %}
+                <table class="table table-bordered table-hover table-striped">
+                  <thead>
+                    <tr class="text-center">
+                      <th>No ya uanachama</th>
+                      <th>Jina</th>
+                      <th>Jumla Pv</th>
+                      <th>Mwezi</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+
+                  <tbody id="pendingTableBody">
+                    {# initial rows rendered by server #}
+                    {% for m in members %}
+                      <tr>
+                        <td class="text-center">{{ m.membership_no }}</td>
+                        <td class="text-center">{{ m.member_name }}</td>
+                        <td class="text-center">{{ m.total_pv }}</td>
+                        <td class="text-center">{{ m.month }}</td>
+                        <td class="text-center">
+                          {% if m.status == "Paid" %}
+                            <span class="badge bg-success">Tayali</span>
+                          {% else %}
+                            <span class="badge bg-danger">Bado</span>
+                          {% endif %}
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+
+                <!-- Pagination controls: numbers only -->
+                <nav aria-label="Page navigation">
+                  <ul class="pagination justify-content-center">
+                    {% if members.paginator %}
+                      {% for num in members.paginator.page_range %}
+                        {% if members.number == num %}
+                          <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                        {% else %}
+                          <li class="page-item"><a class="page-link pending-page-link" href="?page={{ num }}">{{ num }}</a></li>
+                        {% endif %}
+                      {% endfor %}
+                    {% endif %}
+                  </ul>
+                </nav>
+              </form>
+            </div><!-- /.table-responsive -->
+          </div><!-- /.container -->
+        </div><!-- /.outer -->
+      </div>
+    </div>
+
+    <!-- ---------------------- PAYMENTS TAB ---------------------- -->
+    <div class="tab-pane container-fill fade rounded" id="payments_list">
+      <div class="rounded">
+        <div class="alert alert-info alert-dismissible mx-3 mt-2 shadow border-0 bg-white">
+          <span class="d-flex justify-content-center align-items-center text-info">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <i class="bi bi-info-circle mx-2" style="font-size:1rem;"></i> Chagua na bonyeza tayali kuona malipo yote
+          </span>
+        </div>
+
+        <div class="mb-4 mt-2 d-flex justify-content-center align-items-center">
+          <div class="shadow container bg-white p-3" style="border-radius:20px;">
+            <h3 class="d-flex justify-content-center mt-3">Orodha ya malipo</h3>
+
+            <!-- counts + search -->
+            <div class="d-flex justify-content-center align-items-center mb-3">
+              <div>
+                <span class="text-light btn btn-sm" style="background-color: rgb(4, 70, 39); border-radius:30px;">
+                  Idadi ya malipo {{ payment_count|default:0 }}
+                </span>
+              </div>
+            </div>
+
+            <div class="table-responsive-sm">
+              <form method="GET" action="">
+                {% csrf_token %}
+                <table class="table table-bordered table-striped table-hover">
+                  <thead class="text-center">
+                    <tr>
+                      <th>#</th>
+                      <th>No ya uanachama</th>
+                      <th>Jina</th>
+                      <th>Jumla ya Pv</th>
+                      <th>Money (TZS)</th>
+                      <th>Mwezi</th>
+                      <th>Tarehe</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+
+                  <tbody id="paymentsTableBody">
+                    {% for p in payments %}
+                      <tr class="text-center">
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ p.membership_no }}</td>
+                        <td>{{ p.member_name }}</td>
+                        <td>{{ p.total_pv }}</td>
+                        <td>{{ p.money }}</td>
+                        <td>{{ p.month }}</td>
+                        <td>{{ p.date_created|date:"Y-m-d H:i" }}</td>
+                        <td>
+                          <button type="button" class="btn btn-primary btn-sm open-payment-modal"
+                                  data-url="{% url 'view_member_payment' p.membership_no %}">
+                            View
+                          </button>
+
+                          {% if rank in "it_officer,director,vice_director" %}
+                          <button class="btn btn-sm generic-edit-btn btn-warning rounded-pill"
+                                  data-url="{% url 'generic_edit' 'payment' p.id %}" data-target="#editGenericModal">
+                            <i class="bi bi-pencil"></i>
+                          </button>
+
+                          <button class="btn btn-sm generic-delete-btn btn-danger rounded-pill"
+                                  data-url="{% url 'generic_delete' 'payment' p.id %}" data-target="#deleteGenericModal">
+                            <i class="bi bi-trash"></i>
+                          </button>
+                          {% endif %}
+                        </td>
+                      </tr>
+                    {% empty %}
+                      <tr>
+                        <td colspan="8" class="text-center text-danger">Hakuna malipo yaliyopatikana.</td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+
+                <!-- Pagination controls: numbers only -->
+                <nav aria-label="Page navigation">
+                  <ul class="pagination justify-content-center">
+                    {% if payments.paginator %}
+                      {% for num in payments.paginator.page_range %}
+                        {% if payments.number == num %}
+                          <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                        {% else %}
+                          <li class="page-item"><a class="page-link payment-page-link" href="?page={{ num }}">{{ num }}</a></li>
+                        {% endif %}
+                      {% endfor %}
+                    {% endif %}
+                  </ul>
+                </nav>
+              </form>
+            </div><!-- /.table-responsive -->
+          </div><!-- /.container -->
+        </div><!-- /.outer -->
+      </div>
+    </div>
+
+  </div><!-- /.tab-content -->
+
+  <!-- Modal containers (AJAX inserts full modal DOM here) -->
+  <div id="memberspendinglist"></div>
+  <div id="memberspaymentlist"></div>
+
+</div>
+</div>
+
 
 
 {% endblock %}

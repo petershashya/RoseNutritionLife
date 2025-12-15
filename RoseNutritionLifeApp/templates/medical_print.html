@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Medical Form - {{ medical.name }}</title>
+
+<style>
+body, #medical_view_Modal .modal-body {
+    font-family: "DejaVu Sans", Arial, sans-serif;
+    color: #000;
+}
+
+/* ---- HEADER ---- */
+.form-header-title {
+    font-size: 34px;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: 2px;
+    color: #1c4f72;
+    margin-bottom: 5px;
+}
+
+.company-info {
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+/* ---- DOUBLE LINE TOP & BOTTOM ---- */
+.double-line-box {
+    padding: 12px;
+}
+
+/* ---- SECTION TITLES ---- */
+.section-title {
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 20px;
+    margin-bottom: 8px;
+}
+
+/* ---- TABLE ---- */
+.table-bordered {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 15px;
+}
+
+.table-bordered th {
+    background: #efefef;
+    border: 1px solid #333;
+    font-weight: bold;
+    padding: 6px;
+}
+
+.table-bordered td {
+    border: 1px solid #333;
+    padding: 8px;
+    vertical-align: top;
+}
+
+/* Doctor summary box */
+.doctor-summary-area {
+    min-height: 260px;
+    white-space: pre-wrap;
+    font-size: 15px;
+}
+
+/* ---- NUTRITIONAL RECOMMENDATION ---- */
+.nutrition-box {
+    border: 1px solid #444;
+    padding: 8px;
+    min-height: 160px;
+    background: #f9fbff;
+}
+
+.nutrition-title {
+    font-weight: bold;
+    background: #efefef;
+    padding: 5px;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.handwriting {
+    font-size: 15px;
+    white-space: pre-wrap;
+}
+
+/* ---- SIGNATURE ---- */
+.signature-line {
+    display: inline-block;
+    width: 260px;
+    margin-left: 10px;
+}
+</style>
+
+
+</head>
+<body>
+
+          <div class="double-line-box">
+
+    <h2 class="form-header-title">ETERNAL</h2>
+
+    <div class="d-fex justify-content-center align-items-center text-center fw-bold" style="margin-bottom:10px;">
+        MEDICAL FORM – {{ medical.name }}
+    </div>
+
+    <div style="float:right; text-align:right; margin-bottom:10px;">
+        <strong>Ref. No:</strong> {{ medical.ref_no }}<br>
+        <strong>Date:</strong> {{ medical.date }}
+    </div>
+
+    <div class="company-info">
+        <strong>ETERNAL INTERNATIONAL TANZANIA LTD</strong><br>
+        Buguruni Sherry, Madenge Street near The Dreamers Hotel<br>
+        Dar Es Salaam<br>
+        Phone: 0750990508 / 0673222116 / 0765375657<br>
+        Email: eternalbugurunishop@gmail.com
+    </div>
+
+    <div style="clear:both;"></div>
+
+    <!-- PATIENT DETAILS -->
+    <div class="section-title">PATIENT DETAILS</div>
+
+    <div>
+        <strong>Office Use (Name):</strong> {{ medical.office_name }}
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <strong>ID Number:</strong> {{ medical.id_number }}
+    </div>
+
+    <div style="margin-top:6px;">
+        <strong>Name:</strong> {{ medical.name }} &nbsp;&nbsp;&nbsp;
+        <strong>Sex:</strong> {{ medical.sex }} &nbsp;&nbsp;&nbsp;
+        <strong>Date of Birth:</strong> {{ medical.dob }}
+    </div>
+
+    <div style="margin-top:6px;">
+        <strong>Weight (Kg):</strong> {{ medical.weight }} &nbsp;&nbsp;&nbsp;
+        <strong>Height (Cm):</strong> {{ medical.height }}
+    </div>
+
+    <!-- HEALTH PROBLEMS TABLE -->
+    <div class="section-title">HEALTH PROBLEMS</div>
+
+    <table class="table-bordered">
+        <tr>
+            <th>Health Problems</th>
+            <th>Doctor Summary</th>
+        </tr>
+        <tr>
+            <td style="width:40%;">
+                Diabetics<br>
+                Hypertension<br>
+                Respiratory System<br>
+                Digestive System<br>
+                Liver System<br>
+                Renal & Urinary System<br>
+                Skeletal System<br>
+                Skin Disorders<br>
+                Cerebral System<br>
+                Male Reproductive System<br>
+                Female Reproductive System<br>
+                ENT (Eyes, Nose & Throat System)
+            </td>
+
+            <td class="doctor-summary-area handwriting">
+                {{ medical.doctor_summary }}
+            </td>
+        </tr>
+    </table>
+
+    <!-- NUTRITIONAL RECOMMENDATION -->
+    <div class="section-title">NUTRITIONAL RECOMMENDATION</div>
+    <table class="table-bordered">
+    <tr>
+        <th><div class="nutrition-title">Avoid / Reduce</div></th>
+        <th><div class="nutrition-title">Eat Most</div></th>
+        <th> <div class="nutrition-title">Products</div></th>
+    </tr>
+    <tr>
+    <div style="display:flex; gap:10px;">
+        <td>
+            <div class="handwriting">{{ medical.avoid_reduce|linebreaks }}</div>
+        </td>
+
+        <td>
+            <div class="handwriting">{{ medical.eat_most|linebreaks }}</div>
+        </td>
+        <td>
+            <ul class="handwriting">
+                {% for product in medical.medicine_products.all %}
+                    <li>{{ product.medicine_name }} – {{ product.medicine_cost }} TZS</li>
+                {% empty %}
+                    <li>No Products</li>
+                {% endfor %}
+            </ul>
+            </td>
+        </tr>
+    </table>
+
+    </div>
+
+    <!-- SIGNATURE -->
+    <div style="margin-top:25px;">
+        <strong>Doctor Signature:</strong> <span class="signature-line"></span>
+
+        <span style="float:right;">
+            <strong>Charges:</strong> {{ medical.charges }}
+        </span>
+    </div>
+
+</div>
+
+
+
+  <div class="page-bottom bottom-rule"></div>
+
+</body>
+</html>

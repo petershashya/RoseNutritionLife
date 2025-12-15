@@ -2,7 +2,7 @@
 
 <!-- Medicine Sales Form Modal -->
 <div class="modal fade" id="medicinesalesModal" tabindex="-1" aria-labelledby="medicineSalesModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
 
       <!-- Modal Header -->
@@ -21,51 +21,64 @@
 
               <!-- Select Medicine -->
               <div class="row mb-2">
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label for="{{ form.medicine.id_for_label }}">Select Medicine</label>
-                    <select class="form-control" id="{{ form.medicine.id_for_label }}" name="medicine" required>
-                      {% for med in form.fields.medicine.queryset %}
-                        <option value="{{ med.id }}">{{ med.medicine_name }}</option>
-                      {% endfor %}
-                    </select>
-                  </div>
-                </div>
-              </div>
-
               <!-- Medicine Name (readonly) -->
-              <div class="row mb-2">
-                <div class="col-md-12">
+                <div class="col-md-4">
                   <div class="form-group">
                     <label for="{{ form.medicine_name.id_for_label }}">Medicine Name</label>
-                    <input type="text" class="form-control" id="{{ form.medicine_name.id_for_label }}" name="medicine_name" readonly>
+                    <input type="text" class="form-control" id="{{ form.medicine_name.id_for_label }}" name="medicine_name">
                   </div>
                 </div>
-              </div>
 
-              <!-- Medicine Type (readonly) -->
-              <div class="row mb-2">
-                <div class="col-md-12">
+
+                <!-- Medicine Unit(readonly) -->
+                <div class="col-md-4">
                   <div class="form-group">
-                    <label for="{{ form.medicine_type.id_for_label }}">Medicine Type</label>
-                    <input type="text" class="form-control" id="{{ form.medicine_type.id_for_label }}" name="medicine_type" readonly>
+                    <label for="{{ form.code.id_for_label }}">Medicine Code</label>
+                    <input type="text" class="form-control" id="{{ form.code.id_for_label }}" name="code">
                   </div>
+                </div>
+
+               <!-- Medicine Unit (select dropdown) -->
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="unit">Medicine Unit</label>
+                  <select class="form-control" id="unit" name="unit" required>
+                      <option value="">-- Select Medicine Unit --</option>
+                      <option value="box">Box</option>
+                      <option value="tin">Tin</option>
+                      <option value="piece">Piece</option>
+                      <option value="bottle">Bottle</option>
+                  </select>
                 </div>
               </div>
 
-              <!-- Medicine Cost (readonly) -->
+
+              
               <div class="row mb-2">
-                <div class="col-md-12">
+              <!-- Medicine Type (select dropdown) -->
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="medicine_type">Medicine Type</label>
+                  <select class="form-control" id="medicine_type" name="medicine_type" required>
+                      <option value="">-- Select Medicine Type --</option>
+                      <option value="Solid">Solid</option>
+                      <option value="Solid">Textures</option>
+                      <option value="Liquid">Liquid</option>
+                      <option value="Powder">Powder</option>
+                  </select>
+                </div>
+              </div>
+
+                <!-- Medicine Cost (readonly) -->
+                <div class="col-md-4">
                   <div class="form-group">
                     <label for="{{ form.medicine_cost.id_for_label }}">Medicine Cost</label>
-                    <input type="number" class="form-control" id="{{ form.medicine_cost.id_for_label }}" name="medicine_cost" readonly>
+                    <input type="number" class="form-control" id="{{ form.medicine_cost.id_for_label }}" name="medicine_cost">
                   </div>
-                </div>
               </div>
 
               <!-- Medicine PV Points -->
-              <div class="row mb-2">
-                <div class="col-md-12">
+                <div class="col-md-4">
                   <div class="form-group">
                     <label for="{{ form.medicine_pv.id_for_label }}">Medicine PV Points</label>
                     <input type="number" class="form-control" id="{{ form.medicine_pv.id_for_label }}" name="medicine_pv" placeholder="Enter PV points" required>

@@ -1,0 +1,249 @@
+<!-- Medical Edit Modal -->
+<div class="modal fade" id="editGenericModal" tabindex="-1" aria-labelledby="editMedicalModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header bg-light">
+        <button type="button" class="btn btn-sm btn-outline-secondary btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body">
+       <section class="book_section mb-2" id="medical-details">
+      <div class="container">
+
+            <form id="editGenericForm" method="post"
+                  action="{% url 'generic_edit' model object.id %}">
+              {% csrf_token %}
+
+                <!-- LOGO + TITLE -->
+                <div class="text-center mb-2">
+                   {% load static %} 
+                {% comment %} <span class="d-flex justify-content-center align-items-center">
+                <img  src="{% static 'images/eternal/logo2.png' %}"  style="width:90px; height:90px; object-fit:cover; border-radius:30px;" >
+                </span> {% endcomment %}
+                  <h4 class="header-title text-dark"> ETERNAL INTERNATIONAL </h4>
+                  <h5 class="modal-title">
+                    MEDICAL FORM -
+                    <span class="text-uppercase">
+                      {{ form.name.value|default_if_none:'' }}
+                    </span>
+                  </h5>
+                </div>
+
+                <!-- REF NO + DATE -->
+                <div class="text-end mt-2">
+                  <label class="fw-bold">Ref. No:</label>
+                  <input type="text"
+                        class="line-input w-25 hand_fontstyle"
+                        name="{{ form.ref_no.html_name }}"
+                        value="{{ form.ref_no.value|default_if_none:'' }}"
+                        readonly>
+                  <br>
+
+                  <label class="fw-bold">Date:</label>
+                  <input type="date"
+                    class="line-input w-25 hand_fontstyle"
+                    name="{{ form.date.html_name }}"
+                    value="{{ form.date.value|date:'Y-m-d' }}">
+
+                </div>
+
+                <!-- COMPANY DETAILS -->
+                <div class="text-start mt-2">
+                  <strong>ETERNAL INTERNATIONAL TANZANIA LTD</strong><br>
+                  Buguruni sherry, Madenge street near The Dreamers hotel<br>
+                  Dar Es Salaam<br>
+                  Phone: 0750990508, 0673222116 / 0765375657<br>
+                  Email: eternalbugurunishop@gmail.com
+                </div>
+
+                <hr>
+
+                <!-- PATIENT DETAILS -->
+                <h5 class="fw-bold">PATIENT DETAILS</h5>
+
+                <div class="row mb-2">
+                  <div class="col-6">
+                    <label class="fw-bold">Office Name:</label>
+                    <input type="text"
+                          class="line-input w-75 hand_fontstyle"
+                          name="{{ form.office_name.html_name }}"
+                          value="{{ form.office_name.value|default_if_none:'' }}">
+                  </div>
+
+                  <div class="col-6">
+                    <label class="fw-bold">ID Number:</label>
+                    <input type="text"
+                          class="line-input w-50 hand_fontstyle"
+                          name="{{ form.id_number.html_name }}"
+                          value="{{ form.id_number.value|default_if_none:'' }}"
+                          readonly>
+                  </div>
+                </div>
+
+                <div class="row mb-2">
+                  <div class="col-4">
+                    <label class="fw-bold">Name:</label>
+                    <input type="text"
+                          class="line-input w-75 hand_fontstyle"
+                          name="{{ form.name.html_name }}"
+                          value="{{ form.name.value|default_if_none:'' }}"
+                          readonly>
+                  </div>
+
+                  <div class="col-4">
+                    <label class="fw-bold">Sex:</label>
+                    <input type="text"
+                          class="line-input w-50 hand_fontstyle"
+                          name="{{ form.sex.html_name }}"
+                          value="{{ form.sex.value|default_if_none:'' }}"
+                          readonly>
+                  </div>
+
+                  <div class="col-4">
+                    <label class="fw-bold">Date of Birth:</label>
+                    <input type="text"
+                          class="line-input w-75 hand_fontstyle"
+                          name="{{ form.dob.html_name }}"
+                          value="{{ form.dob.value|default_if_none:'' }}"
+                          readonly>
+                  </div>
+                </div>
+
+                <div class="row mb-4">
+                  <div class="col-4">
+                    <label class="fw-bold">Weight (Kg):</label>
+                    <input type="number"
+                          class="line-input w-50 hand_fontstyle"
+                          name="{{ form.weight.html_name }}"
+                          value="{{ form.weight.value|default_if_none:'' }}">
+                  </div>
+
+                  <div class="col-4">
+                    <label class="fw-bold">Height (Cm):</label>
+                    <input type="number"
+                          class="line-input w-50 hand_fontstyle"
+                          name="{{ form.height.html_name }}"
+                          value="{{ form.height.value|default_if_none:'' }}">
+                  </div>
+                </div>
+
+                <!-- HEALTH PROBLEMS -->
+                <h5 class="fw-bold mb-2">HEALTH PROBLEMS</h5>
+
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>Health Problems</th>
+                      <th>Doctor Summary</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        Diabetics<br>Hypertension<br>Respiratory System<br>
+                        Digestive System<br>Liver System<br>Renal & Urinary System<br>
+                        Skeletal System<br>Skin Disorders<br>Cerebral System<br>
+                        Male Reproductive System<br>Female Reproductive System<br>
+                        ENT (Eyes, Nose & Throat System)
+                      </td>
+                      <td>
+                        <textarea class="line-textarea w-100 text-start hand_fontstyle p-2"
+                                  name="{{ form.doctor_summary.html_name }}">{{ form.doctor_summary.value|default_if_none:'' }}</textarea>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <!-- NUTRITION -->
+                <h5 class="fw-bold mb-2">NUTRITIONAL RECOMMENDATION</h5>
+
+                <div class="responsive-table-wrapper mb-4">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Avoid / Reduce</th>
+                        <th>Eat Most</th>
+                        <th>Product</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <textarea class="summary-textarea p-2 hand_fontstyle"
+                                    name="{{ form.avoid_reduce.html_name }}">{{ form.avoid_reduce.value|default_if_none:'' }}</textarea>
+                        </td>
+
+                        <td>
+                          <textarea class="summary-textarea p-2 hand_fontstyle"
+                                    name="{{ form.eat_most.html_name }}">{{ form.eat_most.value|default_if_none:'' }}</textarea>
+                        </td>
+
+                        <td>
+                          <ul class="hand_fontstyle">
+                              {% for product in object.medicine_products.all %}
+                                  <li>{{ product.medicine_name }} 
+                                      {% comment %} - {{ product.medicine_cost }} TZS {% endcomment %}
+                                  </li>
+                              {% empty %}
+                                  <li>No products selected</li>
+                              {% endfor %}
+                          </ul>
+                          <select name="products" multiple class="form-select w-100" size="6">
+                              {% for medicine in medicines %}
+                                  <option value="{{ medicine.id }}"
+                                      {% if medicine in object.medicine_products.all %}selected{% endif %}>
+                                      {{ medicine.medicine_name }} - {{ medicine.medicine_cost }} TZS
+                                  </option>
+                              {% endfor %}
+                          </select>
+
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+              <!-- FOOTER -->
+              <div class="row mb-3">
+                  <div class="col-6">
+                      <strong>Doctor Signature:</strong>
+                       <input class="line-input w-10 hand_fontstyle"
+                        name="{{ form.doctor_signature.html_name }}" readonly >
+
+                  </div>
+                  <div class="col-6 text-end ">
+                      <strong>Charges:</strong><span class="hand_fontstyle">
+                        <input type="text"
+                      class="line-input w-50 hand_fontstyle"
+                      name="{{ form.charges.html_name }}"
+                      value="{{ form.charges.value|default_if_none:'' }}" readonly>
+
+                  </div>
+              </div>
+              </form>
+
+            </div>
+          </section>
+
+
+        <!-- Modal Footer -->
+        <div class="modal-footer bg-light">
+
+          <!-- FIXED: Correct form ID -->
+          <button type="button" class="btn btn-outline-warning submit-edit-btn"
+                  data-form="#editGenericForm"
+                  data-modal="#editGenericModal">
+            Save Changes
+          </button>
+
+          <button type="button"
+                  class="btn btn-sm btn-outline-secondary"
+                  data-bs-dismiss="modal">Close</button>
+        </div>
+
+      </div>
+    </div>
+  </div>

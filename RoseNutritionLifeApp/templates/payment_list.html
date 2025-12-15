@@ -1,0 +1,41 @@
+<table class="table table-bordered table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Membership No</th>
+            <th>Member Name</th>
+            <th>Total PV</th>
+            <th>Money</th>
+            <th>Month</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for m in members %}
+        <tr>
+            <td>{{ m.membership_no }}</td>
+            <td>{{ m.member_name }}</td>
+            <td>{{ m.total_pv }}</td>
+            <td>{{ m.money }}</td>
+            <td>{{ m.month }}</td>
+            <td>
+                {% if m.status == "Paid" %}
+                    <span class="badge bg-success">Paid</span>
+                {% else %}
+                    <span class="badge bg-danger">Pending</span>
+                {% endif %}
+            </td>
+            <td>
+                <button class="btn btn-primary btn-sm open-member-modal"
+                        data-url="{% url 'view_member_pending' m.membership_no %}">
+                    View
+                </button>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Modal container -->
+<div id="memberspendinglist"></div>

@@ -2,12 +2,12 @@
 
 <!-- Patient Form Modal -->
 <div class="modal fade" id="patientModal" tabindex="-1" aria-labelledby="patientModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h5 class="modal-title" id="patientModalLabel">Add Patient</h5>
+        {% comment %} <h5 class="modal-title" id="patientModalLabel">Add Patient</h5> {% endcomment %}
         <button type="button" class="btn btn-sm btn-outline-secondary btn-close" data-bs-dismiss="modal"></button>
       </div>
 
@@ -17,95 +17,102 @@
           <div class="container">
             <form id="patientForm" method="post" action="{% url 'post_patient' %}">
               {% csrf_token %}
-              <h4>FILL <span>PATIENT</span></h4>
+             <!-- <h4>FILL <span>PATIENT</span></h4> --> <h4>SAJIRI TAARIFA ZA <span>MGONJWA</span></h4>
 
               <!-- Full Name -->
               <div class="row mb-2">
-                <div class="col-md-12">
+                <div class="col-md-5">
                   <div class="form-group">
-                    <label for="{{ form.full_name.id_for_label }}">Full Name</label>
-                    <input type="text" class="form-control" id="{{ form.full_name.id_for_label }}" name="full_name" placeholder="Enter full name" required>
+                    <label for="{{ form.full_name.id_for_label }}"> <!-- Full Name --> Jina Kamili</label>
+                    <input type="text" class="form-control" id="{{ form.full_name.id_for_label }}" name="full_name" placeholder="Jaza majina kamili" required>
                   </div>
                 </div>
-              </div>
 
               <!-- Age -->
-              <div class="row mb-2">
-                <div class="col-md-12">
+                <div class="col-md-2">
                   <div class="form-group">
-                    <label for="{{ form.age.id_for_label }}">Age</label>
-                    <input type="number" class="form-control" id="{{ form.age.id_for_label }}" name="age" placeholder="Enter age" required>
+                    <label for="{{ form.age.id_for_label }}"> <!-- Age --> Umri</label>
+                    <input type="number" class="form-control" id="{{ form.age.id_for_label }}" name="age" placeholder="Jaza umri" required>
                   </div>
                 </div>
-              </div>
 
+              
               <!-- Gender -->
-              <div class="row mb-2">
-                <div class="col-md-12">
+                <div class="col-md-2">
                   <div class="form-group">
-                    <label for="{{ form.gender.id_for_label }}">Gender</label>
+                    <label for="{{ form.gender.id_for_label }}"> <!-- Gender --> Jinsia</label>
                     <select class="form-control" id="{{ form.gender.id_for_label }}" name="gender" required>
-                      <option value="">Select Gender</option>
-                      <option value="M">Male</option>
-                      <option value="F">Female</option>
+                      <option value=""> <!-- Select Gender --> Chagua Jinsia</option>
+                      <option value="M"> <!-- Male --> Kiume</option>
+                      <option value="F"> <!-- Female --> Kike</option>
                     </select>
                   </div>
                 </div>
-              </div>
+
+              <!-- Date of Birth -->
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="{{ form.date.id_for_label }}"> <!-- Date of Birth --> Date of Birth</label>
+                    <input type="date" class="w-75 form-control" name="birth" placeholder="Jaza tarehe ya kuzaliwa" required>
+                  </div>
+                </div>
+            </div>
 
               <!-- Mobile Number -->
               <div class="row mb-2">
-                <div class="col-md-12">
+                <div class="col-md-4">
                   <div class="form-group">
-                    <label for="{{ form.mobile_no.id_for_label }}">Mobile Number</label>
-                    <input type="text" class="form-control" id="{{ form.mobile_no.id_for_label }}" name="mobile_no" placeholder="Enter mobile number" required>
+                    <label for="{{ form.mobile_no.id_for_label }}"> <!-- Mobile Number --> No ya Simu</label>
+                    <input type="text" class="form-control" id="{{ form.mobile_no.id_for_label }}" name="mobile_no" placeholder="Jaza No ya simu" required>
                   </div>
                 </div>
-              </div>
 
               <!-- Email -->
-              <div class="row mb-2">
-                <div class="col-md-12">
+                <div class="col-md-4">
                   <div class="form-group">
-                    <label for="{{ form.email.id_for_label }}">Email</label>
-                    <input type="email" class="form-control" id="{{ form.email.id_for_label }}" name="email" placeholder="Enter email">
+                    <label for="{{ form.email.id_for_label }}"> <!-- Email --> Barua Pepe</label>
+                    <input type="email" class="form-control" id="{{ form.email.id_for_label }}" name="email" placeholder="Jaza barua pepe">
                   </div>
                 </div>
-              </div>
 
               <!-- Region -->
-              <div class="row mb-2">
-                <div class="col-md-12">
+                <div class="col-md-4">
                   <div class="form-group">
-                    <label for="{{ form.region.id_for_label }}">Region</label>
-                    <input type="text" class="form-control" id="{{ form.region.id_for_label }}" name="region" placeholder="Enter region" required>
+                    <label for="{{ form.region.id_for_label }}"> <!-- Region --> Mkoa</label>
+                    <input type="text" class="form-control" id="{{ form.region.id_for_label }}" name="region" placeholder="Jaza mkoa" required>
                   </div>
                 </div>
               </div>
 
               <!-- Postal Address -->
               <div class="row mb-2">
-                <div class="col-md-12">
+                <div class="col-md-5">
                   <div class="form-group">
-                    <label for="{{ form.postal_address.id_for_label }}">Postal Address</label>
-                    <textarea class="form-control" id="{{ form.postal_address.id_for_label }}" name="postal_address" rows="2" placeholder="Enter postal address..."></textarea>
+                    <label for="{{ form.postal_address.id_for_label }}"> <!-- Postal Address --> Anwani ya Mahali</label>
+                    <textarea class="form-control" id="{{ form.postal_address.id_for_label }}" name="postal_address" rows="2" placeholder="Jaza anwani ya Mahali"></textarea>
                   </div>
                 </div>
-              </div>
 
               <!-- Membership No -->
-              <div class="row mb-2">
-                <div class="col-md-12">
+                {% comment %} <div class="col-md-6">
                   <div class="form-group">
-                    <label for="{{ form.membership_no.id_for_label }}">Membership No.</label>
-                    <input type="text" class="form-control" id="{{ form.membership_no.id_for_label }}" name="membership_no" placeholder="Enter membership number" required>
+                    <label for="{{ form.membership_no.id_for_label }}"> <!-- Membership No. --> No ya Mwanachama</label>
+                    <input type="text" class="form-control" id="{{ form.membership_no.id_for_label }}" name="membership_no" placeholder="Jaza No ya mwanachama" required>
                   </div>
                 </div>
-              </div>
+              </div> {% endcomment %}
+              
+              <!-- Membership No -->
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="{{ patient_form.membership_no.id_for_label }}">No ya Mwanachama</label>
+                    {{ patient_form.membership_no }}
+                  </div>
+                </div>
 
               <!-- Submit Button -->
               <div class="btn-box">
-                <button id="postpatient_button" type="submit" class="btn btn-sm btn-light bg-secondary text-white">Post</button>
+                <button id="postpatient_button" type="submit" class="btn btn-sm btn-light bg-secondary text-white"> <!-- Post --> Sajiri</button>
               </div>
 
             </form>

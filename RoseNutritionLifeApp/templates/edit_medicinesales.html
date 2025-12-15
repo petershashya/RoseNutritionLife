@@ -1,0 +1,138 @@
+<!-- Medical Edit Modal -->
+<div class="modal fade" id="editGenericModal" tabindex="-1" aria-labelledby="editMedicalModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header bg-light">
+        <button type="button" class="btn btn-sm btn-outline-secondary btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <section class="book_section mb-2" id="medical-details">
+          <div class="container">
+
+            <form id="editGenericForm" method="post"
+                  action="{% url 'generic_edit' model object.id %}">
+              {% csrf_token %}
+                <h4>FILL <span>MEDICINES</span></h4>
+
+                <!-- Row 1 -->
+                <div class="row mb-2">
+                    <!-- Medicine Name -->
+                    <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="{{ form.medicine_name.id_for_label }}">Medicine Name</label>
+                        <input type="text"
+                            class="form-control"
+                            id="{{ form.medicine_name.id_for_label }}"
+                            name="{{ form.medicine_name.html_name }}"
+                            value="{{ form.medicine_name.value|default_if_none:'' }}"
+                            >
+                    </div>
+                    </div>
+
+                    <!-- Medicine Code -->
+                    <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="{{ form.code.id_for_label }}">Medicine Code</label>
+                        <input type="text"
+                            class="form-control"
+                            id="{{ form.code.id_for_label }}"
+                            name="{{ form.code.html_name }}"
+                            value="{{ form.code.value|default_if_none:'' }}"
+                            >
+                    </div>
+                    </div>
+
+                    <!-- Medicine Unit -->
+                    <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="{{ form.unit.id_for_label }}">Medicine Unit</label>
+                        <select class="form-control"
+                                id="{{ form.unit.id_for_label }}"
+                                name="{{ form.unit.html_name }}"
+                                required>
+                        <option value="">-- Select Medicine Unit --</option>
+                        <option value="box" {% if form.unit.value == "box" %}selected{% endif %}>Box</option>
+                        <option value="tin" {% if form.unit.value == "tin" %}selected{% endif %}>Tin</option>
+                        <option value="piece" {% if form.unit.value == "piece" %}selected{% endif %}>Piece</option>
+                        <option value="bottle" {% if form.unit.value == "bottle" %}selected{% endif %}>Bottle</option>
+                        </select>
+                    </div>
+                    </div>
+
+                </div>
+
+                <!-- Row 2 -->
+                <div class="row mb-2">
+
+                    <!-- Medicine Type -->
+                    <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="{{ form.medicine_type.id_for_label }}">Medicine Type</label>
+                        <select class="form-control"
+                                id="{{ form.medicine_type.id_for_label }}"
+                                name="{{ form.medicine_type.html_name }}"
+                                required>
+                        <option value="">-- Select Medicine Type --</option>
+                        <option value="Solid" {% if form.medicine_type.value == "Solid" %}selected{% endif %}>Solid</option>
+                        <option value="Textures" {% if form.medicine_type.value == "Textures" %}selected{% endif %}>Textures</option>
+                        <option value="Liquid" {% if form.medicine_type.value == "Liquid" %}selected{% endif %}>Liquid</option>
+                        <option value="Powder" {% if form.medicine_type.value == "Powder" %}selected{% endif %}>Powder</option>
+                        </select>
+                    </div>
+                    </div>
+
+                    <!-- Medicine Cost -->
+                    <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="{{ form.medicine_cost.id_for_label }}">Medicine Cost</label>
+                        <input type="number"
+                            class="form-control"
+                            id="{{ form.medicine_cost.id_for_label }}"
+                            name="{{ form.medicine_cost.html_name }}"
+                            value="{{ form.medicine_cost.value|default_if_none:'' }}"
+                            >
+                    </div>
+                    </div>
+
+                    <!-- Medicine PV -->
+                    <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="{{ form.medicine_pv.id_for_label }}">Medicine PV Points</label>
+                        <input type="number"
+                            class="form-control"
+                            id="{{ form.medicine_pv.id_for_label }}"
+                            name="{{ form.medicine_pv.html_name }}"
+                            value="{{ form.medicine_pv.value|default_if_none:'' }}"
+                            placeholder="Enter PV points"
+                            required>
+                    </div>
+                    </div>
+
+                </div>
+
+          </div>
+        </section>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="modal-footer bg-light">
+
+        <!-- FIXED: Correct form ID -->
+        <button type="button" class="btn btn-outline-warning submit-edit-btn"
+                data-form="#editGenericForm"
+                data-modal="#editGenericModal">
+          Save Changes
+        </button>
+
+        <button type="button"
+                class="btn btn-sm btn-outline-secondary"
+                data-bs-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -3,7 +3,7 @@
 
 <!-- branch Form Modal -->
 <div class="modal fade" id="branchModal" tabindex="-1" aria-labelledby="branchModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
 
       <!-- Modal Header -->
@@ -22,28 +22,24 @@
 
           <!-- Medicine Name -->
               <div class="row mb-2">
-                <div class="col-md-12">
+                <div class="col-md-3">
                   <div class="form-group">
                     <label for="{{ form.infoname.id_for_label }}">Branch Name</label>
                     <input type="text" class="form-control" id="{{ form.infoname.id_for_label }}" name="infoname" placeholder="Enter Branch name" required>
                   </div>
                 </div>
-              </div>
 
               <!-- Description -->
-              <div class="row mb-2">
-                <div class="col-md-12">
+                <div class="col-md-4">
                   <div class="form-group">
                     <label for="{{ form.description.id_for_label }}">Description</label>
                     <textarea class="form-control" id="{{ form.description.id_for_label }}" name="description" rows="3" placeholder="Enter description..." required></textarea>
                   </div>
                 </div>
-              </div>
 
 
               <!-- Location -->
-              <div class="row mb-2">
-                <div class="col-md-12">
+                <div class="col-md-3">
                   <div class="form-group">
                     <label for="{{ form.location.id_for_label }}">Location</label>
                     <textarea class="form-control" id="{{ form.location.id_for_label }}" name="location" rows="3" placeholder="Enter location..." required></textarea>
@@ -53,17 +49,15 @@
 
               <!-- Image -->
               <div class="row mb-2">
-                <div class="col-md-12">
+                <div class="col-md-4">
                   <div class="form-group">
                     <label for="{{ form.image.id_for_label }}">Branch Image (Optional)</label>
                     <input type="file" class="form-control" id="{{ form.image.id_for_label }}" name="image" accept="image/*">
                   </div>
                 </div>
-              </div>
 
               <!-- Video -->
-              <div class="row mb-2">
-                <div class="col-md-12">
+                <div class="col-md-4">
                   <div class="form-group">
                     <label for="{{ form.video.id_for_label }}">branch Video (Optional)</label>
                     <input type="file" class="form-control" id="{{ form.video.id_for_label }}" name="video" accept="video/*">

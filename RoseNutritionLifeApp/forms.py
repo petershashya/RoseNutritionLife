@@ -4,7 +4,8 @@ from .models import (
     UserDetail, Viewer , Disease, Medicine, CheckUp, 
     BusinessPlan, BusinessLevel ,PatientForm, CheckUp_SalesForm, 
     Medicine_SalesForm, Advertisement,Shop,Meeting,Branch,About,
-    DiseaseComment,MedicineComment,CheckupComment,BusinessplanComment,BusinesslevelComment ,Comment
+    DiseaseComment,MedicineComment,CheckupComment,BusinessplanComment,
+    BusinesslevelComment ,Comment,Medical,MemberPayment
 )
 
 # Choice constants
@@ -351,6 +352,19 @@ class BusinessLevelForm(forms.ModelForm):
 
 # ---------------- Patient Form ----------------
 class PatientModelForm(forms.ModelForm):
+    membership_no = forms.ChoiceField(
+        choices=[],
+        required=True,
+        widget=forms.Select(attrs={'class': 'form-control'}),
+        label="Membership No."
+    )
+
+    birth = forms.DateField(
+        required=True,
+        widget=forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+        label="Birth"
+    )
+
     class Meta:
         model = PatientForm
         fields = [
@@ -362,21 +376,83 @@ class PatientModelForm(forms.ModelForm):
             'region',
             'postal_address',
             'membership_no',
+            'birth',  # added date here
         ]
         widgets = {
-            'postal_address': forms.Textarea(attrs={'rows': 2, 'placeholder': 'Enter postal address...'}),
-        }
-        labels = {
-            'full_name': 'Full Name',
-            'age': 'Age',
-            'gender': 'Gender',
-            'mobile_no': 'Mobile Number',
-            'email': 'Email',
-            'region': 'Region',
-            'postal_address': 'Postal Address',
-            'membership_no': 'Membership No.',
+            'postal_address': forms.Textarea(attrs={'rows': 2}),
         }
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # First empty placeholder option
+        choices = [("", "-- Chagua No ya Mwanachama --")]
+
+        # Populate membership_no options from UserDetail
+        for u in UserDetail.objects.all():
+            label = f"{u.user.first_name} - {u.membership_no}"
+            choices.append((u.membership_no, label))
+
+        self.fields['membership_no'].choices = choices
+        
+        
+
+class MedicalForm(forms.ModelForm):
+    products = forms.ModelMultipleChoiceField(
+        queryset=Medicine_SalesForm.objects.all(),
+        widget=forms.SelectMultiple(attrs={
+            'class': 'form-select w-100',
+            'size': '8'
+        }),
+        required=False
+    )
+
+    class Meta:
+        model = Medical
+        fields = [
+            'ref_no', 'date', 'office_name', 'id_number', 'name', 'sex', 'dob',
+            'weight', 'height', 'doctor_summary', 'avoid_reduce', 'eat_most',
+            'products', 'doctor_signature', 'charges'
+        ]
+
+        widgets = {
+            'ref_no': forms.TextInput(attrs={'class': 'line-input', 'readonly': True}),
+            'office_name': forms.TextInput(attrs={'class': 'line-input'}),
+            'id_number': forms.TextInput(attrs={'class': 'line-input', 'readonly': True}),
+            'name': forms.TextInput(attrs={'class': 'line-input', 'readonly': True}),
+            'sex': forms.TextInput(attrs={'class': 'line-input', 'readonly': True}),
+            'date': forms.DateInput(attrs={'type': 'date', 'class': 'line-input'}),
+            'dob': forms.TextInput(attrs={'class': 'line-input', 'readonly': True}),
+            'weight': forms.NumberInput(attrs={'class': 'line-input'}),
+            'height': forms.NumberInput(attrs={'class': 'line-input'}),
+            'doctor_summary': forms.Textarea(attrs={'class': 'line-textarea'}),
+            'avoid_reduce': forms.Textarea(attrs={'class': 'summary-textarea'}),
+            'eat_most': forms.Textarea(attrs={'class': 'summary-textarea'}),
+            'doctor_signature': forms.TextInput(attrs={'class': 'line-input'}),
+            'charges': forms.TextInput(attrs={'class': 'line-input'}),
+        }
+
+class MemberPaymentForm(forms.ModelForm):
+    
+    class Meta:
+        model = MemberPayment
+        fields = [
+            "membership_no",
+            "member_name",
+            "total_pv",
+            "money",
+            "month",
+            "status",
+        ]
+
+        widgets = {
+            "membership_no": forms.TextInput(attrs={"class": "form-control"}),
+            "member_name": forms.TextInput(attrs={"class": "form-control"}),
+            "total_pv": forms.NumberInput(attrs={"class": "form-control"}),
+            "money": forms.NumberInput(attrs={"class": "form-control"}),
+            "month": forms.TextInput(attrs={"class": "form-control", "placeholder": "December 2025"}),
+            "status": forms.TextInput(attrs={"class": "form-control"}),
+        }
 
 
 # ---------------- Advertisement Form ----------------
@@ -571,26 +647,47 @@ class MedicineSalesForm(forms.ModelForm):
     class Meta:
         model = Medicine_SalesForm
         fields = [
-            'medicine',       # select Medicine
-            'medicine_name',  # auto-filled
-            'medicine_type',  # auto-filled
-            'medicine_cost',  # auto-filled
-            'medicine_pv',    # still entered by user
+            'medicine_name',
+            'code',
+            'unit',
+            'medicine_type',
+            'medicine_cost',
+            'medicine_pv',
         ]
+
         widgets = {
-            'medicine': forms.Select(attrs={'class': 'form-control'}),
-            'medicine_name': forms.TextInput(attrs={'readonly': 'readonly'}),
-            'medicine_type': forms.TextInput(attrs={'readonly': 'readonly'}),
-            'medicine_cost': forms.NumberInput(attrs={'readonly': 'readonly'}),
-            'medicine_pv': forms.NumberInput(attrs={'placeholder': 'Enter PV points'}),
+            'medicine_name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'readonly': 'readonly'
+            }),
+            'code': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'unit': forms.Select(attrs={
+                'class': 'form-control'
+            }),
+            'medicine_type': forms.Select(attrs={
+                'class': 'form-control'
+            }),
+            'medicine_cost': forms.NumberInput(attrs={
+                'class': 'form-control',
+                'readonly': 'readonly'
+            }),
+            'medicine_pv': forms.NumberInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter PV points'
+            }),
         }
+
         labels = {
-            'medicine': 'Select Medicine',
             'medicine_name': 'Medicine Name',
+            'code': 'Medicine Code',
+            'unit': 'Medicine Unit',
             'medicine_type': 'Medicine Type',
             'medicine_cost': 'Medicine Cost',
             'medicine_pv': 'Medicine PV Points',
         }
+
         
 # class AboutForm(forms.ModelForm):
 #     class Meta:

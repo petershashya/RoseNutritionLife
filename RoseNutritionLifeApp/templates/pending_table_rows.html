@@ -1,0 +1,28 @@
+  {% for m in members %}
+                    <tr class="text-center">
+                            <td class="text-center">{{ m.membership_no }}</td>
+                            <td class="text-center">{{ m.member_name }}</td>
+                            <td class="text-center">{{ m.total_pv }}</td>
+                            <td class="text-center">{{ m.money }}</td>
+                            <td>{{ m.date_created|date:"Y-m-d H:i" }}</td>
+                            <td>
+                            {% if m.status == "paid" %}
+                                <span class="badge bg-success">Paid</span>
+                            {% else %}
+                                <span class="badge bg-danger">{{ m.status }}</span>
+                            {% endif %}
+                        </td>
+                         <td class="text-center">
+                                <button type="button" class="btn btn-primary btn-sm open-member-modal"
+                                        data-url="{% url 'view_member_pending' m.membership_no %}">
+                                    View
+                                </button>
+                            </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="10" class="text-center text-danger">
+                            No pending records found.
+                        </td>
+                    </tr>
+                    {% endfor %}

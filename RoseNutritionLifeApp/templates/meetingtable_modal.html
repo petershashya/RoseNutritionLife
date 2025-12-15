@@ -42,7 +42,7 @@
       <th>Profile</th>
       <th>Fullname</th>
       <th>Info</th>
-      <th>Decsription</th>
+      {% comment %} <th>Decsription</th> {% endcomment %}
       <th>Location</th>
       <th>Actions</th>
     </tr>
@@ -65,10 +65,10 @@
 
       <td>{{ obj.first_name}} {{ obj.last_name }}</td>
       <td>{{ obj.object.infoname }}</td>
-      <td>{{ obj.object.description }}</td>
+      {% comment %} <td>{{ obj.object.description }}</td> {% endcomment %}
       <td>{{ obj.object.location }}</td>
 
-      <td class="d-flex gap-1">
+      <td class="d-flex justify-content-center align-items-center gap-1">
         <button class="btn btn-sm generic-edit-btn btn-warning rounded-pill" data-url="{% url 'generic_edit' 'otheradstable' obj.object.id %}" data-target="#editGenericModal">
           <i class="bi bi-pencil"></i>
         </button>

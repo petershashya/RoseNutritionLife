@@ -1,0 +1,124 @@
+<!-- Member Payment Edit Modal -->
+<div class="modal fade" id="editGenericModal" tabindex="-1" aria-labelledby="editPaymentModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header bg-light">
+        <button type="button" class="btn btn-sm btn-outline-secondary btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <section class="book_section mb-2" id="payment-details">
+          <div class="container">
+           <form id="editGenericForm" method="post"
+                  action="{% url 'generic_edit' model object.id %}">
+              {% csrf_token %}
+              <h4>EDIT <span>PAYMENT</span></h4>
+
+              <!-- Row 1: Membership No, Member Name, Month -->
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                  <label for="{{ form.membership_no.id_for_label }}">Membership No</label>
+                  <input type="text" class="form-control bg-light"
+                         id="{{ form.membership_no.id_for_label }}"
+                         name="{{ form.membership_no.html_name }}"
+                         value="{{ form.membership_no.value|default_if_none:'' }}"
+                         placeholder="Enter membership number" readonly required>
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="{{ form.member_name.id_for_label }}">Member Name</label>
+                  <input type="text" class="form-control bg-light"
+                         id="{{ form.member_name.id_for_label }}"
+                         name="{{ form.member_name.html_name }}"
+                         value="{{ form.member_name.value|default_if_none:'' }}"
+                         placeholder="Enter member name" readonly required>
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="{{ form.month.id_for_label }}">Month</label>
+                  <input type="text" class="form-control bg-light"
+                         id="{{ form.month.id_for_label }}"
+                         name="{{ form.month.html_name }}"
+                         value="{{ form.month.value|default_if_none:'' }}"
+                         placeholder="Enter month e.g. January" readonly>
+                </div>
+              </div>
+
+              <!-- Row 2: Total PV, Money, Status -->
+              <div class="form-row mt-2">
+
+                <div class="form-group col-md-4">
+                  <label for="{{ form.total_pv.id_for_label }}">Total PV</label>
+                  <input type="number" class="form-control bg-light"
+                         id="{{ form.total_pv.id_for_label }}"
+                         name="{{ form.total_pv.html_name }}"
+                         value="{{ form.total_pv.value|default_if_none:'' }}"
+                         placeholder="Enter total PV" readonly>
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="{{ form.money.id_for_label }}">Money</label>
+                  <input type="number" step="0.01" class="form-control bg-light"
+                         id="{{ form.money.id_for_label }}"
+                         name="{{ form.money.html_name }}"
+                         value="{{ form.money.value|default_if_none:'' }}"
+                         placeholder="Enter money paid" readonly>
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="{{ form.status.id_for_label }}">Status</label>
+                  <select class="form-control"
+                          id="{{ form.status.id_for_label }}"
+                          name="{{ form.status.html_name }}">
+                    <option value="paid" {% if form.status.value == "paid" %}selected{% endif %}>Paid</option>
+                    <option value="unpaid" {% if form.status.value == "unpaid" %}selected{% endif %}>Unpaid</option>
+                  </select>
+                </div>
+
+              </div>
+
+              <!-- Row 3: Patient Name, Patient ID -->
+              <div class="form-row mt-2">
+
+                <div class="form-group col-md-6">
+                  <label for="{{ form.patient_name.id_for_label }}">Patient Name</label>
+                  <input type="text" class="form-control bg-light"
+                         id="{{ form.patient_name.id_for_label }}"
+                         name="{{ form.patient_name.html_name }}"
+                         value="{{ form.patient_name.value|default_if_none:'' }}"
+                         placeholder="Enter patient name" readonly>
+                </div>
+
+                <div class="form-group col-md-6">
+                  <label for="{{ form.patient_id.id_for_label }}">Patient ID</label>
+                  <input type="text" class="form-control bg-light"
+                         id="{{ form.patient_id.id_for_label }}"
+                         name="{{ form.patient_id.html_name }}"
+                         value="{{ form.patient_id.value|default_if_none:'' }}"
+                         placeholder="Enter patient ID" readonly>
+                </div>
+
+              </div>
+
+            </form>
+          </div>
+        </section>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="modal-footer bg-light">
+        <button type="button" class="btn btn-outline-warning submit-edit-btn"
+        data-form="#editPaymentForm"
+        data-modal="#editPaymentModal">
+        Save Changes
+        </button>
+
+        <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>

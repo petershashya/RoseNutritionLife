@@ -1,0 +1,46 @@
+<div class="modal fade" id="memberPaymentModal" tabindex="-1">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+
+            <div class="modal-header btext-white">
+                {% comment %} <h5 class="modal-title">Member Pending Payment</h5> {% endcomment %}
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <h5 class="mb-3 bg-success text-light p-2 rounded">Member Paid Information</h5>
+                <table class="table table-bordered">
+                    <tr><th>Name</th><td>{{ member.user.first_name }} {{ member.user.last_name }}</td></tr>
+                    <tr><th>Membership No</th><td>{{ member.membership_no }}</td></tr>
+                </table>
+
+                <h5>Medicine Products</h5>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            {% comment %} <th class="text-start">Patient</th> {% endcomment %}
+                            <th class="text-start">Medicine</th>
+                            <th class="text-start">PV</th>
+                            <th class="text-start">Qty</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for p in products %}
+                        <tr>
+                            {% comment %} <td class="text-start">{{ medical.name }}</td> {% endcomment %}
+                            <td class="text-start">{{ p.medicine_name }}</td>
+                            <td class="text-start">{{ p.medicine_pv }}</td>
+                            <td class="text-start">{{ p.qty }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <h4>Total PV: {{ total_pv }}</h4>
+                <h4>Total Money: {{ money }} (TZS)</h4>
+            </div>
+
+        </div>
+    </div>
+</div>

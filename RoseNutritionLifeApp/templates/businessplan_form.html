@@ -2,7 +2,7 @@
 
 <!-- BusinessPlan Form Modal -->
 <div class="modal fade" id="businessplanModal" tabindex="-1" aria-labelledby="businessPlanModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
 
       <!-- Modal Header -->
@@ -21,27 +21,23 @@
 
               <!-- Description -->
               <div class="row mb-2">
-                <div class="col-md-12">
+                <div class="col-md-4">
                   <div class="form-group">
                     <label for="{{ form.description.id_for_label }}">Description</label>
                     <textarea class="form-control" id="{{ form.description.id_for_label }}" name="description" rows="3" placeholder="Enter business description..." required></textarea>
                   </div>
                 </div>
-              </div>
 
               <!-- Sales & Marketing -->
-              <div class="row mb-2">
-                <div class="col-md-12">
+                <div class="col-md-4">
                   <div class="form-group">
                     <label for="{{ form.sales_and_marketing.id_for_label }}">Sales & Marketing</label>
                     <textarea class="form-control" id="{{ form.sales_and_marketing.id_for_label }}" name="sales_and_marketing" rows="3" placeholder="Enter sales and marketing strategies..." required></textarea>
                   </div>
                 </div>
-              </div>
 
               <!-- Business Members -->
-              <div class="row mb-2">
-                <div class="col-md-12">
+                <div class="col-md-4">
                   <div class="form-group">
                     <label for="{{ form.business_member.id_for_label }}">Business Members</label>
                     <textarea class="form-control" id="{{ form.business_member.id_for_label }}" name="business_member" rows="3" placeholder="How business members being profitable..." required></textarea>
@@ -51,17 +47,15 @@
 
               <!-- PV Points -->
               <div class="row mb-2">
-                <div class="col-md-12">
+                <div class="col-md-5">
                   <div class="form-group">
                     <label for="{{ form.pv_points.id_for_label }}">PV Points</label>
                     <textarea class="form-control" id="{{ form.pv_points.id_for_label }}" name="pv_points" rows="3" placeholder="Explain how can achieve PV Points..." required></textarea>
                   </div>
                 </div>
-              </div>
 
               <!-- Additional Comment -->
-              <div class="row mb-2">
-                <div class="col-md-12">
+                <div class="col-md-5">
                   <div class="form-group">
                     <label for="{{ form.additional_comment.id_for_label }}">Additional Comment</label>
                     <textarea class="form-control" id="{{ form.additional_comment.id_for_label }}" name="additional_comment" rows="3" placeholder="Additional comments..." required></textarea>
@@ -71,27 +65,23 @@
 
               <!-- Profile Image -->
               <div class="row mb-2">
-                <div class="col-md-12">
+                <div class="col-md-4">
                   <div class="form-group">
                     <label for="{{ form.profile_image.id_for_label }}">BusinessPlan Profile Image (Optional)</label>
                     <input type="file" class="form-control" id="{{ form.profile_image.id_for_label }}" name="profile_image" accept="image/*">
                   </div>
                 </div>
-              </div>
 
               <!-- Image -->
-              <div class="row mb-2">
-                <div class="col-md-12">
+                <div class="col-md-4">
                   <div class="form-group">
                     <label for="{{ form.image.id_for_label }}">BusinessPlan Image (Optional)</label>
                     <input type="file" class="form-control" id="{{ form.image.id_for_label }}" name="image" accept="image/*">
                   </div>
                 </div>
-              </div>
 
               <!-- Video -->
-              <div class="row mb-2">
-                <div class="col-md-12">
+                <div class="col-md-4">
                   <div class="form-group">
                     <label for="{{ form.video.id_for_label }}">BusinessPlan Video (Optional)</label>
                     <input type="file" class="form-control" id="{{ form.video.id_for_label }}" name="video" accept="video/*">

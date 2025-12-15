@@ -433,9 +433,9 @@
        id="offcanvas" style="background-color:rgb(4, 70, 39);">
 
     <span>
-      <a class="text-light text-decoration-none align-items-end" style="font-size:1.5rem;" href="{% url 'home' %}">
+      <a class="text-light text-decoration-none align-items-end" style="font-size:1.3rem;" href="{% url 'home' %}">
         {% comment %} <i class="bi bi-amazon text-success bg-light p-1 mx-1" style="border-radius:35px; font-size:1rem"></i> {% endcomment %}
-          <img  src="{% static 'images/eternal/logo.jpg' %}"  style="width:40px; height:40px; object-fit:cover; border-radius:30px;" >RNL
+          <img  src="{% static 'images/eternal/logo2.png' %}"  style="width:50px; height:50px; object-fit:cover; border-radius:30px;" >
       </a>
     </span>
 
@@ -455,16 +455,16 @@
     <span class="p-1" style="background-color:rgb(6, 104, 58); border-radius:25px;">
       <span class="navbartabs text-decoration-none" id="navbartabs">
         {% if user.is_authenticated %}
-          {% comment %} <a class="bi bi-basket-fill text-decoration-none ml-1 navbarbutton" data-label="Services" href="{% url 'services' %}"></a>
-          <a class="bi bi-badge-ad-fill text-decoration-none ml-2 navbarbutton" data-label="Advertisment" href="{% url 'advertisement' %}"></a> {% endcomment %}
-          <a class="bi bi-graph-up-arrow text-decoration-none ml-2 navbarbutton" data-label="Uchambuzi" href="{% url 'analysis' %}"></a>
+           <a class="bi bi-basket-fill text-decoration-none ml-1 navbarbutton" data-label="Huduma" href="{% url 'services' %}"></a>
+         {% comment %} <a class="bi bi-badge-ad-fill text-decoration-none ml-2 navbarbutton" data-label="Advertisment" href="{% url 'advertisement' %}"></a> {% endcomment %}
+          {% comment %} <a class="bi bi-graph-up-arrow text-decoration-none ml-2 navbarbutton" data-label="Uchambuzi" href="{% url 'analysis' %}"></a> {% endcomment %}
           {% comment %} <a class="bi bi-currency-exchange text-decoration-none ml-2 navbarbutton" data-label="PV-Exchange"  ></a> {% endcomment %}
           <a class="bi bi-person-fill text-decoration-none ml-2 navbarbutton" data-label="Akaunti" href="{% url 'account' %}"  ></a>
           <a class="bi bi-arrow-left-circle text-decoration-none ml-2 navbarbutton" data-label="Toka" href="{% url 'logout' %}"></a>
         {% else %}
-          {% comment %} <a class="bi bi-basket-fill text-decoration-none ml-1 navbarbutton" data-label="Services" href="{% url 'services' %}"></a>
-          <a class="bi bi-badge-ad-fill text-decoration-none ml-2 navbarbutton" data-label="Advertisment" href="{% url 'advertisment' %}"></a> {% endcomment %}
-          <a class="bi bi-graph-up-arrow text-decoration-none ml-2 navbarbutton" data-label="Uchambuzi" href="{% url 'analysis' %}"></a>
+          <a class="bi bi-basket-fill text-decoration-none ml-1 navbarbutton" data-label="Huduma" href="{% url 'services' %}"></a>
+          {% comment %} <a class="bi bi-badge-ad-fill text-decoration-none ml-2 navbarbutton" data-label="Advertisment" href="{% url 'advertisment' %}"></a> {% endcomment %}
+          {% comment %} <a class="bi bi-graph-up-arrow text-decoration-none ml-2 navbarbutton" data-label="Uchambuzi" href="{% url 'analysis' %}"></a> {% endcomment %}
           {% comment %} <a class="bi bi-info-circle-fill text-decoration-none ml-2 navbarbutton" data-label="About"></a> {% endcomment %}
           {% comment %} <a class="bi bi-person-fill text-decoration-none ml-2 navbarbutton" data-label="Account" href="{% url 'admin_manage' %}" ></a> {% endcomment %}
           <a class="bi bi-arrow-right-circle text-decoration-none ml-2 navbarbutton" data-label="Ingia" href="{% url 'login' %}"></a>

@@ -15,6 +15,9 @@
      <meta name="author" content="" />
      <title>rosenutritionlife</title>
      
+     <!-- font style like handwriting -->
+     <link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap" rel="stylesheet">
+
        <!-- bootstrap-->
        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
      <!-- boostratp icons -->
@@ -375,7 +378,6 @@
       transition: all 0.5s ease;
     }
 
-
     #getservice{
       background-color:rgb(4, 70, 39);
       //font-size:1rem;
@@ -461,6 +463,20 @@
       object-position: center;
   }
 
+    .commentimage-box {
+      width: 40px;
+      height: 40px;
+      overflow: hidden;
+      border-radius:10px;
+  }
+
+  .commentimage-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+  }
+
     .listimage-box {
       width: 40px;
       height: 40px;
@@ -509,6 +525,70 @@
       object-fit: cover;
       object-position: center;
   }
+
+   .top-border, .bottom-border {
+            border-top: 3px double #000;
+            border-bottom: 3px double #000;
+            padding: 5px 0;
+        }
+        .table thead th {
+            background: #e9ecef;
+            text-align: center;
+        }
+        .signature-line {
+            border-bottom: 1px solid #000;
+            width: 300px;
+            height: 20px;
+        }
+
+    .line-input {
+        border: none;
+        border-bottom: 1px solid #000 !important;
+        border-radius: 0;
+        outline: none;
+        box-shadow: none !important;
+    }
+    .line-textarea {
+        border-radius : 10px;
+        border: 1px solid #d2d6daff ;
+        outline: none;
+        box-shadow: none !important;
+        height: 300px;
+        resize: none;
+        background-color: #fafcffff;
+    }
+    .hand_fontstyle{
+      font-family: "Courier New", Courier ;
+      font-weight: normal;
+    }
+    .title_fontstyle{
+      font-family: 'Roboto', 'Open Sans', sans-serif;
+    }
+
+    .responsive-table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    .responsive-table-wrapper table {
+        min-width: 600px;  /* ensures table stays readable */
+    }
+    .summary-textarea {
+        width: 100%;
+        min-width: 180px;  /* flexible minimum width */
+        height: 80px;
+        border-radius : 10px;
+        border: 1px solid #d7d8dbff;
+        outline: none;
+        box-shadow: none !important;
+        height: 150px;
+        resize: none;
+        background-color: #fafcffff
+    }
+
+    .scroll-x {
+        overflow-x: auto;
+        white-space: nowrap;
+    }
 
       /* animation division div styling */
     .animation_division{
@@ -656,7 +736,7 @@
     <span>
       <a class="text-light text-decoration-none align-items-end" style="font-size:1.5rem;" href="{% url 'home' %}">
         {% comment %} <i class="bi bi-amazon text-success bg-light p-1 mx-1" style="border-radius:35px; font-size:1rem"></i> {% endcomment %}
-          <img  src="{% static 'images/eternal/logo.jpg' %}"  style="width:40px; height:40px; object-fit:cover; border-radius:30px;" >RNL
+          <img  src="{% static 'images/eternal/logo2.png' %}"  style="width:50px; height:50px; object-fit:cover; border-radius:30px;" >
       </a>
     </span>
 
@@ -676,16 +756,16 @@
     <span class="p-1" style="background-color:rgb(6, 104, 58); border-radius:25px;">
       <span class="navbartabs text-decoration-none" id="navbartabs">
         {% if user.is_authenticated %}
-          {% comment %} <a class="bi bi-basket-fill text-decoration-none ml-1 navbarbutton" data-label="Services" href="{% url 'services' %}"></a>
-          <a class="bi bi-badge-ad-fill text-decoration-none ml-2 navbarbutton" data-label="Advertisment" href="{% url 'advertisement' %}"></a> {% endcomment %}
-          <a class="bi bi-graph-up-arrow text-decoration-none ml-2 navbarbutton" data-label="Uchambuzi" href="{% url 'analysis' %}"></a>
+           <a class="bi bi-basket-fill text-decoration-none ml-1 navbarbutton" data-label="Huduma" href="{% url 'services' %}"></a>
+         {% comment %} <a class="bi bi-badge-ad-fill text-decoration-none ml-2 navbarbutton" data-label="Advertisment" href="{% url 'advertisement' %}"></a> {% endcomment %}
+          {% comment %} <a class="bi bi-graph-up-arrow text-decoration-none ml-2 navbarbutton" data-label="Uchambuzi" href="{% url 'analysis' %}"></a> {% endcomment %}
           {% comment %} <a class="bi bi-currency-exchange text-decoration-none ml-2 navbarbutton" data-label="PV-Exchange"  ></a> {% endcomment %}
           <a class="bi bi-person-fill text-decoration-none ml-2 navbarbutton" data-label="Akaunti" href="{% url 'account' %}"  ></a>
           <a class="bi bi-arrow-left-circle text-decoration-none ml-2 navbarbutton" data-label="Toka" href="{% url 'logout' %}"></a>
         {% else %}
-          {% comment %} <a class="bi bi-basket-fill text-decoration-none ml-1 navbarbutton" data-label="Services" href="{% url 'services' %}"></a>
-          <a class="bi bi-badge-ad-fill text-decoration-none ml-2 navbarbutton" data-label="Advertisment" href="{% url 'advertisment' %}"></a> {% endcomment %}
-          <a class="bi bi-graph-up-arrow text-decoration-none ml-2 navbarbutton" data-label="Uchambuzi" href="{% url 'analysis' %}"></a>
+         <a class="bi bi-basket-fill text-decoration-none ml-1 navbarbutton" data-label="Huduma" href="{% url 'services' %}"></a>
+           {% comment %} <a class="bi bi-badge-ad-fill text-decoration-none ml-2 navbarbutton" data-label="Advertisment" href="{% url 'advertisment' %}"></a> {% endcomment %}
+          {% comment %} <a class="bi bi-graph-up-arrow text-decoration-none ml-2 navbarbutton" data-label="Uchambuzi" href="{% url 'analysis' %}"></a> {% endcomment %}
           {% comment %} <a class="bi bi-info-circle-fill text-decoration-none ml-2 navbarbutton" data-label="About"></a> {% endcomment %}
           {% comment %} <a class="bi bi-person-fill text-decoration-none ml-2 navbarbutton" data-label="Account" href="{% url 'admin_manage' %}" ></a> {% endcomment %}
           <a class="bi bi-arrow-right-circle text-decoration-none ml-2 navbarbutton" data-label="Ingia" href="{% url 'login' %}"></a>
@@ -832,7 +912,11 @@ $(document).ready(function() {
           });
         }
 
+        // Bar Graph
         else if (type === 'bargraph') {
+          // Colors for each bar
+          const barColors = ['#20dad0ff', '#147e14ff', '#9faf11ff', '#7c5e0cff']; // turquoise, dark green, yellow, brown
+
           charts[canvasId] = new Chart(ctx, {
             type: 'bar',
             data: {
@@ -840,21 +924,27 @@ $(document).ready(function() {
               datasets: [{
                 label: 'Total Records',
                 data: response.ids,
-                backgroundColor: '#2e7d32'
+                backgroundColor: barColors  // assign array of colors
               }]
             },
-            options: { responsive: true, maintainAspectRatio: false }
+            options: { 
+              responsive: true, 
+              maintainAspectRatio: false 
+            }
           });
         }
 
+        // Stack Graph
         else if (type === 'stackgraph') {
+          const stackColors = ['#20dad0ff', '#147e14ff']; // male, female colors
+
           charts[canvasId] = new Chart(ctx, {
             type: 'bar',
             data: {
               labels: response.models,
               datasets: [
-                { label: 'Male', data: response.stack_data.male, backgroundColor: '#2e7d32' },
-                { label: 'Female', data: response.stack_data.female, backgroundColor: '#864058ff' }
+                { label: 'Male', data: response.stack_data.male, backgroundColor: stackColors[0] },
+                { label: 'Female', data: response.stack_data.female, backgroundColor: stackColors[1] }
               ]
             },
             options: {
@@ -900,7 +990,7 @@ $(document).ready(function() {
               labels: response.models,
               datasets: [{
                 data: response.pie_data,
-                backgroundColor: ['#2e7d32', '#253826ff', '#3f7c7eff', '#50631cff']
+                backgroundColor: ['#20dad0ff', '#147e14ff', '#9faf11ff', '#7c5e0cff']
               }]
             },
             options: { responsive: true, maintainAspectRatio: false }
@@ -1156,6 +1246,9 @@ $(document).ready(function() {
     showModal('.about-post-btn', '/post_about/', '#aboutModal');
     postForm('#postabout_button', '#aboutForm', '#aboutModal');
 
+    showModal('.medicinesales-post-btn', '/post_medicine_sales/', '#medicinesalesModal');
+    postForm('#postmedicinesales_button', '#medicinesalesForm', '#medicinesalesModal');
+    
 });
 
 
@@ -2027,6 +2120,535 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
+//start show medical forms and post medical form
+$(document).ready(function() {
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    var csrftoken = getCookie('csrftoken');
+
+    // Click on <tr>
+    $(document).on('click', 'tr[data-url]', function() {
+        var url = $(this).data('url');
+        $.ajax({
+            url: url,
+            method: 'GET',
+            success: function(response) {
+                $('body').append(response.html);
+                $('#medicalModal').modal('show');
+                $('#medicalModal').on('hidden.bs.modal', function() {
+                    $(this).remove();
+                    location.reload();
+                });
+            },
+            error: function() {
+                alert('Error loading medical form.');
+            }
+        });
+    });
+
+    // Post medical form
+    $(document).on('click', '#postMedicalBtn', function() {
+        var form = $('#medicalForm')[0];
+        var formData = new FormData(form);
+        var selectedProducts = $('#medicalForm select[name="products"]').val();
+        if (selectedProducts) {
+            selectedProducts.forEach(function(v){ formData.append('products', v); });
+        }
+
+        var button = $(this);
+        button.prop('disabled', true);
+
+        $.ajax({
+            url: $(form).attr('action'),
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: { 'X-CSRFToken': csrftoken },
+            success: function(response) {
+                if (response.success) {
+                    $('#medicalModal').modal('hide');
+                    button.prop('disabled', false);
+                    location.reload();
+                }
+            },
+            error: function() {
+                alert('Patient already got checkup and treatment or Post Other Error');
+                button.prop('disabled', false);
+            }
+        });
+    });
+});
+
+
+// VIEW MEDICAL FORMS ONLY
+$(document).ready(function() {
+
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            document.cookie.split(';').forEach(function(cookie) {
+                cookie = cookie.trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                }
+            });
+        }
+        return cookieValue;
+    }
+
+    // Click on row or checkbox to view medical
+    $(document).on('click', 'tr[data-url], input[name="selected_medicals"]', function() {
+
+        var url = $(this).data('url') || '/view_medical/' + $(this).val() + '/';
+
+        $.ajax({
+            url: url,
+            method: 'GET',
+            success: function(response) {
+              // Remove any existing modal first
+              $('#medical_view_Modal').remove();
+              
+              // Append new modal HTML
+              $('body').append(response.html);
+
+              // Show the modal
+              $('#medical_view_Modal').modal('show');
+
+              // Remove modal from DOM when hidden and reload page if needed
+              $('#medical_view_Modal').on('hidden.bs.modal', function() {
+                  $(this).remove();
+                  // optional reload if you want
+                  // location.reload();
+              });
+            },
+            error: function() {
+                alert('Error loading medical form.');
+            }
+        });
+    });
+
+});
+
+
+// VIEW MEDICAL MODAL (BUTTON VERSION)
+$(document).on("click", ".view-medical-btn", function () {
+    let url = $(this).data("url");
+
+    $.ajax({
+        url: url,
+        method: "GET",
+        success: function (response) {
+
+            // Remove old instance if exists
+            $("#medical_view_Modal").remove();
+
+            // Add new modal HTML to page
+            $("body").append(response.html);
+
+            // Show modal
+            $("#medical_view_Modal").modal("show");
+
+            // Clean up when closed
+            $("#medical_view_Modal").on("hidden.bs.modal", function () {
+                $(this).remove();
+            });
+        },
+        error: function () {
+            alert("Error loading medical form.");
+        }
+    });
+});
+
+
+
+//for search patients
+$(document).ready(function() {
+    $('#patientSearchInput').on('keyup', function() {
+        var query = $(this).val();
+
+        $.ajax({
+            url: "{% url 'ajax_patient_search' %}",  // We'll create this URL
+            method: "GET",
+            data: { 'q': query },
+            success: function(response) {
+                $('#patientsTableBody').html(response.html);
+            },
+            error: function() {
+                alert('Error fetching search results.');
+            }
+        });
+    });
+});
+
+//for search medicals 
+$(document).ready(function() {
+    $('#medicalSearchInput').on('keyup', function() {
+        var query = $(this).val();
+
+        $.ajax({
+            url: "{% url 'ajax_medical_search' %}",
+            method: "GET",
+            data: { 'q': query },
+            success: function(response) {
+                $('#medicalsTableBody').html(response.html);
+            },
+            error: function() {
+                alert('Error fetching medicals.');
+            }
+        });
+    });
+});
+
+
+//for search pharmacy
+$(document).ready(function() {
+    $('#pharmacySearchInput').on('keyup', function() {
+        var query = $(this).val();
+
+        $.ajax({
+            url: "{% url 'ajax_pharmacy_search' %}",
+            method: "GET",
+            data: { 'q': query },
+            success: function(response) {
+                $('#pharmacyTableBody').html(response.html);
+            },
+            error: function() {
+                alert('Error fetching medicals.');
+            }
+        });
+    });
+});
+
+
+//for search payment
+$(document).ready(function() {
+    $('#paymentSearchInput').on('keyup', function() {
+        var query = $(this).val();
+
+        $.ajax({
+            url: "{% url 'ajax_payment__search' %}",  // We'll create this URL
+            method: "GET",
+            data: { 'q': query },
+            success: function(response) {
+                $('#paymentsTableBody').html(response.html);
+            },
+            error: function() {
+                alert('Error fetching search results.');
+            }
+        });
+    });
+});
+
+
+//for search pending
+$(document).ready(function() {
+    $('#pendingSearchInput').on('keyup', function() {
+        var query = $(this).val();
+
+        $.ajax({
+            url: "{% url 'ajax_pending__search' %}",  // We'll create this URL
+            method: "GET",
+            data: { 'q': query },
+            success: function(response) {
+                $('#pendingTableBody').html(response.html);
+            },
+            error: function() {
+                alert('Error fetching search results.');
+            }
+        });
+    });
+});
+
+
+//for view pharmacy medical payments
+$(document).on("click", ".confirm-payment", function () {
+    let url = $(this).data("url");
+
+    $.ajax({
+        url: url,
+        type: "GET",
+        success: function (response) {
+            // Place full modal HTML into wrapper
+            $("#PaymentModalContainer").html(response.html);
+
+            // Now show the modal
+            $("#paymentModal").modal("show");
+        }
+    });
+});
+
+
+// Toggle Confirm Payment Status
+$(document).on('click', '.toggle-payment-btn', function () {
+    let button = $(this);
+    let row = button.closest('tr');
+    let productId = button.data('id');
+    let qtyInput = row.find('.qty-input');
+    let qty = qtyInput.val();
+
+    $.ajax({
+        url: '/ajax/toggle-medical-payment/' + productId + '/',
+        method: 'POST',
+        headers: { 'X-CSRFToken': getCookie('csrftoken') },
+        data: { qty: qty },
+        success: function (response) {
+
+            if (!response.success) {
+                alert(response.error);
+                return;
+            }
+
+            if (response.confirm_payment) {
+                // Pending → Paid
+                button
+                    .removeClass('btn-danger')
+                    .addClass('btn-success')
+                    .text('Paid');
+
+                qtyInput.prop('readonly', true);
+                row.find('.total-cost').text(response.total_cost);
+
+            } else {
+                // Paid → Pending
+                button
+                    .removeClass('btn-success')
+                    .addClass('btn-danger')
+                    .text('Pending');
+
+                qtyInput.prop('readonly', false).val('');
+                row.find('.total-cost').text('0');
+            }
+        },
+        error: function () {
+            alert('Server error occurred.');
+        }
+    });
+});
+
+
+
+// CSRF helper
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        document.cookie.split(';').forEach(function(cookie) {
+            cookie = cookie.trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            }
+        });
+    }
+    return cookieValue;
+}
+
+
+
+//start see pending lists
+// Function to get CSRF token
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+        document.cookie.split(";").forEach(function(cookie) {
+            cookie = cookie.trim();
+            if (cookie.substring(0, name.length + 1) === (name + "=")) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            }
+        });
+    }
+    return cookieValue;
+}
+
+// ------------------ View Pending Members ------------------
+$(document).on("click", ".open-member-modal", function () {
+    let url = $(this).data("url");
+
+    $.get(url, function (response) {
+        $("#memberspendinglist").html(response.html);
+        $("#memberPendingModal").modal("show");
+    });
+});
+
+// ------------------ Confirm / Save Payment ------------------
+$(document).on("click", "#confirm-payment", function () {
+    let btn = $(this);
+    btn.prop("disabled", true);
+
+    let membership_no = btn.data("membership");
+    let total_pv = btn.data("totalpv");
+    let money = btn.data("money");
+    let month = btn.data("month");
+
+    $.post("/payment/save/", {
+        membership_no: membership_no,
+        total_pv: total_pv,
+        money: money,
+        month: month,
+        csrfmiddlewaretoken: getCookie("csrftoken")
+    }, function (response) {
+        if (response.status === "success") {
+            alert(response.message);
+            location.reload();
+        } else {
+            alert(response.message);
+            btn.prop("disabled", false);
+        }
+    }).fail(function() {
+        alert("Request failed. Please try again.");
+        btn.prop("disabled", false);
+    });
+});
+
+
+
+
+// Function to get CSRF token
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+        document.cookie.split(";").forEach(function(cookie) {
+            cookie = cookie.trim();
+            if (cookie.substring(0, name.length + 1) === (name + "=")) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            }
+        });
+    }
+    return cookieValue;
+}
+
+// ------------------ View Confirmed Payments ------------------
+$(document).on("click", ".open-payment-modal", function () {
+    let url = $(this).data("url");
+
+    $.get(url, function (response) {
+        $("#memberspaymentlist").html(response.html);
+        $("#memberPaymentModal").modal("show");
+    });
+});
+
+
+
+//start calculation money automaticaly
+$(document).on("change", "#levelSelector", function () {
+    let levelValue = parseInt($(this).val());
+    let totalPV = parseInt($("#totalPV").text());
+
+    $.ajax({
+        url: "/calculate_money/",
+        type: "GET",
+        data: {
+            total_pv: totalPV,
+            level: levelValue
+        },
+        success: function (response) {
+            // UPDATE VISIBLE MONEY
+            $("#totalMoney").text(response.money);
+
+            // UPDATE BUTTON MONEY (IMPORTANT!)
+            $("#confirm-payment").data("money", response.money);
+        }
+    });
+});
+
+
+
+//print patients medical forms
+$(document).on("click", ".print-medical-btn", function () {
+    let url = $(this).data("url");
+
+    $.ajax({
+        url: url,
+        type: "GET",
+        xhrFields: {
+            responseType: 'blob'
+        },
+        success: function (data) {
+            let blob = new Blob([data], { type: 'application/pdf' });
+            let link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.target = "_blank";
+            link.click();
+        }
+    });
+});
+
+
+//for print payments details
+$(document).on("click", ".open-payment-modal", function (e) {
+    e.preventDefault();
+    let url = $(this).data("url");
+    let month = $(this).data("month");
+    if (month && month.length) {
+        // encode month for URL
+        url += "?month=" + encodeURIComponent(month);
+    }
+
+    $.ajax({
+        url: url,
+        type: "GET",
+        xhrFields: { responseType: 'blob' },
+        success: function (data, status, xhr) {
+            const blob = new Blob([data], { type: 'application/pdf' });
+            const link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.target = "_blank";
+            // optional: set filename if browser supports it
+            const disposition = xhr.getResponseHeader('Content-Disposition');
+            if (disposition) {
+                const filenameMatch = disposition.match(/filename="(.+)"/);
+                if (filenameMatch && filenameMatch[1]) {
+                    link.download = filenameMatch[1];
+                }
+            }
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+        },
+    });
+});
+
+
+
+// VIEW MEDICIINE PRINT MODAL
+$(document).on("click", ".view-medicineprint-btn", function () {
+    let url = $(this).data("url");
+
+    $.ajax({
+        url: url,
+        method: "GET",
+        success: function (response) {
+
+            // Remove old instance if exists
+            $("#medicineModal").remove();
+
+            // Add new modal HTML to page
+            $("body").append(response.html);
+
+            // Show modal
+            $("#medicineModal").modal("show");
+
+            // Clean up when closed
+            $("#medicineModal").on("hidden.bs.modal", function () {
+                $(this).remove();
+            });
+        },
+        error: function () {
+            alert("Error loading medicine print form.");
+        }
+    });
+});
 
 
 
@@ -2235,6 +2857,7 @@ $(document).on('click', '.btn-charts', function() {
     }
   });
 }); {% endcomment %}
+
 
 
 

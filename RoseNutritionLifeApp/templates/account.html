@@ -7,6 +7,18 @@
 
 <div class="p-2 mt-5"></div>
 <!-- start account page -->
+
+
+
+<!-- show notification alert message after complete medical -->
+{% if message %}
+        <div class="alert alert-info alert-dismissible mx-3 mt-2 shadow bg-white" style="border-left: 2px solid #084b18ff; border-radius: 12px;">
+          <span class="d-flex justify-content-center align-items-center text-success">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            {{ message }}
+          </span>
+        </div>
+{% endif %}
  
 
 <!-- start personal details -->
@@ -92,24 +104,30 @@
             <div class="d-flex justify flex-nowrap overflow-x-auto gap-2" >
               {% if it_officer_rank in "it_officer,director,vice_director" %}
                 <span id="add_list" data-type="shoptable" class="btn-adstable mx-auto  px-3 py-2 d-flex justify-content-center align-items-center flex-shrink-0" style="border-radius:25px; " >
-                    <i class="bi bi-badge-ad-fill text-light mx-1" style="font-size:1.3rem;"></i><!-- Shops --> Maduka
+                    <i class="bi bi-shop-window text-light mx-1" style="font-size:1.3rem;"></i><!-- Shops --> Maduka
                 </span>
                 <span id="add_list" data-type="branchtable" class="btn-adstable   mx-auto  px-3 py-2 d-flex justify-content-center align-items-center flex-shrink-0" style="border-radius:25px; " >
-                    <i class="bi bi-badge-ad-fill text-light mx-1" style="font-size:1.3rem;"></i><!-- Branchs --> Vituo
+                    <i class="bi bi-houses text-light mx-1" style="font-size:1.3rem;"></i><!-- Branchs --> Vituo
                 </span>
                  <span id="add_list" data-type="commenttable" class="btn-adstable  d-flex justify-content-center align-items-center mx-auto  px-3 py-2 flex-shrink-0" style="border-radius:25px;" >
-                    <i class="bi bi-badge-ad-fill text-light mx-1" style="font-size:1.3rem;"></i><!-- comments --> Ujumbe
+                    <i class="bi bi-chat-dots text-light mx-1" style="font-size:1.3rem;"></i><!-- comments --> Ujumbe
                 </span>
                 <span id="add_list" data-type="abouttable" class="btn-adstable  d-flex justify-content-center align-items-center mx-auto  px-3 py-2 flex-shrink-0" style="border-radius:25px;" >
-                    <i class="bi bi-badge-ad-fill text-light mx-1" style="font-size:1.3rem;"></i><!-- About -->Kuhusu Viongozi
+                    <i class="bi bi-chat-dots text-light mx-1" style="font-size:1.3rem;"></i><!-- About -->Kuhusu Viongozi
+                </span>
+                 <span id="add_list" data-type="medicinesalestable" class="btn-adstable  d-flex justify-content-center align-items-center mx-auto  px-3 py-2 flex-shrink-0" style="border-radius:25px;" >
+                    <i class="bi bi-bandaid-fill text-light mx-1" style="font-size:1.3rem;"></i><!-- medicinesales --> Medicines
                 </span>
                 {% endif %}
                   <span id="add_list" data-type="meetingtable" class="btn-adstable  d-flex justify-content-center align-items-center mx-auto px-3 py-2 flex-shrink-0" style="border-radius:25px; " >
-                    <i class="bi bi-badge-ad-fill text-light mx-1" style="font-size:1.3rem;"></i><!-- Meetings --> Mihadhara
+                    <i class="bi bi-people text-light mx-1" style="font-size:1.3rem;"></i><!-- Meetings --> Mihadhara
                 </span>
                  <span id="add_list" data-type="otheradstable" class="btn-adstable  d-flex justify-content-center align-items-center mx-auto  px-3 py-2 flex-shrink-0" style="border-radius:25px;" >
                     <i class="bi bi-badge-ad-fill text-light mx-1" style="font-size:1.3rem;"></i><!-- OtherAds --> Matangazo
                 </span>
+                <a id="add_list" href="{% url 'memberdetail' %}"  class="d-flex justify-content-center align-items-center mx-auto text-decoration-none  px-3 py-2 flex-shrink-0" style="border-radius:25px;" >
+                    <i class="bi bi-coin text-light mx-1" style="font-size:1.3rem;"></i><!-- malipo --> Malipo
+                </a>
            </div>
           </div>
 
@@ -303,7 +321,7 @@
   <tbody>
     {% for patient in patients %}
     <tr>
-      <td><input type="checkbox" name="selected_patient" value="{{ patient.id }}"></td>
+      <td><input type="checkbox" name="selected_patients" value="{{ patient.id }}"></td>
       <td>{{ patient.full_name}}</td>
       <td>{{ patient.gender}}</td>
       <td>{{ patient.region}}</td>

@@ -1,0 +1,170 @@
+<div class="modal fade" id="medicalModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-fullscreen modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="medicalForm" action="{% url 'medical_form' patient.id %}" method="POST">
+          {% csrf_token %}
+          <div class="p-3 bg-white shadow mx-1 my-3">
+
+            <!-- LOGO + TITLE -->
+            <div class="text-center mb-2">
+                <h3 class="mb-0">ETERNAL</h3>
+                <h5 class="modal-title">MEDICAL FORM - <span class="text-uppercase" >{{ patient.full_name }} </span></h5>
+            </div>
+
+            <!-- REF NO + DATE -->
+            <div class="text-end mt-2">
+                <label class="fw-bold">Ref. No:</label>
+                <input type="text" class="line-input w-25" name="ref_no" value="{{ patient.id }}" readonly> <br>
+
+                <label class="fw-bold">Date:</label>
+                <input type="date" class="line-input w-25" name="date">
+            </div>
+
+            <!-- COMPANY DETAILS -->
+            <div class="text-start">
+                <strong>ETERNAL INTERNATIONAL TANZANIA LTD</strong><br>
+                Buguruni sherry, Madenge street near The Dreamers hotel<br>
+                Dar Es Salaam<br>
+                Phone: 0750990508, 0673222116 / 0765375657<br>
+                Email: eternalbugurunishop@gmail.com
+            </div>
+
+            <hr>
+
+            <!-- PATIENT DETAILS -->
+            <h5 class="fw-bold">PATIENT DETAILS</h5>
+
+            <div class="row mb-2">
+                <div class="col-6">
+                    <label class="fw-bold">Office-Name:</label>
+                    {% if user_detail %}
+                        <input type="text" class="line-input w-75" name="office_name" value="{{ user_detail.first_name }} {{ user_detail.last_name }}" readonly>
+                    {% else %}
+                        <input type="text" class="line-input w-75" name="office_name">
+                    {% endif %}
+
+                </div>
+                <div class="col-6">
+                    <label class="fw-bold">ID Number:</label>
+                    <input type="text" class="line-input w-50" name="id_number" value="{{ patient.membership_no }}" readonly>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-4">
+                    <label class="fw-bold">Name:</label>
+                    <input type="text" class="line-input w-75" name="name" value="{{ patient.full_name }}" readonly>
+                </div>
+                <div class="col-4">
+                    <label class="fw-bold">Sex:</label>
+                    <input type="text" class="line-input w-50" name="sex" value="{{ patient.gender }}" readonly>
+                </div>
+                <div class="col-4">
+                    <label class="fw-bold">Date of Birth:</label>
+                    <input type="text" class="line-input w-75" name="dob" value="{{ patient.birth}}" readonly>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-4">
+                    <label class="fw-bold">Weight (Kg):</label>
+                    <input type="number" class="line-input w-50" name="weight">
+                </div>
+                <div class="col-4">
+                    <label class="fw-bold">Height (Cm):</label>
+                    <input type="number" class="line-input w-50" name="height">
+                </div>
+            </div>
+
+            <!-- HEALTH PROBLEMS TABLE -->
+            <h5 class="fw-bold mb-2">HEALTH PROBLEMS</h5>
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Health Problems</th>
+                        <th>Doctor Summary</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Diabetics
+                    <br>Hypertension
+                    <br>Respiratory System
+                    <br>Digestive System
+                    <br>Liver System
+                    <br>Renal & Urinary System
+                    <br>Skeletal System
+                    <br>Skin Disorders
+                    <br>Cerebral System
+                    <br>Male Reproductive System
+                    <br>Female Reproductive System
+                    <br>ENT (Eyes, Nose & Throat System)
+                </td><td><textarea class="line-textarea w-100 text-start px-2" name="doctor_summary"></textarea></td></tr>
+                </tbody>
+            </table>
+
+            <!-- NUTRITIONAL RECOMMENDATION -->
+            <h5 class="fw-bold mb-2">NUTRITIONAL RECOMMENDATION</h5>
+
+            <div class="scroll-x mb-3">
+                <div class="responsive-table-wrapper mb-3">
+                    <table class="table table-bordered mb-5">
+                        <thead>
+                            <tr>
+                                <th>Avoid/Reduce</th>
+                                <th>Eat Most</th>
+                                <th>Product</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><textarea class="summary-textarea px-2" name="avoid_reduce"></textarea></td>
+                                <td><textarea class="summary-textarea px-2" name="eat_most"></textarea></td>
+                                <td>
+                                <select name="products" multiple class="form-select w-100" size="8">
+                                    <option disabled>-- Select Medicine --</option>
+
+                                    {% for medicine in medicines %}
+                                        <option value="{{ medicine.id }}"
+                                            {% if form.products.value and medicine.id|stringformat:"s" in form.products.value|stringformat:"s" %}
+                                                selected
+                                            {% endif %}>
+                                            {{ medicine.medicine_name }} - {{ medicine.medicine_cost }} TZS
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- FOOTER -->
+            <div class="row">
+                <div class="col-6">
+                    <strong>Doctor Signature:</strong>
+                    <div class="signature-line" style="border-bottom:1px solid #000; width:300px; height:20px; max-width:100px;"></div>
+                </div>
+
+                <div class="col-6 text-end">
+                    <strong>Charges:</strong> 30,000/=
+                </div>
+            </div>
+
+            <!-- MODAL FOOTER BUTTONS -->
+            <div class="modal-footer mt-3">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" id="postMedicalBtn" class="btn btn-success">Submit</button>
+            </div>
+
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

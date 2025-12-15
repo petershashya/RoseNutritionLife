@@ -1,12 +1,22 @@
 from django.urls import path
 from .views import (
-    home ,services ,advertisement,analysis ,account , member_account,
+    home ,services ,reception ,doctor, pharmacy, advertisement,analysis ,payment,account ,
+    member_account,memberdetail,
     
     #post function
     post_disease,post_medicine, post_checkup ,
     post_businessplan, post_businesslevel,post_patient,
     post_patient, post_checkup_sales, post_medicine_sales ,post_advertisement ,
-    post_shop,post_branch,post_meeting, post_about,edit_about,
+    post_shop,post_branch,post_meeting, post_about,edit_about, post_medicine_sales,
+    
+    #medical
+    medical_form,view_medical,print_medical,ajax_patient_search,ajax_medical_search,ajax_pharmacy_search,
+    
+    #medical payments
+    view_medicalpayment,toggle_medical_payment,view_member_payment,print_member_payment,view_medicine_form,
+    
+    #members and payments
+    view_member_pending , save_member_payment, ajax_payment_search,ajax_pending_search,calculate_money,
     
     #for templates
     posture_details, video_details,lists_details,list_details,business_details,
@@ -40,11 +50,39 @@ from .views import (
 urlpatterns = [
     path('', home, name='home'),
     path('services/', services, name='services'),
+    path('reception/', reception, name='reception'),
+    path('doctor/', doctor, name='doctor'),
+    path('pharmacy/', pharmacy, name='pharmacy'),
     path('advertisement/', advertisement, name='advertisement'),
     path('analysis/', analysis, name='analysis'),
+    path('payment/', payment, name='payment'),
     path('account/', account, name='account'),
+    path('memberdetail/', memberdetail, name='memberdetail'),
     path('member_account/', member_account, name='member_account'),
     
+    #medical
+    path('medical_form/<int:patient_id>/', medical_form, name='medical_form'),
+    path('view_medical/<int:medical_id>/', view_medical, name='view_medical'),
+    path('print-medical/<int:medical_id>/', print_medical, name='print_medical'),
+    path('view-medicine/<str:medical_id>/', view_medicine_form, name='view_medicine_form'),
+    path('ajax/patient-search/', ajax_patient_search, name='ajax_patient_search'),
+    path('ajax/medical-search/', ajax_medical_search, name='ajax_medical_search'),
+    path('ajax/pharmacy-search/', ajax_pharmacy_search, name='ajax_pharmacy_search'),
+    
+    #medical payments
+    path("payment/medical/<int:medical_id>/", view_medicalpayment, name="view_medicalpayment"),
+    path('ajax/toggle-medical-payment/<int:product_id>/', toggle_medical_payment, name='toggle_medical_payment'),
+    
+    #show and save members and payemnts
+    path("payment/", payment, name="payment"),
+    path("payment/member/<str:membership_no>/", view_member_pending, name="view_member_pending"),
+    path("calculate_money/", calculate_money, name="calculate_money"),
+    path("payment/member_payment/<str:membership_no>/", view_member_payment, name="view_member_payment"),
+    path('print-member-payment/<str:membership_no>/', print_member_payment, name='print_member_payment'), 
+    path("payment/save/", save_member_payment, name="save_member_payment"),
+    path('ajax/payment_-search/', ajax_payment_search, name='ajax_payment__search'),
+    path('ajax/pending_-search/', ajax_pending_search, name='ajax_pending__search'),
+ 
     #for posts models details
     path('post_disease/', post_disease, name='post_disease'),
     path('post_medicine/', post_medicine, name='post_medicine'),

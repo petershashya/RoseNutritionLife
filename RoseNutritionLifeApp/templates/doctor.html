@@ -1,0 +1,388 @@
+{% extends 'layout.html' %}
+
+
+{% block content %}
+{% load static %}  
+
+
+<div class="p-3 mt-5"></div>
+
+
+{% if rank in "it_officer,director,vice_director,doctor" %}
+<div >
+    <span id="category_title" class="d-flex justify-content-center align-items-center mt-3  mx-3 p-1 rounded" style="color:rgb(4, 70, 39);font-size:1.2rem;">
+          <i class="bi bi-person-arms-up text-success mx-1" style="font-size:1.2rem;"></i>PATIENTS & MEDICALS </span>
+    <ul class="nav nav-pills d-flex justify-content-center aling-items-center gap-2 mt-2">
+        <li class="nav-item">
+          <a class="nav-link " data-bs-toggle="pill" href="#patients_list" > <i class="bi bi-capsule-pill mx-1"  style="font-size:1rem;"></i> Patient List   </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " data-bs-toggle="pill" href="#medicals_list" > <i class="bi bi-view-list mx-1"  style="font-size:1rem;"></i>Medical List </a>
+        </li>
+      </ul>
+      
+
+      <!-- Tab panes -->
+      <div class="tab-content p-2">
+        <div class="tab-pane container-fill active rounded" id="patients_list" >   
+         <div class="rounded" >
+
+
+        <div class="alert alert-info alert-dismissible mx-3 mt-2 shadow border-0 bg-white">
+        <span class="d-flex justify-content-center aling-items-center text-info">
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          <i class="bi bi-info-circle mx-2" style="font-size:1rem;" ></i> Select and Click a patient to start filling medical form
+        </span>
+      </div>
+          
+<!-- start listing patients -->
+<!-- Patients Table -->
+{% if rank in "it_officer,director,vice_director,doctor,reception" %}
+  <div class="mb-4 mt-2 d-flex justify-content-center  align-items-center">
+<div class="shadow  container bg-white p-3 "
+     style=" border-radius:20px;">
+
+  <div class="tab-content">
+    <div id="users" class="tab-pane active">
+     
+      <h3 class="d-flex justify-content-center mt-3"><!-- List of Patients --> List of Patients </h3>
+            <!-- counts + add -->
+      <span class="d-flex justify-content-center align-items-center gap-2 mb-2">
+        <a class="text-light btn btn-sm" style="background-color: rgb(4, 70, 39); border-radius:30px;">
+          <!-- Total Patients --> List of patients  {{ patient_count }}
+        </a>
+      </span>  
+
+      <div class="mx-3 mb-2">
+    <input type="text" id="patientSearchInput" placeholder="Search patient by name or mobile" class="form-control border-info">
+      </div>
+
+          <div class="table-responsive-sm">
+
+          <form method="GET" action="">
+                {% csrf_token %}
+      <table class="table table-bordered table-hover table-striped">
+        <thead>
+          <tr>
+            <th><input type="checkbox" id="select-all-patients"></th>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Region</th>
+            <th>Postal-Address</th>
+            <th>Email</th>
+            <th>MobileNo</th>
+            <th>MembershipNo</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody  id="patientsTableBody">
+          {% for patient in patients %}
+          <tr class="clickable-row" data-url="{% url 'medical_form' patient.id %}" style="cursor:pointer;">
+              <td><input type="checkbox" name="selected_patients" value="{{ patient.id }}"></td>
+              <td>{{ patient.full_name }}</td>
+              <td>{{ patient.gender }}</td>
+              <td>{{ patient.region }}</td>
+              <td>{{ patient.postal_address }}</td>
+              <td>{{ patient.email }}</td>
+              <td>{{ patient.mobile_no }}</td>
+              <td>{{ patient.membership_no }}</td>
+              <td class="d-flex gap-1">
+                <button class="btn btn-sm  generic-edit-btn btn-warning rounded-pill" data-url="{% url 'generic_edit' 'patient' patient.id %}" data-target="#editGenericModal">
+                  <i class="bi bi-pencil"></i>
+                </button>
+                <button class="btn btn-sm generic-delete-btn btn-danger rounded-pill" data-url="{% url 'generic_delete' 'patient' patient.id %}" data-target="#deleteGenericModal">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+              <!-- Pagination controls: numbers only -->
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                {% for num in patients.paginator.page_range %}
+                    {% if medicals.number == num %}
+                        <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </nav>
+      </form>
+
+      </div>
+      </div>
+      </div>
+      </div>
+      </div>
+
+      <script>
+        document.getElementById('select-all-patients').addEventListener('click', function() {
+          var checkboxes = document.querySelectorAll('input[name="selected_patients"]');
+          for (var checkbox of checkboxes) {
+            checkbox.checked = this.checked;
+          }
+        });
+      </script>
+
+      {% endif %}
+<!-- end list of  patients -->
+         </div>
+        </div>
+
+
+         <!-- start MEDICALS LIST-->
+        <div class="tab-pane container-fill fade rounded" id="medicals_list" >   
+         <div class="rounded" >
+
+      <div class="alert alert-info alert-dismissible mx-3 mt-2 shadow border-0 bg-white">
+        <span class="d-flex justify-content-center aling-items-center text-info">
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          <i class="bi bi-info-circle mx-2" style="font-size:1rem;" ></i> Select and Click a patient to view Medical results
+        </span>
+      </div>
+<!-- start listing patients -->
+<!-- Patients Table -->
+{% if rank in "it_officer,director,vice_director,doctor,reception" %}
+  <div class="mb-4 mt-2 d-flex justify-content-center  align-items-center">
+<div class="shadow  container bg-white p-3 "
+     style=" border-radius:20px;">
+
+  <div class="tab-content">
+    <div id="users" class="tab-pane active">
+     
+      <h3 class="d-flex justify-content-center mt-3"><!-- List of Patients --> List of Medicals </h3>
+            <!-- counts + add -->
+      <span class="d-flex justify-content-center align-items-center gap-2 mb-2">
+        <a class="text-light btn btn-sm" style="background-color: rgb(4, 70, 39); border-radius:30px;">
+          <!-- Total Patients --> List of Medicals  {{ medical_count }}
+        </a>
+      </span>
+
+      <div class="mx-3 mb-2">
+    <input type="text" id="medicalSearchInput" placeholder="Search medicals by Name, ID or Office Name" class="form-control border-info">
+      </div>
+
+            <div class="table-responsive-sm">
+            <form method="GET" action="">
+                  {% csrf_token %}
+        <table class="table table-bordered table-hover table-striped">
+          <thead>
+            <tr>
+              <th><input type="checkbox" id="select-all-medicals"></th>
+              <th>IdNo</th>
+              <th>OfficeName</th>
+              <th>Name</th>
+              <th>Sex</th>
+              <th>Birth</th>
+              <th>Weight</th>
+              <th>Height</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="medicalsTableBody">
+            {% for medical in medicals %}
+            <tr class="clickable-row " data-url="{% url 'view_medical' medical.id %}" style="cursor:pointer;">
+                <td><input type="checkbox" name="selected_medicals" value="{{ medical.id }}"></td>
+                <td>{{ medical.id_number }}</td>
+                <td>{{ medical.office_name }}</td>
+                <td>{{ medical.name }}</td>
+                <td>{{ medical.sex }}</td>
+                <td>{{ medical.dob }}</td>
+                <td>{{ medical.weight }}</td>
+                <td>{{ medical.height }}</td>
+                {% if rank in "it_officer,doctor" %}
+                <td class="d-flex gap-1">
+                  <button class="btn btn-sm  generic-edit-btn btn-warning rounded-pill" data-url="{% url 'generic_edit' 'medical' medical.id %}" data-target="#editGenericModal">
+                    <i class="bi bi-pencil"></i>
+                  </button>
+                  <button class="btn btn-sm generic-delete-btn btn-danger rounded-pill" data-url="{% url 'generic_delete' 'medical' medical.id %}" data-target="#deleteGenericModal">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </td>
+       {% else %}
+      <td>View</td>
+      {% endif %}
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <!-- Pagination controls: numbers only -->
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                {% for num in medicals.paginator.page_range %}
+                    {% if medicals.number == num %}
+                        <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </nav>
+        </form>
+
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+
+        <script>
+          document.getElementById('select-all-medicals').addEventListener('click', function() {
+            var checkboxes = document.querySelectorAll('input[name="selected_medicals"]');
+            for (var checkbox of checkboxes) {
+              checkbox.checked = this.checked;
+            }
+          });
+        </script>
+
+        {% endif %}
+        <!-- end list of  medicals -->
+
+         </div>
+        </div>
+
+
+{% endif %}
+
+
+
+
+
+
+{% comment %}
+<div class="p-3 bg-white shadow mx-3 my-3">
+    <div class="text-center mb-2">
+        <h3 class="mb-0">ETERNAL</h3>
+    </div>
+
+    <!-- REF NO + DATE -->
+     <div class="text-end mt-2">
+        <label class="fw-bold">Ref. No:</label>
+        <input type="text" class="line-input w-25"> <br>
+
+        <label class="fw-bold">Date:</label>
+        <input type="date" class="line-input w-25">
+    </div>
+
+    <!-- COMPANY DETAILS -->
+    <div class="text-start">
+        <strong>ETERNAL INTERNATIONAL TANZANIA LTD</strong><br>
+        Buguruni sherry, Madenge street near The Dreamers hotel<br>
+        Dar Es Salaam<br>
+        Phone: 0750990508, 0673222116 / 0765375657<br>
+        Email: eternalbugurunishop@gmail.com
+    </div>
+
+    <hr>
+
+    <!-- PATIENT DETAILS -->
+    <h5 class="fw-bold">PATIENT DETAILS</h5>
+
+    <div class="row mb-2">
+        <div class="col-6">
+            <label class="fw-bold">Office-Name:</label>
+            <input type="text" class="line-input w-75">
+        </div>
+        <div class="col-6">
+            <label class="fw-bold">ID Number:</label>
+            <input type="text" class="line-input w-50">
+        </div>
+    </div>
+
+    <div class="row mb-2">
+        <div class="col-4">
+            <label class="fw-bold">Name:</label>
+            <input type="text" class="line-input w-75">
+        </div>
+        <div class="col-4">
+            <label class="fw-bold">Sex:</label>
+            <input type="text" class="line-input w-50">
+        </div>
+        <div class="col-4">
+            <label class="fw-bold">Date of Birth:</label>
+            <input type="date" class="line-input w-75">
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-4">
+            <label class="fw-bold">Weight (Kg):</label>
+            <input type="number" class="line-input w-50">
+        </div>
+        <div class="col-4">
+            <label class="fw-bold">Height (Cm):</label>
+            <input type="number" class="line-input w-50">
+        </div>
+    </div>
+
+    <!-- HEALTH PROBLEMS TABLE -->
+    <h5 class="fw-bold mb-2">HEALTH PROBLEMS</h5>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Health Problems</th>
+                <th>Doctor Summary</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>Diabetics</td><td><textarea class="line-textarea w-100"></textarea></td></tr>
+            <tr><td>Hypertension</td><td><textarea class="line-textarea w-100"></textarea></td></tr>
+            <tr><td>Respiratory System</td><td><textarea class="line-textarea w-100"></textarea></td></tr>
+            <tr><td>Digestive System</td><td><textarea class="line-textarea w-100"></textarea></td></tr>
+            <tr><td>Liver System</td><td><textarea class="line-textarea w-100"></textarea></td></tr>
+            <tr><td>Renal & Urinary System</td><td><textarea class="line-textarea w-100"></textarea></td></tr>
+            <tr><td>Skeletal System</td><td><textarea class="line-textarea w-100"></textarea></td></tr>
+            <tr><td>Skin Disorders</td><td><textarea class="line-textarea w-100"></textarea></td></tr>
+            <tr><td>Cerebral System</td><td><textarea class="line-textarea w-100"></textarea></td></tr>
+            <tr><td>Male Reproductive System</td><td><textarea class="line-textarea w-100"></textarea></td></tr>
+            <tr><td>Female Reproductive System</td><td><textarea class="line-textarea w-100"></textarea></td></tr>
+            <tr><td>ENT (Eyes, Nose & Throat System)</td><td><textarea class="line-textarea w-100"></textarea></td></tr>
+        </tbody>
+    </table>
+
+    <!-- NUTRITIONAL RECOMMENDATION -->
+    <h5 class="fw-bold mb-2">NUTRITIONAL RECOMMENDATION</h5>
+
+    <div class="scroll-x mb-3">
+        <div class="responsive-table-wrapper mb-3">
+            <table class="table table-bordered mb-5">
+                <thead>
+                    <tr>
+                        <th>Avoid/Reduce</th>
+                        <th>Eat Most</th>
+                        <th>Product</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><textarea class="summary-textarea"></textarea></td>
+                        <td><textarea class="summary-textarea"></textarea></td>
+                        <td><textarea class="summary-textarea"></textarea></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div class="row">
+        <div class="col-6">
+            <strong>Doctor Signature:</strong>
+            <div class="signature-line" style="border-bottom:1px solid #000; width:300px; height:20px; max-width:100px;"></div>
+        </div>
+
+        <div class="col-6 text-end">
+            <strong>Charges:</strong> 30,000/=
+        </div>
+    </div>
+
+</div> {% endcomment %}
+
+
+{% endblock %}

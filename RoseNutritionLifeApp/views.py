@@ -7,7 +7,8 @@ from .models import (
     UserDetail,Disease ,Medicine, CheckUp, BusinessPlan, 
     BusinessLevel,Medicine_SalesForm, CheckUp_SalesForm,PatientForm ,
     Advertisement,Shop,Branch,Meeting,Log,About,Viewer,
-    DiseaseComment,MedicineComment,CheckupComment,BusinessplanComment,BusinesslevelComment,Viewer ,Comment
+    DiseaseComment,MedicineComment,CheckupComment,BusinessplanComment,BusinesslevelComment,Viewer ,Comment,
+    Medical ,MedicineProduct,MemberPayment,PaymentProduct,MedicalMessage
 )
 from .forms import (
     MedicineForm, CheckUpForm, BusinessPlanForm, BusinessLevelForm,
@@ -16,7 +17,7 @@ from .forms import (
     CheckUpSalesForm, MedicineSalesForm ,PatientModelForm, 
     CheckUpSalesForm, MedicineSalesForm,AdvertisementForm,ShopForm,BranchForm,MeetingForm,AboutForm,
     DiseaseCommentForm,MedicineCommentForm,CheckupCommentForm,BusinessplanCommentForm,BusinesslevelCommentForm,
-    ForgotPasswordForm,ResetPasswordForm,UserDetailForm, CommentForm,
+    ForgotPasswordForm,ResetPasswordForm,UserDetailForm, CommentForm,MedicalForm,MemberPaymentForm
 )
 
 from django.contrib.auth.forms import AuthenticationForm
@@ -24,7 +25,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
 from datetime import datetime
 from django.utils import timezone
-from django.db.models import Sum
+from django.db.models import F, Sum, ExpressionWrapper, IntegerField , FloatField
 import pytz
 from django.core.paginator import Paginator
 from django.utils.timesince import timesince
@@ -48,6 +49,12 @@ import xlsxwriter
 import base64
 import json
 import textwrap
+from django.utils.dateparse import parse_date
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
+from xhtml2pdf import pisa
+from datetime import timedelta
+from django.utils import timezone
 
 
 def home(request):
@@ -65,7 +72,9 @@ def home(request):
     first_checkup = CheckUp.objects.order_by("date_created").first()
     first_business_plan = BusinessPlan.objects.order_by("date_created").first()
     first_business_level = BusinessLevel.objects.order_by("date_created").first()
-    abouts=About.objects.all()
+    abouts = About.objects.filter(
+        company_rank__in=['it_officer', 'director', 'vice_director']
+    )
     it_officer_rank = get_it_officer_rank(request.user)
     request_id=request.user.id
     
@@ -73,7 +82,7 @@ def home(request):
     comments_qs = (
     Comment.objects
     .select_related('user', 'user__user_detail')
-    .filter(confirmed=False)
+    .filter(confirmed=True)
     .order_by('-id')
     )
 
@@ -135,17 +144,1191 @@ def paginate_and_prepare(request, queryset, page_param):
 
     return page_obj
 
+
+#start superuser accounts
+# def is_superuser(user):
+#     return user.is_superuser
+
+# def check_superuser(user):
+#     return user.is_superuser
+# @user_passes_test(check_superuser, login_url='member_account')
+# @login_required
 def services(request):
     it_officer_rank = get_it_officer_rank(request.user)
     context = {
-        "disease_page_obj": paginate_and_prepare(request, Disease.objects.all(), "disease_page"),
-        "medicine_page_obj": paginate_and_prepare(request, Medicine.objects.all(), "medicine_page"),
-        "checkup_page_obj": paginate_and_prepare(request, CheckUp.objects.all(), "checkup_page"),
-        "bp_page_obj": paginate_and_prepare(request, BusinessPlan.objects.all(), "bp_page"),
-        "bl_page_obj": paginate_and_prepare(request, BusinessLevel.objects.all(), "bl_page"),
+        "disease_page_obj": paginate_and_prepare(request, Disease.objects.all().order_by('-id'), "disease_page"),
+        "medicine_page_obj": paginate_and_prepare(request, Medicine.objects.all().order_by('-id'), "medicine_page"),
+        "checkup_page_obj": paginate_and_prepare(request, CheckUp.objects.all().order_by('-id'), "checkup_page"),
+        "bp_page_obj": paginate_and_prepare(request, BusinessPlan.objects.all().order_by('-id'), "bp_page"),
+        "bl_page_obj": paginate_and_prepare(request, BusinessLevel.objects.all().order_by('-id'), "bl_page"),
         "it_officer_rank" : it_officer_rank,
     }
     return render(request, "service.html", context)
+
+
+
+#start superuser accounts
+def is_superuser(user):
+    return user.is_superuser
+
+def check_superuser(user):
+    return user.is_superuser
+@user_passes_test(check_superuser, login_url='member_account')
+@login_required
+def reception(request):
+    patients_queryset = PatientForm.objects.all().order_by('-id')  # last to first
+    # Pagination: 20 per page
+    paginator = Paginator(patients_queryset, 10)
+    page_number = request.GET.get('page')
+    patients= paginator.get_page(page_number)
+    patient_count=patients_queryset.count()
+    it_officer_rank = get_it_officer_rank(request.user)
+    context = {
+        "rank" : it_officer_rank,
+        "patients" : patients ,
+        "patient_count" : patient_count,
+    }
+    return render(request, "reception.html", context)
+
+
+
+#start superuser accounts
+def is_superuser(user):
+    return user.is_superuser
+
+def check_superuser(user):
+    return user.is_superuser
+@user_passes_test(check_superuser, login_url='member_account')
+@login_required
+def doctor(request):
+    patients_queryset = PatientForm.objects.all().order_by('-id')  # last to first
+    # Pagination: 20 per page
+    paginator = Paginator(patients_queryset, 10)
+    page_number = request.GET.get('page')
+    patients= paginator.get_page(page_number)
+    
+    medicals_queryset = Medical.objects.all().order_by('-id')  # last to first
+    # Pagination: 20 per page
+    paginator = Paginator(medicals_queryset, 10)
+    page_number = request.GET.get('page')
+    medicals = paginator.get_page(page_number)
+    
+    patient_count=patients_queryset.count()
+    medical_count=medicals_queryset.count()
+    it_officer_rank = get_it_officer_rank(request.user)
+    context = {
+        "rank" : it_officer_rank,
+        "patients" : patients ,
+        "medicals" : medicals,
+        "patient_count" : patient_count,
+        "medical_count" : medical_count,
+    }
+    return render(request, "doctor.html", context)
+
+
+
+# def medical_form(request, patient_id):
+#     patient = get_object_or_404(PatientForm, id=patient_id)
+
+#     # Get office details from UserDetail via membership_no
+#     try:
+#         user_detail = UserDetail.objects.get(membership_no=patient.membership_no)
+#     except UserDetail.DoesNotExist:
+#         user_detail = None
+
+#     # Get all medicines for product select
+#     medicines = Medicine_SalesForm.objects.all().order_by('-id')
+
+#     if request.method == "GET":
+#         html = render_to_string('medical_modal.html', {
+#             'patient': patient,
+#             'user_detail': user_detail.user,
+#             'medicines': medicines
+#         })
+#         return JsonResponse({'html': html})
+
+#     elif request.method == "POST":
+#         data = request.POST
+
+#         medical = Medical.objects.create(
+#             ref_no=patient.id,
+#             date=parse_date(data.get('date')) if data.get('date') else None,
+#             office_name=user_detail.user.first_name if user_detail else '',
+#             id_number=patient.membership_no,
+#             name=patient.full_name,
+#             sex=patient.gender,
+#             dob=data.get('dob') or '',
+#             weight=data.get('weight'),
+#             height=data.get('height'),
+#             doctor_summary=data.get('doctor_summary', ''),
+#             avoid_reduce=data.get('avoid_reduce', ''),
+#             eat_most=data.get('eat_most', ''),
+#             doctor_signature=data.get('doctor_signature', ''),
+#             charges=data.get('charges', '30,000/='),
+#         )
+
+#         # -------------------------------
+#         #   ✔ FIX: STRONG DUPLICATE CHECKING
+#         # -------------------------------
+#         product_ids = data.getlist('products')
+
+#         if product_ids:
+#             for med_id in product_ids:
+#                 try:
+#                     med = Medicine_SalesForm.objects.get(id=med_id)
+
+#                     # ❌ CHECK DUPLICATE USING ALL FIELDS REQUIRED
+#                     exists = MedicineProduct.objects.filter(
+#                         medical=medical,
+#                         membership_no=patient.membership_no,
+#                         patient_no=patient.id,
+#                         medicine_id=med.id,
+#                         medicine_name=med.medicine_name,
+#                     ).exists()
+
+#                     if exists:
+#                         continue  # skip duplicate
+
+#                     # ✔ If NOT duplicate → create new record
+#                     MedicineProduct.objects.create(
+#                         medical=medical,
+#                         membership_no=patient.membership_no,
+#                         patient_no=patient.id,
+#                         medicine=med,
+#                         medicine_name=med.medicine_name,
+#                         medicine_pv=med.medicine_pv,
+#                         medicine_cost=med.medicine_cost,
+#                         confirm_payment=False
+#                     )
+
+#                 except Medicine_SalesForm.DoesNotExist:
+#                     pass
+
+#         messages.warning(
+#             request,
+#             f"Medicals for {patient.full_name} posted successfully."
+#         )
+#         return JsonResponse({'success': True})
+
+
+def medical_form(request, patient_id):
+    patient = get_object_or_404(PatientForm, id=patient_id)
+
+    # Get office details from UserDetail via membership_no
+    try:
+        user_detail = UserDetail.objects.get(membership_no=patient.membership_no)
+    except UserDetail.DoesNotExist:
+        user_detail = None
+
+    # Get all medicines for product select
+    medicines = Medicine_SalesForm.objects.all().order_by('-id')
+
+    if request.method == "GET":
+        html = render_to_string('medical_modal.html', {
+            'patient': patient,
+            'user_detail': user_detail.user,
+            'medicines': medicines
+        })
+        return JsonResponse({'html': html})
+
+    elif request.method == "POST":
+        data = request.POST
+        
+        
+
+        # -------------------------------------------------
+        # STRONG DUPLICATE CHECK (BEFORE ANY SAVE)
+        # -------------------------------------------------
+        medical_exists = Medical.objects.filter(
+            ref_no=str(patient.id),
+            id_number=patient.membership_no,
+            name=patient.full_name,
+        ).exists()
+
+        if medical_exists:
+            messages.warning(
+            request,
+            f"Patient already got checkup and treatment. Medical form already exists."
+            )
+            return JsonResponse(
+                {
+                    "success": False,
+                    "message": "Patient already got checkup and treatment. Medical form already exists."
+                },
+                status=400
+            )
+
+        # -------------------------------
+        # SAVE MEDICAL RECORD
+        # -------------------------------
+        medical = Medical.objects.create(
+            ref_no=patient.id,
+            date=parse_date(data.get('date')) if data.get('date') else None,
+            office_name=user_detail.user.first_name if user_detail else '',
+            id_number=patient.membership_no,
+            name=patient.full_name,
+            sex=patient.gender,
+            dob=data.get('dob') or '',
+            weight=data.get('weight'),
+            height=data.get('height'),
+            doctor_summary=data.get('doctor_summary', ''),
+            avoid_reduce=data.get('avoid_reduce', ''),
+            eat_most=data.get('eat_most', ''),
+            doctor_signature=data.get('doctor_signature', ''),
+            charges=data.get('charges', '30,000/='),
+        )
+
+        # -------------------------------
+        #   FIX: STRONG DUPLICATE CHECKING
+        # -------------------------------
+        product_ids = data.getlist('products')
+
+        if product_ids:
+            for med_id in product_ids:
+                try:
+                    med = Medicine_SalesForm.objects.get(id=med_id)
+
+                    exists = MedicineProduct.objects.filter(
+                        medical=medical,
+                        membership_no=patient.membership_no,
+                        patient_no=patient.id,
+                        medicine_id=med.id,
+                        medicine_name=med.medicine_name,
+                    ).exists()
+
+                    if exists:
+                        continue  # skip duplicate
+
+                    MedicineProduct.objects.create(
+                        medical=medical,
+                        membership_no=patient.membership_no,
+                        patient_no=patient.id,
+                        medicine=med,
+                        medicine_name=med.medicine_name,
+                        medicine_pv=med.medicine_pv,
+                        medicine_cost=med.medicine_cost,
+                        confirm_payment=False
+                    )
+
+                except Medicine_SalesForm.DoesNotExist:
+                    pass
+
+        # -------------------------------------------------
+        # SAVE MEDICAL MESSAGE RECORD (NO SMS)
+        # -------------------------------------------------
+        message_text = f"Hongera kwa kupimisha mgonjwa {patient.full_name} katika kituo chetu."
+
+        MedicalMessage.objects.create(
+            medical=medical,
+            message=message_text,
+            expires_at=timezone.now() + timedelta(days=1)  # expires after 24 hours
+        )
+
+        # -------------------------------------------------
+        # RETURN SUCCESS
+        # -------------------------------------------------
+        messages.warning(
+            request,
+            f"Medicals for {patient.full_name} posted successfully."
+        )
+        return JsonResponse({'success': True})
+
+
+    
+# view modal
+def view_medical(request, medical_id):
+    medical = get_object_or_404(Medical, id=medical_id)
+    html = render_to_string('medical_view_modal.html', {'medical': medical})
+    return JsonResponse({'html': html})
+
+
+#print medical form
+def print_medical(request, medical_id):
+    medical = get_object_or_404(Medical, id=medical_id)
+
+    # Render your modal HTML (same structure)
+    html = render_to_string("medical_print.html", {
+        "medical": medical
+    })
+
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'inline; filename="medical_form.pdf"'
+
+    pisa_status = pisa.CreatePDF(html, dest=response)
+
+    if pisa_status.err:
+        return HttpResponse("Error generating PDF", status=500)
+
+    return response
+
+
+@login_required
+@user_passes_test(check_superuser, login_url='member_account')
+def ajax_patient_search(request):
+    query = request.GET.get('q', '').strip()
+    if query:
+        patients = PatientForm.objects.filter(
+            full_name__icontains=query
+        ) | PatientForm.objects.filter(
+            mobile_no__icontains=query
+        ).order_by('-id')
+    else:
+        patients = PatientForm.objects.all().order_by('-id')
+    it_officer_rank = get_it_officer_rank(request.user)
+
+    html = render_to_string('patient_table_rows.html', {'patients': patients, 'rank':it_officer_rank, })
+    return JsonResponse({'html': html})
+
+
+@login_required
+@user_passes_test(check_superuser, login_url='member_account')
+def ajax_medical_search(request):
+    query = request.GET.get('q', '').strip()
+    if query:
+        medicals = Medical.objects.filter(
+            name__icontains=query
+        ) | Medical.objects.filter(
+            id_number__icontains=query
+        ) | Medical.objects.filter(
+            office_name__icontains=query
+        ).order_by('-id')
+    else:
+        medicals = Medical.objects.all().order_by('-id')
+        
+    it_officer_rank = get_it_officer_rank(request.user)
+
+    html = render_to_string('medical_table_rows.html', {'medicals': medicals, 'rank':it_officer_rank,})
+    return JsonResponse({'html': html})
+
+@login_required
+@user_passes_test(check_superuser, login_url='member_account')
+def ajax_pharmacy_search(request):
+    query = request.GET.get('q', '').strip()
+    if query:
+        medicals = Medical.objects.filter(
+            name__icontains=query
+        ) | Medical.objects.filter(
+            id_number__icontains=query
+        ) | Medical.objects.filter(
+            office_name__icontains=query
+        ).order_by('-id')
+    else:
+        medicals = Medical.objects.all().order_by('-id')
+        
+    it_officer_rank = get_it_officer_rank(request.user)
+
+    html = render_to_string('pharmacy_table_rows.html', {'medicals': medicals, 'rank':it_officer_rank,})
+    return JsonResponse({'html': html})
+
+
+def view_medicalpayment(request, medical_id):
+    medical = Medical.objects.filter(id=medical_id).first()
+    if not medical:
+        return JsonResponse({'error': 'Medical form not found'}, status=404)
+
+    member = UserDetail.objects.filter(membership_no=medical.id_number).first()
+    products = medical.medicine_products.all()
+
+    html = render_to_string("modal_medical_payment.html", {
+        "medical": medical,
+        "member": member,
+        "products": products,
+    }, request=request)
+
+    return JsonResponse({'html': html})
+
+
+# replace this with your actual check function
+def check_superuser(user):
+    return user.is_superuser
+
+@login_required
+@user_passes_test(check_superuser, login_url='member_account')
+def print_member_payment(request, membership_no):
+    """
+    Generates PDF of payment(s) for a member for a specific month.
+    Accepts optional GET param ?month=Month Year (e.g., ?month=January 2025).
+    If no month passed, uses the latest MemberPayment for that member.
+    """
+    member = UserDetail.objects.filter(membership_no=membership_no).first()
+    if not member:
+        return HttpResponse("Member not found.", status=404)
+
+    month_str = request.GET.get("month")
+    if not month_str:
+        latest_payment = MemberPayment.objects.filter(membership_no=membership_no).order_by("-date_created").first()
+        if not latest_payment:
+            return HttpResponse("No payment records found for this member.", status=404)
+        month_str = latest_payment.date_created.strftime("%B %Y")
+
+    # parse month like "January 2025"
+    try:
+        month_date = datetime.strptime(month_str, "%B %Y")
+    except Exception:
+        return HttpResponse("Invalid month format. Use 'Month YYYY' (e.g., January 2025).", status=400)
+
+    # Grab the main payment (most recent in that month)
+    payment = MemberPayment.objects.filter(
+        membership_no=membership_no,
+        date_created__year=month_date.year,
+        date_created__month=month_date.month
+    ).order_by("-date_created").first()
+
+    if not payment:
+        return HttpResponse("No payment found for the selected month.", status=404)
+
+    # All payments in that month (to collect products across them)
+    month_payments = MemberPayment.objects.filter(
+        membership_no=membership_no,
+        date_created__year=month_date.year,
+        date_created__month=month_date.month
+    )
+
+    products = PaymentProduct.objects.filter(payment__in=month_payments).order_by('id')
+
+    # Attempt to get medical for that month (may be None)
+    medical = Medical.objects.filter(
+        id_number=membership_no,
+        date_created__year=month_date.year,
+        date_created__month=month_date.month
+    ).order_by("-date_created").first()
+
+    total_pv = payment.total_pv
+    money = payment.money
+
+    context = {
+        "company_name": "ETERNAL INTERNATIONAL COMPANY LTD",
+        "company_address": "Buguruni Sherry, Madenge Street near The Dreamers Hotel, Dar Es Salaam",
+        "company_phone": "0750990508, 0673222116 / 0765375657",
+        "company_email": "eternalbugurunishop@gmail.com",
+        "member": member,
+        "payment": payment,
+        "products": products,
+        "total_pv": total_pv,
+        "money": money,
+        "medical": medical,
+        "payment_month_str": month_str,
+    }
+
+    # Render HTML
+    html = render_to_string("payment_print.html", context)
+
+    # Create PDF
+    result = BytesIO()
+    pdf_status = pisa.CreatePDF(src=html, dest=result)
+    if pdf_status.err:
+        return HttpResponse("Error generating PDF", status=500)
+
+    # Return PDF
+    filename = f"payment_{membership_no}_{month_date.strftime('%Y_%m')}.pdf"
+    response = HttpResponse(result.getvalue(), content_type='application/pdf')
+    response['Content-Disposition'] = f'inline; filename="{filename}"'
+    return response
+
+
+# For viewing confirmed payments of a member for a specific month
+# @login_required
+# @user_passes_test(check_superuser, login_url='member_account')
+def view_member_payment(request, membership_no):
+    member = UserDetail.objects.filter(membership_no=membership_no).first()
+
+    # Optional: get month from request GET parameter, e.g., ?month=January 2025
+    month_str = request.GET.get("month")
+    if not month_str:
+        # fallback: use latest payment month if no month specified
+        latest_payment = MemberPayment.objects.filter(membership_no=membership_no).order_by("-date_created").first()
+        if not latest_payment:
+            return JsonResponse({
+                "html": "<p class='text-danger'>No payment records found.</p>"
+            })
+        month_str = latest_payment.month
+
+    # Convert month string to year and month numbers
+    try:
+        month_date = datetime.strptime(month_str, "%B %Y")
+    except:
+        return JsonResponse({
+            "html": "<p class='text-danger'>Invalid month format.</p>"
+        })
+
+    # Get the payment for this member in that month (latest if multiple)
+    payment = MemberPayment.objects.filter(
+        membership_no=membership_no,
+        date_created__year=month_date.year,
+        date_created__month=month_date.month
+    ).order_by("-date_created").first()
+
+    if not payment:
+        return JsonResponse({
+            "html": "<p class='text-danger'>No payment found for the selected month.</p>"
+        })
+
+    # Get the first medical for the same month (to match your template)
+    medical = Medical.objects.filter(
+        id_number=membership_no,
+        date_created__year=month_date.year,
+        date_created__month=month_date.month
+    ).order_by("-date_created").first()
+
+    # Get ALL PaymentProducts for ALL payments of this month
+    month_payments = MemberPayment.objects.filter(
+        membership_no=membership_no,
+        date_created__year=month_date.year,
+        date_created__month=month_date.month
+    )
+
+    products = PaymentProduct.objects.filter(payment__in=month_payments)
+
+    # Use total PV and money from MAIN payment (you use this in template)
+    total_pv = payment.total_pv
+    money = payment.money
+
+    # Render modal template with all data (matches your template)
+    html = render_to_string("payment_view_list.html", {
+        "member": member,
+        "medical": medical,       # first medical for template
+        "products": products,     # now ALL products of that MONTH
+        "total_pv": total_pv,
+        "money": money,
+    }, request=request)
+
+    return JsonResponse({"html": html})
+
+
+
+@require_POST
+def toggle_medical_payment(request, product_id):
+    try:
+        product = MedicineProduct.objects.get(id=product_id)
+
+        # Toggle status
+        new_status = not product.confirm_payment
+
+        if new_status:
+            # Pending → Paid
+            qty = request.POST.get('qty')
+
+            if not qty or int(qty) <= 0:
+                return JsonResponse({
+                    'success': False,
+                    'error': 'Please enter a valid quantity.'
+                })
+
+            qty = int(qty)
+
+            product.qty = qty
+            product.medicine_totalcost = qty * product.medicine_cost
+            product.confirm_payment = True
+
+        else:
+            # Paid → Pending (REMOVE QTY)
+            product.qty = None
+            product.medicine_totalcost = 0
+            product.confirm_payment = False
+
+        product.save()
+
+        return JsonResponse({
+            'success': True,
+            'confirm_payment': product.confirm_payment,
+            'total_cost': product.medicine_totalcost
+        })
+
+    except MedicineProduct.DoesNotExist:
+        return JsonResponse({
+            'success': False,
+            'error': 'Product not found.'
+        })
+
+
+#for view members payments
+def view_member_pending(request, membership_no):
+    member = UserDetail.objects.filter(membership_no=membership_no).first()
+
+    # Get all medicals for this member
+    medicals = Medical.objects.filter(id_number=membership_no).order_by("-date_created")
+
+    # Exclude current month
+    current_month = timezone.now().month
+
+    # Get the latest valid medical (used ONLY to detect the month)
+    latest_medical = (
+        medicals
+        .exclude(date_created__month=current_month)
+        .order_by("-date_created")
+        .first()
+    )
+
+    if not latest_medical:
+        return JsonResponse({"html": "<p>No pending month found.</p>"})
+
+    # Month string for display
+    month_str = latest_medical.date_created.strftime("%B %Y")
+
+    # Get ALL medicals in the same month
+    month_medicals = Medical.objects.filter(
+        id_number=membership_no,
+        date_created__year=latest_medical.date_created.year,
+        date_created__month=latest_medical.date_created.month
+    )
+
+    # Get ALL products linked to ALL medicals of this month
+    products = MedicineProduct.objects.filter(
+        membership_no=membership_no,
+        medical__in=month_medicals,
+        confirm_payment=True,
+    )
+
+    # Calculate totals
+    total_pv = products.annotate(
+            row_total=ExpressionWrapper(
+                F('medicine_pv') * F('qty'),
+                output_field=IntegerField()
+            )
+        ).aggregate(total=Sum('row_total'))['total'] or 0
+    money = ((total_pv * 2400 * 6) / 100) - 2400
+
+    # Render modal content
+    html = render_to_string("pending_list.html", {
+        "member": member,
+        "total_pv": total_pv,
+        "money": money,
+        "products": products,
+        "medicals": month_medicals,  # ⬅ RETURN ALL MEDICALS OF THAT MONTH
+        "month": month_str,
+        "medical": latest_medical,   # still available if needed
+    })
+
+    return JsonResponse({"html": html})
+
+
+
+#start calculate money pending automaticaly
+def calculate_money(request):
+    total_pv = int(request.GET.get("total_pv", 0))
+    level = int(request.GET.get("level", 10))  # default Level 1 → value=10
+
+    # FORMULA
+    money = ((total_pv * 2400 * level) / 100) - 2400
+
+    return JsonResponse({"money": int(money)})
+
+
+# # for saving payments given to members
+# def save_member_payment(request):
+#     if request.method == "POST":
+#         membership_no = request.POST.get("membership_no")
+#         total_pv = int(request.POST.get("total_pv"))
+#         money = float(request.POST.get("money"))
+#         month = request.POST.get("month")  # Format: "F Y" e.g., "December 2025"
+
+#         # Current month
+#         current_month = timezone.now().month
+
+#         # All past-month medicals for this member
+#         medicals = Medical.objects.filter(
+#             id_number=membership_no
+#         ).exclude(date_created__month=current_month)
+
+#         if not medicals.exists():
+#             return JsonResponse({
+#                 "status": "error",
+#                 "message": "No eligible medical records to process (only past months allowed)."
+#             })
+
+#         # Convert month ("December 2024") to month + year
+#         try:
+#             month_date = datetime.strptime(month, "%B %Y")
+#         except:
+#             return JsonResponse({"status": "error", "message": "Invalid month format."})
+
+#         # Get ALL medicals belonging to the selected month
+#         month_medicals = medicals.filter(
+#             date_created__year=month_date.year,
+#             date_created__month=month_date.month
+#         )
+
+#         if not month_medicals.exists():
+#             return JsonResponse({
+#                 "status": "error",
+#                 "message": "No medical records found for selected month."
+#             })
+
+#         # Check if payment exists
+#         existing_payment = MemberPayment.objects.filter(
+#             membership_no=membership_no,
+#             month=month
+#         ).first()
+
+#         # Get member info
+#         member = UserDetail.objects.filter(membership_no=membership_no).first()
+
+#         # --- COMBINE ALL MEDICAL NAMES AND IDS FOR THIS MONTH ---
+#         patient_names = ", ".join([m.name for m in month_medicals])
+#         patient_ids = ", ".join([str(m.id) for m in month_medicals])
+
+#         # --- Create or Update Payment ---
+#         if existing_payment:
+#             payment = existing_payment
+#             payment.total_pv = total_pv
+#             payment.money = money
+#             payment.patient_name = patient_names
+#             payment.patient_id = patient_ids
+#             payment.date_created = timezone.now()
+#             payment.save()
+#             status_msg = "Payment updated successfully."
+#         else:
+#             payment = MemberPayment.objects.create(
+#                 membership_no=membership_no,
+#                 member_name=f"{member.user.first_name} {member.user.last_name}",
+#                 total_pv=total_pv,
+#                 money=money,
+#                 month=month,
+#                 patient_name=patient_names,
+#                 patient_id=patient_ids,
+#             )
+#             status_msg = "Payment created successfully."
+
+#         # --- Get all medicine products to convert into PaymentProduct entries ---
+#         medicine_products = MedicineProduct.objects.filter(
+#             membership_no=membership_no,
+#             medical__in=medicals,
+#             confirm_payment=True,
+#         )
+
+#         # --- Save or Update Each Product Into PaymentProduct ---
+#         for product in medicine_products:
+
+#             # Corrected logic:
+#             # Check if this specific medicine already exists for this payment
+#             existing_product = PaymentProduct.objects.filter(
+#                 payment=payment,
+#                 medicine=product.medicine,
+#             ).first()
+
+#             if existing_product:
+#                 # UPDATE existing PaymentProduct
+#                 existing_product.medicine_name = product.medicine_name
+#                 existing_product.medicine_pv = product.medicine_pv
+#                 existing_product.medicine_cost = product.medicine_cost
+#                 existing_product.save()
+#                 status_msg = "Products updated successfully."
+#             else:
+#                 # CREATE new PaymentProduct
+#                 PaymentProduct.objects.create(
+#                     payment=payment,
+#                     medicine=product.medicine,
+#                     medicine_name=product.medicine_name,
+#                     medicine_pv=product.medicine_pv,
+#                     medicine_cost=product.medicine_cost,
+#                 )
+#                 status_msg = "Products created successfully."
+
+#         return JsonResponse({"status": "success", "message": status_msg})
+
+
+def save_member_payment(request):
+    if request.method == "POST":
+        membership_no = request.POST.get("membership_no")
+        total_pv = int(request.POST.get("total_pv"))
+        money = float(request.POST.get("money"))
+        month = request.POST.get("month")  # Example: "December 2025"
+
+        current_month = timezone.now().month
+
+        medicals = Medical.objects.filter(
+            id_number=membership_no
+        ).exclude(date_created__month=current_month)
+
+        if not medicals.exists():
+            return JsonResponse({
+                "status": "error",
+                "message": "No eligible medical records to process (only past months allowed)."
+            })
+
+        # Convert readable month into real month-year
+        try:
+            month_date = datetime.strptime(month, "%B %Y")
+        except:
+            return JsonResponse({"status": "error", "message": "Invalid month format."})
+
+        # All medicals inside selected month
+        month_medicals = medicals.filter(
+            date_created__year=month_date.year,
+            date_created__month=month_date.month
+        )
+
+        if not month_medicals.exists():
+            return JsonResponse({
+                "status": "error",
+                "message": "No medical records found for selected month."
+            })
+
+        member = UserDetail.objects.filter(membership_no=membership_no).first()
+
+        # =============================
+        # CREATE OR UPDATE PAYMENT ROW
+        # =============================
+        payment, created = MemberPayment.objects.update_or_create(
+            membership_no=membership_no,
+            month=month,
+            defaults={
+                "member_name": f"{member.user.first_name} {member.user.last_name}",
+                "total_pv": total_pv,
+                "money": money,
+                "date_created": timezone.now()
+            }
+        )
+
+        # =====================================================
+        # GET ALL MEDICINE PRODUCTS FOR THE SELECTED MONTH ONLY
+        # =====================================================
+        medicine_products = MedicineProduct.objects.filter(
+            membership_no=membership_no,
+            medical__in=month_medicals,
+            confirm_payment=True,
+        )
+
+        # =====================================================
+        # STORE IN PAYMENTPRODUCT WITH STRICT DUPLICATE CONTROL
+        # =====================================================
+        for product in medicine_products:
+
+            patient_name = product.medical.name
+            patient_id = product.medical.id
+            medicine_name = product.medicine_name
+            medicine_pv = product.medicine_pv
+            medicine_cost = product.medicine_cost
+            qty = product.qty
+            
+
+            # ---------------------------------------------------------
+            # STRICT DUPLICATE CHECK for THIS MONTH + THIS PAYMENT ONLY:
+            # patient_name + patient_id + medicine_name + medicine_pv
+            # ---------------------------------------------------------
+            existing_product = PaymentProduct.objects.filter(
+                payment=payment,
+                medicine=product.medicine,
+            ).first()
+
+            if existing_product:
+                # UPDATE existing matched product
+                existing_product.medicine_cost = medicine_cost
+                existing_product.qty = qty  # ✅ save/update qty
+                existing_product.save()
+            else:
+                # CREATE NEW PRODUCT
+                PaymentProduct.objects.create(
+                    payment=payment,
+                    medicine=product.medicine,
+                    medicine_name=medicine_name,
+                    medicine_pv=medicine_pv,
+                    medicine_cost=medicine_cost,
+                    qty=qty,  # ✅ store qty
+                    patient_name=patient_name,
+                    patient_id=patient_id,
+                )
+
+        return JsonResponse({
+            "status": "success",
+            "message": "Member payment saved successfully."
+        })
+
+
+#for payments
+def payment(request):
+    it_officer_rank = get_it_officer_rank(request.user)
+
+    # Current month (to skip current month entries)
+    current_month = timezone.now().strftime("%B %Y")
+
+    # Group medicines by membership_no
+    grouped = (
+        MedicineProduct.objects
+        .filter(confirm_payment=True)
+        .values("membership_no")
+        .annotate(
+            total_pv=Sum("medicine_pv"),
+            total_cost=((Sum("medicine_pv") * 2400 * 6) / 100) - 2400,  # default level 2
+        )
+        .order_by("-membership_no")
+    )
+
+    data = []
+
+    for row in grouped:
+        membership_no = row["membership_no"]
+
+        # Get member
+        member = UserDetail.objects.filter(membership_no=membership_no).first()
+
+        # --------------------------
+        # ✅ GET ALL DISTINCT MONTHS
+        # --------------------------
+        months = Medical.objects.filter(id_number=membership_no).dates("date_created", "month")
+
+        for m in months:
+            month_str = m.strftime("%B %Y")
+
+            # Skip current month
+            if month_str == current_month:
+                continue
+
+            # Skip if already paid for this specific month
+            if MemberPayment.objects.filter(membership_no=membership_no, month=month_str).exists():
+                continue
+
+            # Add monthly data
+            data.append({
+                "membership_no": membership_no,
+                "member_name": f"{member.user.first_name} {member.user.last_name}" if member else "",
+                "total_pv": row["total_pv"],
+                "money": ((row["total_pv"] * 2400 * 6) / 100) - 2400,  # default level 2
+                "status": "Paid" if MedicineProduct.objects.filter(
+                    membership_no=membership_no,
+                    confirm_payment=True
+                ).exists() else "Pending",
+                "month": month_str,  # <-- SHOW EACH DISTINCT MONTH
+            })
+
+    # Pagination (pending members)
+    paginator_members = Paginator(data, 10)
+    page_number_members = request.GET.get('page_members')
+    members_page = paginator_members.get_page(page_number_members)
+
+    # Pagination for confirmed payments
+    payments_queryset = MemberPayment.objects.all().order_by('-id')
+    paginator_payments = Paginator(payments_queryset, 10)
+    page_number_payments = request.GET.get('page_payments')
+    payments_page = paginator_payments.get_page(page_number_payments)
+
+    payment_count = payments_queryset.count()
+
+    return render(request, "payment.html", {
+        "rank": it_officer_rank,
+        "members": members_page,
+        "payments": payments_page,
+        "payment_count": payment_count,
+    })
+
+
+    
+    
+@login_required
+@user_passes_test(check_superuser, login_url='member_account')
+def ajax_payment_search(request):
+    it_officer_rank = get_it_officer_rank(request.user)
+    query = request.GET.get('q', '').strip()
+    if query:
+        payments = MemberPayment.objects.filter(
+            member_name__icontains=query
+        ) | MemberPayment.objects.filter(
+            membership_no__icontains=query
+        )
+    else:
+        payments = MemberPayment.objects.all().order_by('-id')
+
+    html = render_to_string('payment_table_rows.html', {'payments': payments , "rank":it_officer_rank })
+    return JsonResponse({'html': html})
+
+
+
+
+@login_required
+@user_passes_test(check_superuser, login_url='member_account')
+def ajax_pending_search(request):
+    query = request.GET.get('q', '').strip()
+    current_month = timezone.now().month
+
+    # Group medicines by membership_no for past months
+    grouped = (
+        MedicineProduct.objects
+        .exclude(medical__date_created__month=current_month)
+        .values("membership_no")
+        .annotate(
+            total_pv=Sum("medicine_pv"),
+            total_cost=Sum("medicine_pv") * 2400,
+        )
+        .order_by("-membership_no")
+    )
+
+    data = []
+    for row in grouped:
+        member = UserDetail.objects.filter(membership_no=row["membership_no"]).first()
+        if not member:
+            continue
+
+        # Filter the latest eligible medical record for this member (past months)
+        medical = Medical.objects.filter(
+            id_number=row["membership_no"]
+        ).exclude(date_created__month=current_month).order_by("-date_created").first()
+
+        month = medical.date_created.strftime("%B %Y") if medical and medical.date_created else ""
+
+        status = "Paid" if MedicineProduct.objects.filter(
+            membership_no=row["membership_no"],
+            confirm_payment=True
+        ).exists() else "Pending"
+
+        # Apply search query filtering
+        if query:
+            if query.lower() not in member.membership_no.lower() and \
+               query.lower() not in member.user.first_name.lower() and \
+               query.lower() not in member.user.last_name.lower():
+                continue
+
+        data.append({
+            "membership_no": row["membership_no"],
+            "member_name": f"{member.user.first_name} {member.user.last_name}",
+            "total_pv": row["total_pv"],
+            "money": row["total_pv"] * 2400,
+            "status": status,
+            "month": month,
+        })
+
+    # Pagination for pending members
+    paginator_members = Paginator(data, 10)
+    page_number_members = request.GET.get('page_members')
+    members_page = paginator_members.get_page(page_number_members)
+
+    html = render_to_string('pending_table_rows.html', {'members': members_page})
+    return JsonResponse({'html': html})
+
+
+
+# ---------------- VIEW MEDICINE PRINT FORM ----------------
+def view_medicine_form(request, medical_id):
+    # 1. Get medical record
+    medical = get_object_or_404(Medical, id=medical_id)
+    # 2. Get membership number from Medical
+    membership_no = medical.id_number
+    full_name=medical.name
+    # 3. Get member correctly (NOT by id)
+    member = get_object_or_404(UserDetail, membership_no=membership_no)
+    # 4. Get latest patient form
+    patients = PatientForm.objects.filter(
+        full_name=full_name
+    ).order_by("-date_created")
+
+    if not patients.exists():
+        return JsonResponse({"html": "<p>No patient records found for this member.</p>"})
+
+    latest_patient = patients.first()
+
+    # 5. Get latest medical (this exact one)
+    latest_medical = medical
+
+    # 6. Fetch confirmed products for this medical
+    products = MedicineProduct.objects.filter(
+        membership_no=membership_no,
+        medical=latest_medical,
+        confirm_payment=True,
+    ).annotate(
+        total_pv=ExpressionWrapper(
+            F("medicine_pv") * F("qty"),
+            output_field=FloatField()
+        ),
+        total_pay=ExpressionWrapper(
+            F("medicine_cost") * F("qty"),
+            output_field=FloatField()
+        ),
+    )
+
+    # 7. Totals
+    grand_total_pv = products.aggregate(
+        total=Sum("total_pv")
+    )["total"] or 0
+
+    grand_total_pay = products.aggregate(
+        total=Sum("total_pay")
+    )["total"] or 0
+
+    # 8. Render HTML
+    html = render(
+        request,
+        "medicine_print.html",
+        {
+            "member": member,
+            "patient": latest_patient,
+            "medical": latest_medical,
+            "products": products,
+            "grand_total_pv": grand_total_pv,
+            "grand_total_pay": grand_total_pay,
+        },
+    ).content.decode("utf-8")
+
+    return JsonResponse({"html": html})
+
+
+
+
+# Mapping models and forms
+MODEL_MAP = {
+    'patient': {'model': PatientForm, 'form': PatientModelForm},
+    'medical': {'model': Medical, 'form': MedicalForm },
+}
+
+# ======== EDIT FUNCTION ========
+def generaledit_item(request, model_type, pk):
+    if model_type not in MODEL_MAP:
+        return JsonResponse({'html': '<p>Invalid model type</p>'})
+    
+    Model = MODEL_MAP[model_type]['model']
+    FormClass = MODEL_MAP[model_type]['form']
+    
+    obj = get_object_or_404(Model, id=pk)
+
+    if request.method == 'POST':
+        form = FormClass(request.POST, instance=obj)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({'success': True})
+        html = render_to_string(f'{model_type}_edit_modal.html', {'form': form, model_type: obj})
+        return JsonResponse({'html': html})
+
+    form = FormClass(instance=obj)
+    html = render_to_string(f'{model_type}_edit_modal.html', {'form': form, model_type: obj})
+    return JsonResponse({'html': html})
+
+# ======== DELETE FUNCTION ========
+@csrf_exempt
+def generaldelete_item(request, model_type, pk):
+    if request.method == 'POST':
+        if model_type not in MODEL_MAP:
+            return JsonResponse({'success': False})
+        
+        Model = MODEL_MAP[model_type]['model']
+        obj = get_object_or_404(Model, id=pk)
+        obj.delete()
+        return JsonResponse({'success': True})
+    
+    return JsonResponse({'success': False})
+
+
+
+#start superuser accounts
+def is_superuser(user):
+    return user.is_superuser
+
+def check_superuser(user):
+    return user.is_superuser
+@user_passes_test(check_superuser, login_url='member_account')
+@login_required
+def pharmacy(request):
+    it_officer_rank = get_it_officer_rank(request.user)
+    medicals_queryset = Medical.objects.all().order_by('-id')  # last to first
+    # Pagination: 20 per page
+    paginator = Paginator(medicals_queryset, 10)
+    page_number = request.GET.get('page')
+    medicals = paginator.get_page(page_number)
+    
+    medical_count=medicals_queryset.count()
+    context = {
+        "rank" : it_officer_rank,
+        "medicals" : medicals,
+        "medical_count" : medical_count,
+    }
+    return render(request, "pharmacy.html", context)
 
 
 def advertisement(request):
@@ -322,6 +1505,7 @@ def advertisement_tables(request, model_type):
         'otheradstable': Advertisement,
         'abouttable': About,
         'commenttable': Comment,
+        'medicinesalestable': Medicine_SalesForm,
     }
 
     model_class = model_map.get(model_type.lower())
@@ -379,6 +1563,8 @@ def advertisement_tables(request, model_type):
         return render(request, 'abouttable_modal.html', context)
     if model_class == Comment :
         return render(request, 'commenttable_modal.html', context)
+    if model_class == Medicine_SalesForm :
+        return render(request, 'medicinesalestable_modal.html', context)
     
     
 
@@ -637,12 +1823,11 @@ def post_patient(request):
                 return redirect('/')
 
             existing = PatientForm.objects.filter(
-                user=request.user,
                 full_name__iexact=full_name,
                 mobile_no=mobile_no
             ).exists()
             if existing:
-                messages.warning(request, "You have already registered this patient.")
+                messages.warning(request, "You have already registered this patient or repeated mobile no.")
                 return redirect('/')
 
             patient = form.save(commit=False)
@@ -651,9 +1836,10 @@ def post_patient(request):
             patient.date_created = datetime.now(tz=user_tz)
             patient.date_modified = datetime.now(tz=user_tz)
             patient.save()
-            messages.success(request, "Patient registered successfully.")
+            messages.success(request, f"Patient {full_name} registered successfully.")
             return redirect('/')
         else:
+            print(form.errors)  # <-- Add this line to see what is wrong
             messages.error(request, "There was an error with your submission.")
             return redirect('/')
     else:
@@ -934,37 +2120,56 @@ def post_checkup_sales(request):
     return render(request, 'checkup_sales_form.html', {'checkup_sales_form': form})
 
 
-# ---------------- Medicine Sales View ----------------
+
 def post_medicine_sales(request):
     user_rank = getattr(request.user.user_detail, 'company_rank', '').lower()
-    if user_rank not in ['manager', 'doctor']:
+    if user_rank not in ['director', 'vice_director', 'manager', 'doctor', 'it_officer']:
         messages.error(request, "You do not have permission to record a medicine sale.")
         return redirect('/')
 
     if request.method == 'POST':
         form = MedicineSalesForm(request.POST)
         if form.is_valid():
-            data = form.cleaned_data
+            cd = form.cleaned_data
+
+            # CHECK DUPLICATE BY medicine_name + user
             exists = Medicine_SalesForm.objects.filter(
                 user=request.user,
-                medicine=data['medicine']  # check uniqueness by medicineId
+                medicine_name=cd['medicine_name']
             ).exists()
             if exists:
                 messages.warning(request, "You have already recorded a sale for this medicine.")
                 return redirect('/')
 
-            sale = form.save(commit=False)
-            sale.user = request.user
-            user_tz = pytz.timezone('Africa/Dar_es_Salaam')
-            sale.date_created = datetime.now(tz=user_tz)
-            sale.date_modified = datetime.now(tz=user_tz)
+            # Create sale instance manually
+            sale = Medicine_SalesForm(
+                user=request.user,
+                medicine_name=cd['medicine_name'],
+                medicine_type=cd['medicine_type'],
+                medicine_cost=cd['medicine_cost'],
+                medicine_pv=cd['medicine_pv'],
+                code=cd.get('code'),   # ✅ ADDED
+                unit=cd.get('unit'),   # ✅ ADDED
+            )
+
+            # timezone
+            tz = pytz.timezone("Africa/Dar_es_Salaam")
+            now = datetime.now(tz)
+            sale.date_created = now
+            sale.date_modified = now
+
             sale.save()
+
             messages.success(request, "Medicine Sale recorded successfully.")
             return redirect('/')
+
         messages.error(request, "There was an error with your submission.")
         return redirect('/')
+
+    # GET
     form = MedicineSalesForm()
-    return render(request, 'medicine_sales_form.html', {'medicine_sales_form': form})
+    return render(request, 'medicinesales_form.html', {'medicinesales_form': form})
+
 
 
 # ---------------- About View ----------------
@@ -1008,16 +2213,10 @@ def post_about(request, about_id=None):
     
 
 def analysis(request):
-    patients=PatientForm.objects.all()
-    members=User.objects.all()
-    medicines=Medicine.objects.all()
-    checkups=CheckUp.objects.all()
-    # viewers=Viewer.objects.all()
-    
-    patient_count=patients.count()
-    member_count=members.count()
-    medicine_count=medicines.count()
-    checkup_count=checkups.count()
+    member_count = User.objects.count()
+    patient_count = PatientForm.objects.count()     # replaced PatientForm
+    medicine_count = MedicineProduct.objects.filter(confirm_payment=True).count()  # replaced PaymentProduct
+    checkup_count = Medical.objects.count()  # replaced CheckUp
     # viewer_count=viewers.count()
     
     it_officer_rank = get_it_officer_rank(request.user)
@@ -1035,7 +2234,6 @@ def analysis(request):
     return render(request, 'analysis.html',context)
 
 
-
 #start showing charts modals
 def show_chart(request, type):
     """
@@ -1044,9 +2242,9 @@ def show_chart(request, type):
 
     # Base counts
     user_count = User.objects.count()
-    patient_count = PatientForm.objects.count()
-    medicine_count = Medicine.objects.count()
-    checkup_count = CheckUp.objects.count()
+    patient_count = PatientForm.objects.count()     # replaced PatientForm
+    medicine_count = MedicineProduct.objects.filter(confirm_payment=True).count()  # replaced PaymentProduct
+    checkup_count = Medical.objects.count()  # replaced CheckUp
 
     # Gender counts
     male_users = UserDetail.objects.filter(gender='M').count()
@@ -1063,14 +2261,21 @@ def show_chart(request, type):
 
     # Response data
     data = {
-        #"models": ["Users", "Patients", "Medicines", "Checkups"],
-        "models": ["Wanachama", "Wagonjwa", "Madawa", "Vipimo"],
+        "models": ["Wanachama", "Wagonjwa", "Dawa", "Vipimo"],
         "ids": [user_count, patient_count, medicine_count, checkup_count],
+
         "stack_data": {
             "male": [male_users, male_patients, 0, 0],
             "female": [female_users, female_patients, 0, 0],
         },
-        "pie_data": [user_count, patient_count, medicine_count, checkup_count],
+
+        "pie_data": [
+            user_count,
+            patient_count,
+            medicine_count,
+            checkup_count
+        ],
+
         "population": {
             "labels": population_labels,
             "ages": population_ages,
@@ -1079,6 +2284,8 @@ def show_chart(request, type):
     }
 
     return JsonResponse(data)
+
+
 
 
 #Print chart views imaages
@@ -1560,59 +2767,55 @@ def get_it_officer_rank(user):
     return None
 
 
+
 #start superuser accounts
 def is_superuser(user):
     return user.is_superuser
 
 def check_superuser(user):
     return user.is_superuser
+
 @user_passes_test(check_superuser, login_url='member_account')
 @login_required
 def account(request):
-    # aboutdetail = About.objects.order_by("company_rank").first()
+
     userdetails = UserDetail.objects.get(user=request.user)
     user = User.objects.get(username=request.user)
-    diseases= Disease.objects.all()
-    medicines= Medicine.objects.all()
-    checkups= CheckUp.objects.all()
-    businesslevels= BusinessLevel.objects.all()
-    businessplans= BusinessPlan.objects.all()
-    patients= PatientForm.objects.all()
+    diseases = Disease.objects.all()
+    medicines = Medicine.objects.all()
+    checkups = CheckUp.objects.all()
+    businesslevels = BusinessLevel.objects.all()
+    businessplans = BusinessPlan.objects.all()
+    patients = PatientForm.objects.all()
     about_detail = About.objects.get(user=request.user)
-    usersdetails=UserDetail.objects.all()
-    comments=Comment.objects.all()
+    usersdetails = UserDetail.objects.all()
+    comments = Comment.objects.all()
 
     now = timezone.now()
     one_week_ago = now - timezone.timedelta(weeks=1)
 
-    # Active users (last login within a week)
     active_users = User.objects.filter(last_login__gte=one_week_ago, is_active=True)
     active_users_count = active_users.count()
 
-    # Non-staff (normal) users
     non_staff_users = User.objects.filter(is_staff=False, is_superuser=False)
     non_staff_users_count = non_staff_users.count()
 
-    # Staff (superusers)
     staff_users = User.objects.filter(is_staff=True, is_superuser=True)
     staff_users_count = staff_users.count()
-    
-    #all users
+
     users = User.objects.all()
     users_count = users.count()
-    
-    diseases_count=diseases.count()
-    medicines_count=medicines.count()
-    checkups_count=checkups.count()
-    businesslevel_count=businesslevels.count()
-    businessplan_count=businessplans.count()
-    patient_count=patients.count()
-    comment_count=comments.count()
-    
-    it_officer_rank = get_it_officer_rank(request.user)
-    
 
-    # Homepage logs total
+    diseases_count = diseases.count()
+    medicines_count = medicines.count()
+    checkups_count = checkups.count()
+    businesslevel_count = businesslevels.count()
+    businessplan_count = businessplans.count()
+    patient_count = patients.count()
+    comment_count = comments.count()
+
+    it_officer_rank = get_it_officer_rank(request.user)
+
     homepage_logs = Log.objects.aggregate(total=Sum('home_page_count'))['total'] or 0
 
     if request.method == 'POST':
@@ -1621,6 +2824,31 @@ def account(request):
             User.objects.filter(id__in=user_ids).delete()
             return redirect('account')
 
+    # ---- FIXED MESSAGE LOGIC (NO REDIRECT LOOPS) ----
+
+    user = request.user
+    message_text = None  # default
+
+    try:
+        user_detail = user.user_detail
+        membership_no = user_detail.membership_no
+        medical_records = Medical.objects.filter(id_number=membership_no)
+
+        if medical_records.exists():
+            message_obj = (
+                MedicalMessage.objects
+                .filter(medical__in=medical_records, expires_at__gt=timezone.now())
+                .order_by('-date_created')
+                .first()
+            )
+            if message_obj:
+                message_text = message_obj.message
+
+    except UserDetail.DoesNotExist:
+        message_text = None
+
+    # ---- END FIX ----
+
     context = {
         "user": user,
         "users": users,
@@ -1628,47 +2856,249 @@ def account(request):
         "userdetail": userdetails,
         "usersdetails": usersdetails,
         "diseases": diseases,
-        "medicines":medicines,
+        "medicines": medicines,
         "checkups": checkups,
         "businesslevels": businesslevels,
         "businessplans": businessplans,
         "patients": patients,
-        "comments" : comments,
-        "diseases_count":diseases_count,
-        "medicines_count":medicines_count,
-        "checkups_count":checkups_count,
-        "businessplan_count":businessplan_count,
-        "businesslevel_count":businesslevel_count,
-        "patient_count":patient_count,
-        "comment_count" : comment_count,
+        "comments": comments,
+        "diseases_count": diseases_count,
+        "medicines_count": medicines_count,
+        "checkups_count": checkups_count,
+        "businessplan_count": businessplan_count,
+        "businesslevel_count": businesslevel_count,
+        "patient_count": patient_count,
+        "comment_count": comment_count,
         "homepage_logs": homepage_logs,
-        "about_detail":about_detail,
+        "about_detail": about_detail,
         "staff_users": staff_users,
         "non_staff_users": non_staff_users,
         "active_users_count": active_users_count,
         "non_staff_users_count": non_staff_users_count,
         "staff_users_count": staff_users_count,
-        "it_officer_rank" : it_officer_rank,
+        "it_officer_rank": it_officer_rank,
+        "message": message_text,
     }
+
     return render(request, "account.html", context)
 
 
-def member_account(request):
-    # if Viewer.objects.get(user=request.user) :
-    #     viewerdetails=Viewer.objects.get(user=request.user)
-    #     context = {
-    #         "viewer_detail" : viewerdetails,
-    #     }
-    #     return render(request, "viewer_account.html", context)
 
+def member_account(request):
     userdetails = UserDetail.objects.get(user=request.user)
     user = User.objects.get(username=request.user)
     
+    it_officer_rank = get_it_officer_rank(request.user)
+
+    # 1. GET LOGGED-IN USER DETAILS
+    user_detail = UserDetail.objects.filter(user=request.user).first()
+
+    if not user_detail:
+        return render(request, "payment.html", {
+            "rank": it_officer_rank,
+            "members": [],
+            "payments": [],
+            "payment_count": 0,
+            "error": "User details not found."
+        })
+
+    membership_no = user_detail.membership_no
+
+    current_month = timezone.now().strftime("%B %Y")
+
+    # 2. GET ALL MEDICAL RECORDS FOR THE USER
+    medicals = Medical.objects.filter(id_number=membership_no)
+    months = medicals.dates("date_created", "month")
+
+    pending_list = []
+
+    # 3. BUILD PENDING PAYMENT DATA FOR USER ONLY
+    for m in months:
+
+        month_str = m.strftime("%B %Y")
+
+        if month_str == current_month:
+            continue
+
+        if MemberPayment.objects.filter(membership_no=membership_no, month=month_str).exists():
+            continue
+
+        total_pv = MedicineProduct.objects.filter(
+            membership_no=membership_no,
+            confirm_payment=True,
+            medical__date_created__month=m.month,
+            medical__date_created__year=m.year,
+        ).aggregate(Sum("medicine_pv"))["medicine_pv__sum"] or 0
+
+        money = ((total_pv * 2400 * 6) / 100) - 2400
+
+        pending_list.append({
+            "membership_no": membership_no,
+            "member_name": f"{request.user.first_name} {request.user.last_name}",
+            "total_pv": total_pv,
+            "money": money,
+            "month": month_str,
+            "status": "Pending"
+        })
+
+    # 4. PAYMENT HISTORY
+    payments_queryset = MemberPayment.objects.filter(
+        membership_no=membership_no
+    ).order_by('-id')
+
+    payment_count = payments_queryset.count()
+
+    paginator_payments = Paginator(payments_queryset, 10)
+    page_number_payments = request.GET.get('page_payments')
+    payments_page = paginator_payments.get_page(page_number_payments)
+
+    paginator_pending = Paginator(pending_list, 10)
+    page_number_pending = request.GET.get('page_pending')
+    pending_page = paginator_pending.get_page(page_number_pending)
+
+    # ------------------------------
+    # FIXED MESSAGE SECTION
+    # ------------------------------
+
+    user = request.user
+    message_text = None
+    patient_name = None
+    message_obj = None
+
+    if user.is_authenticated:
+        try:
+            user_detail = user.user_detail
+            membership_no = user_detail.membership_no
+
+            medical_records = Medical.objects.filter(id_number=membership_no)
+
+            if medical_records.exists():
+                message_obj = (
+                    MedicalMessage.objects
+                    .filter(medical__in=medical_records, expires_at__gt=timezone.now())
+                    .order_by('-date_created')
+                    .first()
+                )
+
+                if message_obj:
+                    message_text = message_obj.message
+                    patient_name = message_obj.medical.name
+
+        except UserDetail.DoesNotExist:
+            pass
+
+    # ------------------------------
+
     context = {
         "user": user,
         "userdetail": userdetails,
+        "rank": it_officer_rank,
+        "members": pending_page,
+        "payments": payments_page,
+        "payment_count": payment_count,
+        "message": message_text,
+        "patient_name": patient_name,
+        "object": message_obj
     }
+
     return render(request, "member_account.html", context)
+
+
+def memberdetail(request):
+
+    it_officer_rank = get_it_officer_rank(request.user)
+
+    # --------------------------
+    # 1. GET LOGGED-IN USER DETAILS
+    # --------------------------
+    user_detail = UserDetail.objects.filter(user=request.user).first()
+
+    if not user_detail:
+        return render(request, "payment.html", {
+            "rank": it_officer_rank,
+            "members": [],
+            "payments": [],
+            "payment_count": 0,
+            "error": "User details not found."
+        })
+
+    membership_no = user_detail.membership_no
+
+    # Current month to skip (month not payable)
+    current_month = timezone.now().strftime("%B %Y")
+
+    # --------------------------
+    # 2. GET ALL MEDICAL RECORDS FOR THE USER (except current month)
+    # --------------------------
+    medicals = Medical.objects.filter(id_number=membership_no)
+    months = medicals.dates("date_created", "month")
+
+    pending_list = []
+
+    # --------------------------
+    # 3. BUILD PENDING PAYMENT DATA FOR USER ONLY
+    # --------------------------
+    for m in months:
+
+        month_str = m.strftime("%B %Y")
+
+        # skip current month
+        if month_str == current_month:
+            continue
+
+        # skip if payment already made for this month
+        if MemberPayment.objects.filter(membership_no=membership_no, month=month_str).exists():
+            continue
+
+        # calculate total PV for this user
+        total_pv = MedicineProduct.objects.filter(
+            membership_no=membership_no,
+            confirm_payment=True,
+            medical__date_created__month=m.month,
+            medical__date_created__year=m.year,
+        ).aggregate(Sum("medicine_pv"))["medicine_pv__sum"] or 0
+
+        money = ((total_pv * 2400 * 6) / 100) - 2400
+
+        pending_list.append({
+            "membership_no": membership_no,
+            "member_name": f"{request.user.first_name} {request.user.last_name}",
+            "total_pv": total_pv,
+            "money": money,
+            "month": month_str,
+            "status": "Pending",
+        })
+
+    # --------------------------
+    # 4. PAYMENT HISTORY FOR THIS USER
+    # --------------------------
+    payments_queryset = MemberPayment.objects.filter(
+        membership_no=membership_no
+    ).order_by('-id')
+
+    payment_count = payments_queryset.count()
+
+    # pagination for payments
+    paginator_payments = Paginator(payments_queryset, 10)
+    page_number_payments = request.GET.get('page_payments')
+    payments_page = paginator_payments.get_page(page_number_payments)
+
+    # pagination for pending months
+    paginator_pending = Paginator(pending_list, 10)
+    page_number_pending = request.GET.get('page_pending')
+    pending_page = paginator_pending.get_page(page_number_pending)
+
+    # --------------------------
+    # 5. RENDER PAGE
+    # --------------------------
+    return render(request, "member_detail.html", {
+        "rank": it_officer_rank,
+        "members": pending_page,      # pending payments for THIS user
+        "payments": payments_page,    # payment history for THIS user
+        "payment_count": payment_count,
+    })
+    
+    
 
 def forgot_password(request):
     if request.method == 'POST':
@@ -1724,6 +3154,9 @@ MODEL_MAP = {
     "otheradstable": (Advertisement, AdvertisementForm, "edit_advertisement.html", "delete_modal.html"),
     "abouttable": (About, AboutForm, "edit_about.html", "delete_modal.html"),
     "commenttable": (Comment, CommentForm, "edit_comment.html", "delete_modal.html"),
+    "medical": (Medical, MedicalForm, "edit_medical.html", "delete_modal.html"),
+    "payment": (MemberPayment, MemberPaymentForm, "edit_memberpayment.html", "delete_modal.html"),
+    "medicinesales": (Medicine_SalesForm, MedicineSalesForm, "edit_medicinesales.html", "delete_modal.html"),
 }
 
 # ---------------------- EDIT OBJECT ----------------------
@@ -1737,13 +3170,39 @@ def edit_object(request, model, object_id):
         form = FormClass(request.POST, request.FILES, instance=instance)
         if form.is_valid():
             form.save()
+            
+            if model == "medical":
+                product_ids = request.POST.getlist("products")  # list of selected Medicine_SalesForm IDs
+
+                # Clear old MedicineProducts for this medical
+                instance.medicine_products.all().delete()  # remove old ones
+
+                # Create new MedicineProduct objects
+                for med_id in product_ids:
+                    med = Medicine_SalesForm.objects.get(id=med_id)
+                    mp = MedicineProduct.objects.create(
+                        medical=instance,
+                        membership_no=instance.id_number,
+                        patient_no=None,  # if needed, set patient_no
+                        medicine=med,
+                        medicine_name=med.medicine_name,
+                        medicine_pv=med.medicine_pv,
+                        medicine_cost=med.medicine_cost,
+                        confirm_payment=False
+                    )
+                    # Add to ManyToManyField
+                    instance.medicine_products.add(mp)
+        
+        
             messages.success(request, f"{model.capitalize()} updated successfully.")
             return JsonResponse({"success": True})
         return JsonResponse({"errors": form.errors}, status=400)
 
     else:
         form = FormClass(instance=instance)
-        html = render_to_string(template, {"form": form, "object": instance, "model": model}, request)
+        # Get all medicines for product select
+        medicines = Medicine_SalesForm.objects.all().order_by('-id')
+        html = render_to_string(template, {"form": form, "object": instance, "model": model ,"medicines":medicines}, request)
         return HttpResponse(html)
 
 # ---------------------- DELETE OBJECT ----------------------

@@ -1,0 +1,29 @@
+{% for patient in patients %}
+<tr class="clickable-row" data-url="{% url 'medical_form' patient.id %}" style="cursor:pointer;">
+    <td><input type="checkbox" name="selected_patients" value="{{ patient.id }}"></td>
+    <td>{{ patient.full_name }}</td>
+    <td>{{ patient.gender }}</td>
+    <td>{{ patient.region }}</td>
+    <td>{{ patient.postal_address }}</td>
+    <td>{{ patient.email }}</td>
+    <td>{{ patient.mobile_no }}</td>
+    <td>{{ patient.membership_no }}</td>
+    {% if rank in "it_officer" %}
+                 <td class="d-flex gap-1">
+                  <button class="btn btn-sm  generic-edit-btn btn-warning rounded-pill" data-url="{% url 'generic_edit' 'patient' patient.id %}" data-target="#editGenericModal">
+                    <i class="bi bi-pencil"></i>
+                  </button>
+                  <button class="btn btn-sm generic-delete-btn btn-danger rounded-pill" data-url="{% url 'generic_delete' 'patient' patient.id %}" data-target="#deleteGenericModal">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </td>
+         {% else %}
+   <td>View</td>
+      {% endif %}
+      
+</tr>
+{% empty %}
+<tr>
+    <td colspan="8" class="text-center">No results found</td>
+</tr>
+{% endfor %}

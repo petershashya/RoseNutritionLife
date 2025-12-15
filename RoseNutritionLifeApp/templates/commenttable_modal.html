@@ -38,7 +38,7 @@
                         <th><input type="checkbox" id="select-all-adslists"></th>
                         <th>Profile</th>
                         <th>Fullname</th>
-                        <th>Comment</th>
+                        {% comment %} <th>Comment</th> {% endcomment %}
                         <th>Actions</th>
                         <th>Confirm</th>
                       </tr>
@@ -64,7 +64,7 @@
 
                       <td>{{ obj.first_name }} {{ obj.last_name }}</td>
 
-                      <td>{{ obj.object.comment }}</td>
+                      {% comment %} <td>{{ obj.object.comment }}</td> {% endcomment %}
 
                       <td class="d-flex gap-1">
                         <!-- Correct URL reference -->

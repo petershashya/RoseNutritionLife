@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Member Payment - {{ member.membership_no }} - {{ payment_month_str }}</title>
+    <style>
+        @page { size: A4; margin: 20mm; }
+        body { font-family: DejaVu Sans, Arial, sans-serif; font-size: 12px; color: #222; }
+        .header { text-align: center; margin-bottom: 8px; }
+        .company-name { font-size: 18px; font-weight: bold; }
+        .company-contact { font-size: 11px; margin-top: 2px; }
+        .title { text-align: center; margin: 12px 0; font-size: 16px; font-weight: bold; background: #f2f2f2; padding: 6px; border-radius: 4px; }
+        .meta { margin-top: 8px; margin-bottom: 12px; }
+        .meta .left, .meta .right { display: inline-block; vertical-align: top; }
+        .meta .left { width: 62%; }
+        .meta .right { width: 36%; text-align: right; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 12px; }
+        table th, table td { border: 1px solid #444; padding: 6px; font-size: 12px; vertical-align: top; }
+        table th { background: #efefef; text-align: left; }
+        .no-border { border: none; }
+        .small { font-size: 11px; }
+        .footer { margin-top: 20px; }
+        .signature { margin-top: 28px; }
+        .right-align { text-align: right; }
+        .box { padding: 8px; border: 1px solid #ddd; border-radius: 4px; background: #fff; }
+    </style>
+</head>
+<body>
+
+    <!-- COMPANY HEADER -->
+    <div class="header">
+        <div class="company-name">{{ company_name }}</div>
+        <div class="company-contact">
+            {{ company_address }}<br>
+            Phone: {{ company_phone }} | Email: {{ company_email }}
+        </div>
+    </div>
+
+    <!-- TITLE -->
+    <div class="title my-1">MEMBER PAYMENT REPORT</div>
+
+    <!-- MEMBER & PAYMENT META -->
+    <div class="meta">
+        <div class="left">
+            <table>
+                <tr>
+                    <th class="small">Member Name</th>
+                    <td class="small">{{ member.user.first_name }} {{ member.user.last_name }}</td>
+                </tr>
+                <tr>
+                    <th class="small">Membership No</th>
+                    <td class="small">{{ member.membership_no }}</td>
+                </tr>
+                <tr>
+                    <th class="small">Phone</th>
+                    <td class="small">{{ member.mobile_contact|default:"-" }}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="left">
+            <table>
+                <tr>
+                    <th class="small">Payment Month</th>
+                    <td class="small">{{ payment_month_str }}</td>
+                </tr>
+                <tr>
+                    <th class="small">Payment Date</th>
+                    <td class="small">{{ payment.date_created|date:"d M Y H:i" }}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="left">
+            <table>
+                <thead>
+                <tr>
+                    <th class="small">Total Pv</th>
+                    <th class="small">Total Money</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="small">{{ total_pv }}</td>
+                    <td class="small">{{ money }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- PRODUCTS TABLE (same structure as modal) -->
+    {% comment %} <h5>Medicine Products</h5>
+    <table>
+        <thead>
+            <tr>
+                <th>Patient</th>
+                <th>Medicine</th>
+                <th>PV</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if products.exists %}
+                {% for p in products %}
+                    <tr>
+                        <td>{{ medical.name }}</td>
+                        <td>{{ p.medicine_name }}</td>
+                        <td class="right-align">{{ p.medicine_pv }}</td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="3">No products for this month.</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table> {% endcomment %}
+
+
+
+    <!-- FOOTER -->
+    <div class="d-flex justify-content-between align-items-center">
+       <div style="width:50%;">
+            <div class="signature">
+                ___________________________<br>
+                Staff / Director Signature
+            </div>
+        </div>
+        {% comment %} <div style="width:50%;">
+            <div class="signature">
+                ___________________________<br>
+                Receiver Signature
+            </div>
+        </div> {% endcomment %}
+    </div>
+
+</body>
+</html>
