@@ -28,6 +28,7 @@ COMPANY_RANK_CHOICES = [
     #('accountant', 'Accountant'),
     ('pharmacist','Pharmacist' ),
     ('displine','Displine' ),
+    ('advisor','Advisor' ),
     ('video grapher', 'Video Grapher')
 ]
 
