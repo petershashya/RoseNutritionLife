@@ -29,7 +29,7 @@ COMPANY_RANK_CHOICES = [
     ('pharmacist','Pharmacist' ),
     ('displine','Displine' ),
     ('advisor','Advisor' ),
-    ('video grapher', 'Video Grapher')
+    ('video_grapher', 'Video Grapher')
 ]
 
 COMPANY_RANK_MEMBERCHOICES = [

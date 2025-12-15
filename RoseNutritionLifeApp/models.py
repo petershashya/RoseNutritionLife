@@ -37,7 +37,7 @@ class UserDetail(models.Model):
     	('pharmacist','Pharmacist' ),
         ('displine','Displine' ),
         ('advisor','Advisor' ),
-    	('video grapher', 'Video Grapher')
+    	('video_grapher', 'Video Grapher')
     ]
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user_detail')
