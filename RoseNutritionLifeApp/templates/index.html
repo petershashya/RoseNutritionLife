@@ -86,7 +86,7 @@
  <div class="d-flex justify-content-center">
 <div  class="d-flex flex-nowrap overflow-x-auto  gap-3 p-3 mx-2" style="display: flex;">
 
-      {% if it_officer_rank in "it_officer,reception" %}
+      {% if rank == 'it_officer' or rank == 'reception'  %}
         <a href="{% url 'reception' %}" id="getservice" class="top_providers text-decoration-none  p-4 text-light flex-shrink-0" style="min-width:150px;" >
      {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
     <!-- OUR SERVICES --> <span class="d-flex justify-content-center align-items-center"> MAPOKEZI </span>
@@ -97,7 +97,7 @@
     {% endif %}
 
 
-         {% if it_officer_rank in "it_officer,doctor" %}
+        {% if rank == 'it_officer' or rank == 'doctor'  %}
          <a href="{% url 'doctor' %}" id="getservice" class="top_providers text-decoration-none  p-4 text-light flex-shrink-0" style="min-width:150px;" >
      {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
     <!-- OUR SERVICES --> <span class="d-flex justify-content-center align-items-center"> DAKTARI </span>
@@ -108,7 +108,7 @@
          {% endif %}
 
 
-         {% if it_officer_rank in "it_officer,pharmacist" %}
+         {% if rank == 'it_officer' or rank == 'pharmacist' %}
          <a href="{% url 'pharmacy' %}" id="getservice" class="top_providers text-decoration-none  p-4 text-light flex-shrink-0" style="min-width:150px;" >
      {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
     <!-- OUR SERVICES --> <span class="d-flex justify-content-center align-items-center"> MADAWA </span>
@@ -119,7 +119,7 @@
          {% endif %}
 
 
-        {% if it_officer_rank in "it_officer,vice_director" %}
+        {% if rank == 'it_officer' or rank == 'director' or rank == 'vice_director'  %}
          <a href="{% url 'payment' %}" id="getservice" class="top_providers text-decoration-none  p-4 text-light flex-shrink-0" style="min-width:150px;" >
      {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
     <!-- OUR SERVICES --> <span class="d-flex justify-content-center align-items-center"> MALIPO </span>
@@ -154,7 +154,7 @@
                  <span>
                  </a> {% endcomment %}
 
-               {% if it_officer_rank in "it_officer,director.vice_director,business_teacher,manager,reception,stationary,secretary,pharmacist,video grapher" %}
+            {% if rank == 'it_officer' or rank == 'director' or rank == 'vice_director' or rank == 'manager' or rank == 'business_teacher' or rank == 'video_grapher' or rank == 'doctor' or rank == 'secretary' or rank == 'stationary' or rank == 'pharmacist' or rank == 'reception' or rank == 'displine' or rank == 'advisor' %}
              <a href="{% url 'analysis' %}"   id="getservice" class="top_providers text-decoration-none  p-4 text-light flex-shrink-0" style="min-width:150px;" >
                  {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
                 <!-- OUR ANALYSIS --> <span class="d-flex justify-content-center align-items-center"> UCHAMBUZI </span>
@@ -1060,7 +1060,7 @@
                         </button>
                         {% endif %}
 
-                        {% if it_officer_rank in "it_officer,director,vice_director" %}
+                        {% if rank == 'it_officer' or rank == 'director' or rank == 'vice_director' %}
                         <button type="button"
                                 class="btn btn-sm btn-danger btn-deletecomment rounded-pill"
                                 data-url="{% url 'delete_comment' 'comment' c.id %}"

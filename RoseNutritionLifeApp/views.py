@@ -75,7 +75,7 @@ def home(request):
     abouts = About.objects.filter(
         company_rank__in=['it_officer', 'director', 'vice_director']
     )
-    it_officer_rank = get_it_officer_rank(request.user)
+    rank = get_it_officer_rank(request.user)
     request_id=request.user.id
     
     #comments = Comment.objects.select_related('user').order_by('-id')
@@ -112,7 +112,7 @@ def home(request):
         "business_level": first_business_level,
         "abouts" : abouts,
         "comments" : comments,
-        "it_officer_rank":it_officer_rank,
+        "rank":rank,
         "request_id" : request_id,
     }
     return render(request, "index.html", context)
@@ -154,14 +154,14 @@ def paginate_and_prepare(request, queryset, page_param):
 # @user_passes_test(check_superuser, login_url='member_account')
 # @login_required
 def services(request):
-    it_officer_rank = get_it_officer_rank(request.user)
+    rank = get_it_officer_rank(request.user)
     context = {
         "disease_page_obj": paginate_and_prepare(request, Disease.objects.all().order_by('-id'), "disease_page"),
         "medicine_page_obj": paginate_and_prepare(request, Medicine.objects.all().order_by('-id'), "medicine_page"),
         "checkup_page_obj": paginate_and_prepare(request, CheckUp.objects.all().order_by('-id'), "checkup_page"),
         "bp_page_obj": paginate_and_prepare(request, BusinessPlan.objects.all().order_by('-id'), "bp_page"),
         "bl_page_obj": paginate_and_prepare(request, BusinessLevel.objects.all().order_by('-id'), "bl_page"),
-        "it_officer_rank" : it_officer_rank,
+        "rank" : rank,
     }
     return render(request, "service.html", context)
 
@@ -2176,7 +2176,7 @@ def post_medicine_sales(request):
 @login_required
 def post_about(request, about_id=None):
     user_rank = getattr(request.user.user_detail, 'company_rank', '').lower()
-    if user_rank not in ["manager", "doctor", "director","vice_director","manager","business_teacher","video_grapher","doctor","secretary","stationay","pharmacist","displine","advisor","it_officer"]:
+    if user_rank not in ["manager", "doctor", "director","vice_director","manager","business_teacher","video_grapher","doctor","secretary","stationay","pharmacist","reception","displine","advisor","it_officer"]:
         messages.error(request, "You do not have permission to manage About.")
         return redirect('/')
 
@@ -2763,6 +2763,45 @@ def get_it_officer_rank(user):
         
         if rank == "director":
             return "director"
+        
+        if rank == "vice_director":
+            return "vice_director"
+        
+        if rank == "doctor":
+            return "doctor"
+        
+        if rank == "manager":
+            return "manager"
+        
+        if rank == "business_teacher":
+            return "business_teacher"
+        
+        if rank == "secretary":
+            return "secretary"
+        
+        if rank == "stationary":
+            return "stationary"
+        
+        if rank == "secretary":
+            return "secretary"
+        
+        if rank == "accountant":
+            return "accountant"
+        
+        if rank == "pharmacist":
+            return "pharmacist"
+        
+        if rank == "displine":
+            return "displine"
+        
+        if rank == "advisor":
+            return "advisor"
+        
+        if rank == "video_grapher":
+            return "video_grapher"
+        
+        if rank == "reception":
+            return "reception"
 
     return None
 

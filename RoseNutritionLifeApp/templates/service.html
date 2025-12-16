@@ -34,7 +34,7 @@
                  <span>
                  </a> {% endcomment %}
 
-         {% if it_officer_rank in "it_officer,director.vice_director,business_teacher,manager,reception,stationary,secretary,pharmacist,video grapher" %}
+        {% if rank == 'it_officer' or rank == 'director' or rank == 'vice_director' or rank == 'manager' or rank == 'business_teacher' or rank == 'video_grapher' or rank == 'doctor' or rank == 'secretary' or rank == 'stationary' or rank == 'pharmacist' or rank == 'reception' or rank == 'displine' or rank == 'advisor' %}
              <a href="{% url 'analysis' %}"   id="getservice" class="top_providers text-decoration-none  p-4 text-light flex-shrink-0" style="min-width:150px;" >
                  {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
                 <!-- OUR ANALYSIS --> <span class="d-flex justify-content-center align-items-center"> UCHAMBUZI </span>
@@ -50,10 +50,11 @@
 
 
   <!-- models tags -->
-  {% if it_officer_rank in "it_officer,director,vice_director" %}
+    {% if rank == 'it_officer' or rank == 'director' or rank == 'vice_director' or rank == 'manager' or rank == 'business_teacher' or rank == 'video_grapher' or rank == 'doctor' or rank == 'secretary' or rank == 'stationary' or rank == 'pharmacist' or rank == 'reception' or rank == 'displine' or rank == 'advisor' %}
      <div class="fixed_tag d-flex justify-content-end align-items-center p-2 fixed-bottom mb-3 mx-3 gap-1">
         <span class="p-1" style="border-radius:25px; background-color:rgb(6, 104, 58);">
         <span class="navbartabs text-decoration-none" >
+            {% if rank == 'it_officer' or rank == 'director' or rank == 'vice_director' %}
             <a  class="disease-post-btn p-2 bi bi-ban-fill mx-1 text-decoration-none ml-2 navbarbutton m-1" data-label="disease" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);" ></a>
             <a  class="medicine-post-btn p-2 bi bi-bandaid-fill mx-1 text-decoration-none ml-2 navbarbutton" data-label="Medicine" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);" ></a>
             <a  class="checkup-post-btn p-2 bi bi-h-circle-fill mx-1 text-decoration-none ml-2 navbarbutton" data-label="checkup" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);" ></a>
@@ -64,16 +65,17 @@
             <a  class="meeting-post-btn p-2 bi bi-people-fill mx-1 text-decoration-none ml-2 navbarbutton" data-label="Meeting" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);" ></a> 
             <a  class="advertisement-post-btn p-2 bi bi-badge-ad-fill mx-1 text-decoration-none ml-2 navbarbutton" data-label="OtherAds" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);" ></a>
             <a  class="medicinesales-post-btn p-2 bi bi-capsule-pill mx-1 text-decoration-none ml-2 navbarbutton" data-label="MedicineSales" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);" ></a>
-
-  {% if it_officer_rank in "it_officer,director,vice_director,manager,business_teacher,video_grapher,doctor,secretary,stationary,pharmacist,reception,displine,advisor" %} 
-	    <a  class="about-post-btn p-2 bi bi-database-fill-add mx-1 text-decoration-none ml-2 navbarbutton" data-label="About" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);" ></a>
-  {% endif %}
+            {% endif %}
+            <a class="about-post-btn p-2 bi bi-database-fill-add mx-1 text-decoration-none ml-2 navbarbutton"
+                data-label="About"
+                style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);">
+            </a>
 </span>
     </span>
      </div> 
-     {% else %}
-     <a  class="about-post-btn p-2 bi bi-database-fill-add mx-1 text-decoration-none ml-2 navbarbutton" data-label="About" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);" ></a>
      {% endif %}
+
+
 
 
 <!-- start general services categories -->
