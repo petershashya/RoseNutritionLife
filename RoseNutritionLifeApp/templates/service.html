@@ -16,7 +16,7 @@
     <!-- OUR SERVICES --> <span class="d-flex justify-content-center align-items-center"> HUDUMA </span>
      <span class="d-flex justify-content-center align-items-center ">
          <i class="bi bi-basket-fill text-light mx-2" style="font-size:2.5rem;"></i>
-         <span>
+     </span>
          </a>
 
      <a href="{% url 'advertisement' %}"  id="getservice" class="top_providers text-decoration-none  p-4 text-light flex-shrink-0" style="min-width:150px;">
@@ -24,7 +24,7 @@
        <!--ADVERTISMENT  --> <span class="d-flex justify-content-center"> MATANGAZO </span>
          <span class="d-flex justify-content-center align-items-center align-items-center">
              <i class="bi bi-badge-ad-fill text-light mx-2" style="font-size:2.5rem;"></i>
-             <span>
+         </span>
              </a>
 
          {% comment %} <a href="{% url 'pv-exchange' %}"   id="getservice" class="top_providers text-decoration-none  p-4 text-light flex-shrink-0"  style="min-width:150px;">
@@ -34,13 +34,13 @@
                  <span>
                  </a> {% endcomment %}
 
-        {% if rank == 'it_officer' or rank == 'director' or rank == 'vice_director' or rank == 'manager' or rank == 'business_teacher' or rank == 'video_grapher' or rank == 'doctor' or rank == 'secretary' or rank == 'stationary' or rank == 'pharmacist' or rank == 'reception' or rank == 'displine' or rank == 'advisor' %}
+        {% if rank == 'it_officer' or rank == 'director' or rank == 'vice_director' or rank == 'manager' or rank == 'business_teacher' or rank == 'video_grapher' or rank == 'doctor' or rank == 'secretary' or rank == 'stationary' or rank == 'pharmacist' or rank == 'reception' or rank == 'discipline' or rank == 'advisor' %}
              <a href="{% url 'analysis' %}"   id="getservice" class="top_providers text-decoration-none  p-4 text-light flex-shrink-0" style="min-width:150px;" >
                  {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
                 <!-- OUR ANALYSIS --> <span class="d-flex justify-content-center align-items-center"> UCHAMBUZI </span>
                  <span class="d-flex justify-content-center align-items-center">
                      <i class="bi bi-graph-up-arrow text-light mx-2" style="font-size:2.5rem;"></i>
-                     <span>
+                 </span>
                      </a>
         {% endif %}
         
@@ -50,7 +50,8 @@
 
 
   <!-- models tags -->
-    {% if rank == 'it_officer' or rank == 'director' or rank == 'vice_director' or rank == 'manager' or rank == 'business_teacher' or rank == 'video_grapher' or rank == 'doctor' or rank == 'secretary' or rank == 'stationary' or rank == 'pharmacist' or rank == 'reception' or rank == 'displine' or rank == 'advisor' %}
+    {% if rank == 'it_officer' or rank == 'director' or rank == 'vice_director' %}
+        {% comment %} {% if rank == 'it_officer' or rank == 'director' or rank == 'vice_director' or rank == 'manager' or rank == 'business_teacher' or rank == 'video_grapher' or rank == 'doctor' or rank == 'secretary' or rank == 'stationary' or rank == 'pharmacist' or rank == 'reception' or rank == 'discipline' or rank == 'advisor' %}  {% endcomment %}
      <div class="fixed_tag d-flex justify-content-end align-items-center p-2 fixed-bottom mb-3 mx-3 gap-1">
         <span class="p-1" style="border-radius:25px; background-color:rgb(6, 104, 58);">
         <span class="navbartabs text-decoration-none" >
@@ -66,10 +67,10 @@
             <a  class="advertisement-post-btn p-2 bi bi-badge-ad-fill mx-1 text-decoration-none ml-2 navbarbutton" data-label="OtherAds" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);" ></a>
             <a  class="medicinesales-post-btn p-2 bi bi-capsule-pill mx-1 text-decoration-none ml-2 navbarbutton" data-label="MedicineSales" style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);" ></a>
             {% endif %}
-            <a class="about-post-btn p-2 bi bi-database-fill-add mx-1 text-decoration-none ml-2 navbarbutton"
+            <!-- <a class="about-post-btn p-2 bi bi-database-fill-add mx-1 text-decoration-none ml-2 navbarbutton"
                 data-label="About"
                 style="background-color:rgb(219, 228, 231); border-radius:50px; color:rgb(4, 70, 39);">
-            </a>
+            </a> -->
 </span>
     </span>
      </div> 

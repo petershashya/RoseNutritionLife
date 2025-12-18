@@ -35,7 +35,7 @@ class UserDetail(models.Model):
         ('reception', 'Reception'),
         ('accountant', 'Accountant'),
     	('pharmacist','Pharmacist' ),
-        ('displine','Displine' ),
+        ('discipline','Discipline' ),
         ('advisor','Advisor' ),
     	('video_grapher', 'Video Grapher')
     ]
@@ -564,9 +564,14 @@ class About(models.Model):
         ('manager', 'Manager'),
         ('doctor', 'Doctor'),
         ('it_officer', 'IT Officer'),
-        ('supervisor', 'Supervisor'),
+    	('secretary', 'Secretary'),
+    	('stationary', 'Stationary'),
         ('reception', 'Reception'),
         ('accountant', 'Accountant'),
+    	('pharmacist','Pharmacist' ),
+        ('discipline','Discipline' ),
+        ('advisor','Advisor' ),
+    	('video_grapher', 'Video Grapher')
     ]
     
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='about')  

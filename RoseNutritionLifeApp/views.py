@@ -2171,43 +2171,53 @@ def post_medicine_sales(request):
     return render(request, 'medicinesales_form.html', {'medicinesales_form': form})
 
 
-
-# ---------------- About View ----------------
+#post about details
 @login_required
 def post_about(request, about_id=None):
     user_rank = getattr(request.user.user_detail, 'company_rank', '').lower()
-    if user_rank not in ["manager", "doctor", "director","vice_director","manager","business_teacher","video_grapher","doctor","secretary","stationay","pharmacist","reception","displine","advisor","it_officer"]:
+
+    allowed_ranks = [
+        "manager", "doctor", "director", "vice_director",
+        "business_teacher", "video_grapher", "secretary",
+        "stationary", "pharmacist", "reception",
+        "discipline", "advisor", "it_officer"
+    ]
+
+    if user_rank not in allowed_ranks:
         messages.error(request, "You do not have permission to manage About.")
         return redirect('/')
 
-    about_instance = get_object_or_404(About, id=about_id, user=request.user) if about_id else None
+    about_instance = About.objects.filter(id=about_id, user=request.user).first() if about_id else None
+    tz = pytz.timezone("Africa/Dar_es_Salaam")
+    now = datetime.now(tz)
 
     if request.method == "POST":
         form = AboutForm(request.POST, request.FILES, instance=about_instance)
+
         if form.is_valid():
             about = form.save(commit=False)
             about.user = request.user
-            tz = pytz.timezone("Africa/Dar_es_Salaam")
-            now = datetime.now(tz)
             about.date_created = about_instance.date_created if about_instance else now
             about.date_modified = now
             about.save()
+
             if request.headers.get("x-requested-with") == "XMLHttpRequest":
                 return JsonResponse({"success": True})
+
             messages.success(request, "About saved successfully.")
             return redirect('/')
-        else:
-            # Show exact form errors
-            errors = form.errors.as_json()
-            print("AboutForm errors:", errors)  # Debug
-            if request.headers.get("x-requested-with") == "XMLHttpRequest":
-                return JsonResponse({"success": False, "errors": errors})
-            messages.error(request, f"Form submission error: {form.errors}")
-            return render(request, "about_form_modal.html", {"about_form": form, "about_instance": about_instance})
 
-    else:
-        form = AboutForm(instance=about_instance)
-        return render(request, "about_form.html", {"about_form": form, "about_instance": about_instance})
+        errors = form.errors.as_json()
+        print("AboutForm errors:", errors)
+
+        if request.headers.get("x-requested-with") == "XMLHttpRequest":
+            return JsonResponse({"success": False, "errors": errors})
+
+        messages.error(request, "Form submission error.")
+        return render(request, "about_form_modal.html", {"about_form": form, "about_instance": about_instance})
+
+    form = AboutForm(instance=about_instance)
+    return render(request, "about_form.html", {"about_form": form, "about_instance": about_instance})
 
 
     
@@ -2791,8 +2801,8 @@ def get_it_officer_rank(user):
         if rank == "pharmacist":
             return "pharmacist"
         
-        if rank == "displine":
-            return "displine"
+        if rank == "discipline":
+            return "discipline"
         
         if rank == "advisor":
             return "advisor"
@@ -2826,7 +2836,7 @@ def account(request):
     businesslevels = BusinessLevel.objects.all()
     businessplans = BusinessPlan.objects.all()
     patients = PatientForm.objects.all()
-    about_detail = About.objects.get(user=request.user)
+    about_detail = About.objects.filter(user=request.user).first()
     usersdetails = UserDetail.objects.all()
     comments = Comment.objects.all()
 

@@ -68,7 +68,9 @@
           <div class="d-flex flex-nowrap overflow-x-auto gap-2" >
           <span><a id="add_list" class="p-2  rounded-pill text-decoration-none d-flex justify-content-center align-items-center " href="{% url 'edit_user_details' %}"  ><i class="bi bi-pencil mx-1 text-bold text-light" style=" font-size:15px;"></i><!--Edit_Acount --> Badili_Akaunti </a></span>
           <span  id="add_list"  class="about-post-btn p-2 flex-shrink-0" ><i class="bi bi-plus mx-1 text-bold text-light" style=" font-size:18px;"></i><!-- Add About --> Ongeza Kukuhusu </span>
+          {% if about_detail %}
           <span  id="add_list"  class=" p-2 generic-edit-btn flex-shrink-0"  data-url="{% url 'edit_about' 'abouttable' about_detail.id %}" data-target="#editGenericModal"><i class="bi bi-pencil mx-1 text-bold text-light " style=" font-size:15px;"></i><!-- Edit About --> Badili Kuhusu</span>
+          {% endif %}
           </div>
       </div>
 
@@ -83,11 +85,19 @@
         {% comment %} <i class="bi bi-quote"></i> {% endcomment %}
     </p>
 </div>
+{% else %}
+<hr class="col-10 mx-auto mt-3 mb-3">
+<div class="p-3 mx-3" style="background-color:rgb(226, 240, 233); border-radius:25px;">
+<div class="px-3 d-flex justify-content-center">
+    <p class="px-3 d-flex justify-content-center mt-1" style="color:rgb(4, 70, 39);">
+       About Information Not Found
+    </p>
+</div>
 {% endif %}
 
 <div class="social_box align-items d-flex justify-content-center align-items-center gap-2">
       {% comment %} <a href="{{userdetail.instagram_account}}" class="text-decoration-none"> <i class="bi bi-instagram " style="color:#563419; font-size:18px;"></i> </a>{% endcomment %}
-  </div>
+</div>
 </div>
 </div>
 <!-- finish personal details -->
@@ -98,7 +108,7 @@
   {% if it_officer_rank == "it_officer" %} 
  {% endcomment %}
 
-{% if it_officer_rank in "it_officer,director,vice_director,business_teacher,manager,reception" %}
+{% if it_officer_rank in "it_officer,director,vice_director,business_teacher,manager,reception,discipline" %}
                 <!-- start Add list -->
           <div class="d-flex justify-content-center align-items-center bg-light mt-4 px-1 py-2 mx-2 mb-3 rounded">
             <div class="d-flex justify flex-nowrap overflow-x-auto gap-2" >
