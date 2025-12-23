@@ -8,11 +8,10 @@
 <div class="p-2 mt-5"></div>
 
 <!-- Disease details -->
-            {% if object %}
-            <span id="category_title" class="d-flex justify-content-center align-items-start mt-3 mx-2 mb-2 p-1 rounded bg-light" style=" color:rgb(4, 70, 39); font-size:1.2rem;">
-                <i class="bi bi-file-medical-fill text-success mx-1" style="font-size:1.2rem;"></i><b class="text-uppercase">{{ object }} </b>
-            </span>
-             {% endif %}
+            {% if object.video %}
+                    <h5 class="mt-4 mx-2 p-2 d-flex justify-content-center bg-light text-uppercase" style="color:rgb(4, 70, 39); border-radius:25px;">
+                         <i class="bi bi-ban-fill text-success mx-1" style="font-size:1.2rem;"></i>{{ object }}</h5>
+
 
     <div class="d-flex justify-content-center align-items-start mx-2 gap-2 rounded">
          {# --------- Detect and show video--------- #}
@@ -93,6 +92,36 @@
           {% endif %}
      </div>
 
+
+            <div class="p-3 mx-3 mt-2" style="background-color:rgb(226, 240, 233); border-radius:25px;">
+              <h5 class="mt-2 p-2 d-flex justify-content-center bg-light text-uppercase" style="color:rgb(4, 70, 39); border-radius:25px;">
+                 <i class="bi bi-person-fill text-success mb-1 mx-2" style="font-size: 1.2rem"></i>
+        </span>TAARIFA ZA TABIBU 
+                  </p></h5>
+              <div class="px-3 d-flex justify-content-center">
+                    <span class="px-3 py-1 mx-auto mt-1" style="color:rgb(4, 70, 39);">
+                    Nifikie sasa kupata Tiba ya Afya<br>
+                    Tabibu : <b> {{user_obj.first_name}}  {{user_obj.last_name}} </b> <br>
+                    Mawasiliano : <b>{{ userdetail_obj.mobile_contact }}</b> <br>
+                    {% if user_obj.email %}
+                    <b>{{ user_obj.email }}</b> <br>
+                     {% endif %}
+                    </span>
+              </div>
+              </div>
+
+
+             {% else %}
+        <div class="p-3 mx-3 mt-5" style="background-color:rgb(226, 240, 233); border-radius:25px;">
+        <h5 class="mt-2 p-2 d-flex justify-content-center bg-light text-uppercase" style="color:rgb(4, 70, 39); border-radius:25px;">{{ object }} 
+        </h5>
+        <div class="px-3 d-flex justify-content-center">
+            <p class="px-3 d-flex justify-content-center mt-1 text-lowercase" style="color:rgb(4, 70, 39);">
+            Hakuna taarifa zozote za tangazo la picha kuhusu {{ object }} 
+            </p>
+        </div>
+        </div>
+        {% endif %}
 
 <div class="mb-5"></div>
 {% endblock %}

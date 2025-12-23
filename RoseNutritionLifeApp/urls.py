@@ -16,7 +16,7 @@ from .views import (
     view_medicalpayment,toggle_medical_payment,view_member_payment,print_member_payment,view_medicine_form,
     
     #members and payments
-    view_member_pending , save_member_payment, ajax_payment_search,ajax_pending_search,calculate_money,
+    view_member_pending , save_member_payment, ajax_payment_search,ajax_pending_search,ajax_user_search,calculate_money,
     
     #for templates
     posture_details, video_details,lists_details,list_details,business_details,
@@ -68,6 +68,8 @@ urlpatterns = [
     path('ajax/patient-search/', ajax_patient_search, name='ajax_patient_search'),
     path('ajax/medical-search/', ajax_medical_search, name='ajax_medical_search'),
     path('ajax/pharmacy-search/', ajax_pharmacy_search, name='ajax_pharmacy_search'),
+    path( 'ajax/user-search/', ajax_user_search, name='ajax_user_search'),
+
     
     #medical payments
     path("payment/medical/<int:medical_id>/", view_medicalpayment, name="view_medicalpayment"),
@@ -150,6 +152,6 @@ urlpatterns = [
     
     path('print_chart_pdf/', print_chart_pdf, name='print_chart_pdf'),
     
-    path('sharedcontent/<str:model_type>/<int:item_id>/', sharedcontent_details, name='shared_details'),
+    path('sharedcontent/<str:model_type>/<int:item_id>/<int:user_id>/', sharedcontent_details, name='shared_details'),
         
 ]

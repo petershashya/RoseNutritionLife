@@ -1196,6 +1196,38 @@ def ajax_pending_search(request):
 
 
 
+#search for users list
+@login_required
+@user_passes_test(check_superuser, login_url='member_account')
+def ajax_user_search(request):
+    query = request.GET.get('q', '').strip()
+
+    if query:
+        users = User.objects.filter(
+            username__icontains=query
+        ) | User.objects.filter(
+            id__icontains=query
+        )
+    else:
+        users = User.objects.all()
+
+    users = users.order_by('-id')
+
+    it_officer_rank = get_it_officer_rank(request.user)
+
+    html = render_to_string(
+        'user_table_rows.html',
+        {
+            'users': users,
+            'it_officer_rank': it_officer_rank
+        }
+    )
+
+    return JsonResponse({'html': html})
+
+
+
+
 # ---------------- VIEW MEDICINE PRINT FORM ----------------
 def view_medicine_form(request, medical_id):
     # 1. Get medical record
@@ -1576,14 +1608,13 @@ def get_user_rank(user):
         return None
 
 # ----------------- POST VIEWS WITH PERMISSIONS -----------------
-
 @login_required
 def post_disease(request):
-    # Only Manager or Doctor can post
+    # Only Manager, Doctor, or IT Officer can post
     user_rank = getattr(request.user.user_detail, 'company_rank', '').lower()
-    if user_rank not in ['manager', 'doctor','it_officer']:
-        messages.error(request, "You do not have permission to post a disease.")
-        return redirect('/')
+    if user_rank not in ['manager', 'doctor', 'it_officer']:
+        # Return JSON with 403 status for AJAX
+        return JsonResponse({'status': 'error', 'message': "You do not have permission to post a disease."}, status=403)
 
     if request.method == 'POST':
         form = DiseaseForm(request.POST, request.FILES)
@@ -1591,8 +1622,6 @@ def post_disease(request):
             disease_name = form.cleaned_data['disease_name']
             description = form.cleaned_data['description']
             profile_image = form.cleaned_data.get('profile_image')
-            image = form.cleaned_data.get('image')
-            video = form.cleaned_data.get('video')
 
             # Check duplicate: same user posting same disease with same details
             existing_disease = Disease.objects.filter(
@@ -1600,12 +1629,10 @@ def post_disease(request):
                 disease_name__iexact=disease_name,
                 description__iexact=description,
                 profile_image=profile_image,
-                image=image,
-                video=video
             ).exists()
             if existing_disease:
-                messages.warning(request, "You have already posted this disease.")
-                return redirect('/')
+                # Return 400 to trigger your existing error handling in AJAX
+                return JsonResponse({'status': 'warning', 'message': "You have already posted this disease."}, status=400)
 
             # Save disease
             disease = form.save(commit=False)
@@ -1617,12 +1644,13 @@ def post_disease(request):
             disease.date_modified = datetime.now(tz=user_tz)
 
             disease.save()
-            messages.success(request, "Disease added successfully.")
-            return redirect('/')
+            # Success
+            return JsonResponse({'status': 'success', 'message': "Disease added successfully."})
         else:
-            messages.error(request, "There was an error with your submission.")
-            return redirect('/')
+            # Form invalid
+            return JsonResponse({'status': 'error', 'message': "There was an error with your submission."}, status=400)
     else:
+        # GET: return HTML form (used by your showModal function)
         disease_form = DiseaseForm()
         return render(request, 'disease_form.html', {'disease_form': disease_form})
 
@@ -1641,16 +1669,12 @@ def post_medicine(request):
             medicine_name = form.cleaned_data['medicine_name']
             description = form.cleaned_data['description']
             profile_image = form.cleaned_data.get('profile_image')
-            image = form.cleaned_data.get('image')
-            video = form.cleaned_data.get('video')
 
             existing = Medicine.objects.filter(
                 user=request.user,
                 medicine_name__iexact=medicine_name,
                 description__iexact=description,
                 profile_image =profile_image,
-                image=image,
-                video=video
             ).exists()
             if existing:
                 messages.warning(request, "You have already posted this medicine.")
@@ -1685,16 +1709,12 @@ def post_checkup(request):
             checkup_name = form.cleaned_data['checkup_name']
             description = form.cleaned_data['description']
             profile_image = form.cleaned_data.get('profile_image')
-            image = form.cleaned_data.get('image')
-            video = form.cleaned_data.get('video')
 
             existing = CheckUp.objects.filter(
                 user=request.user,
                 checkup_name__iexact=checkup_name,
                 description__iexact=description,
                 profile_image = profile_image,
-                image=image,
-                video=video
             ).exists()
             if existing:
                 messages.warning(request, "You have already posted this checkup.")
@@ -1728,15 +1748,11 @@ def post_businessplan(request):
         if form.is_valid():
             description = form.cleaned_data['description']
             profile_image = form.cleaned_data.get('profile_image')
-            image = form.cleaned_data.get('image')
-            video = form.cleaned_data.get('video')
 
             existing = BusinessPlan.objects.filter(
                 user=request.user,
                 description__iexact=description,
                 profile_image = profile_image,
-                image=image,
-                video=video
             ).exists()
             if existing:
                 messages.warning(request, "You have already posted this business plan.")
@@ -1771,16 +1787,12 @@ def post_businesslevel(request):
             level_name = form.cleaned_data['level_name']
             description = form.cleaned_data['description']
             profile_image = form.cleaned_data.get('profile_image')
-            image = form.cleaned_data.get('image')
-            video = form.cleaned_data.get('video')
 
             existing = BusinessLevel.objects.filter(
                 user=request.user,
                 level_name__iexact=level_name,
                 description__iexact=description,
                 profile_image = profile_image,
-                image=image,
-                video=video
             ).exists()
             if existing:
                 messages.warning(request, "You have already posted this business level.")
@@ -2589,7 +2601,7 @@ def unconfirm_comment(request):
 
 
 
-def sharedcontent_details(request, model_type, item_id):
+def sharedcontent_details(request, model_type, item_id ,user_id):
     model_map = {
         'diseaseimage': Disease,
         'medicineimage': Medicine,
@@ -2613,16 +2625,24 @@ def sharedcontent_details(request, model_type, item_id):
             return redirect('/')
 
         obj = get_object_or_404(model_class, id=item_id)
+        user_obj = get_object_or_404(User, id=user_id)
+        userdetail_obj = get_object_or_404(UserDetail, user=user_obj)
         context = {
             'object': obj,
             'model_type': model_type,
+            'user_obj':user_obj ,
+            'userdetail_obj': userdetail_obj ,
         }
         return render(request, 'sharedvideo_details.html', context)
 
     obj = get_object_or_404(model_class, id=item_id)
+    user_obj = get_object_or_404(User, id=user_id)
+    userdetail_obj = get_object_or_404(UserDetail, user=user_obj)
     context = {
         'object': obj,
         'model_type': model_type,
+        'user_obj':user_obj ,
+        'userdetail_obj': userdetail_obj ,
     }
     return render(request, 'sharedposture_details.html', context)
 
@@ -2830,15 +2850,15 @@ def account(request):
 
     userdetails = UserDetail.objects.get(user=request.user)
     user = User.objects.get(username=request.user)
-    diseases = Disease.objects.all()
-    medicines = Medicine.objects.all()
-    checkups = CheckUp.objects.all()
-    businesslevels = BusinessLevel.objects.all()
-    businessplans = BusinessPlan.objects.all()
-    patients = PatientForm.objects.all()
+    diseases = Disease.objects.all().order_by('-id')
+    medicines = Medicine.objects.all().order_by('-id')
+    checkups = CheckUp.objects.all().order_by('-id')
+    businesslevels = BusinessLevel.objects.all().order_by('-id')
+    businessplans = BusinessPlan.objects.all().order_by('-id')
+    patients = PatientForm.objects.all().order_by('-id')
     about_detail = About.objects.filter(user=request.user).first()
-    usersdetails = UserDetail.objects.all()
-    comments = Comment.objects.all()
+    usersdetails = UserDetail.objects.all().order_by('-id')
+    comments = Comment.objects.all().order_by('-id')
 
     now = timezone.now()
     one_week_ago = now - timezone.timedelta(weeks=1)

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+   <html>
+   <head>
+     <!-- Basic -->
+     <meta charset="utf-8" />
+     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+     <!-- Mobile Metas -->
+     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+     <!-- Site Metas -->
+     <meta name="keywords" content="" />
+     <meta name="description" content="" />
+     <meta name="author" content="" />
+     <title>card border animation</title>
+
+     <style>
+        .card {
+            position: relative;
+            display: flex;
+            width: 190px;
+            height: 254px;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            border-radius: 20px;
+            background: #141414;
+        }
+
+        /* Rotating border */
+        .card::before {
+            content: "";
+            position: absolute;
+            inset: -3px;
+            border-radius: 20px;
+
+            /* TWO small runners, second follows behind (diagonal phase shift) */
+            background:
+                conic-gradient(
+                    from 0deg,
+                    transparent 0deg,
+                    #ff00c8 35deg,
+                    cyan 65deg,
+                    transparent 85deg,
+                    transparent 360deg
+                ),
+                conic-gradient(
+                    from 180deg,
+                    transparent 0deg,
+                    #ff00c8 35deg,
+                    cyan 65deg,
+                    transparent 85deg,
+                    transparent 360deg
+                );
+
+            animation: borderRun 4s linear infinite;
+        }
+
+
+        /* Inner card layer */
+        .card::after {
+            content: '';
+            position: absolute;
+            inset: 5px;
+            background: #141414;
+            border-radius: 15px;
+            z-index: 1;
+        }
+
+
+        .card:hover::before {
+        animation-play-state: paused;
+        }
+
+        /* Card content */
+        .card-content {
+            position: relative;
+            z-index: 2;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        /* Animation */
+        @keyframes borderRun {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+
+
+     </style>
+     <script></script>
+   </head>
+   <body>
+
+    <div class="card">
+        <span class="card-content">Card</span>
+    </div>
+
+   </body>
+
+   <footer>
+
+   </footer>
+   </html>

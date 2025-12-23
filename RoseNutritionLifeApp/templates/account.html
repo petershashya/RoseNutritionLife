@@ -191,8 +191,12 @@
         </button>
       </span>
 
+      <div class="mx-3 mb-2">
+      <input type="text" id="usersSearchInput" placeholder="Search by Username or ID"  class="form-control border-info"></div>
+
+
       <!-- table -->
-      <div class="table-responsive-sm">
+      <div class="table-responsive-sm" style="max-height:350px; overflow-y:auto;">
         <form method="GET" action="">
           {% csrf_token %}
           <table class="table table-bordered table-hover table-striped">
@@ -216,11 +220,11 @@
                 </th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="usersTableBody" >
               {% for user in users %}
               {% comment %} {% for usersdetail in usersdetails %} {% endcomment %}
               <tr>
-                <td><input type="checkbox" name="selected_users" value="{{ user.id }}"></td>
+                <td class="text-center"><input type="checkbox" name="selected_users" value="{{ user.id }}"></td>
                 {% comment %} <td>
                 {% if usersdetail.profile_image %}
                 <div class="listimage-box">
@@ -230,8 +234,8 @@
                 </td> {% endcomment %}
                 <td>{{ user.username }}</td>
                 {% comment %} <td>{{ usersdetail.email }}</td> {% endcomment %}
-                <td>{{ user.is_active }}</td>
-                <td>{{ user.is_superuser }}</td>
+                <td class="text-center">{{ user.is_active }}</td>
+                <td class="text-center">{{ user.is_superuser }}</td>
 
                 <td class="d-flex justify-content-center align-items-center gap-2">
                 <button class="btn btn-sm user-edit-btn btn-warning rounded-pill" data-url="{% url 'edit_user' 'user' user.id %}" data-target="#editUserModal">
@@ -310,8 +314,12 @@
       </span>
 
 
+      <div class="mx-3 mb-2">
+        <input type="text" id="patientSearchInput" placeholder="Search by Name or Mobile No"  class="form-control border-info">
+      </div>
+
       
-     <div class="table-responsive-sm">
+     <div class="table-responsive-sm" style="max-height:350px; overflow-y:auto;">
 
     <form method="GET" action="">
           {% csrf_token %}
@@ -322,19 +330,21 @@
       <th>Name</th>
       <th>Gender</th>
       <th>Region</th>
+      <th>Place</th>
       <th>Email</th>
       <th>MobileNo</th>
       <th>MembershipNo</th>
       <th>Actions</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody id="patientsTableBody">
     {% for patient in patients %}
     <tr>
-      <td><input type="checkbox" name="selected_patients" value="{{ patient.id }}"></td>
+      <td class="text-center"><input type="checkbox" name="selected_patients" value="{{ patient.id }}"></td>
       <td>{{ patient.full_name}}</td>
       <td>{{ patient.gender}}</td>
       <td>{{ patient.region}}</td>
+      <td>{{ patient.postal_address }}</td>
       <td>{{ patient.email }}</td>
       <td>{{ patient.mobile_no}}</td>
       <td>{{ patient.membership_no }}</td>
@@ -424,7 +434,7 @@
   <tbody>
     {% for disease in diseases %}
     <tr>
-      <td><input type="checkbox" name="selected_diseases" value="{{ disease.id }}"></td>
+      <td class="text-center"><input type="checkbox" name="selected_diseases" value="{{ disease.id }}"></td>
       <td>
         {% if disease.profile_image %}
         <div class="listimage-box">
@@ -518,7 +528,7 @@
   <tbody>
     {% for medicine in medicines %}
     <tr>
-      <td><input type="checkbox" name="selected_medicines" value="{{ medicine.id }}"></td>
+      <td class="text-center"><input type="checkbox" name="selected_medicines" value="{{ medicine.id }}"></td>
       <td>
         {% if medicine.profile_image %}
         <div class="listimage-box">
@@ -613,7 +623,7 @@
   <tbody>
     {% for checkup in checkups %}
     <tr>
-      <td><input type="checkbox" name="selected_checkups" value="{{ checkup.id }}"></td>
+      <td class="text-center"><input type="checkbox" name="selected_checkups" value="{{ checkup.id }}"></td>
       <td>
         {% if checkup.profile_image %}
         <div class="listimage-box">
@@ -707,7 +717,7 @@
   <tbody>
     {% for businesslevel in businesslevels %}
     <tr>
-      <td><input type="checkbox" name="selected_businesslevels" value="{{ businesslevel.id }}"></td>
+      <td class="text-center"><input type="checkbox" name="selected_businesslevels" value="{{ businesslevel.id }}"></td>
       <td>
         {% if businesslevel.profile_image %}
         <div class="listimage-box">
@@ -801,7 +811,7 @@
   <tbody>
     {% for businessplan in businessplans %}
     <tr>
-      <td><input type="checkbox" name="selected_businessplans" value="{{ businessplan.id }}"></td>
+      <td class="text-center"><input type="checkbox" name="selected_businessplans" value="{{ businessplan.id }}"></td>
       <td>
         {% if businessplan.profile_image %}
         <div class="listimage-box">

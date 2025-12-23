@@ -615,6 +615,276 @@
 
 
 
+ /* Start designin Rotating clours into border */
+    .card {
+        position: relative;
+        display: flex;
+        width: 250px;        /* good for small images */
+        height: 180px;       /* make it square for balanced rotation */
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        border-radius: 20px;
+        background: #fefffeff;
+    }
+
+    /* Rotating border */
+    .card::before {
+        content: "";
+        position: absolute;
+        inset: -2px;         /* slightly bigger so the border is visible */
+        border-radius: 20px;
+
+        /* TWO small runners, second follows behind */
+        background:
+            conic-gradient(
+                from 0deg,
+                transparent 0deg,
+                #2a8009ff 35deg,
+                #e2f028ff 65deg,
+                transparent 85deg,
+                transparent 360deg
+            ),
+            conic-gradient(
+                from 180deg,
+                transparent 0deg,
+                #2a8009ff 35deg,
+                #e2f028ff 65deg,
+                transparent 85deg,
+                transparent 360deg
+            );
+
+        padding: 20px;
+        animation: borderRun 4s linear infinite;
+        z-index: 2;
+    }
+
+    /* Inner card layer */
+    .card::after {
+        content: '';
+        position: absolute;
+        inset: 3px;          /* give space inside for the image */
+        background: #ffffffff;
+        border-radius: 20px;
+        z-index: 1;
+    }
+
+    /* Pause animation on hover 
+    .card:hover::before {
+        animation-play-state: paused;
+    }*/
+
+    /* Card content */
+    .card img.categoryimg {
+        position: relative;
+        z-index: 3;
+        max-width: 98%;     /* fit nicely inside */
+        max-height: 98%;
+        border-radius: 20px;
+    }
+
+    /* Animation */
+    @keyframes borderRun {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+
+
+
+
+
+    /* SHARE BUTTON – wide rotating stroke path */
+      .sharebtn {
+          position: relative;
+          display: inline-flex;
+          justify-content: center;
+          align-items: center;
+          overflow: hidden;
+          border-radius: 20px;
+          background: transparent;
+      }
+
+      /* Rotating border (wide stroke path) */
+      .sharebtn::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          border-radius: 20px;
+
+          background:
+              conic-gradient(
+                  from 0deg,
+                  transparent 0deg,
+                  #2a8009ff 18%,
+                  #e2f028ff 38%,
+                  transparent 52%,
+                  transparent 100%
+              ),
+              conic-gradient(
+                  from 180deg,
+                  transparent 0deg,
+                  #2a8009ff 18%,
+                  #e2f028ff 38%,
+                  transparent 52%,
+                  transparent 100%
+              );
+
+          /* Mask keeps color ONLY in border stroke */
+          -webkit-mask:
+              linear-gradient(#fff 0 0) content-box,
+              linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+                  mask-composite: exclude;
+
+          padding: 25px;  /*  WIDER BORDER STROKE */
+          animation: borderRun 3s linear infinite;
+          pointer-events: none;
+      }
+
+      /* Keep button content clean */
+      .sharebtn > * {
+          position: relative;
+          z-index: 1;
+      }
+
+      /* Pause on hover 
+      .sharebtn:hover::before {
+          animation-play-state: paused;
+      } */
+
+      /* Animation */
+      @keyframes borderRun {
+          from { transform: rotate(0deg); }
+          to   { transform: rotate(360deg); }
+      }
+
+
+
+      
+            /* ROTATE BUTTON WRAPPER – wide rotating stroke path */
+      .rotatebtn {
+          position: relative;
+          display: inline-flex;
+          justify-content: center;
+          align-items: center;
+          overflow: hidden;
+          border-radius: 35px;
+          background: transparent;
+      }
+
+      /* Rotating border on padding area */
+      .rotatebtn::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          border-radius: 35px;
+
+          background:
+              conic-gradient(
+                  from 0deg,
+                  transparent 0deg,
+                  #2a8009ff 18%,
+                  #e2f028ff 38%,
+                  transparent 52%,
+                  transparent 100%
+              ),
+              conic-gradient(
+                  from 180deg,
+                  transparent 0deg,
+                  #2a8009ff 18%,
+                  #e2f028ff 38%,
+                  transparent 52%,
+                  transparent 100%
+              );
+
+          /* Mask → shows rotation ONLY in padding (stroke) */
+          -webkit-mask:
+              linear-gradient(#fff 0 0) content-box,
+              linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+                  mask-composite: exclude;
+
+          padding: 25px;                /* 🔥 THIS is the visible rotating area */
+          animation: borderRun 3s linear infinite;
+          pointer-events: none;
+      }
+
+      /* Keep inner link clean */
+      .rotatebtn > * {
+          position: relative;
+          z-index: 1;
+      }
+
+      /* Animation */
+      @keyframes borderRun {
+          from { transform: rotate(0deg); }
+          to   { transform: rotate(360deg); }
+      }
+    
+
+
+      /* Rotating border for .rotateads */
+.rotateads {
+    position: relative;           /* make pseudo-element relative */
+    overflow: hidden;             /* hide overflowing gradient */
+}
+
+/* Rotating border effect */
+.rotateads::before {
+    content: "";
+    position: absolute;
+    inset: 0;                     /* fill the parent */
+    border-radius: 20px;          /* match existing button radius */
+
+    /* Rotating gradient only on border */
+    background:
+        conic-gradient(
+            from 0deg,
+            transparent 0%,
+            #2a8009ff 18%,
+            #e2f028ff 38%,
+            transparent 52%,
+            transparent 100%
+        ),
+        conic-gradient(
+            from 180deg,
+            transparent 0%,
+            #2a8009ff 18%,
+            #e2f028ff 38%,
+            transparent 52%,
+            transparent 100%
+        );
+
+    /* Mask to show only border */
+    -webkit-mask: linear-gradient(#fff 0 0) content-box;
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+
+    padding: 2px;                 /* thickness of border */
+    z-index: 1;                    /* behind button content */
+    pointer-events: none;          /* allow clicks through border */
+    animation: rotateBorder 3s linear infinite;
+}
+
+/* Keep content above border */
+.rotateads > * {
+    position: relative;
+    z-index: 2;
+}
+
+/* Pause animation on hover */
+.rotateads:hover::before {
+    animation-play-state: paused;
+}
+
+/* Animation keyframes */
+@keyframes rotateBorder {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+
+
      /*start animation for offcanvas */
     @keyframes slideDown {
       from {
@@ -1796,14 +2066,14 @@ $(document).on('click', '.export-btn', function(e) {
 
 
 // Javascripts Codes
-function shareContent(type,id) {
+function shareContent(type,id,user_id) {
     // 🔧 Create a clean, SEO-friendly slug
     const cleanName = name.replace(/\s+/g, '').replace(/[^a-zA-Z0-9]/g, '');
     const baseUrl = 'https://rosenutritionlife.com/sharedcontent';
-    const shareUrl = `${baseUrl}/${type}/${id}`;
+    const shareUrl = `${baseUrl}/${type}/${id}/${user_id}`;
     //const shareUrl = `${baseUrl}/${type}/${id}${cleanName}`;
 
-    const title = `${type === 'song' ? 'Listen to this song' : 'Check out this album'}: ${name}`;
+    const title = `${type === 'posture' ? 'Check Out to this Health Posture' : 'Check out this Health Details' }: ${name}`;
 
     if (navigator.share) {
         // ✅ Native share (mobile + some desktop)
@@ -2370,6 +2640,50 @@ $(document).ready(function() {
             }
         });
     });
+});
+
+
+
+//for search users list
+$(document).ready(function () {
+
+    $('#usersSearchInput').on('keyup', function () {
+        let query = $(this).val();
+
+        $.ajax({
+            url: "{% url 'ajax_user_search' %}",
+            method: "GET",
+            data: { q: query },
+            success: function (response) {
+                $('#usersTableBody').html(response.html);
+            },
+            error: function () {
+                alert('Error fetching user search results.');
+            }
+        });
+    });
+
+});
+
+//for search patients
+$(document).ready(function () {
+
+    $('#patientSearchInput').on('keyup', function () {
+        let query = $(this).val();
+
+        $.ajax({
+            url: "{% url 'ajax_patient_search' %}",
+            method: "GET",
+            data: { q: query },
+            success: function (response) {
+                $('#patientsTableBody').html(response.html);
+            },
+            error: function () {
+                alert('Error fetching patient search results.');
+            }
+        });
+    });
+
 });
 
 
