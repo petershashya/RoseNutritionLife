@@ -1,0 +1,38 @@
+{% for businessplan in businessplans %}
+<tr>
+    <td class="text-center">
+        <input type="checkbox"
+               name="selected_businessplans"
+               value="{{ businessplan.id }}">
+    </td>
+    <td class="d-flex justify-content-center aling-items-center">
+        {% if businessplan.profile_image %}
+        <div class="listimage-box">
+            <img src="{{ businessplan.profile_image.url }}"
+                 class="rounded-circle p-1"
+                 style="border:1px solid rgb(4, 70, 39);">
+        </div>
+        {% endif %}
+    </td>
+    <td class="text-start"> <!-- {{ businessplan.description }} --> Maelezo ya biashara </td>
+    <td class="d-flex justify-content-center aling-items-center gap-1">
+        <button class="btn btn-sm btn-warning generic-edit-btn rounded-pill"
+                data-url="{% url 'generic_edit' 'businessplan' businessplan.id %}"
+                data-target="#editGenericModal">
+            <i class="bi bi-pencil"></i>
+        </button>
+
+        <button class="btn btn-sm btn-danger generic-delete-btn rounded-pill"
+                data-url="{% url 'generic_delete' 'businessplan' businessplan.id %}"
+                data-target="#deleteGenericModal">
+            <i class="bi bi-trash"></i>
+        </button>
+    </td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="4" class="text-center">
+        No Business Plans found.
+    </td>
+</tr>
+{% endfor %}

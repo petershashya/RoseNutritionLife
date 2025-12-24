@@ -331,6 +331,29 @@
     } 
 
 
+
+
+        /* Password input and show/hide button */
+        .password-container {
+            position: relative;
+        }
+      
+        .password-container input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+        }
+      
+        .password-container .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            user-select: none;
+        }
+
+
   /* Slide and transilate */
     @keyframes slideIn {
       from { transform: translateX(-100px); opacity: 0; }
@@ -560,6 +583,54 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
+  
+    <script>
+    //scripts for passwords view and strength// Show/hide password functionality
+        document.addEventListener("DOMContentLoaded", function () {
+
+        document.querySelectorAll(".toggle-password").forEach(function (toggle) {
+            toggle.addEventListener("click", function () {
+
+                const input = this.closest(".password-container")
+                                  .querySelector("input");
+
+                if (input.type === "password") {
+                    input.type = "text";
+                    this.innerHTML = '<i class="bi bi-eye-slash-fill"></i>';
+                } else {
+                    input.type = "password";
+                    this.innerHTML = '<i class="bi bi-eye-fill"></i>';
+                }
+            });
+        });
+
+    });
+
+
+//for changing label toggle for username. mobile number or email 
+      function toggleLoginInput() {
+          const method = document.getElementById("login-method").value;
+          const label = document.getElementById("login-label");
+          const input = document.getElementById("login-input");
+
+          if (method === "username") {
+              label.textContent = "Username";
+              input.type = "text";
+              input.placeholder = "Fill Username";
+          }
+          else if (method === "email") {
+              label.textContent = "Email";
+              input.type = "email";
+              input.placeholder = "Fill Email";
+          }
+          else if (method === "mobile") {
+              label.textContent = "Mobile Number";
+              input.type = "tel";
+              input.placeholder = "Fill Mobile Number";
+          }
+      }
+
+    </script>
 
 
   <!-- Start Make Javascript fussions -->
@@ -573,92 +644,6 @@
     });
   </script>
 
-  
-
-<!-- start graphs of analysis -->
-  <!-- for line graph -->
-  <!-- minimal Chart.js setup (include Chart.js CDN before this script) -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-  const ctx = document.getElementById('lineChartResponsive').getContext('2d');
-  new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: ['Mon','Tue','Wed','Thu','Fri'],
-      datasets: [{
-        label: 'Visitors',
-        data: [120, 150, 90, 200, 170],
-        fill: false,
-        tension: 0.3
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false // allow canvas to match container height
-    }
-  });
-</script>
-
-
-<!-- for bar graph -->
-<script>
-  const ctxBarR = document.getElementById('barChartResponsive').getContext('2d');
-  new Chart(ctxBarR, {
-    type: 'bar',
-    data: {
-      labels: ['Red', 'Blue', 'Green', 'Yellow', 'Purple'],
-      datasets: [{
-        label: 'Votes',
-        data: [12, 19, 3, 5, 2],
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false
-    }
-  });
-  </script>
-
-<!-- stack graph -->
-<script>
-  const ctxStackR = document.getElementById('stackedChartResponsive').getContext('2d');
-  new Chart(ctxStackR, {
-    type: 'bar',
-    data: {
-      labels: ['Q1', 'Q2', 'Q3', 'Q4'],
-      datasets: [
-        { label: 'Sales A', data: [50, 60, 70, 80] },
-        { label: 'Sales B', data: [30, 40, 20, 50] }
-      ]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      scales: {
-        x: { stacked: true },
-        y: { stacked: true }
-      }
-    }
-  });
-  </script>
-
-  <!-- pie chart grpah -->
-  <script>
-    const ctxPieR = document.getElementById('pieChartResponsive').getContext('2d');
-    new Chart(ctxPieR, {
-      type: 'pie',
-      data: {
-        labels: ['Apple', 'Banana', 'Cherry'],
-        datasets: [{
-          data: [10, 20, 30]
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false
-      }
-    });
-    </script>
 
 </body>
 

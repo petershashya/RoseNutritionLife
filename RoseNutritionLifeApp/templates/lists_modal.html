@@ -38,9 +38,9 @@
                 <a data-type="{{model_type}}" data-id="{{object.id}}" class="btn-list text-decoration-none" style="cursor:pointer">
                 <div class="d-flex justify-content-center align-items-center rounded  p-1 gap-1">
                     <div>
-                        <span class="d-flex justify-content-start align-items-center">
+                        <span class="serviceimage-box d-flex justify-content-start align-items-center">
                             {% if object.profile_image %}
-                        <img class="categoryimg rounded-pill p-1 mx-1" style="width:60px; height:60px; border:1px solid rgb(4, 70, 39);" src="{{ object.profile_image.url }}" alt="{{ model_type }}">
+                        <img class="categoryimg rounded-pill p-1 mx-1" style="border:1px solid rgb(4, 70, 39);" src="{{ object.profile_image.url }}" alt="{{ model_type }}">
                         {% endif %}
                         </span>
                     </div>

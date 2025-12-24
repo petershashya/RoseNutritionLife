@@ -155,6 +155,7 @@ def paginate_and_prepare(request, queryset, page_param):
 # @login_required
 def services(request):
     rank = get_it_officer_rank(request.user)
+    request_id=request.user.id
     context = {
         "disease_page_obj": paginate_and_prepare(request, Disease.objects.all().order_by('-id'), "disease_page"),
         "medicine_page_obj": paginate_and_prepare(request, Medicine.objects.all().order_by('-id'), "medicine_page"),
@@ -162,6 +163,7 @@ def services(request):
         "bp_page_obj": paginate_and_prepare(request, BusinessPlan.objects.all().order_by('-id'), "bp_page"),
         "bl_page_obj": paginate_and_prepare(request, BusinessLevel.objects.all().order_by('-id'), "bl_page"),
         "rank" : rank,
+        "request_id" : request_id,
     }
     return render(request, "service.html", context)
 
@@ -1227,6 +1229,119 @@ def ajax_user_search(request):
 
 
 
+#search for diseases lists
+@login_required
+def ajax_disease_search(request):
+    query = request.GET.get('q', '').strip()
+
+    if query:
+        diseases = Disease.objects.filter(
+            disease_name__icontains=query
+        ).order_by('-id')
+    else:
+        diseases = Disease.objects.all().order_by('-id')
+
+    html = render_to_string(
+        'disease_table_rows.html',
+        {'diseases': diseases},
+        request=request
+    )
+
+    return JsonResponse({'html': html})
+
+
+
+#for search medicines lists
+@login_required
+def ajax_medicine_search(request):
+    query = request.GET.get('q', '').strip()
+
+    if query:
+        medicines = Medicine.objects.filter(
+            medicine_name__icontains=query
+        ).order_by('-id')
+    else:
+        medicines = Medicine.objects.all().order_by('-id')
+
+    html = render_to_string(
+        'medicine_table_rows.html',
+        {'medicines': medicines},
+        request=request
+    )
+    return JsonResponse({'html': html})
+
+
+
+#for search checkups lists
+@login_required
+def ajax_checkup_search(request):
+    query = request.GET.get('q', '').strip()
+
+    if query:
+        checkups = CheckUp.objects.filter(
+            checkup_name__icontains=query
+        ) | CheckUp.objects.filter(
+            id__icontains=query
+        )
+    else:
+        checkups = CheckUp.objects.all()
+
+    checkups = checkups.order_by('-id')
+
+    html = render_to_string(
+        'checkup_table_rows.html',
+        {'checkups': checkups}
+    )
+
+    return JsonResponse({'html': html})
+
+
+#for search businesslevel lists
+@login_required
+def ajax_businesslevel_search(request):
+    query = request.GET.get('q', '').strip()
+
+    if query:
+        businesslevels = BusinessLevel.objects.filter(
+            level_name__icontains=query
+        ).order_by('-id')
+    else:
+        businesslevels = BusinessLevel.objects.all().order_by('-id')
+
+    html = render_to_string(
+        'businesslevel_table_rows.html',
+        {'businesslevels': businesslevels},
+        request=request
+    )
+
+    return JsonResponse({'html': html})
+
+
+#for businessplan search lists
+@login_required
+@user_passes_test(check_superuser, login_url='member_account')
+def ajax_businessplan_search(request):
+    query = request.GET.get('q', '').strip()
+
+    if query:
+        businessplans = BusinessPlan.objects.filter(
+            description__icontains=query
+        ).order_by('-id')
+    else:
+        businessplans = BusinessPlan.objects.all().order_by('-id')
+
+    it_officer_rank = get_it_officer_rank(request.user)
+
+    html = render_to_string(
+        'businessplan_table_rows.html',
+        {
+            'businessplans': businessplans,
+            'it_officer_rank': it_officer_rank
+        }
+    )
+
+    return JsonResponse({'html': html})
+
 
 # ---------------- VIEW MEDICINE PRINT FORM ----------------
 def view_medicine_form(request, medical_id):
@@ -1400,10 +1515,11 @@ def posture_details(request, model_type, item_id):
         return redirect('/')
 
     obj = get_object_or_404(model_class, id=item_id)
-
+    request_id=request.user.id
     context = {
         'object': obj,
         'model_type': model_type,
+        "request_id" :request_id,
     }
 
     return render(request, 'posture_modal.html', context)
@@ -1424,10 +1540,11 @@ def video_details(request, model_type, item_id):
         return redirect('/')
 
     obj = get_object_or_404(model_class, id=item_id)
-
+    request_id=request.user.id
     context = {
         'object': obj,
         'model_type': model_type,
+        "request_id": request_id,
     }
 
     return render(request, 'video_modal.html', context)
@@ -1474,10 +1591,11 @@ def list_details(request, model_type, item_id):
         return redirect('/')
 
     obj = get_object_or_404(model_class, id=item_id)
-
+    request_id=request.user.id
     context = {
         'object': obj,
         'model_type': model_type,
+        "request_id" : request_id,
     }
 
     return render(request, 'list_modal.html', context)
@@ -3503,7 +3621,7 @@ PRINTMODEL_MAP = {
     "disease": Disease,
     "medicine": Medicine,
     "checkup": CheckUp,
-    "patient": PatientModelForm,
+    "patient": PatientForm,
     "businesslevel": BusinessLevel,
     "businessplan": BusinessPlan,
     "userdetail": UserDetail,

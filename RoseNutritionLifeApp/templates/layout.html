@@ -491,6 +491,18 @@
       object-position: center;
   }
 
+    .serviceimage-box {
+      width: 60px;
+      height: 60px;
+      border-radius:10px;
+  }
+   .serviceimage-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+  }
+
   .adsimg-box {
       width: 150px;
       height: 100px;
@@ -823,66 +835,121 @@
     
 
 
-      /* Rotating border for .rotateads */
-.rotateads {
-    position: relative;           /* make pseudo-element relative */
-    overflow: hidden;             /* hide overflowing gradient */
-}
 
-/* Rotating border effect */
-.rotateads::before {
-    content: "";
-    position: absolute;
-    inset: 0;                     /* fill the parent */
-    border-radius: 20px;          /* match existing button radius */
+      /* rotate category divisions or buttons */
+          .rotateads {
+          position: relative;
+          display: inline-block;
+          border-radius: 18px;
+          padding: 4px;              /* rotation ring thickness */
+          overflow: hidden;
+      }
 
-    /* Rotating gradient only on border */
-    background:
-        conic-gradient(
-            from 0deg,
-            transparent 0%,
-            #2a8009ff 18%,
-            #e2f028ff 38%,
-            transparent 52%,
-            transparent 100%
-        ),
-        conic-gradient(
-            from 180deg,
-            transparent 0%,
-            #2a8009ff 18%,
-            #e2f028ff 38%,
-            transparent 52%,
-            transparent 100%
-        );
+      /* NORMAL rotating colors (same logic as .card) */
+      .rotateads::before {
+          content: "";
+          position: absolute;
+          inset: -2px;
+          border-radius: inherit;
 
-    /* Mask to show only border */
-    -webkit-mask: linear-gradient(#fff 0 0) content-box;
-    -webkit-mask-composite: xor;
-            mask-composite: exclude;
+          background:
+              conic-gradient(
+                  from 0deg,
+                  transparent 0deg,
+                  #2a8009 35deg,
+                  #e2f028 65deg,
+                  transparent 85deg,
+                  transparent 360deg
+              ),
+              conic-gradient(
+                  from 180deg,
+                  transparent 0deg,
+                  #2a8009 35deg,
+                  #e2f028 65deg,
+                  transparent 85deg,
+                  transparent 360deg
+              );
 
-    padding: 2px;                 /* thickness of border */
-    z-index: 1;                    /* behind button content */
-    pointer-events: none;          /* allow clicks through border */
-    animation: rotateBorder 3s linear infinite;
-}
+          opacity: 0;                 /* hidden when not hovering */
+          pointer-events: none;
+      }
 
-/* Keep content above border */
-.rotateads > * {
-    position: relative;
-    z-index: 2;
-}
+      /* Cut inner area so only padding shows */
+      .rotateads::after {
+          content: "";
+          position: absolute;
+          inset: 4px;                 /* SAME as padding */
+          background: transparent;
+          border-radius: calc(18px - 4px);
+          z-index: 1;
+      }
 
-/* Pause animation on hover */
-.rotateads:hover::before {
-    animation-play-state: paused;
-}
+      /* ▶ Hover → rotate normally */
+      .rotateads:hover::before {
+          opacity: 1;
+          animation: borderRun 3.5s linear infinite;
+      }
 
-/* Animation keyframes */
-@keyframes rotateBorder {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
+      /* Keep <a> above */
+      .rotateads > a {
+          position: relative;
+          z-index: 2;
+          border-radius: 14px;
+          background: inherit;        /* bg-warning stays here */
+      }
 
+      /* SAME animation you used */
+      @keyframes borderRun {
+          from { transform: rotate(0deg); }
+          to   { transform: rotate(360deg); }
+      }
+
+
+      
+  /* for rotate advertsement div caterogoriws */
+            .rotatediv {
+          position: relative;
+          display: inline-block;
+          border-radius: 20px;
+          overflow: hidden;
+      }
+
+      .rotatediv::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          border-radius: inherit;
+          padding: 4px; /* thickness of rotating ring */
+          background: conic-gradient(#2a8009, #e2f028, #f17c90, #2a8009);
+          opacity: 0;
+          pointer-events: none;
+          transition: opacity 0.3s;
+      }
+
+      .rotatediv:hover::before {
+          opacity: 1;
+          animation: borderRun 4s linear infinite;
+      }
+
+      .rotatediv::after {
+          content: "";
+          position: absolute;
+          inset: 4px; /* same as padding */
+          background: transparent;
+          border-radius: calc(20px - 4px);
+          z-index: 1;
+      }
+
+      .rotatediv > .btn-advertisement {
+          position: relative;
+          z-index: 2;
+          border-radius: 16px; /* match inner div radius */
+      }
+
+      @keyframes borderRun {
+          from { transform: rotate(0deg); }
+          to   { transform: rotate(360deg); }
+      }
 
 
      /*start animation for offcanvas */
@@ -919,14 +986,20 @@
     }
 
 
-    /* Slide and transilate from left to right getservice */
-    @keyframes slideFromLeft{
-      from { transform: translateX(-100px); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
+  /* slide gently without disappearing */
+    @keyframes slideFromLeft {
+      0% {
+        transform: translateX(-30px);
+      }
+      100% {
+        transform: translateX(0);
+      }
     }
-    #getservice {
-      animation: slideFromLeft 1.3s ease-out;
+    /* apply to each service card */
+    .rotateads {
+      animation: slideFromLeft 0.8s ease-out both;
     }
+
 
       
     /* Slide and transilate from left to right advertisment */
@@ -2701,6 +2774,106 @@ $(document).on("click", ".confirm-payment", function () {
             // Now show the modal
             $("#paymentModal").modal("show");
         }
+    });
+});
+
+
+//search for list of diseases posted
+$(document).ready(function () {
+    $('#diseaseSearchInput').on('keyup', function () {
+        var query = $(this).val();
+
+        $.ajax({
+            url: "{% url 'ajax_disease_search' %}",
+            method: "GET",
+            data: { q: query },
+            success: function (response) {
+                $('#diseaseTableBody').html(response.html);
+            },
+            error: function () {
+                alert('Error fetching disease search results.');
+            }
+        });
+    });
+});
+
+
+//search for medicines lists
+$(document).ready(function () {
+    $('#medicineSearchInput').on('keyup', function () {
+        let query = $(this).val();
+
+        $.ajax({
+            url: "{% url 'ajax_medicine_search' %}",
+            method: "GET",
+            data: { q: query },
+            success: function (response) {
+                $('#medicineTableBody').html(response.html);
+            },
+            error: function () {
+                alert('Error fetching medicines.');
+            }
+        });
+    });
+});
+
+
+//for search checkups lists
+$(document).ready(function () {
+    $('#checkupSearchInput').on('keyup', function () {
+        let query = $(this).val();
+
+        $.ajax({
+            url: "{% url 'ajax_checkup_search' %}",
+            method: "GET",
+            data: { q: query },
+            success: function (response) {
+                $('#checkupTableBody').html(response.html);
+            },
+            error: function () {
+                alert('Error fetching checkup search results.');
+            }
+        });
+    });
+});
+
+
+//for search businesslevel lists
+$(document).ready(function () {
+    $('#businessLevelSearchInput').on('keyup', function () {
+        let query = $(this).val();
+
+        $.ajax({
+            url: "{% url 'ajax_businesslevel_search' %}",
+            method: "GET",
+            data: { q: query },
+            success: function (response) {
+                $('#businessLevelTableBody').html(response.html);
+            },
+            error: function () {
+                alert('Error fetching business level results.');
+            }
+        });
+    });
+});
+
+
+//for search businessplan lists
+$(document).ready(function () {
+    $('#businessplanSearchInput').on('keyup', function () {
+        let query = $(this).val();
+
+        $.ajax({
+            url: "{% url 'ajax_businessplan_search' %}",
+            method: "GET",
+            data: { q: query },
+            success: function (response) {
+                $('#businessplanTableBody').html(response.html);
+            },
+            error: function () {
+                alert('Error fetching business plan results.');
+            }
+        });
     });
 });
 

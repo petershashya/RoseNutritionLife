@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+   <html>
+   {% load static %}
+   {%load crispy_forms_tags%}
+
+   <head>
+     <!-- Basic -->
+     <meta charset="utf-8" />
+     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+     <!-- Mobile Metas -->
+     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+     <!-- Site Metas -->
+     <meta name="keywords" content="" />
+     <meta name="description" content="" />
+     <meta name="author" content="" />
+     <title>rosenutritionlife</title>
+     
+     <!-- font style like handwriting -->
+     <link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap" rel="stylesheet">
+
+       <!-- bootstrap-->
+       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+     <!-- boostratp icons -->
+     <!-- link file -->
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+     <!-- bootstrap core css -->
+     <link rel="stylesheet" type="text/css" href="{% static '/css/bootstrap.css' %}" />
+   
+     <!-- fonts style -->
+     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+   
+     <!--owl slider stylesheet -->
+     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+   
+     <!-- font awesome style -->
+     {% comment %} <link href="{% static '/css/font-awesome.min.css' %}" rel="stylesheet" /> {% endcomment %}
+     <!-- nice select -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" integrity="sha256-mLBIhmBvigTFWPSCtvdu6a76T+3Xyt+K571hupeFLg4=" crossorigin="anonymous" />
+     <!-- datepicker -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css">
+     <!-- Custom styles for this template -->
+     <link href=" {% static '/css/style.css' %}" rel="stylesheet" />
+     <!-- responsive style -->
+     <link href=" {% static '/css/responsive.css' %}" rel="stylesheet" />
+   
+
+     <!-- for about slide design -->
+      <!-- Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<!-- Swiper CSS -->
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<!-- Boxicons CSS -->
+<link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet" />
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+     <style>
+
+      .body{
+        font-family: 'Roboto', 'Open Sans', sans-serif;
+        font-size: 14px;
+        color: #333; /* Dark gray color */
+        line-height: 1.6;
+    }
+
+      #offcanvas{
+        background-color:#0a4e49";
+      }
+
+      {% comment %} .homeimg{
+        height: 100vh;
+        width: 103%;
+        display: block; 
+        object-fill:cover;
+        align-items: center;
+        background-image:linear-gradient(to top,rgb(5, 46, 65), 40%, transparent 60%),
+        url("{% static '/images/paintingimg.jpeg' %}") ;
+        background-size:cover; /* Light background image */
+        background-position:center;
+        backgroud-repeat:no-repeate; 
+        color: transparent;
+    }  {% endcomment %}
+
+    {% comment %} .homeimg{
+      width: 100%;
+      object-fill:cover;
+      align-items: center;
+      background-image:linear-gradient(to top,rgb(6, 75, 49), 40%, transparent 60%),
+      url("{% static '/images/eternal/alovela.jpeg' %}") ;
+      background-size:cover; /* Light background image */
+      background-position:center;
+      backgroud-repeat:no-repeate; 
+      color: transparent;
+  }  {% endcomment %}
+
+    
+.homevideo {
+    position: relative;
+    width: 100%%;
+    height: 80vh;
+    margin: 0 auto; /* center horizontally */
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px; /* optional: rounded corners */
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3); /* optional: drop shadow */
+}
+
+.homevideo video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.homevideo .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(17, 88, 61, 1) 20%, transparent 50%);
+    z-index: 2;
+}
+
+.homevideo #description {
+    position: relative;
+    z-index: 3;
+    padding: 20px;
+    color: #fff;
+    text-align: center;
+}
+
+     {% comment %} .homefont{
+    font-family: 'Ancola';
+    src: url("{% static 'fonts/ancola_fonts/ancola-regular.otf' %}") format('truetype');
+    font-weight: normal;
+    font-style: normal;
+} {% endcomment %}
+
+
+    {% comment %} .homeimg{
+      background-image: 
+          linear-gradient(to left, black 60%, rgba(139, 69, 19, 0.5) 100%, transparent 40%),
+          url("{% static '/images/paintingimg.jpeg' %}") ;
+      color: transparent;
+    }  {% endcomment %}
+
+
+    #getservice{
+      color:white;
+      background-color:rgb(4, 70, 39);
+      border:1px solid white;
+      border-radius:20px;
+      font-size:16px;
+      padding-left:15px;
+      padding-right:15px;
+      padding-top:5px;
+      padding-bottom:5px;
+      /* border-left:1px solid rgb(241, 248, 248) ;
+      box-shadow:0px 1px 2px white;  */
+    }
+
+    #getservice:hover{
+      padding-left:16px;
+      padding-right:16px;
+      padding-top:5px;
+      padding-bottom:5px;
+    }
+
+    .navbarbutton {
+      color: #ffffff;
+      border: 0;
+      padding: 5px 0px;
+      height: 35px;
+      width: 40px;
+      overflow: hidden;
+      white-space: nowrap; 
+      transition: all 0.8s ease;
+      border-radius: 20px;
+      display: inline-flex; 
+      align-items: center;
+      justify-content: center; 
+      font-size: 1rem;
+      position: relative;
+    }
+    
+    .navbarbutton:hover {
+      width: 150px; /* expand width on hover */
+      padding: 5px 15px;
+      background-color: #ffffff;
+      color:rgb(4, 70, 39);
+      cursor:pointer;
+    }
+    
+    .navbarbutton:hover::after {
+      content: attr(data-label);
+      margin-left: 10px;
+      color:rgb(4, 70, 39);
+      cursor:pointer;
+    } 
+
+    .hometab{
+      color:white;
+      font-size: 1.3rem;
+      transition: all 0.3s ease;
+    }
+    .hometab:hover{
+      color:white;
+      font-size: 1.5rem;
+      cursor:pointer;
+    }
+
+    .adveradds{
+      font-size:2rem;
+      transition:all 0.5s ease;
+      cursor:pointer;
+    }
+
+    .adveradds:hover{
+      font-size:2.5rem;
+      transition: all 0.5s ease;
+      cursor:pointer;
+    }
+
+    #footer{
+      width:100%%;
+    }
+
+    #socialbtn{
+      font-size:1.5rem;
+      transition: all 0.5s ease;
+      cursor:pointer;
+    }
+
+    #socialbtn:hover{
+      font-size:2rem;
+      transition: all 0.5s ease;
+      cursor:pointer;
+    }
+
+    .servicesdiv{
+    display: flex;
+    overflow-x: auto; /* Enable horizontal scrolling */
+  }
+
+
+
+
+
+    .top_providers{
+      border-radius:30px;
+    }
+
+    #provider_category{
+      background-color:rgb(219, 228, 231);
+      border-radius:20px;
+    }
+
+
+    .nav-link{
+      color:rgb(4, 70, 39);
+      background-color:rgb(226, 240, 233);
+    }
+
+    .nav-link:hover{
+      color:white;
+      background-color:rgb(4, 70, 39);
+    }
+
+    .nav-link:active{
+      color:white;
+      background-color:rgb(4, 70, 39);
+    }
+
+    .categoryimg{
+      border-radius:15px;
+    }
+
+    .form_img{
+      width: 100%;
+      background-image:url("{% static '/images/loginimg2.jpeg' %}") ;
+      background-size:cover; /* Light background image */
+      background-position:center;
+      backgroud-repeat:no-repeate; 
+      color: transparent;
+      border-radius:25px;
+    }
+
+    .formbody{
+      background: rgb(37, 85, 63);
+      backdrop-filter: blur(15px);
+      border-radius:25px;
+      padding-top:70px;
+      padding-bottom:70px;
+    }
+
+    .coverform{
+      margin-left:100px;
+      margin-right:100px;
+    }
+
+    {% comment %} .message{
+      background-color:rgba(214, 220, 228, 0.32);
+      padding:7px;
+      color:white;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      border-radius: 10px;
+      width:100%;
+      margin:auto;
+      text:center;
+    } {% endcomment %}
+
+    #category_title{
+      border-left:3px solid rgb(4, 70, 65);
+      background-color:rgb(226, 240, 233);
+      transition: all 0.5s ease;
+    }
+
+    #category_title:hover{
+      background-color:rgba(196, 221, 207, 1);
+      border-left:3px solid rgba(131, 172, 168, 1);
+      font-style:bold;
+      cursor:pointer;
+      transition: all 0.5s ease;
+    }
+
+     #category_container{
+      background-color:rgb(226, 240, 233);
+      transition: all 0.5s ease;
+    }
+
+    #category_container:hover{
+      background-color:rgb(226, 240, 233);
+      box-shadow: 0px 2px 3px 2px rgba(200, 204, 203, 1);
+      font-style:bold;
+      cursor:pointer;
+      transition: all 0.5s ease;
+    }
+
+    #business_plan{
+      background-color:rgb(226, 240, 233);
+      transition: all 0.5s ease;
+    }
+
+    #business_plan:hover{
+      background-color:rgb(226, 240, 233);
+      box-shadow: 0px 2px 3px 2px rgba(200, 204, 203, 1);
+      font-style:bold;
+      cursor:pointer;
+      transition: all 0.5s ease;
+    }
+
+    #business_levels{
+      background-color:rgb(226, 240, 233);
+      transition: all 0.5s ease;
+    }
+
+    #business_levels:hover{
+      background-color:rgb(226, 240, 233);
+      box-shadow: 0px 2px 3px 2px rgba(200, 204, 203, 1);
+      font-style:bold;
+      cursor:pointer;
+      transition: all 0.5s ease;
+    }
+
+    #getservice{
+      background-color:rgb(4, 70, 39);
+      //font-size:1rem;
+      font-style:bold;
+      transition: all 0.5s ease;
+    }
+
+    #getservice:hover{
+      background-color:rgba(22, 138, 84, 1);
+      //font-size:1.1rem;
+      font-style:bold;
+      cursor:pointer;
+      transition: all 0.5s ease;
+    }
+
+    #advertisment{
+      background-color:rgb(4, 70, 39);
+      font-style:bold;
+      transition: all 0.5s ease;
+    }
+
+    #advertisment:hover{
+      background-color:rgba(22, 138, 84, 1);
+      font-style:bold;
+      cursor:pointer;
+      transition: all 0.5s ease;
+    }
+
+    #add_list{
+       border-radius:25px; 
+       color:rgb(4, 70, 39); 
+       background-color:rgba(73, 150, 114, 1);
+    }
+      #add_list:hover{
+       border-radius:25px; 
+       color:white; 
+       background-color:rgba(46, 94, 72, 1);
+       cursor:pointer;
+    }
+
+      .image-box {
+      width: 250px;
+      height: 150px;
+      overflow: hidden;
+      border-radius:10px;
+  }
+
+  .image-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+  }
+    
+  .advertisementimg-box {
+      width: 220px;
+      height: 200px;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius:10px;
+  }
+
+  .advertisementimg-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+  }
+
+  .profileimage-box {
+      width: 90px;
+      height: 90px;
+      overflow: hidden;
+      border-radius:10px;
+  }
+
+  .profileimage-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+  }
+
+    .commentimage-box {
+      width: 40px;
+      height: 40px;
+      overflow: hidden;
+      border-radius:10px;
+  }
+
+  .commentimage-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+  }
+
+    .listimage-box {
+      width: 40px;
+      height: 40px;
+      overflow: hidden;
+      border-radius:10px;
+  }
+
+  .listimage-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+  }
+
+    .serviceimage-box {
+      width: 60px;
+      height: 60px;
+      border-radius:10px;
+  }
+   .serviceimage-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+  }
+
+  .adsimg-box {
+      width: 150px;
+      height: 100px;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius:10px;
+  }
+
+  .adsimg-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+  }
+
+
+    .adsvideo-box {
+      width: 150px;
+      height: 100px;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius:10px;
+  }
+
+  .adsvideo-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+  }
+
+   .top-border, .bottom-border {
+            border-top: 3px double #000;
+            border-bottom: 3px double #000;
+            padding: 5px 0;
+        }
+        .table thead th {
+            background: #e9ecef;
+            text-align: center;
+        }
+        .signature-line {
+            border-bottom: 1px solid #000;
+            width: 300px;
+            height: 20px;
+        }
+
+    .line-input {
+        border: none;
+        border-bottom: 1px solid #000 !important;
+        border-radius: 0;
+        outline: none;
+        box-shadow: none !important;
+    }
+    .line-textarea {
+        border-radius : 10px;
+        border: 1px solid #d2d6daff ;
+        outline: none;
+        box-shadow: none !important;
+        height: 300px;
+        resize: none;
+        background-color: #fafcffff;
+    }
+    .hand_fontstyle{
+      font-family: "Courier New", Courier ;
+      font-weight: normal;
+    }
+    .title_fontstyle{
+      font-family: 'Roboto', 'Open Sans', sans-serif;
+    }
+
+    .responsive-table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    .responsive-table-wrapper table {
+        min-width: 600px;  /* ensures table stays readable */
+    }
+    .summary-textarea {
+        width: 100%;
+        min-width: 180px;  /* flexible minimum width */
+        height: 80px;
+        border-radius : 10px;
+        border: 1px solid #d7d8dbff;
+        outline: none;
+        box-shadow: none !important;
+        height: 150px;
+        resize: none;
+        background-color: #fafcffff
+    }
+
+    .scroll-x {
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+      /* animation division div styling */
+    .animation_division{
+    }
+
+    /* Class to trigger fade-in animation */
+    .fade-in {
+        animation: fadeIn 1s ease-in-out forwards;
+    } 
+
+    /* 
+    animation: fadeIn 1.5s ease-in-out forwards;
+    animation: fadeOut 1.5s ease-in-out forwards;
+    */
+
+   /*start animation for description  @keyframes slideFromBottom{
+      from { transform: translateY(100px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+     .fade-in {
+      animation: slideFromBottom 0.3s ease-out;
+    }  
+*/
+
+
+
+ /* Start designin Rotating clours into border */
+    .card {
+        position: relative;
+        display: flex;
+        width: 250px;        /* good for small images */
+        height: 180px;       /* make it square for balanced rotation */
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        border-radius: 20px;
+        background: #fefffeff;
+    }
+
+    /* Rotating border */
+    .card::before {
+        content: "";
+        position: absolute;
+        inset: -2px;         /* slightly bigger so the border is visible */
+        border-radius: 20px;
+
+        /* TWO small runners, second follows behind */
+        background:
+            conic-gradient(
+                from 0deg,
+                transparent 0deg,
+                #2a8009ff 35deg,
+                #e2f028ff 65deg,
+                transparent 85deg,
+                transparent 360deg
+            ),
+            conic-gradient(
+                from 180deg,
+                transparent 0deg,
+                #2a8009ff 35deg,
+                #e2f028ff 65deg,
+                transparent 85deg,
+                transparent 360deg
+            );
+
+        padding: 20px;
+        animation: borderRun 4s linear infinite;
+        z-index: 2;
+    }
+
+    /* Inner card layer */
+    .card::after {
+        content: '';
+        position: absolute;
+        inset: 3px;          /* give space inside for the image */
+        background: #ffffffff;
+        border-radius: 20px;
+        z-index: 1;
+    }
+
+    /* Pause animation on hover 
+    .card:hover::before {
+        animation-play-state: paused;
+    }*/
+
+    /* Card content */
+    .card img.categoryimg {
+        position: relative;
+        z-index: 3;
+        max-width: 98%;     /* fit nicely inside */
+        max-height: 98%;
+        border-radius: 20px;
+    }
+
+    /* Animation */
+    @keyframes borderRun {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+
+
+
+
+
+    /* SHARE BUTTON – wide rotating stroke path */
+      .sharebtn {
+          position: relative;
+          display: inline-flex;
+          justify-content: center;
+          align-items: center;
+          overflow: hidden;
+          border-radius: 20px;
+          background: transparent;
+      }
+
+      /* Rotating border (wide stroke path) */
+      .sharebtn::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          border-radius: 20px;
+
+          background:
+              conic-gradient(
+                  from 0deg,
+                  transparent 0deg,
+                  #2a8009ff 18%,
+                  #e2f028ff 38%,
+                  transparent 52%,
+                  transparent 100%
+              ),
+              conic-gradient(
+                  from 180deg,
+                  transparent 0deg,
+                  #2a8009ff 18%,
+                  #e2f028ff 38%,
+                  transparent 52%,
+                  transparent 100%
+              );
+
+          /* Mask keeps color ONLY in border stroke */
+          -webkit-mask:
+              linear-gradient(#fff 0 0) content-box,
+              linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+                  mask-composite: exclude;
+
+          padding: 25px;  /*  WIDER BORDER STROKE */
+          animation: borderRun 3s linear infinite;
+          pointer-events: none;
+      }
+
+      /* Keep button content clean */
+      .sharebtn > * {
+          position: relative;
+          z-index: 1;
+      }
+
+      /* Pause on hover 
+      .sharebtn:hover::before {
+          animation-play-state: paused;
+      } */
+
+      /* Animation */
+      @keyframes borderRun {
+          from { transform: rotate(0deg); }
+          to   { transform: rotate(360deg); }
+      }
+
+
+
+      
+            /* ROTATE BUTTON WRAPPER – wide rotating stroke path */
+      .rotatebtn {
+          position: relative;
+          display: inline-flex;
+          justify-content: center;
+          align-items: center;
+          overflow: hidden;
+          border-radius: 35px;
+          background: transparent;
+      }
+
+      /* Rotating border on padding area */
+      .rotatebtn::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          border-radius: 35px;
+
+          background:
+              conic-gradient(
+                  from 0deg,
+                  transparent 0deg,
+                  #2a8009ff 18%,
+                  #e2f028ff 38%,
+                  transparent 52%,
+                  transparent 100%
+              ),
+              conic-gradient(
+                  from 180deg,
+                  transparent 0deg,
+                  #2a8009ff 18%,
+                  #e2f028ff 38%,
+                  transparent 52%,
+                  transparent 100%
+              );
+
+          /* Mask → shows rotation ONLY in padding (stroke) */
+          -webkit-mask:
+              linear-gradient(#fff 0 0) content-box,
+              linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+                  mask-composite: exclude;
+
+          padding: 25px;                /* 🔥 THIS is the visible rotating area */
+          animation: borderRun 3s linear infinite;
+          pointer-events: none;
+      }
+
+      /* Keep inner link clean */
+      .rotatebtn > * {
+          position: relative;
+          z-index: 1;
+      }
+
+      /* Animation */
+      @keyframes borderRun {
+          from { transform: rotate(0deg); }
+          to   { transform: rotate(360deg); }
+      }
+    
+
+
+      /* Rotating border for .rotateads */
+.rotateads {
+    position: relative;           /* make pseudo-element relative */
+    overflow: hidden;             /* hide overflowing gradient */
+}
+
+/* Rotating border effect */
+.rotateads::before {
+    content: "";
+    position: absolute;
+    inset: 0;                     /* fill the parent */
+    border-radius: 20px;          /* match existing button radius */
+
+    /* Rotating gradient only on border */
+    background:
+        conic-gradient(
+            from 0deg,
+            transparent 0%,
+            #2a8009ff 18%,
+            #e2f028ff 38%,
+            transparent 52%,
+            transparent 100%
+        ),
+        conic-gradient(
+            from 180deg,
+            transparent 0%,
+            #2a8009ff 18%,
+            #e2f028ff 38%,
+            transparent 52%,
+            transparent 100%
+        );
+
+    /* Mask to show only border */
+    -webkit-mask: linear-gradient(#fff 0 0) content-box;
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+
+    padding: 2px;                 /* thickness of border */
+    z-index: 1;                    /* behind button content */
+    pointer-events: none;          /* allow clicks through border */
+    animation: rotateBorder 3s linear infinite;
+}
+
+/* Keep content above border */
+.rotateads > * {
+    position: relative;
+    z-index: 2;
+}
+
+/* Pause animation on hover */
+.rotateads:hover::before {
+    animation-play-state: paused;
+}
+
+/* Animation keyframes */
+@keyframes rotateBorder {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+
+
+     /*start animation for offcanvas */
+    @keyframes slideDown {
+      from {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    } 
+     
+    #offcanvas{
+      animation: slideDown 1.3s ease-out;
+    } 
+
+
+  /* Slide and transilate */
+    @keyframes slideIn {
+      from { transform: translateX(-100px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+
+    /* Slide and transilate from right to left description */
+    @keyframes slideFromRight{
+      from { transform: translateX(100px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    #description {
+      animation: slideFromRight 1.5s ease-out;
+    }
+
+
+    /* Slide and transilate from left to right getservice */
+    @keyframes slideFromLeft{
+      from { transform: translateX(-100px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    #getservice {
+      animation: slideFromLeft 1.3s ease-out;
+    }
+
+      
+    /* Slide and transilate from left to right advertisment */
+    @keyframes slideFromLeft{
+      from { transform: translateX(-100px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    #advertisment {
+      animation: slideFromLeft 1.3s ease-out;
+    }
+
+
+  /* Slide and transilate from right to left */
+@keyframes slideFromRight{
+  from { transform: translateX(100px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+.servicesdiv {
+  animation: slideFromRight 1.3s ease-out;
+}
+
+
+/* Slide and transilate from bottom to top */
+@keyframes slideFromBottom{
+  from { transform: translateY(100px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+#footer, .footer_section {
+  animation: slideFromBottom 1.3s ease-out;
+}
+
+      
+    {% comment %} /*animation for  description*/
+     @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+    .description {
+      overflow: hidden;
+      white-space: nowrap;
+      width: 0;
+      animation: typing 5s steps(30, end) forwards;
+    }  {% endcomment %}
+
+
+    {% comment %} /*start animation for description */
+    @keyframes slideFromBottom{
+      from { transform: translateY(100px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    #footer, #description {
+      animation: slideFromBottom 0.3s ease-out;
+    } {% endcomment %}
+
+
+</style>
+</head>
+<script>
+	setTimeout(function() {
+		var messages = document.querySelectorAll('.message');
+		messages.forEach(function(message) {
+			message.style.display = 'none';
+		});
+	}, 3000);
+</script>
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/clan_image2.jpg' %}">
+
+      <body class="bg-white">
+
+  <!-- Navbar -->
+  <div class="d-flex justify-content-between align-items-center p-2 fixed-top w-100"
+       id="offcanvas" style="background-color:rgb(4, 70, 39);">
+
+    <span>
+      <a class="text-light text-decoration-none align-items-end" style="font-size:1.5rem;" href="{% url 'home' %}">
+        {% comment %} <i class="bi bi-amazon text-success bg-light p-1 mx-1" style="border-radius:35px; font-size:1rem"></i> {% endcomment %}
+          <img  src="{% static 'images/eternal/logo2.png' %}"  style="width:50px; height:50px; object-fit:cover; border-radius:30px;" >
+      </a>
+    </span>
+
+    <!-- notification messages -->
+    {% if messages %}
+      {% for message in messages %}
+        <div class="d-flex justify-content-center align-items-center w-100 position-absolute" style="top:90px;">
+          <span class="message py-1 px-3 text-center"
+                style="color:#fff; border-radius:15px; background-color:rgba(25, 138, 85, 1);">
+           <i class="bi bi-bell text-light mx-1 " style="font-size: 1rem"></i>  {{ message }}
+          </span>
+        </div>
+      {% endfor %}
+    {% endif %}
+    <!-- end notification message -->
+
+    <span class="p-1" style="background-color:rgb(6, 104, 58); border-radius:25px;">
+      <span class="navbartabs text-decoration-none" id="navbartabs">
+        {% if user.is_authenticated %}
+           <a class="bi bi-basket-fill text-decoration-none ml-1 navbarbutton" data-label="Huduma" href="{% url 'services' %}"></a>
+         {% comment %} <a class="bi bi-badge-ad-fill text-decoration-none ml-2 navbarbutton" data-label="Advertisment" href="{% url 'advertisement' %}"></a> {% endcomment %}
+          {% comment %} <a class="bi bi-graph-up-arrow text-decoration-none ml-2 navbarbutton" data-label="Uchambuzi" href="{% url 'analysis' %}"></a> {% endcomment %}
+          {% comment %} <a class="bi bi-currency-exchange text-decoration-none ml-2 navbarbutton" data-label="PV-Exchange"  ></a> {% endcomment %}
+          <a class="bi bi-person-fill text-decoration-none ml-2 navbarbutton" data-label="Akaunti" href="{% url 'account' %}"  ></a>
+          <a class="bi bi-arrow-left-circle text-decoration-none ml-2 navbarbutton" data-label="Toka" href="{% url 'logout' %}"></a>
+        {% else %}
+         <a class="bi bi-basket-fill text-decoration-none ml-1 navbarbutton" data-label="Huduma" href="{% url 'services' %}"></a>
+           {% comment %} <a class="bi bi-badge-ad-fill text-decoration-none ml-2 navbarbutton" data-label="Advertisment" href="{% url 'advertisment' %}"></a> {% endcomment %}
+          {% comment %} <a class="bi bi-graph-up-arrow text-decoration-none ml-2 navbarbutton" data-label="Uchambuzi" href="{% url 'analysis' %}"></a> {% endcomment %}
+          {% comment %} <a class="bi bi-info-circle-fill text-decoration-none ml-2 navbarbutton" data-label="About"></a> {% endcomment %}
+          {% comment %} <a class="bi bi-person-fill text-decoration-none ml-2 navbarbutton" data-label="Account" href="{% url 'admin_manage' %}" ></a> {% endcomment %}
+          <a class="bi bi-arrow-right-circle text-decoration-none ml-2 navbarbutton" data-label="Ingia" href="{% url 'login' %}"></a>
+          {% endif %}
+      </span>
+    </span>
+
+  </div>
+  <!-- End Navbar -->
+
+  <!-- Main body -->
+  {% block content %}
+  {% endblock content %}
+
+  <!-- Footer Info Section -->
+  <section class="row p-4 m-0 w-100" id="footer" style="background-color:rgb(4, 70, 39);">
+    <div class="col-sm">
+      <h5 class="text-light text-center mb-3"><!-- ABOUT US --> KUTUHUSU</h5>
+      <p class="text-light">
+        Rose Nutrition Life hutoa elimu ya afya kuhusu lishe bora, kinga na udhibiti wa magonjwa sugu
+         yasiyo ya kuambukiza kama vile kisukari, shinikizo la damu, na matatizo ya moyo. 
+         Tunatoa mbinu mbadala na mwongozo wa kisayansi kupitia virutubisho na ushauri wa 
+         mabadiliko ya maisha. Dhamira yetu ni kuboresha afya ya jamii, kuongeza uelewa, 
+         na kuwawezesha wanachama kupata kipato kupitia huduma na uuzaji wa bidhaa za afya.
+      </p>
+      <h5 class="text-light mt-3"><!-- CONTACT US --> MAWASILIANO </h5>
+      <p class="text-light">
+        <i class="bi bi-envelope"></i><!-- P.O.BOX 1002 --> S.L.P 1002 <br>
+        <i class="bi bi-geo-alt"></i> Dar-es-Salaam<br>
+        <i class="bi bi-envelope"></i> rosenutritionlife@gmail.com
+      </p>
+    </div>
+
+    <div class="col-sm">
+      <h5 class="text-light text-center mb-3"><!-- OUR SERVICES --> HUDUMA </h5>
+      <p class="text-light">
+        Tunatoa vipimo vya uchunguzi kwa gharama nafuu (30,000 TZS)
+         vinavyosaidia kubaini mapema magonjwa sugu kama vile maradhi ya moyo,
+          kisukari, na matatizo ya figo. Tiba zote zinapatikana, 
+          zikiwa na lengo la kutatua chanzo cha tatizo hadi kupona kabisa.
+           Kwa kujiunga na Rose Nutrition kama mwanachama, unafaidika na
+            alama za bonasi zinazojulikana kama PV (Profit Value), 
+            ambazo hukusanyika na kuwa alama za faida zinazokupatia kipato cha ziada
+             sambamba na huduma bora za afya.
+      </p>
+    </div>
+
+    <div class="col-sm">
+      <h5 class="text-light text-center mb-3"><!--  OUR SOCIAL MEDIA--> MITANDAO YA KIJAMII </h5>
+      <div class="d-flex justify-content-center align-items-center gap-3">
+       <a data-bs-toggle="tooltip" title="rosenutritionlife"  class="text-decoration-none" style="cursor:pointer;"><i class="bi bi-instagram text-light" style="font-size:1.8rem"></i></a>
+        <a data-bs-toggle="tooltip" title="rosenutritionlife"  class="text-decoration-none" style="cursor:pointer;"><i class="bi bi-facebook text-light" style="font-size:1.8rem"></i></a>
+        <a data-bs-toggle="tooltip" title="rosenutritionlife" class="text-decoration-none" style="cursor:pointer;"><i class="bi bi-tiktok text-light" style="font-size:1.8rem"></i></a>
+        <a data-bs-toggle="tooltip" title="rosenutrtionlife" href="https://www.youtube.com/rosenutritionlife" class="text-decoration-none" style="cursor:pointer;"><i class="bi bi-youtube text-light" style="font-size:2.5rem"></i></a>
+    </div>
+  </section>
+  <!-- End Footer Info -->
+
+  <!-- Footer Section -->
+  <footer class="footer_section w-100" style="background-color:rgb(4, 70, 39);">
+    <hr class="mt-0 border border-light">
+    <div class="container text-center text-light">
+        <b class="text-lowercase">rosenutritionlife</b><br>
+        &copy; <span id="displayYear"></span> All Rights Reserved<br>
+        <span class="text-light">Developed By peterprogrammer (+255 617999099)</span>
+    </div>
+  </footer>
+
+   
+</section>
+
+
+{% comment %} <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> {% endcomment %}
+
+  <!-- Bootstrap JS and Dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- footer section -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- jQery -->
+  <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+  <!-- bootstrap js -->
+  <script src="{% static 'js/bootstrap.js' %}"></script>
+  <!-- nice select -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js" integrity="sha256-Zr3vByTlMGQhvMfgkQ5BtWRSKBGa2QlspKYJnkjZTmo=" crossorigin="anonymous"></script>
+  <!-- owl slider -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+  <!-- datepicker -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+  <!-- custom js -->
+  <script src="{% static 'js/custom.js' %}"></script>
+  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+
+  <!-- Start Make Javascript fussions -->
+  <script>
+    const navbarbutton = document.querySelector('.navbarbutton');
+    const navbartabs = document.getElementById('navbartabs');
+  
+    navbarbutton.addEventListener('click', () => {
+      navbartabs.classList.toggle('active');
+      navbarbutton.focus();
+    });
+  </script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+</body>
+
+</html>

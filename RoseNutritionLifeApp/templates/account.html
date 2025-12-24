@@ -341,14 +341,14 @@
     {% for patient in patients %}
     <tr>
       <td class="text-center"><input type="checkbox" name="selected_patients" value="{{ patient.id }}"></td>
-      <td>{{ patient.full_name}}</td>
-      <td>{{ patient.gender}}</td>
-      <td>{{ patient.region}}</td>
-      <td>{{ patient.postal_address }}</td>
-      <td>{{ patient.email }}</td>
-      <td>{{ patient.mobile_no}}</td>
-      <td>{{ patient.membership_no }}</td>
-      <td class="d-flex gap-1">
+      <td class="text-start">{{ patient.full_name}}</td>
+      <td class="text-center">{{ patient.gender}}</td>
+      <td class="text-center">{{ patient.region}}</td>
+      <td class="text-center">{{ patient.postal_address }}</td>
+      <td class="text-start">{{ patient.email }}</td>
+      <td class="text-center">{{ patient.mobile_no}}</td>
+      <td class="text-center">{{ patient.membership_no }}</td>
+      <td class="d-flex justify-content-center aling-items-center gap-1">
         <button class="btn btn-sm  generic-edit-btn btn-warning rounded-pill" data-url="{% url 'generic_edit' 'patient' patient.id %}" data-target="#editGenericModal">
           <i class="bi bi-pencil"></i>
         </button>
@@ -418,7 +418,12 @@
         </button>
       </span>
 
-     <div class="table-responsive-sm">
+
+      <div class="mx-3 mb-2">
+          <input type="text" id="diseaseSearchInput" placeholder="Search Disease by Name" class="form-control border-info">
+      </div>
+
+     <div class="table-responsive-sm" style="max-height:350px; overflow-y:auto;">
 
     <form method="GET" action="">
           {% csrf_token %}
@@ -431,19 +436,19 @@
       <th>Actions</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody id="diseaseTableBody">
     {% for disease in diseases %}
     <tr>
       <td class="text-center"><input type="checkbox" name="selected_diseases" value="{{ disease.id }}"></td>
-      <td>
+      <td class="d-flex justify-content-center aling-items-cente">
         {% if disease.profile_image %}
         <div class="listimage-box">
           <img src="{{ disease.profile_image.url }}" class="rounded-circle p-1" style="border:1px solid rgb(4, 70, 39);">
         </div>
         {% endif %}
       </td>
-      <td>{{ disease.disease_name}}</td>
-      <td class="d-flex gap-1">
+      <td class="text-start">{{ disease.disease_name}}</td>
+      <td class="d-flex justify-content-center aling-items-center gap-1">
         <button class="btn btn-sm generic-edit-btn btn-warning rounded-pill" data-url="{% url 'generic_edit' 'disease' disease.id %}" data-target="#editGenericModal">
           <i class="bi bi-pencil"></i>
         </button>
@@ -512,7 +517,12 @@
         </button>
       </span>
 
-     <div class="table-responsive-sm">
+      <div class="mx-3 mb-2">
+          <input type="text" id="medicineSearchInput" placeholder="Search Medicine Name" class="form-control border-info">
+      </div>
+
+
+     <div class="table-responsive-sm" style="max-height:350px; overflow-y:auto;">
 
     <form method="GET" action="">
           {% csrf_token %}
@@ -525,19 +535,19 @@
       <th>Actions</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody id="medicineTableBody">
     {% for medicine in medicines %}
     <tr>
       <td class="text-center"><input type="checkbox" name="selected_medicines" value="{{ medicine.id }}"></td>
-      <td>
+      <td class="d-flex justify-content-center align-items-center ">
         {% if medicine.profile_image %}
         <div class="listimage-box">
           <img src="{{ medicine.profile_image.url }}"  class="rounded-circle p-1" style="border:1px solid rgb(4, 70, 39);">
         </div>
         {% endif %}
       </td>
-      <td>{{ medicine.medicine_name }}</td>
-      <td class="d-flex gap-1">
+      <td class="text-start">{{ medicine.medicine_name }}</td>
+      <td class="d-flex justify-content-center align-items-center gap-1">
         <button class="btn btn-sm btn-warning generic-edit-btn rounded-pill" data-url="{% url 'generic_edit' 'medicine' medicine.id %}" data-target="#editGenericModal">
           <i class="bi bi-pencil"></i>
         </button>
@@ -607,7 +617,13 @@
         </button>
       </span>
 
-     <div class="table-responsive-sm">
+
+      <div class="mx-3 mb-2">
+          <input type="text" id="checkupSearchInput"  placeholder="Search Checkup by Name or ID" class="form-control border-info">
+      </div>
+
+
+     <div class="table-responsive-sm" style="max-height:350px; overflow-y:auto;">
 
     <form method="GET" action="">
           {% csrf_token %}
@@ -620,19 +636,19 @@
       <th>Actions</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody id="checkupTableBody">
     {% for checkup in checkups %}
     <tr>
       <td class="text-center"><input type="checkbox" name="selected_checkups" value="{{ checkup.id }}"></td>
-      <td>
+      <td class="d-flex justify-content-center align-items-center">
         {% if checkup.profile_image %}
         <div class="listimage-box">
           <img src="{{ checkup.profile_image.url }}"  class="rounded-circle p-1" style="border:1px solid rgb(4, 70, 39);">
         </div>
         {% endif %}
       </td>
-      <td>{{ checkup.checkup_name }}</td>
-      <td class="d-flex gap-1">
+      <td class="text-start">{{ checkup.checkup_name }}</td>
+      <td class="d-flex justify-content-center align-items-center gap-1">
         <button class="btn btn-sm btn-warning generic-edit-btn rounded-pill" data-url="{% url 'generic_edit' 'checkup' checkup.id %}" data-target="#editGenericModal">
           <i class="bi bi-pencil"></i>
         </button>
@@ -701,7 +717,12 @@
         </button>
       </span>
 
-     <div class="table-responsive-sm">
+
+      <div class="mx-3 mb-2">
+        <input type="text" id="businessLevelSearchInput" placeholder="Search Business Level" class="form-control border-info">
+    </div>
+
+     <div class="table-responsive-sm" style="max-height:350px; overflow-y:auto;">
 
     <form method="GET" action="">
           {% csrf_token %}
@@ -714,19 +735,19 @@
       <th>Actions</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody id="businessLevelTableBody">
     {% for businesslevel in businesslevels %}
     <tr>
       <td class="text-center"><input type="checkbox" name="selected_businesslevels" value="{{ businesslevel.id }}"></td>
-      <td>
+      <td class="d-flex justify-content-center align-items-center">
         {% if businesslevel.profile_image %}
         <div class="listimage-box">
           <img src="{{ businesslevel.profile_image.url }}"  class="rounded-circle p-1" style="border:1px solid rgb(4, 70, 39);">
         </div>
         {% endif %}
       </td>
-      <td>{{ businesslevel.level_name }}</td>
-      <td class="d-flex gap-1">
+      <td class="text-start">{{ businesslevel.level_name }}</td>
+      <td class="d-flex justify-content-center align-items-center gap-1">
         <button class="btn btn-sm btn-warning generic-edit-btn rounded-pill" data-url="{% url 'generic_edit' 'businesslevel' businesslevel.id %}" data-target="#editGenericModal">
           <i class="bi bi-pencil"></i>
         </button>
@@ -795,7 +816,12 @@
         </button>
       </span>
 
-     <div class="table-responsive-sm">
+      <div class="mx-3 mb-2">
+          <input type="text" id="businessplanSearchInput" placeholder="Search Business Plan" class="form-control border-info">
+      </div>
+
+
+     <div class="table-responsive-sm" style="max-height:350px; overflow-y:auto;">
 
     <form method="GET" action="">
           {% csrf_token %}
@@ -808,22 +834,22 @@
       <th>Actions</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody id="businessplanTableBody">
     {% for businessplan in businessplans %}
     <tr>
       <td class="text-center"><input type="checkbox" name="selected_businessplans" value="{{ businessplan.id }}"></td>
-      <td>
+      <td class="d-flex justify-content-center aling-items-center">
         {% if businessplan.profile_image %}
         <div class="listimage-box">
           <img src="{{ businessplan.profile_image.url }}"  class="rounded-circle p-1" style="border:1px solid rgb(4, 70, 39);">
         </div>
         {% endif %}
       </td>
-      <td>
+      <td class="text-start">
         {% comment %} {{ businessplan.description }} {% endcomment %}
         Maelezo ya biashara
       </td>
-      <td class="d-flex gap-1">
+      <td class="d-flex justify-content-center aling-items-center gap-1">
         <button class="btn btn-sm btn-warning generic-edit-btn rounded-pill" data-url="{% url 'generic_edit' 'businessplan' businessplan.id %}" data-target="#editGenericModal">
           <i class="bi bi-pencil"></i>
         </button>

@@ -11,39 +11,37 @@
 <!-- Our services -->
  <div class="d-flex justify-content-center">
 <div  class="d-flex flex-nowrap overflow-x-auto  gap-3 p-3 mx-2" style="display: flex;">
-    <a href="{% url 'services' %}" id="getservice" class="top_providers text-decoration-none  p-4 text-light flex-shrink-0" style="min-width:150px;" >
-     {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
-    <!-- OUR SERVICES --> <span class="d-flex justify-content-center align-items-center"> HUDUMA </span>
+   <span class="rotateads bg-light flex-shrink-0" style="padding:2px;">
+        <a href="{% url 'services' %}" id="getservice"
+           class="top_providers text-decoration-none p-4 text-light d-block"
+           style="min-width:150px;"> <span class="d-flex justify-content-center align-items-center"> HUDUMA </span>
      <span class="d-flex justify-content-center align-items-center ">
          <i class="bi bi-basket-fill text-light mx-2" style="font-size:2.5rem;"></i>
-     </span>
+         <span>
          </a>
+        </span>
 
-     <a href="{% url 'advertisement' %}"  id="getservice" class="top_providers text-decoration-none  p-4 text-light flex-shrink-0" style="min-width:150px;">
-         {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
-       <!--ADVERTISMENT  --> <span class="d-flex justify-content-center"> MATANGAZO </span>
+      <span class="rotateads bg-light flex-shrink-0" style="padding:2px;">
+        <a href="{% url 'advertisement' %}" id="getservice"
+           class="top_providers text-decoration-none p-4 text-light d-block"
+           style="min-width:150px;"> <span class="d-flex justify-content-center"> MATANGAZO </span>
          <span class="d-flex justify-content-center align-items-center align-items-center">
              <i class="bi bi-badge-ad-fill text-light mx-2" style="font-size:2.5rem;"></i>
-         </span>
+             <span>
              </a>
+            </span>
 
-         {% comment %} <a href="{% url 'pv-exchange' %}"   id="getservice" class="top_providers text-decoration-none  p-4 text-light flex-shrink-0"  style="min-width:150px;">
-            <!-- PV-EXCHANGE --> <span class="d-flex justify-content-center">  BADILISHA PV </span>
-             <span class="d-flex justify-content-center align-items-center">
-                 <i class="bi bi-currency-exchange text-light mx-2" style="font-size:2.5rem;"></i>
-                 <span>
-                 </a> {% endcomment %}
-
-        {% if rank == 'it_officer' or rank == 'director' or rank == 'vice_director' or rank == 'manager' or rank == 'business_teacher' or rank == 'video_grapher' or rank == 'doctor' or rank == 'secretary' or rank == 'stationary' or rank == 'pharmacist' or rank == 'reception' or rank == 'discipline' or rank == 'advisor' %}
-             <a href="{% url 'analysis' %}"   id="getservice" class="top_providers text-decoration-none  p-4 text-light flex-shrink-0" style="min-width:150px;" >
-                 {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
-                <!-- OUR ANALYSIS --> <span class="d-flex justify-content-center align-items-center"> UCHAMBUZI </span>
+            {% if rank == 'it_officer' or rank == 'director' or rank == 'vice_director' or rank == 'manager' or rank == 'business_teacher' or rank == 'video_grapher' or rank == 'doctor' or rank == 'secretary' or rank == 'stationary' or rank == 'pharmacist' or rank == 'reception' or rank == 'discipline' or rank == 'advisor' %}
+        <span class="rotateads bg-light flex-shrink-0" style="padding:2px;">
+         <a href="{% url 'analysis' %}" id="getservice"
+           class="top_providers text-decoration-none p-4 text-light d-block"
+           style="min-width:150px;"> <span class="d-flex justify-content-center align-items-center"> UCHAMBUZI </span>
                  <span class="d-flex justify-content-center align-items-center">
                      <i class="bi bi-graph-up-arrow text-light mx-2" style="font-size:2.5rem;"></i>
-                 </span>
+                     <span>
                      </a>
-        {% endif %}
-        
+                    </span>
+                 {% endif %}
 </div>
 </div>
 
@@ -91,9 +89,9 @@
             <a data-type="disease" data-id="{{disease.id}}" class="btn-list text-decoration-none " style="cursor:pointer">
                 <div class="d-flex justify-content-center align-items-center rounded  p-1 gap-1 bg-light">
                     <div>
-                        <span class="d-flex justify-content-start align-items-center">
+                        <span class="serviceimage-box d-flex justify-content-start align-items-center">
                             {% if disease.profile_image %}
-                        <img class="categoryimg rounded-pill p-1 mx-1" style="width:60px; height:60px; border:1px solid rgb(4, 70, 39);" src="{{ disease.profile_image.url }}" alt="disease">
+                        <img class="categoryimg rounded-pill p-1 mx-1" style=" border:1px solid rgb(4, 70, 39);" src="{{ disease.profile_image.url }}" alt="disease">
                         {% endif %}
                         </span>
                     </div>
@@ -142,11 +140,11 @@
         <div class=" py-3 shadow bg-light mx-2" style="border-radius:20px;">
             {% for medicine in medicine_page_obj %}
             <a data-type="medicine" data-id="{{medicine.id}}" class="btn-list text-decoration-none" style="cursor:pointer">
-                <div class="d-flex justify-content-center align-items-center rounded  p-1 gap-1 bg-light">
+               <div class="d-flex justify-content-center align-items-center rounded  p-1 gap-1 bg-light">
                     <div>
-                        <span class="d-flex justify-content-start align-items-center">
+                        <span class="serviceimage-box d-flex justify-content-start align-items-center">
                             {% if medicine.profile_image %}
-                        <img class="categoryimg rounded-pill p-1 mx-1" style="width:60px; height:60px; border:1px solid rgb(4, 70, 39);" src="{{ medicine.profile_image.url }}" alt="medicine">
+                        <img class="categoryimg rounded-pill p-1 mx-1" style=" border:1px solid rgb(4, 70, 39);" src="{{ medicine.profile_image.url }}" alt="medicine">
                         {% endif %}
                         </span>
                     </div>
@@ -172,9 +170,9 @@
             <a data-type="checkup" data-id="{{checkup.id}}" class="btn-list text-decoration-none" style="cursor:pointer">
                 <div class="d-flex justify-content-center align-items-center rounded  p-1 gap-1 bg-light">
                     <div>
-                        <span class="d-flex justify-content-start align-items-center">
+                        <span class="serviceimage-box d-flex justify-content-start align-items-center">
                             {% if checkup.profile_image %}
-                        <img class="categoryimg rounded-pill p-1 mx-1" style="width:60px; height:60px; border:1px solid rgb(4, 70, 39);" src="{{ checkup.profile_image.url }}" alt="checkup">
+                        <img class="categoryimg rounded-pill p-1 mx-1" style=" border:1px solid rgb(4, 70, 39);" src="{{ checkup.profile_image.url }}" alt="checkup">
                         {% endif %}
                         </span>
                     </div>
@@ -202,9 +200,9 @@
             <a data-type="businessplan" data-id="{{business_plan.id}}" class="btn-list text-decoration-none" style="cursor:pointer">
                 <div class="d-flex justify-content-center align-items-center rounded  p-1 gap-1 bg-light">
                     <div>
-                        <span class="d-flex justify-content-start align-items-center">
+                        <span class="serviceimage-box d-flex justify-content-start align-items-center">
                             {% if business_plan.profile_image %}
-                        <img class="categoryimg rounded-pill p-1 mx-1" style="width:60px; height:60px; border:1px solid rgb(4, 70, 39);" src="{{ business_plan.profile_image.url }}" alt="businessplan">
+                        <img class="categoryimg rounded-pill p-1 mx-1" style=" border:1px solid rgb(4, 70, 39);" src="{{ business_plan.profile_image.url }}" alt="businessplan">
                         {% endif %}
                         </span>
                     </div>
@@ -232,9 +230,9 @@
             <a data-type="businesslevel" data-id="{{business_level.id}}" class="btn-list text-decoration-none" style="cursor:pointer">
                 <div class="d-flex justify-content-center align-items-center rounded  p-1 gap-1 bg-light mx-2">
                     <div>
-                        <span class="d-flex justify-content-start align-items-center">
+                        <span class="serviceimage-box d-flex justify-content-start align-items-center">
                             {% if business_level.profile_image %}
-                        <img class="categoryimg rounded-pill p-1 mx-1" style="width:60px; height:60px; border:1px solid rgb(4, 70, 39);" src="{{ business_level.profile_image.url }}" alt="businesslevel">
+                        <img class="categoryimg rounded-pill p-1 mx-1" style=" border:1px solid rgb(4, 70, 39);" src="{{ business_level.profile_image.url }}" alt="businesslevel">
                         {% endif %}
                         </span>
                     </div>

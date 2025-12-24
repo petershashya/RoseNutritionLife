@@ -87,86 +87,92 @@
 
 <!-- Our services -->
  <div class="d-flex justify-content-center">
-<div  class="d-flex flex-nowrap overflow-x-auto  gap-3 p-3 mx-2" style="display: flex;">
-
-      {% if rank == 'it_officer' or rank == 'reception'  %}
-        <a href="{% url 'reception' %}" id="getservice" class=" top_providers text-decoration-none  p-4 text-light flex-shrink-0" style="min-width:150px;" >
-     {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
-     <span style="background-color:rgb(2, 24, 13)">
-    <!-- OUR SERVICES --> <span class="d-flex justify-content-center align-items-center"> MAPOKEZI </span>
-     <span class="d-flex justify-content-center align-items-center ">
-         <i class="bi bi-person-workspace text-light mx-2" style="font-size:2.5rem;"></i>
-         <span>
-         </span>
-         </a>
-    {% endif %}
-
+<div class="d-flex flex-nowrap overflow-x-auto gap-3 p-3 mx-2">
+        {% if rank == 'it_officer' or rank == 'reception' %}
+            <span class="rotateads bg-light flex-shrink-0" style="padding:2px;">
+        <a href="{% url 'reception' %}" id="getservice"
+            class="top_providers text-decoration-none p-4 text-light d-block"
+            style="min-width:150px;">
+            <span class="d-flex justify-content-center align-items-center">MAPOKEZI</span>
+            <span class="d-flex justify-content-center align-items-center">
+            <i class="bi bi-person-workspace text-light" style="font-size:2.5rem;"></i>
+            </span>
+        </a>
+        </span>
+        {% endif %}
 
         {% if rank == 'it_officer' or rank == 'doctor'  %}
-         <a href="{% url 'doctor' %}" id="getservice" class="top_providers text-decoration-none  p-4 text-light flex-shrink-0" style="min-width:150px;" >
-     {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
-    <!-- OUR SERVICES --> <span class="d-flex justify-content-center align-items-center"> DAKTARI </span>
-     <span class="d-flex justify-content-center align-items-center ">
-         <i class="bi bi-h-circle-fill text-light mx-2" style="font-size:2.5rem;"></i>
-         <span>
-         </a>
+        <span class="rotateads bg-light flex-shrink-0" style="padding:2px;">
+            <a href="{% url 'doctor' %}" id="getservice"
+            class="top_providers text-decoration-none p-4 text-light d-block"
+            style="min-width:150px;">
+                <span class="d-flex justify-content-center align-items-center">DAKTARI</span>
+                <span class="d-flex justify-content-center align-items-center">
+                    <i class="bi bi-h-circle-fill text-light" style="font-size:2.5rem;"></i>
+                </span>
+            </a>
+        </span>
          {% endif %}
 
 
          {% if rank == 'it_officer' or rank == 'pharmacist' %}
-         <a href="{% url 'pharmacy' %}" id="getservice" class="top_providers text-decoration-none  p-4 text-light flex-shrink-0" style="min-width:150px;" >
-     {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
-    <!-- OUR SERVICES --> <span class="d-flex justify-content-center align-items-center"> MADAWA </span>
-     <span class="d-flex justify-content-center align-items-center ">
-         <i class="bi bi-capsule-pill text-light mx-2" style="font-size:2.5rem;"></i>
-         <span>
-         </a>
+            <span class="rotateads bg-light flex-shrink-0" style="padding:2px;">
+            <a href="{% url 'pharmacy' %}" id="getservice"
+            class="top_providers text-decoration-none p-4 text-light d-block"
+            style="min-width:150px;">
+                <span class="d-flex justify-content-center align-items-center">MADAWA</span>
+                <span class="d-flex justify-content-center align-items-center">
+                    <i class="bi bi-capsule-pill text-light" style="font-size:2.5rem;"></i>
+                </span>
+            </a>
+        </span>
+
          {% endif %}
 
 
         {% if rank == 'it_officer' or rank == 'director' or rank == 'vice_director'  %}
-         <a href="{% url 'payment' %}" id="getservice" class="top_providers text-decoration-none  p-4 text-light flex-shrink-0" style="min-width:150px;" >
-     {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
-    <!-- OUR SERVICES --> <span class="d-flex justify-content-center align-items-center"> MALIPO </span>
-     <span class="d-flex justify-content-center align-items-center ">
-         <i class="bi bi-cash-coin text-light mx-2" style="font-size:2.5rem;"></i>
-         <span>
-         </a>
+          <span class="rotateads bg-light flex-shrink-0" style="padding:2px;">
+        <a href="{% url 'payment' %}" id="getservice"
+           class="top_providers text-decoration-none p-4 text-light d-block"
+           style="min-width:150px;">
+            <span class="d-flex justify-content-center align-items-center">MALIPO</span>
+            <span class="d-flex justify-content-center align-items-center">
+                <i class="bi bi-cash-coin text-light" style="font-size:2.5rem;"></i>
+            </span>
+        </a>
+        </span>
         {% endif %}
 
-        
-    <a href="{% url 'services' %}" id="getservice" class="top_providers text-decoration-none  p-4 text-light flex-shrink-0" style="min-width:150px;" >
-     {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
-    <!-- OUR SERVICES --> <span class="d-flex justify-content-center align-items-center"> HUDUMA </span>
+     <span class="rotateads bg-light flex-shrink-0" style="padding:2px;">
+        <a href="{% url 'services' %}" id="getservice"
+           class="top_providers text-decoration-none p-4 text-light d-block"
+           style="min-width:150px;"> <span class="d-flex justify-content-center align-items-center"> HUDUMA </span>
      <span class="d-flex justify-content-center align-items-center ">
          <i class="bi bi-basket-fill text-light mx-2" style="font-size:2.5rem;"></i>
          <span>
          </a>
+        </span>
 
-
-     <a href="{% url 'advertisement' %}"  id="getservice" class="top_providers text-decoration-none  p-4 text-light flex-shrink-0" style="min-width:150px;">
-         {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
-       <!--ADVERTISMENT  --> <span class="d-flex justify-content-center"> MATANGAZO </span>
+      <span class="rotateads bg-light flex-shrink-0" style="padding:2px;">
+        <a href="{% url 'advertisement' %}" id="getservice"
+           class="top_providers text-decoration-none p-4 text-light d-block"
+           style="min-width:150px;"> <span class="d-flex justify-content-center"> MATANGAZO </span>
          <span class="d-flex justify-content-center align-items-center align-items-center">
              <i class="bi bi-badge-ad-fill text-light mx-2" style="font-size:2.5rem;"></i>
              <span>
              </a>
-
-         {% comment %} <a href="{% url 'pv-exchange' %}"   id="getservice" class="top_providers text-decoration-none  p-4 text-light flex-shrink-0"  style="min-width:150px;">
-            <!-- PV-EXCHANGE --> <span class="d-flex justify-content-center">  BADILISHA PV </span>
-             <span class="d-flex justify-content-center align-items-center">
-                 <i class="bi bi-currency-exchange text-light mx-2" style="font-size:2.5rem;"></i>
-                 <span>
-                 </a> {% endcomment %}
+            </span>
 
             {% if rank == 'it_officer' or rank == 'director' or rank == 'vice_director' or rank == 'manager' or rank == 'business_teacher' or rank == 'video_grapher' or rank == 'doctor' or rank == 'secretary' or rank == 'stationary' or rank == 'pharmacist' or rank == 'reception' or rank == 'discipline' or rank == 'advisor' %}
-             <a href="{% url 'analysis' %}"   id="getservice" class="top_providers text-decoration-none  p-4 text-light flex-shrink-0" style="min-width:150px;" >
-                 {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
-                <!-- OUR ANALYSIS --> <span class="d-flex justify-content-center align-items-center"> UCHAMBUZI </span>
+        <span class="rotateads bg-light flex-shrink-0" style="padding:2px;">
+         <a href="{% url 'analysis' %}" id="getservice"
+           class="top_providers text-decoration-none p-4 text-light d-block"
+           style="min-width:150px;"> <span class="d-flex justify-content-center align-items-center"> UCHAMBUZI </span>
                  <span class="d-flex justify-content-center align-items-center">
                      <i class="bi bi-graph-up-arrow text-light mx-2" style="font-size:2.5rem;"></i>
                      <span>
                      </a>
+                    </span>
                  {% endif %}
 </div>
 </div>
@@ -239,7 +245,7 @@
                     data-target="#commentModal"
                     style="font-size:1rem; border-radius:20px;">
                     <i class="bi bi-envelope-heart-fill text-success"></i></a>{% endcomment %}
-                    <a onclick="shareContent('diseasevideo','{{ disease.id }}')" class="share-button text-success mx-1 px-2 py-1 bg-light text-decoration-none d-flex align-items-center" style="font-size:1rem; border-radius:20px;">
+                    <a onclick="shareContent('diseasevideo','{{ disease.id }}', '{{ request_id }}')" class="share-button text-success mx-1 px-2 py-1 bg-light text-decoration-none d-flex align-items-center" style="font-size:1rem; border-radius:20px;">
                     share
                     <i class="bi bi-share-fill mx-3"></i>
                     </a>
@@ -361,7 +367,7 @@
                     data-target="#commentModal"
                     style="font-size:1rem; border-radius:20px;">
                     <i class="bi bi-envelope-heart-fill text-success"></i></a> {% endcomment %}
-                     <a onclick="shareContent('medicineimage','{{ medicine.id }}')" class="share-button text-success mx-1 px-2 py-1 bg-light text-decoration-none d-flex align-items-center" style="font-size:1rem; border-radius:20px;">
+                     <a onclick="shareContent('medicineimage','{{ medicine.id }}','{{ request_id }}')" class="share-button text-success mx-1 px-2 py-1 bg-light text-decoration-none d-flex align-items-center" style="font-size:1rem; border-radius:20px;">
                         share
                     <i class="bi bi-share-fill mx-3"></i>
                     </a>
@@ -388,7 +394,7 @@
                     data-target="#commentModal"
                     style="font-size:1rem; border-radius:20px;">
                     <i class="bi bi-envelope-heart-fill text-success"></i></a> {% endcomment %}
-                     <a onclick="shareContent('medicinevideo','{{ medicine.id }}')" class="share-button text-success mx-1 px-2 py-1 bg-light text-decoration-none d-flex align-items-center" style="font-size:1rem; border-radius:20px;">
+                     <a onclick="shareContent('medicinevideo','{{ medicine.id }}','{{ request_id }}')" class="share-button text-success mx-1 px-2 py-1 bg-light text-decoration-none d-flex align-items-center" style="font-size:1rem; border-radius:20px;">
                         share
                     <i class="bi bi-share-fill mx-3"></i>
                     </a>
@@ -447,10 +453,10 @@
             <span style="color:rgb(4, 70, 39); "><b><!-- Accumulated Solution --> Tiba ya Dawa </b></span><br>
             {{medicine.solution}}
         </div>
-        <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
+        {% comment %} <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
             <span style="color:rgb(4, 70, 39); "><b><!--Medicine Dose  --> Dozi ya Dawa  </b></span><br>
             {{medicine.dose}}
-        </div>
+        </div> {% endcomment %}
         <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
             <span style="color:rgb(4, 70, 39); "><b><!-- Medicine Cost --> Gharama ya Dawa </b></span><br>
             {{medicine.cost}}
@@ -516,7 +522,7 @@
                     data-target="#commentModal"
                     style="font-size:1rem; border-radius:20px;">
                     <i class="bi bi-envelope-heart-fill text-success"></i></a> {% endcomment %}
-                    <a onclick="shareContent('checkupimage','{{ checkup.id }}')" class="share-button text-success mx-1 px-2 py-1 bg-light text-decoration-none d-flex align-items-center" style="font-size:1rem; border-radius:20px;">
+                    <a onclick="shareContent('checkupimage','{{ checkup.id }}','{{ request_id }}')" class="share-button text-success mx-1 px-2 py-1 bg-light text-decoration-none d-flex align-items-center" style="font-size:1rem; border-radius:20px;">
                         share
                     <i class="bi bi-share-fill mx-3"></i>
                     </a>
@@ -541,7 +547,7 @@
                     data-target="#commentModal"
                     style="font-size:1rem; border-radius:20px;">
                     <i class="bi bi-envelope-heart-fill text-success"></i></a> {% endcomment %}
-                    <a onclick="shareContent('checkupvideo','{{ checkup.id }}')" class="share-button text-success mx-1 px-2 py-1 bg-light text-decoration-none d-flex align-items-center" style="font-size:1rem; border-radius:20px;">
+                    <a onclick="shareContent('checkupvideo','{{ checkup.id }}','{{ request_id }}')" class="share-button text-success mx-1 px-2 py-1 bg-light text-decoration-none d-flex align-items-center" style="font-size:1rem; border-radius:20px;">
                         share
                     <i class="bi bi-share-fill mx-3"></i>
                     </a>
@@ -692,7 +698,7 @@
                     data-target="#commentModal"
                     style="font-size:1rem; border-radius:20px;">
                     <i class="bi bi-envelope-heart-fill text-success"></i></a> {% endcomment %}
-                    <a onclick="shareContent('businessplanimage','{{ businessplan.id }}')" class="share-button text-success mx-1 px-2 py-1 bg-light text-decoration-none d-flex align-items-center" style="font-size:1rem; border-radius:20px;">
+                    <a onclick="shareContent('businessplanimage','{{ business_plan.id }}','{{ request_id }}')" class="share-button text-success mx-1 px-2 py-1 bg-light text-decoration-none d-flex align-items-center" style="font-size:1rem; border-radius:20px;">
                         share
                     <i class="bi bi-share-fill mx-3"></i>
                     </a>
@@ -719,7 +725,7 @@
                     data-target="#commentModal"
                     style="font-size:1rem; border-radius:20px;">
                     <i class="bi bi-envelope-heart-fill text-success"></i></a> {% endcomment %}
-                    <a onclick="shareContent('businessplanvideo','{{ businessplan.id }}')" class="share-button text-success mx-1 px-2 py-1 bg-light text-decoration-none d-flex align-items-center" style="font-size:1rem; border-radius:20px;">
+                    <a onclick="shareContent('businessplanvideo','{{ business_plan.id }}','{{ request_id }}')" class="share-button text-success mx-1 px-2 py-1 bg-light text-decoration-none d-flex align-items-center" style="font-size:1rem; border-radius:20px;">
                         share
                     <i class="bi bi-share-fill mx-3"></i>
                     </a>
@@ -848,7 +854,7 @@
                     data-target="#commentModal"
                     style="font-size:1rem; border-radius:20px;">
                     <i class="bi bi-envelope-heart-fill text-success"></i></a> {% endcomment %}
-                    <a onclick="shareContent('businesslevelimage','{{ businesslevel.id }}')" class="share-button text-success mx-1 px-2 py-1 bg-light  text-decoration-none d-flex align-items-center" style="font-size:1rem; border-radius:20px;">
+                    <a onclick="shareContent('businesslevelimage','{{ business_level.id }}','{{ request_id }}')" class="share-button text-success mx-1 px-2 py-1 bg-light  text-decoration-none d-flex align-items-center" style="font-size:1rem; border-radius:20px;">
                         share
                     <i class="bi bi-share-fill mx-3"></i>
                     </a>
@@ -874,7 +880,7 @@
                     data-target="#commentModal"
                     style="font-size:1rem; border-radius:20px;">
                     <i class="bi bi-envelope-heart-fill text-success"></i></a> {% endcomment %}
-                    <a onclick="shareContent('businesslevelvideo','{{ businesslevel.id }}')" class="share-button text-success mx-1 px-2 py-1 bg-light text-decoration-none d-flex align-items-center" style="font-size:1rem; border-radius:20px;">
+                    <a onclick="shareContent('businesslevelvideo','{{ business_level.id }}','{{ request_id }}')" class="share-button text-success mx-1 px-2 py-1 bg-light text-decoration-none d-flex align-items-center" style="font-size:1rem; border-radius:20px;">
                         share
                     <i class="bi bi-share-fill mx-3"></i>
                     </a>
@@ -961,44 +967,58 @@
 
 
 <!-- advertisments -->
-<span id="category_title" class="d-flex justify-content-center align-items-center mt-4  mx-3 p-1 rounded" style="color:rgb(4, 70, 39);font-size:1.2rem;">
-    <i class="bi bi-badge-ad-fill text-success mx-1" style="font-size:1.2rem;"></i> 
-	<!-- ADVERTISMENT & NEWS --> MATANGAZO & HABARI </span>
-         <div class="d-flex justify-content-center ">
-            <div class="d-flex flex-nowrap overflow-x-auto  gap-3 p-3 mx-2" >
-             <div id="advertisment" data-type="branch" class="btn-advertisement top_providers  p-5 text-light flex-shrink-0"  style="min-width:200px;" >
-                 {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
-                <!-- OUR BRANCHS --> <span class="d-flex justify-content-center align-items-center"> VITUO VYETU </span>
-                 <span class="d-flex justify-content-center align-items-center">
-                     <i class="bi bi-houses text-light mx-2" style="font-size:3.5rem;"></i>
-                     <span>
-                 </div>
+<div class="d-flex justify-content-center">
+    <div class="d-flex flex-nowrap overflow-x-auto gap-3 p-3 mx-2">
 
-                    <div id="advertisment" data-type="shop" class="btn-advertisement top_providers  p-5 text-light flex-shrink-0" style="min-width:200px;">
-                    {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
-                   <!--  OUR SHOPS --> <span class="d-flex justify-content-center align-items-center"> MADUKA YETU </span>
-                    <span class="d-flex justify-content-center align-items-center ">
-                        <i class="bi bi-shop-window text-light mx-2" style="font-size:3.5rem;"></i>
-                        <span>
-                    </div>
+        <!-- VITUO VYETU -->
+        <div class="rotatediv flex-shrink-0" style="padding:2px; border-radius:20px;">
+            <div id="advertisment" data-type="branch"
+                 class="btn-advertisement top_providers p-5 text-light flex-shrink-0"
+                 style="min-width:200px;">
+                <span class="d-flex justify-content-center align-items-center">VITUO VYETU</span>
+                <span class="d-flex justify-content-center align-items-center">
+                    <i class="bi bi-houses text-light mx-2" style="font-size:3.5rem;"></i>
+                </span>
+            </div>
+        </div>
 
-                <div id="advertisment" data-type="meeting" class="btn-advertisement top_providers  p-5 text-light flex-shrink-0" style="min-width:200px;">
-                    {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
-                    <!-- OUR MEETINGS --> <span class="d-flex justify-content-center align-items-center"> MIHADHARA </span>
-                    <span class="d-flex justify-content-center align-items-center">
-                        <i class="bi bi-people text-light mx-2" style="font-size:3.5rem;"></i>
-                        <span>
-                    </div>
+        <!-- MADUKA YETU -->
+        <div class="rotatediv flex-shrink-0" style="padding:2px; border-radius:20px;">
+            <div id="advertisment" data-type="shop"
+                 class="btn-advertisement top_providers p-5 text-light flex-shrink-0"
+                 style="min-width:200px;">
+                <span class="d-flex justify-content-center align-items-center">MADUKA YETU</span>
+                <span class="d-flex justify-content-center align-items-center">
+                    <i class="bi bi-shop-window text-light mx-2" style="font-size:3.5rem;"></i>
+                </span>
+            </div>
+        </div>
 
-                <div id="advertisment" data-type="advertisement" class="btn-advertisement top_providers  p-5 text-light flex-shrink-0" style="min-width:200px;">
-                    {% comment %} box-shadow: 0 -2px 5px rgb(2, 24, 13); {% endcomment %}
-                    <!-- OTHER ADS --> <span class="d-flex justify-content-center align-items-center"> MATANGAZO </span>
-                    <span class="d-flex justify-content-center align-items-center">
-                        <i class="bi bi-badge-ad-fill text-light mx-2" style="font-size:3.5rem;"></i>
-                        <span>
-                    </div>
+        <!-- MIHADHARA -->
+        <div class="rotatediv flex-shrink-0" style="padding:2px; border-radius:20px;">
+            <div id="advertisment" data-type="meeting"
+                 class="btn-advertisement top_providers p-5 text-light flex-shrink-0"
+                 style="min-width:200px;">
+                <span class="d-flex justify-content-center align-items-center">MIHADHARA</span>
+                <span class="d-flex justify-content-center align-items-center">
+                    <i class="bi bi-people text-light mx-2" style="font-size:3.5rem;"></i>
+                </span>
+            </div>
+        </div>
 
-</div>
+        <!-- MATANGAZO -->
+        <div class="rotatediv flex-shrink-0" style="padding:2px; border-radius:20px;">
+            <div id="advertisment" data-type="advertisement"
+                 class="btn-advertisement top_providers p-5 text-light flex-shrink-0"
+                 style="min-width:200px;">
+                <span class="d-flex justify-content-center align-items-center">MATANGAZO</span>
+                <span class="d-flex justify-content-center align-items-center">
+                    <i class="bi bi-badge-ad-fill text-light mx-2" style="font-size:3.5rem;"></i>
+                </span>
+            </div>
+        </div>
+        
+    </div>
 </div>
 <!-- finish advertisments -->
 

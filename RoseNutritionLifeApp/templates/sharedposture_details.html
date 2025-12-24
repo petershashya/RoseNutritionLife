@@ -1,4 +1,4 @@
-{% extends 'layout.html' %}
+{% extends 'layout_shareddetail.html' %}
 
 
 {% block content %}
@@ -7,79 +7,118 @@
 
 <div class="p-2 mt-5"></div>
 
-<!-- Disease details -->
+<!-- shared details -->
             {% if object.image %}
-            <h5 class="mt-4 mx-2 p-2 d-flex justify-content-center bg-light text-uppercase" style="color:rgb(4, 70, 39); border-radius:25px;">
-              <i class="bi bi-ban-fill text-success mx-1" style="font-size:1.2rem;"></i>{{ object }}</h5>
-           
+            <h5 class="mt-4 mx-3 p-2 d-flex justify-content-center bg-light text-uppercase" style="color:rgb(4, 70, 39); border-radius:25px;">
+              <i class="bi bi-ban-fill text-success mx-1" style="font-size:1.2rem;"></i>
+                {% if model_type in "businessplanimage,businessplanvideo" %}
+                BIASHARA YA AFYA
+                {% elif model_type in "businesslevelimage,businesslevelvideo" %}
+                HATUA ZA BIASHARA
+                {% else %}
+                {{ object }}
+                {% endif %}
+              </h5>
 
-    <div class="d-flex justify-content-center align-items-start mx-2 gap-2 rounded">
+    {% comment %} <div class="d-flex justify-content-center align-items-start mx-2 gap-2 rounded"> {% endcomment %}
 
-
-              {% if object.image %}
+          {% if object.image %}
         <div class="row rounded my-1 p-3" >
           <div class="col-sm mx-auto" >
                 <img class="categoryimg rounded mb-1" style="width:100%; height:100%;" src="{{ object.image.url }}" alt="{{ model_type }}">
           </div>
+          <div> <!-- this div added for able row -->
 
             
-          <div class="col-sm mx-3 p-2 rounded mt-2 mx-auto" style="background-color:rgb(226, 240, 233);">
+          <div class="row mx-3 p-2 rounded mt-2 mx-auto" style="background-color:rgb(226, 240, 233);">
               {% if object %}
-              <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2"><b class="text-uppercase">{{object}}</b></div>
+              <div style="border-left:3px solid rgb(4, 70, 39); " class="rounded p-2 bg-white my-2"><b class="text-uppercase">
+                {% if model_type in "businessplanimage,businessplanvideo" %}
+                BIASHARA YA AFYA
+                {% elif model_type in "businesslevelimage,businesslevelvideo" %}
+                HATUA ZA BIASHARA YA AFYA
+                {% else %}
+                {{object}}
+                {% endif %}
+              </b></div>
               {% endif %}
 
               {% if object.description %}
               <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
-                  <span style="color:rgb(4, 70, 39); "><b>{{model_type}} Description</b></span><br>
+                  <span style="color:rgb(4, 70, 39); "><b>
+                    <!-- {{model_type}} Description --> Maelezo ya 
+                {% if model_type in "businessplanimage,businessplanvideo" %}
+               <span class="text-lowercase" >  BIASHARA YA AFYA </span>
+                {% elif model_type in "businesslevelimage,businesslevelvideo" %}
+               <span class="text-lowercase" >  HATUA ZA BIASHARA </span>
+                {% else %}
+                {{object}}
+                {% endif %} 
+                  </b></span><br>
               {{object.description}}
               </div>
               {% endif %}
 
               {% if object.symptoms %}
               <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
-                  <span style="color:rgb(4, 70, 39); "><b>{{model_type}} Symptoms</b></span><br>
+                  <span style="color:rgb(4, 70, 39); "><b>
+                    <!-- {{model_type}} Symptoms -->  Dalili za {{ object }}</b></span><br>
                   {{object.symptoms}}
               </div>
               {% endif %}
 
               {% if object.causes %}
               <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
-                  <span style="color:rgb(4, 70, 39); "><b>{{model_type}} Causes</b></span><br>
+                  <span style="color:rgb(4, 70, 39); "><b>
+                    <!-- {{model_type}} Causes --> Visababisho vya {{ object }}</b></span><br>
                   {{object.causes}}
               </div>
               {% endif %}
 
               {% if object.treatment %}
               <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
-                  <span style="color:rgb(4, 70, 39); "><b>{{model_type}} Treatment</b></span><br>
+                  <span style="color:rgb(4, 70, 39); "><b>
+                    <!-- {{model_type}} Treatment -->  Tiba ya {{ object }}</b></span><br>
                   {{object.treatment}}
               </div>
               {% endif %}
 
                       {% if object.solution %}
               <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
-                  <span style="color:rgb(4, 70, 39); "><b>{{model_type}} Solution</b></span><br>
+                  <span style="color:rgb(4, 70, 39); "><b>
+                    <!-- {{model_type}} Solution -->  Suluhisho la {{ object }}</b></span><br>
                   {{object.solution}}
               </div>
               {% endif %}
 
-                      {% if object.dose %}
+                      {% comment %} {% if object.dose %}
               <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
-                  <span style="color:rgb(4, 70, 39); "><b>{{model_type}} Dose</b></span><br>
+                  <span style="color:rgb(4, 70, 39); "><b>
+                    <!-- {{model_type}} Dose --> Dozi ya Dawa </b></span><br>
                   {{object.dose}}
               </div>
-              {% endif %}
+              {% endif %} {% endcomment %}
 
               {% if object.cost %}
               <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
-                  <span style="color:rgb(4, 70, 39); "><b>{{model_type}} Cost</b></span><br>
+                  <span style="color:rgb(4, 70, 39); "><b>
+                    <!-- {{model_type}} Cost --> Gharama ya Dawa </b></span><br>
                   {{object.cost}}
               </div>
               {% endif %}
 
               {% if object.additional_comment %}
               <div style="border-left:3px solid rgb(4, 70, 39);" class="rounded p-2  bg-white my-2">
-                  <span style="color:rgb(4, 70, 39); "><b>About {{model_type}}</b></span><br>
+                  <span style="color:rgb(4, 70, 39); "><b>
+                    <!-- About {{model_type}} --> Kuhusu 
+                {% if model_type in "businessplanimage,businessplanvideo" %}
+                <span class="text-lowercase" >BIASHARA YA AFYA </span>
+                {% elif model_type in "businesslevelimage,businesslevelvideo" %}
+                <span class="text-lowercase" > HATUA ZA BIASHARA </span>
+                {% else %}
+                {{object}}
+                {% endif %}
+                   </b></span><br>
                   {{object.additional_comment}}
               </div>
               {% endif %}
@@ -88,6 +127,7 @@
         </div>
 
           {% endif %}
+          
      </div>
 
                 {# --------- Detect and show video--------- #}
@@ -106,12 +146,28 @@
           </div>
                {% endif %} {% endcomment %}
 
+          {% if model_type in "businessplanimage,businessplanvideo,businesslevelimage,businesslevelvideo" %}
+               <div class="p-3 mx-3 mt-2" style="background-color:rgb(226, 240, 233); border-radius:25px;">
+              <h5 class="mt-2 p-2 d-flex justify-content-center bg-light text-uppercase" style="color:rgb(4, 70, 39); border-radius:25px;">
+                 <i class="bi bi-person-fill text-success mb-1 mx-2" style="font-size: 1.2rem"></i>
+        </span>MWALIMU WA AFYA </h5>
+              <div class="px-3 d-flex justify-content-center">
+                    <span class="px-3 py-1 mx-auto mt-1" style="color:rgb(4, 70, 39);">
+                    Nifikie sasa kupata Elimu ya Afya<br>
+                    Tabibu : <b> {{user_obj.first_name}}  {{user_obj.last_name}} </b> <br>
+                    Mawasiliano : <b>{{ userdetail_obj.mobile_contact }}</b> <br>
+                    {% if user_obj.email %}
+                    <b>{{ user_obj.email }}</b> <br>
+                     {% endif %}
+                    </span>
+              </div>
+              </div>
+              {% else %}
 
                <div class="p-3 mx-3 mt-2" style="background-color:rgb(226, 240, 233); border-radius:25px;">
               <h5 class="mt-2 p-2 d-flex justify-content-center bg-light text-uppercase" style="color:rgb(4, 70, 39); border-radius:25px;">
                  <i class="bi bi-person-fill text-success mb-1 mx-2" style="font-size: 1.2rem"></i>
-        </span>TAARIFA ZA TABIBU 
-                  </p></h5>
+          </span>MSHAURI WA AFYA </h5>
               <div class="px-3 d-flex justify-content-center">
                     <span class="px-3 py-1 mx-auto mt-1" style="color:rgb(4, 70, 39);">
                     Nifikie sasa kupata Tiba ya Afya<br>
@@ -123,14 +179,16 @@
                     </span>
               </div>
               </div>
+              {% endif %}
 
         {% else %}
 <div class="p-3 mx-3 mt-5" style="background-color:rgb(226, 240, 233); border-radius:25px;">
-<h5 class="mt-2 p-2 d-flex justify-content-center bg-light text-uppercase" style="color:rgb(4, 70, 39); border-radius:25px;">{{ object }} 
+<h5 class="mt-2 p-2 d-flex justify-content-center bg-light text-uppercase" style="color:rgb(4, 70, 39); border-radius:25px;">
+  <i class="bi bi-ban-fill text-success mx-1" style="font-size:1.2rem;"></i>{{ object }} 
     </p></h5>
 <div class="px-3 d-flex justify-content-center">
       <p class="px-3 d-flex justify-content-center mt-1 text-lowercase" style="color:rgb(4, 70, 39);">
-       Hakuna taarifa zozote za tangazo la picha kuhusu {{ object }} 
+       Hakuna taarifa zozote za uelimishaji kuhusu {{ object }} 
     </p>
 </div>
 </div>

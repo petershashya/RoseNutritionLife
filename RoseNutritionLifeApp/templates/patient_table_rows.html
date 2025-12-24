@@ -1,15 +1,15 @@
 {% for patient in patients %}
 <tr class="clickable-row" data-url="{% url 'medical_form' patient.id %}" style="cursor:pointer;">
     <td><input type="checkbox" name="selected_patients" value="{{ patient.id }}"></td>
-    <td>{{ patient.full_name }}</td>
-    <td>{{ patient.gender }}</td>
-    <td>{{ patient.region }}</td>
-    <td>{{ patient.postal_address }}</td>
-    <td>{{ patient.email }}</td>
-    <td>{{ patient.mobile_no }}</td>
-    <td>{{ patient.membership_no }}</td>
+      <td class="text-start">{{ patient.full_name}}</td>
+      <td class="text-center">{{ patient.gender}}</td>
+      <td class="text-center">{{ patient.region}}</td>
+      <td class="text-center">{{ patient.postal_address }}</td>
+      <td class="text-start">{{ patient.email }}</td>
+      <td class="text-center">{{ patient.mobile_no}}</td>
+      <td class="text-center">{{ patient.membership_no }}</td>
     {% if rank in "it_officer" %}
-                 <td class="d-flex gap-1">
+                 <td class="d-flex justify-content-center aling-items-center gap-1">
                   <button class="btn btn-sm  generic-edit-btn btn-warning rounded-pill" data-url="{% url 'generic_edit' 'patient' patient.id %}" data-target="#editGenericModal">
                     <i class="bi bi-pencil"></i>
                   </button>
@@ -24,6 +24,6 @@
 </tr>
 {% empty %}
 <tr>
-    <td colspan="8" class="text-center">No results found</td>
+    <td colspan="9" class="text-center">No patients found</td>
 </tr>
 {% endfor %}

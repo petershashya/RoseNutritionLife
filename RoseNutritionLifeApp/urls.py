@@ -16,7 +16,9 @@ from .views import (
     view_medicalpayment,toggle_medical_payment,view_member_payment,print_member_payment,view_medicine_form,
     
     #members and payments
-    view_member_pending , save_member_payment, ajax_payment_search,ajax_pending_search,ajax_user_search,calculate_money,
+    view_member_pending , save_member_payment, ajax_payment_search,ajax_pending_search,ajax_user_search,
+    ajax_disease_search,calculate_money,ajax_medicine_search,ajax_checkup_search,ajax_businesslevel_search,
+    ajax_businessplan_search,
     
     #for templates
     posture_details, video_details,lists_details,list_details,business_details,
@@ -69,8 +71,12 @@ urlpatterns = [
     path('ajax/medical-search/', ajax_medical_search, name='ajax_medical_search'),
     path('ajax/pharmacy-search/', ajax_pharmacy_search, name='ajax_pharmacy_search'),
     path( 'ajax/user-search/', ajax_user_search, name='ajax_user_search'),
+    path('ajax/disease-search/', ajax_disease_search, name='ajax_disease_search'),
+    path('ajax/medicine-search/', ajax_medicine_search, name='ajax_medicine_search'),
+    path('ajax/checkup-search/', ajax_checkup_search, name='ajax_checkup_search'),
+    path('ajax/businesslevel-search/', ajax_businesslevel_search, name='ajax_businesslevel_search' ),
+    path('ajax/businessplan-search/', ajax_businessplan_search, name='ajax_businessplan_search' ),
 
-    
     #medical payments
     path("payment/medical/<int:medical_id>/", view_medicalpayment, name="view_medicalpayment"),
     path('ajax/toggle-medical-payment/<int:product_id>/', toggle_medical_payment, name='toggle_medical_payment'),
@@ -84,6 +90,7 @@ urlpatterns = [
     path("payment/save/", save_member_payment, name="save_member_payment"),
     path('ajax/payment_-search/', ajax_payment_search, name='ajax_payment__search'),
     path('ajax/pending_-search/', ajax_pending_search, name='ajax_pending__search'),
+
  
     #for posts models details
     path('post_disease/', post_disease, name='post_disease'),
