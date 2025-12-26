@@ -82,28 +82,28 @@
                       </td>
 
                       <td>
-                        {% if not obj.object.confirmed %}
-                          <button type="button"
-                            class="btn btn-sm btn-light rounded-pill d-flex align-items-center gap-1 open-confirm-modal"
-                            data-id="{{ obj.object.id }}"
-                            data-type="comment"
-                            data-action="confirm-item"
-                            data-url="{% url 'show-confirm-modal' %}"
-                            data-text="Are you sure you want to confirm this comment?">
-                            Confirm <i class="bi bi-bag-x" style="font-size:20px"></i>
-                          </button>
-                        {% else %}
-                          <button type="button"
-                            class="btn btn-sm btn-light rounded-pill d-flex align-items-center gap-1 open-confirm-modal"
-                            data-id="{{ obj.object.id }}"
-                            data-type="comment"
-                            data-action="unconfirm-item"
-                            data-url="{% url 'show-confirm-modal' %}"
-                            data-text="Are you sure you want to unconfirm this comment?">
-                            Unconfirm <i class="bi bi-bag" style="font-size:20px"></i>
-                          </button>
-                        {% endif %}
-                      </td>
+                          {% if not obj.object.confirmed %}
+                            <button type="button"
+                              class="btn btn-sm btn-light rounded-pill d-flex align-items-center gap-1 open-confirm-modal"
+                              data-id="{{ obj.object.id }}"
+                              data-type="comment"
+                              data-action="confirm_comment"
+                              data-url="{% url 'show-confirm-modal' %}"
+                              data-text="Are you sure you want to confirm this comment?">
+                              Confirm <i class="bi bi-bag-x" style="font-size:20px"></i>
+                            </button>
+                          {% else %}
+                            <button type="button"
+                              class="btn btn-sm btn-light rounded-pill d-flex align-items-center gap-1 open-confirm-modal"
+                              data-id="{{ obj.object.id }}"
+                              data-type="comment"
+                              data-action="unconfirm_comment"
+                              data-url="{% url 'show-confirm-modal' %}"
+                              data-text="Are you sure you want to unconfirm this comment?">
+                              Unconfirm <i class="bi bi-bag" style="font-size:20px"></i>
+                            </button>
+                          {% endif %}
+                        </td>
 
                     </tr>
                     {% endfor %}

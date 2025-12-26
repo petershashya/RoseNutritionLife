@@ -2718,7 +2718,6 @@ def unconfirm_comment(request):
         return JsonResponse({'status': 'success', 'message': 'Comment unconfirmed'})
 
 
-
 def sharedcontent_details(request, model_type, item_id ,user_id):
     model_map = {
         'diseaseimage': Disease,

@@ -148,8 +148,8 @@ urlpatterns = [
       
 
     path('show-confirm-modal/', show_confirm_comment_modal, name='show-confirm-modal'),
-    path('confirm-item/', confirm_comment, name='confirm-item'),
-    path('unconfirm-item/', unconfirm_comment, name='unconfirm-item'),
+    path('confirm_comment/', confirm_comment, name='confirm_comment'),
+    path('unconfirm_comment/', unconfirm_comment, name='unconfirm_comment'),
 
 
     #prints csv,excel and pdf

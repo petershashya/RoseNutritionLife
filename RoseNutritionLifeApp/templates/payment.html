@@ -89,7 +89,7 @@
                                     <span class="badge bg-danger">Pending</span>
                                 {% endif %}
                             </td>
-                            <td class="text-center">
+                            <td class="text-center d-flex justify-content-center align-items-center">
                                 <button type="button" class="btn btn-primary btn-sm open-member-modal"
                                         data-url="{% url 'view_member_pending' m.membership_no %}">
                                     View
@@ -204,25 +204,24 @@
                         <td  class="text-center">{{ p.money }}</td>
                         <td  class="text-center">{{ p.month }}</td>
                         <td>{{ p.date_created|date:"Y-m-d H:i" }}</td>
-                        <td class="text-center">
+                        <td class="text-center d-flex justify-content-center align-items-center gap-1">
                             <button type="button" class="btn btn-primary btn-sm open-payment-modal"
                                     data-url="{% url 'view_member_payment' p.membership_no %}">
                                     <i class="bi bi-eye mx-1"></i>
-                                View
                             </button>
                             <button type="button"
                                     class="btn btn-secondary btn-sm open-payment-modal"
                                     data-url="{% url 'print_member_payment' p.membership_no %}"
                                     data-month="{{ selected_month|default:'' }}">
-                                <i class="bi bi-printer mx-1"></i>print
+                                <i class="bi bi-printer mx-1"></i>
                             </button>
                             
                             {% if rank in "it_officer" %}
-                            <button class="btn btn-sm  generic-edit-btn btn-warning rounded-pill" data-url="{% url 'generic_edit' 'payment' p.id %}" data-target="#editGenericModal">
+                            <button class="btn btn-sm  generic-edit-btn btn-warning rounded" data-url="{% url 'generic_edit' 'payment' p.id %}" data-target="#editGenericModal">
                               <i class="bi bi-pencil"></i>
                             </button>
                            {% endif %}
-                            <button class="btn btn-sm generic-delete-btn btn-danger rounded-pill" data-url="{% url 'generic_delete' 'payment' p.id %}" data-target="#deleteGenericModal">
+                            <button class="btn btn-sm generic-delete-btn btn-danger rounded" data-url="{% url 'generic_delete' 'payment' p.id %}" data-target="#deleteGenericModal">
                               <i class="bi bi-trash"></i>
                             </button>
 

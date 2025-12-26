@@ -1401,82 +1401,6 @@ $(document).ready(function() {
 
 
     <!-- GENERAL STARTING POSTING FORMS -->
-    <!-- start post disease -->
-     <script>
-$(document).ready(function() {
-    function getCookie(name) {
-        var cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            var cookies = document.cookie.split(';');
-            for (var i = 0; i < cookies.length; i++) {
-                var cookie = cookies[i].trim();
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
-    var csrftoken = getCookie('csrftoken');
-
-    // Show disease post modal
-    $(document).on('click', '.disease-post-btn', function() {
-        $.ajax({
-            url: `/post_disease/`,   // this loads the form page
-            method: 'GET',
-            success: function(response) {
-                $('body').append(response);
-                $('#diseasePostModal').modal('show');
-                // Remove modal from DOM when hidden to avoid duplicate IDs
-                $('#diseasePostModal').on('hidden.bs.modal', function() {
-                    $(this).remove();
-                });
-            },
-            error: function(xhr, status, error) {
-                alert('An error occurred while loading disease form.');
-            }
-        });
-    });
-
-    // Handle posting disease form
-    $(document).on('click', '#postdisease_button', function() {
-        var button = $(this);
-        var form = $('#postdiseaseForm')[0];
-        var formData = new FormData(form);
-
-        // Disable button to prevent multiple submissions
-        button.prop('disabled', true);
-
-        $.ajax({
-            url: $(form).attr('action'),
-            method: 'POST',
-            data: formData,
-            processData: false,
-            contentType: false,
-            headers: {
-                'X-CSRFToken': csrftoken
-            },
-            success: function(response) {
-                $('#diseasePostModal').modal('hide');
-                button.prop('disabled', false);
-                location.reload(); // Refresh page to show new disease
-            },
-            error: function(xhr) {
-                button.prop('disabled', false); // re-enable button
-                if (xhr.status === 400) {
-                    alert('You have already posted this disease.');
-                } else {
-                    alert('An error occurred while posting the disease.');
-                }
-            }
-        });
-    });
-});
-</script>
-
-
-
 <!-- start general post -->
  <script>
 $(document).ready(function() {
@@ -1562,7 +1486,7 @@ $(document).ready(function() {
     showModal('.businessplan-post-btn', '/post_businessplan/', '#businessplanModal');
     postForm('#postbusinessplan_button', '#businessplanForm', '#businessplanModal');
 
-    showModal('.businessplevel-post-btn', '/post_businesslevel/', '#businesslevelModal');
+    showModal('.businesslevel-post-btn', '/post_businesslevel/', '#businesslevelModal');
     postForm('#postbusinesslevel_button', '#businesslevelForm', '#businesslevelModal');
 
     showModal('.advertisement-post-btn', '/post_advertisement/', '#advertisementModal');
@@ -1582,9 +1506,6 @@ $(document).ready(function() {
 
     showModal('.checkup-sales-post-btn', '/post_checkup_sales/', '#checkupsalesModal');
     postForm('#postcheckupsales_button', '#checkupsalesForm', '#checkupsalesModal');
-
-    showModal('.medicine-sales-post-btn', '/post_medicine_sales/', '#medicinesalesModal');
-    postForm('#postmedicinesales_button', '#medicinesalesForm', '#medicinesalesModal');
 
     showModal('.about-post-btn', '/post_about/', '#aboutModal');
     postForm('#postabout_button', '#aboutForm', '#aboutModal');
@@ -2139,17 +2060,24 @@ $(document).on('click', '.export-btn', function(e) {
 
 
 // Javascripts Codes
-function shareContent(type,id,user_id) {
+function shareContent(type, id, user_id) {
+    // ✅ CHECK USER ID FIRST (THIS SOLVES THE 404 ISSUE)
+    if (!user_id || user_id === 'None' || user_id === 'null' || user_id === '') {
+        alert('Tafadhari Ingiza Taarifa zako Kwanza');
+        return; // ⛔ stop execution
+    }
+
     // 🔧 Create a clean, SEO-friendly slug
     const cleanName = name.replace(/\s+/g, '').replace(/[^a-zA-Z0-9]/g, '');
     const baseUrl = 'https://rosenutritionlife.com/sharedcontent';
     const shareUrl = `${baseUrl}/${type}/${id}/${user_id}`;
-    //const shareUrl = `${baseUrl}/${type}/${id}${cleanName}`;
 
-    const title = `${type === 'posture' ? 'Check Out to this Health Posture' : 'Check out this Health Details' }: ${name}`;
+    const title = `${type === 'posture'
+        ? 'Check Out to this Health Posture'
+        : 'Check out this Health Details'}: ${name}`;
 
     if (navigator.share) {
-        // ✅ Native share (mobile + some desktop)
+        // ✅ Native share
         navigator.share({
             title: title,
             url: shareUrl
@@ -2159,7 +2087,7 @@ function shareContent(type,id,user_id) {
             console.error('Error sharing:', error);
         });
     } else {
-        // ❌ Fallback popup for browsers without Web Share API
+        // ❌ Fallback popup
         const encodedUrl = encodeURIComponent(shareUrl);
         const encodedTitle = encodeURIComponent(title);
 
@@ -2180,7 +2108,7 @@ function shareContent(type,id,user_id) {
                     width: 320px;
                     box-shadow: 0 4px 20px rgba(0,0,0,0.2);
                     animation: fadeIn 0.3s ease;">
-                   
+
                     <h5 style="color: #333; font-weight: 600; margin-bottom: 15px;">
                         Share <span style="color:#f17c90;">${name}</span>
                     </h5>
@@ -2191,16 +2119,19 @@ function shareContent(type,id,user_id) {
                            style="background:#25D366; color:#fff; padding:8px; border-radius:12px; text-decoration:none;">
                            <i class="bi bi-whatsapp"></i> WhatsApp
                         </a>
+
                         <a href="https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}"
                            target="_blank"
                            style="background:#1877f2; color:#fff; padding:8px; border-radius:12px; text-decoration:none;">
                            <i class="bi bi-facebook"></i> Facebook
                         </a>
+
                         <a href="https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}"
                            target="_blank"
                            style="background:#000; color:#fff; padding:8px; border-radius:12px; text-decoration:none;">
                            <i class="bi bi-twitter-x"></i> X (Twitter)
                         </a>
+
                         <button onclick="copyToClipboard('${shareUrl}')"
                                 style="background:#f17c90; color:#fff; border:none; padding:8px; border-radius:12px;">
                             <i class="bi bi-link-45deg"></i> Copy Link
@@ -2235,6 +2166,7 @@ function copyToClipboard(text) {
         alert('Unable to copy link.');
     });
 }
+
 
 // ✅ Fade-in animation
 const style = document.createElement('style');

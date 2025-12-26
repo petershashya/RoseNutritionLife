@@ -126,14 +126,14 @@
                     <i class="bi bi-chat-dots text-light mx-1" style="font-size:1.3rem;"></i><!-- About -->Kuhusu Viongozi
                 </span>
                  <span id="add_list" data-type="medicinesalestable" class="btn-adstable  d-flex justify-content-center align-items-center mx-auto  px-3 py-2 flex-shrink-0" style="border-radius:25px;" >
-                    <i class="bi bi-bandaid-fill text-light mx-1" style="font-size:1.3rem;"></i><!-- medicinesales --> Medicines
+                    <i class="bi bi-bandaid-fill text-light mx-1" style="font-size:1.3rem;"></i><!-- medicinesales --> Madawa
                 </span>
                 {% endif %}
                   <span id="add_list" data-type="meetingtable" class="btn-adstable  d-flex justify-content-center align-items-center mx-auto px-3 py-2 flex-shrink-0" style="border-radius:25px; " >
                     <i class="bi bi-people text-light mx-1" style="font-size:1.3rem;"></i><!-- Meetings --> Mihadhara
                 </span>
                  <span id="add_list" data-type="otheradstable" class="btn-adstable  d-flex justify-content-center align-items-center mx-auto  px-3 py-2 flex-shrink-0" style="border-radius:25px;" >
-                    <i class="bi bi-badge-ad-fill text-light mx-1" style="font-size:1.3rem;"></i><!-- OtherAds --> Matangazo
+                    <i class="bi bi-info-circle text-light mx-1" style="font-size:1.3rem;"></i><!-- OtherAds --> Taarifa
                 </span>
                 <a id="add_list" href="{% url 'memberdetail' %}"  class="d-flex justify-content-center align-items-center mx-auto text-decoration-none  px-3 py-2 flex-shrink-0" style="border-radius:25px;" >
                     <i class="bi bi-coin text-light mx-1" style="font-size:1.3rem;"></i><!-- malipo --> Malipo
@@ -295,6 +295,10 @@
           <!-- Total Patients --> Idadi ya Wagonjwa <span class="badge badge-pill" style="background-color: rgb(4, 70, 39);">
             {{ patient_count }}
         </a>
+         <a class="patient-post-btn text-light btn btn-sm" style="background-color: rgb(4, 70, 39);">
+         <i class="bi bi-person-arms-up mx-1" style="font-size:0.8rem"></i>
+          Add
+        </a>
       </span>
 
         <span class="d-flex justify-content-center align-items-center gap-2 mb-2 mt-2">
@@ -400,6 +404,10 @@
             {{ diseases_count }}
           </span>
         </a>
+         <a class="disease-post-btn text-light btn btn-sm" style="background-color: rgb(4, 70, 39);">
+         <i class="bi bi-bandaid-fill  mx-1" style="font-size:0.8rem"></i>
+          Add
+        </a>
       </span>
 
               <span class="d-flex justify-content-center align-items-center gap-2 mb-2 mt-2">
@@ -498,6 +506,10 @@
           <!-- Total Medicines --> Idadi ya Dawa <span class="badge badge-pill" style="background-color: rgb(4, 70, 39);">
             {{ medicines_count }}
           </span>
+        </a>
+        <a class="medicine-post-btn text-light btn btn-sm" style="background-color: rgb(4, 70, 39);">
+         <i class="bi-capsule-pill mx-1" style="font-size:0.8rem"></i>
+          Add
         </a>
       </span>
 
@@ -599,6 +611,10 @@
             {{ checkups_count }}
           </span>
         </a>
+        <a class="checkup-post-btn text-light btn btn-sm" style="background-color: rgb(4, 70, 39);">
+         <i class="bi-h-circle-fill mx-1" style="font-size:0.8rem"></i>
+          Add
+        </a>
       </span>
 
         <span class="d-flex justify-content-center align-items-center gap-2 mb-2 mt-2">
@@ -699,6 +715,10 @@
             {{ businesslevel_count }}
           </span>
         </a>
+        <a class="businesslevel-post-btn text-light btn btn-sm" style="background-color: rgb(4, 70, 39);">
+         <i class="bi bi-bar-chart-steps mx-1" style="font-size:0.8rem"></i>
+          Add
+        </a>
       </span>
 
         <span class="d-flex justify-content-center align-items-center gap-2 mb-2 mt-2">
@@ -797,6 +817,10 @@
           <!-- Total Businessplans --> Biashara Yetu<span class="badge badge-pill" style="background-color: rgb(4, 70, 39);">
             {{ businessplan_count }}
           </span>
+        </a>
+        <a class="businessplan-post-btn text-light btn btn-sm" style="background-color: rgb(4, 70, 39);">
+         <i class="bi bi-coin mx-1" style="font-size:0.8rem"></i>
+          Add
         </a>
       </span>
 

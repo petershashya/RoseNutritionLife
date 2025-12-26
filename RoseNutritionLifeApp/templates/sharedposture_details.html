@@ -146,6 +146,7 @@
           </div>
                {% endif %} {% endcomment %}
 
+          {% if user_obj and userdetail_obj %}
           {% if model_type in "businessplanimage,businessplanvideo,businesslevelimage,businesslevelvideo" %}
                <div class="p-3 mx-3 mt-2" style="background-color:rgb(226, 240, 233); border-radius:25px;">
               <h5 class="mt-2 p-2 d-flex justify-content-center bg-light text-uppercase" style="color:rgb(4, 70, 39); border-radius:25px;">
@@ -179,6 +180,7 @@
                     </span>
               </div>
               </div>
+              {% endif %}
               {% endif %}
 
         {% else %}
