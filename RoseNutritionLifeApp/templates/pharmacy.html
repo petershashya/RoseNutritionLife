@@ -15,7 +15,7 @@
         <div class="alert alert-info alert-dismissible mx-3 mt-2 shadow border-0 bg-white">
         <span class="d-flex justify-content-center aling-items-center text-info">
           <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-          <i class="bi bi-info-circle mx-2" style="font-size:1rem;" ></i> Make Sure After Register Patients Seen On List
+          <i class="bi bi-info-circle mx-2" style="font-size:1rem;" ></i> View, Print and Confirm medicine payments
         </span>
       </div>
             <!-- counts + add -->
@@ -64,13 +64,13 @@
                 <td><input type="checkbox" name="selected_medicals" value="{{ medical.id }}"></td>
                 <!-- <td>{{ medical.date }}</td>
                  <td>{{ medical.ref_no }}</td> -->
-                <td>{{ medical.id_number }}</td>
+                <td class="text-center">{{ medical.id_number }}</td>
                 <td>{{ medical.office_name }}</td>
                 <td>{{ medical.name }}</td>
-                <td>{{ medical.sex }}</td>
+                <td class="text-center">{{ medical.sex }}</td>
                 <td>{{ medical.dob }}</td>
-                <td>{{ medical.weight }}</td>
-                <td>{{ medical.height }}</td>
+                <td class="text-center">{{ medical.weight }}</td>
+                <td class="text-center">{{ medical.height }}</td>
                 {% if rank in "it_officer,pharmacist" %}
                 <td class="d-flex justify-content-center align-items-center gap-1">
                   <button type="button" class="btn btn-sm btn-info rounded view-medical-btn"

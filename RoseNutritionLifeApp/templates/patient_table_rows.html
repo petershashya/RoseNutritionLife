@@ -10,10 +10,10 @@
       <td class="text-center">{{ patient.membership_no }}</td>
     {% if rank in "it_officer" %}
                  <td class="d-flex justify-content-center aling-items-center gap-1">
-                  <button class="btn btn-sm  generic-edit-btn btn-warning rounded-pill" data-url="{% url 'generic_edit' 'patient' patient.id %}" data-target="#editGenericModal">
+                  <button class="btn btn-sm  generic-edit-btn btn-warning rounded" data-url="{% url 'generic_edit' 'patient' patient.id %}" data-target="#editGenericModal">
                     <i class="bi bi-pencil"></i>
                   </button>
-                  <button class="btn btn-sm generic-delete-btn btn-danger rounded-pill" data-url="{% url 'generic_delete' 'patient' patient.id %}" data-target="#deleteGenericModal">
+                  <button class="btn btn-sm generic-delete-btn btn-danger rounded" data-url="{% url 'generic_delete' 'patient' patient.id %}" data-target="#deleteGenericModal">
                     <i class="bi bi-trash"></i>
                   </button>
                 </td>

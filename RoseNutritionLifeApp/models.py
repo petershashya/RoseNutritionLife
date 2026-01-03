@@ -48,9 +48,12 @@ class UserDetail(models.Model):
     )
     mobile_contact = models.CharField(max_length=15, unique=True)  # Not null
     #email = models.EmailField(blank=True, null=True)  #Nullable
+    # gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=False, null=False)#Not null
+    # age = models.PositiveIntegerField(blank=False, null=False) #Not Null
+    # region = models.CharField(max_length=100)  # Not null
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=False, null=False)#Not null
-    age = models.PositiveIntegerField(blank=False, null=False) #Not Null
-    region = models.CharField(max_length=100)  # Not null
+    age = models.PositiveIntegerField(blank=True, null=True) #Not Null
+    region = models.CharField(max_length=100, blank=True, null=True)  # Not null
     postal_address = models.CharField(max_length=255, blank=True, null=True)  # Nullable
     company_rank = models.CharField(max_length=50, choices=COMPANY_RANK_CHOICES, blank=True, null=True)
     membership_no = models.CharField(max_length=50, blank=False, null=False, unique=True)  # For SuperUser & Member

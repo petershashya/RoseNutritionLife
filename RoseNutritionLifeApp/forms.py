@@ -95,9 +95,9 @@ class MemberRegistrationForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput(), required=False)
     mobile_contact = forms.CharField(max_length=15, required=True, label='Mobile Number')
     gender = forms.ChoiceField(choices=GENDER_CHOICES, required=True)
-    age = forms.IntegerField(required=True, min_value=1)
-    region = forms.CharField(max_length=100, required=True)
-    postal_address = forms.CharField(max_length=255, required=False)
+    #age = forms.IntegerField(required=True, min_value=1)
+    #region = forms.CharField(max_length=100, required=True)
+    #postal_address = forms.CharField(max_length=6, required=False)
     company_rank = forms.ChoiceField(choices=COMPANY_RANK_MEMBERCHOICES, required=False)
     membership_no = forms.CharField(max_length=7, required=True, label="Membership No")
     profile_image = forms.ImageField(required=False, widget=forms.ClearableFileInput(attrs={'accept': 'image/*'}))
@@ -132,9 +132,9 @@ class MemberRegistrationForm(forms.ModelForm):
                     'profile_image': self.cleaned_data.get('profile_image'),
                     'mobile_contact': self.cleaned_data['mobile_contact'],
                     'gender': self.cleaned_data.get('gender'),
-                    'age': self.cleaned_data.get('age'),
-                    'region': self.cleaned_data['region'],
-                    'postal_address': self.cleaned_data.get('postal_address'),
+                    #'age': self.cleaned_data.get('age'),
+                    #'region': self.cleaned_data['region'],
+                    #'postal_address': self.cleaned_data.get('postal_address'),
                     'company_rank': self.cleaned_data.get('company_rank'),
                     'membership_no': self.cleaned_data.get('membership_no'),
                 }

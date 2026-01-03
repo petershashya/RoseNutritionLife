@@ -14,13 +14,13 @@
     <td class="text-start">{{ medicine.medicine_name }}</td>
 
     <td class="d-flex justify-content-center align-items-center gap-1">
-        <button class="btn btn-sm btn-warning generic-edit-btn rounded-pill"
+        <button class="btn btn-sm btn-warning generic-edit-btn rounded"
                 data-url="{% url 'generic_edit' 'medicine' medicine.id %}"
                 data-target="#editGenericModal">
             <i class="bi bi-pencil"></i>
         </button>
 
-        <button class="btn btn-sm btn-danger generic-delete-btn rounded-pill"
+        <button class="btn btn-sm btn-danger generic-delete-btn rounded"
                 data-url="{% url 'generic_delete' 'medicine' medicine.id %}"
                 data-target="#deleteGenericModal">
             <i class="bi bi-trash"></i>

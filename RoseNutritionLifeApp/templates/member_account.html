@@ -29,8 +29,8 @@
              {% if userdetail.profile_image %}
             <img src="{{userdetail.profile_image.url}}" alt="Profile Picture" class="img-thumbnail rounded-circle p-2" style="border:1px solid #563419;" >
             {% else %} 
-            <span class="p-3" style="border-radius:25px; border:1px solid rgb(4, 70, 39);">
-              <i class="bi bi-person-fill mb-1" style="font-size: 3rem"></i>
+            <span class="p-2" style="border-radius:25px; border:1px solid rgba(18, 105, 64, 1);">
+              <i class="bi bi-person-fill mb-1 text-success" style="font-size: 3rem"></i>
             </span>
             {% endif %}
          </span>
@@ -55,10 +55,10 @@
             {{ userdetail.mobile_contact }} 
             </span><br>
         <span class="job " style="color:rgb(4, 70, 39);">
-            Gender ( {{ userdetail.gender }} ), Age {{ userdetail.age }}
+            Gender ( {{ userdetail.gender }} ) {% if userdetail.age %} , Age {{ userdetail.age }}  {% endif %}
             </span><br>
             <span class="job " style="color:rgb(4, 70, 39);">
-            {{ userdetail.postal_address }} ,{{ userdetail.region }}
+            {% if userdetail.postal_address %} {{ userdetail.postal_address }} ,{{ userdetail.region }} {% endif %}
             </span><br><br>
     </div>
 </div>

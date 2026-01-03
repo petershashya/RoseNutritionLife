@@ -119,8 +119,7 @@
                     <strong class="title_fontstyle">Products:</strong>
                     <ul>
                         {% for product in medical.medicine_products.all %}
-                            <li>{{ product.medicine_name }} 
-                                {% comment %} - {{ product.medicine_cost }} TZS {% endcomment %}
+                            <li>{{ product.medicine_name }} - {{ product.medicine_cost }}
                             </li>
                         {% empty %}
                             <li>No products selected</li>

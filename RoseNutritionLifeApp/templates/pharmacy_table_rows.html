@@ -9,11 +9,20 @@
                 <td>{{ medical.weight }}</td>
                 <td>{{ medical.height }}</td>
       {% if rank in "it_officer,pharmacist" %}
-                 <td class="d-flex justify-content-center align-items-center gap-1">
-                  <button class="btn btn-sm btn-success rounded-pill confirm-payment"
-                          data-url="{% url 'view_medicalpayment' medical.id_number %}">
-                      <i class="bi bi-database-add mx-1"></i>Pay
+                <td class="d-flex justify-content-center align-items-center gap-1">
+                  <button type="button" class="btn btn-sm btn-info rounded view-medical-btn"
+                          data-url="{% url 'view_medical' medical.id %}">
+                      <i class="bi bi-eye mx-1"></i>view
                   </button>
+                  <button type="button"
+                          class="btn btn-sm btn-secondary rounded view-medicineprint-btn"
+                          data-url="{% url 'view_medicine_form' medical.id %}">
+                      <i class="bi bi-printer mx-1"></i> print
+                  </button>
+                  <button type="button" class="btn btn-sm btn-success rounded confirm-payment"
+                        data-url="{% url 'view_medicalpayment' medical.id %}">
+                    <i class="bi bi-database-add mx-1"></i>Pay
+                </button>
                 </td>
     {% else %}
     <td>View</td>
