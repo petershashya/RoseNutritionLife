@@ -341,24 +341,24 @@ def medical_form(request, patient_id):
         # -------------------------------------------------
         # STRONG DUPLICATE CHECK (BEFORE ANY SAVE)
         # -------------------------------------------------
-        # medical_exists = Medical.objects.filter(
-        #     ref_no=str(patient.id),
-        #     id_number=patient.membership_no,
-        #     name=patient.full_name,
-        # ).exists()
+        medical_exists = Medical.objects.filter(
+            ref_no=str(patient.id),
+            id_number=patient.membership_no,
+            name=patient.full_name,
+        ).exists()
 
-        # if medical_exists:
-        #     messages.warning(
-        #     request,
-        #     f"Patient already got checkup and treatment. Medical form already exists."
-        #     )
-        #     return JsonResponse(
-        #         {
-        #             "success": False,
-        #             "message": "Patient already got checkup and treatment. Medical form already exists."
-        #         },
-        #         status=400
-        #     )
+        if medical_exists:
+            messages.warning(
+            request,
+            f"Patient already got checkup and treatment. Medical form already exists."
+            )
+            return JsonResponse(
+                {
+                    "success": False,
+                    "message": "Patient already got checkup and treatment. Medical form already exists."
+                },
+                status=400
+            )
 
         # -------------------------------
         # SAVE MEDICAL RECORD
