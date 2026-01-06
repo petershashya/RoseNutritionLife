@@ -132,9 +132,9 @@ class MemberRegistrationForm(forms.ModelForm):
                     'profile_image': self.cleaned_data.get('profile_image'),
                     'mobile_contact': self.cleaned_data['mobile_contact'],
                     'gender': self.cleaned_data.get('gender'),
-                    #'age': self.cleaned_data.get('age'),
-                    #'region': self.cleaned_data['region'],
-                    #'postal_address': self.cleaned_data.get('postal_address'),
+                    'age': self.cleaned_data.get('age'),
+                    'region': self.cleaned_data['region'],
+                    'postal_address': self.cleaned_data.get('postal_address'),
                     'company_rank': self.cleaned_data.get('company_rank'),
                     'membership_no': self.cleaned_data.get('membership_no'),
                 }
