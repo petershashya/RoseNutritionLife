@@ -391,7 +391,7 @@ class PatientModelForm(forms.ModelForm):
         choices = [("", "-- Chagua No ya Mwanachama --")]
 
         # Populate membership_no options from UserDetail
-        for u in UserDetail.objects.all():
+        for u in UserDetail.objects.order_by('-id'):
             label = f"{u.user.first_name} - {u.membership_no}"
             choices.append((u.membership_no, label))
 

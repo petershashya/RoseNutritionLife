@@ -18,7 +18,7 @@ from .views import (
     #members and payments
     view_member_pending , save_member_payment, ajax_payment_search,ajax_pending_search,ajax_user_search,
     ajax_disease_search,calculate_money,ajax_medicine_search,ajax_checkup_search,ajax_businesslevel_search,
-    ajax_businessplan_search,
+    ajax_businessplan_search,search_member_ajax,
     
     #for templates
     posture_details, video_details,lists_details,list_details,business_details,
@@ -90,7 +90,8 @@ urlpatterns = [
     path("payment/save/", save_member_payment, name="save_member_payment"),
     path('ajax/payment_-search/', ajax_payment_search, name='ajax_payment__search'),
     path('ajax/pending_-search/', ajax_pending_search, name='ajax_pending__search'),
-
+    path('ajax/search-member/', search_member_ajax, name='search_member_ajax'),
+ 
  
     #for posts models details
     path('post_disease/', post_disease, name='post_disease'),

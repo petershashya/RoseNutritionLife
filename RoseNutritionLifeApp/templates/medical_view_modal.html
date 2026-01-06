@@ -124,6 +124,12 @@
                         {% empty %}
                             <li>No products selected</li>
                         {% endfor %}
+
+                        <hr>
+                        {% if medical.medicine_products.exists %}
+                            <li><strong>Total cost = {{ total_cost }}</strong></li>
+                        {% endif %}
+
                     </ul>
                 </div>
             </div>

@@ -55,6 +55,7 @@ from django.views.decorators.http import require_POST
 from xhtml2pdf import pisa
 from datetime import timedelta
 from django.utils import timezone
+from django.db.models import Q
 
 
 def home(request):
@@ -326,10 +327,13 @@ def medical_form(request, patient_id):
     medicines = Medicine_SalesForm.objects.all().order_by('-id')
 
     if request.method == "GET":
+        today_date = timezone.now().strftime("%Y-%m-%d")
+
         html = render_to_string('medical_modal.html', {
             'patient': patient,
             'user_detail': user_detail.user,
-            'medicines': medicines
+            'medicines': medicines,
+            'today_date': today_date,
         })
         return JsonResponse({'html': html})
 
@@ -440,7 +444,11 @@ def medical_form(request, patient_id):
 # view modal
 def view_medical(request, medical_id):
     medical = get_object_or_404(Medical, id=medical_id)
-    html = render_to_string('medical_view_modal.html', {'medical': medical})
+    total_cost = sum(
+        product.medicine_cost or 0
+        for product in medical.medicine_products.all()
+    )
+    html = render_to_string('medical_view_modal.html', {'medical': medical, 'total_cost':total_cost})
     return JsonResponse({'html': html})
 
 
@@ -1343,6 +1351,27 @@ def ajax_businessplan_search(request):
     return JsonResponse({'html': html})
 
 
+#search for member in patient form
+def search_member_ajax(request):
+    query = request.GET.get('q', '').strip()
+
+    results = []
+
+    if query:
+        members = UserDetail.objects.filter(
+            Q(membership_no__icontains=query) |
+            Q(user__first_name__icontains=query)
+        )[:10]
+
+        for m in members:
+            results.append({
+                'membership_no': m.membership_no,
+                'name': f"{m.user.first_name} {m.user.last_name}"
+            })
+
+    return JsonResponse({'results': results})
+
+
 # ---------------- VIEW MEDICINE PRINT FORM ----------------
 def view_medicine_form(request, medical_id):
     # 1. Get medical record
@@ -1352,6 +1381,11 @@ def view_medicine_form(request, medical_id):
     full_name=medical.name
     # 3. Get member correctly (NOT by id)
     member = get_object_or_404(UserDetail, membership_no=membership_no)
+    
+    # ✅ Get first & last name from User model
+    first_name = member.user.first_name
+    last_name = member.user.last_name
+
     # 4. Get latest patient form
     patients = PatientForm.objects.filter(
         full_name=full_name
@@ -1396,6 +1430,8 @@ def view_medicine_form(request, medical_id):
         "medicine_print.html",
         {
             "member": member,
+            "first_name": first_name,
+            "last_name": last_name,
             "patient": latest_patient,
             "medical": latest_medical,
             "products": products,
