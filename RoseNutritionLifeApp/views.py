@@ -8,7 +8,7 @@ from .models import (
     BusinessLevel,Medicine_SalesForm, CheckUp_SalesForm,PatientForm ,
     Advertisement,Shop,Branch,Meeting,Log,About,Viewer,
     DiseaseComment,MedicineComment,CheckupComment,BusinessplanComment,BusinesslevelComment,Viewer ,Comment,
-    Medical ,MedicineProduct,MemberPayment,PaymentProduct,MedicalMessage
+    Medical ,MedicineProduct,MemberPayment,PaymentProduct,MedicalMessage,MedicineAddProduct,MedicineAdd
 )
 from .forms import (
     MedicineForm, CheckUpForm, BusinessPlanForm, BusinessLevelForm,
@@ -17,7 +17,7 @@ from .forms import (
     CheckUpSalesForm, MedicineSalesForm ,PatientModelForm, 
     CheckUpSalesForm, MedicineSalesForm,AdvertisementForm,ShopForm,BranchForm,MeetingForm,AboutForm,
     DiseaseCommentForm,MedicineCommentForm,CheckupCommentForm,BusinessplanCommentForm,BusinesslevelCommentForm,
-    ForgotPasswordForm,ResetPasswordForm,UserDetailForm, CommentForm,MedicalForm,MemberPaymentForm
+    ForgotPasswordForm,ResetPasswordForm,UserDetailForm, CommentForm,MedicalForm,MemberPaymentForm,
 )
 
 from django.contrib.auth.forms import AuthenticationForm
@@ -548,6 +548,34 @@ def view_medicalpayment(request, medical_id):
     return JsonResponse({'html': html})
 
 
+def pay_medicineadd(request, product_id):
+
+    medicine_add = MedicineAdd.objects.filter(id=product_id).first()
+    if not medicine_add:
+        return JsonResponse({"error": "MedicineAdd not found"}, status=404)
+
+    member = UserDetail.objects.filter(
+        membership_no=medicine_add.membership_no
+    ).first()
+
+    products = MedicineAddProduct.objects.filter(
+        medicine_add=medicine_add
+    )
+
+    html = render_to_string(
+        "modal_medicineadd_payment.html",
+        {
+            "medicine_add": medicine_add,
+            "member": member,
+            "products": products,
+        },
+        request=request
+    )
+
+    return JsonResponse({"html": html})
+
+
+
 # replace this with your actual check function
 def check_superuser(user):
     return user.is_superuser
@@ -749,6 +777,220 @@ def toggle_medical_payment(request, product_id):
             'success': False,
             'error': 'Product not found.'
         })
+
+
+
+#for medicaladdedproduct confirmation payment
+@require_POST
+def toggle_medicaladdedproduct_payment(request, product_id):
+    try:
+        product = MedicineAddProduct.objects.get(id=product_id)
+
+        # Toggle status
+        new_status = not product.confirm_payment
+
+        if new_status:
+            # Pending → Paid
+
+            # ✅ use qty already saved in DB
+            if not product.qty or product.qty <= 0:
+                return JsonResponse({
+                    'success': False,
+                    'error': 'Quantity is missing or invalid.'
+                })
+
+            product.medicine_totalcost = product.qty * product.medicine_cost
+            product.confirm_payment = True
+
+        else:
+            # Paid → Pending
+            product.confirm_payment = False
+            product.medicine_totalcost = 0
+            # ❗ DO NOT set qty = None (causes IntegrityError)
+
+        # ✅ FORCE SAVE CONFIRM STATUS
+        product.save(update_fields=[
+            'confirm_payment',
+            'medicine_totalcost'
+        ])
+
+        return JsonResponse({
+            'success': True,
+            'confirm_payment': product.confirm_payment,
+            'total_cost': product.medicine_totalcost
+        })
+
+    except MedicineAddProduct.DoesNotExist:
+        return JsonResponse({
+            'success': False,
+            'error': 'Medical added product not found.'
+        })
+
+
+
+# for print medical added products
+def print_medicineadd(request, product_id):
+
+    # 1. Header
+    medicine_add = get_object_or_404(MedicineAdd, id=product_id)
+
+    # 2. Member
+    member = UserDetail.objects.filter(
+        membership_no=medicine_add.membership_no
+    ).first()
+
+    # 3. Confirmed products + CALCULATIONS
+    products = MedicineAddProduct.objects.filter(
+        medicine_add=medicine_add,
+        confirm_payment=True
+    ).annotate(
+        total_pv=ExpressionWrapper(
+            F("medicine_pv") * F("qty"),
+            output_field=FloatField()
+        ),
+        total_pay=ExpressionWrapper(
+            F("medicine_cost") * F("qty"),
+            output_field=FloatField()
+        ),
+    )
+
+    # 4. GRAND TOTALS
+    grand_total_pv = products.aggregate(
+        total=Sum("total_pv")
+    )["total"] or 0
+
+    grand_total_pay = products.aggregate(
+        total=Sum("total_pay")
+    )["total"] or 0
+
+    # 5. Render HTML
+    html = render_to_string(
+        "medicineaddproduct_print.html",
+        {
+            "medicine_add": medicine_add,
+            "member": member,
+            "products": products,
+            "grand_total_pv": grand_total_pv,
+            "grand_total_pay": grand_total_pay,
+        },
+        request=request
+    )
+
+    return JsonResponse({"html": html})
+
+
+#for edit medicine added products
+from django.db import transaction
+def edit_medicineadd(request, product_id):
+    medicine_add = get_object_or_404(MedicineAdd, id=product_id)
+
+    products = MedicineAddProduct.objects.filter(
+        medicine_add=medicine_add
+    )
+
+    # IDs already added
+    existing_medicine_ids = set(
+        products.values_list("medicine_id", flat=True)
+    )
+
+    medicines = Medicine_SalesForm.objects.all()
+
+    if request.method == "POST":
+        try:
+            with transaction.atomic():
+
+                # =========================
+                # 🔴 DELETE SELECTED PRODUCTS
+                # =========================
+                delete_ids = request.POST.getlist("delete_products[]")
+                if delete_ids:
+                    MedicineAddProduct.objects.filter(
+                        id__in=delete_ids,
+                        medicine_add=medicine_add
+                    ).delete()
+
+                # =========================
+                # 🔹 UPDATE REMAINING QTY
+                # =========================
+                for p in products.exclude(id__in=delete_ids):
+                    qty = request.POST.get(f"qty_{p.id}")
+                    if qty and int(qty) > 0:
+                        p.qty = int(qty)
+                        p.save()
+
+                # =========================
+                # ➕ ADD NEW PRODUCTS (NO DUPLICATES)
+                # =========================
+                new_medicine_ids = request.POST.getlist("new_medicine[]")
+                new_qtys = request.POST.getlist("new_qty[]")
+
+                for med_id, qty in zip(new_medicine_ids, new_qtys):
+                    if not qty or int(qty) < 1:
+                        continue
+
+                    if int(med_id) in existing_medicine_ids:
+                        continue  # block duplicates
+
+                    med = Medicine_SalesForm.objects.get(id=med_id)
+
+                    MedicineAddProduct.objects.create(
+                        medicine_add=medicine_add,
+                        medicine=med,
+                        medicine_name=med.medicine_name,
+                        code=med.code,
+                        unit=med.unit,
+                        medicine_pv=med.medicine_pv,
+                        medicine_cost=med.medicine_cost,
+                        qty=int(qty),
+                    )
+            messages.success(request, "Medical form updated successfully.")
+            return JsonResponse({"success": True})
+
+        except Exception as e:
+            return JsonResponse({"success": False, "error": str(e)})
+
+    html = render_to_string(
+        "medicineaddedit_modal.html",
+        {
+            "medicine_add": medicine_add,
+            "products": products,
+            "medicines": medicines,
+        },
+        request=request
+    )
+
+    return JsonResponse({"html": html})
+
+
+
+# delete the medicaladdproduct 
+from django.views.decorators.http import require_http_methods
+@require_http_methods(["GET", "POST"])
+def delete_medicineadd(request, product_id):
+    # product_id = MedicineAdd ID
+    medicine_add = get_object_or_404(MedicineAdd, id=product_id)
+
+    if request.method == "POST":
+        # CASCADE will delete all MedicineAddProduct automatically
+        medicine_add.delete()
+
+        messages.success(request, "Medical form deleted successfully.")
+        return redirect('pharmacy')
+
+    # GET → show confirmation modal
+    html = render_to_string(
+        "medicaladdedproduct_delete_modal.html",
+        {
+            "medicine_add": medicine_add,
+            "products": MedicineAddProduct.objects.filter(
+                medicine_add=medicine_add
+            ),
+        },
+        request=request
+    )
+
+    return JsonResponse({"html": html})
+
 
 
 #for view members payments
@@ -1212,17 +1454,20 @@ def ajax_pending_search(request):
 def ajax_user_search(request):
     query = request.GET.get('q', '').strip()
 
+    # Start with all users
+    users = User.objects.select_related('user_detail')
+
     if query:
-        users = User.objects.filter(
-            username__icontains=query
-        ) | User.objects.filter(
-            id__icontains=query
+        # Filter by username, id, or membership_no from UserDetail
+        users = users.filter(
+            Q(username__icontains=query) |
+            Q(id__icontains=query) |
+            Q(user_detail__membership_no__icontains=query)
         )
-    else:
-        users = User.objects.all()
 
     users = users.order_by('-id')
 
+    # IT officer rank if needed for template
     it_officer_rank = get_it_officer_rank(request.user)
 
     html = render_to_string(
@@ -1234,7 +1479,6 @@ def ajax_user_search(request):
     )
 
     return JsonResponse({'html': html})
-
 
 
 #search for diseases lists
@@ -1444,6 +1688,116 @@ def view_medicine_form(request, medical_id):
 
 
 
+def medicaladdproduct(request):
+    # GET → LOAD MODAL
+    if request.method == "GET":
+        products = Medicine_SalesForm.objects.all()
+        html = render_to_string(
+            "medicaladdproduct.html",
+            {"products": products},
+            request=request
+        )
+        return JsonResponse({"html": html})
+
+    # POST → SAVE DATA
+    if request.method == "POST":
+
+        member_name = request.POST.get("member_name", "").strip()
+        membership_no = request.POST.get("membership_no", "").strip()
+        patient_name = request.POST.get("patient_name", "").strip()
+        patient_mobile = request.POST.get("patient_mobile", "").strip()
+
+        if not member_name or not membership_no:
+            return JsonResponse({
+                "status": "error",
+                "message": "Please enter both Member Name and Membership No."
+            })
+
+        # ✅ DUPLICATE CHECK (HEADER LEVEL)
+        already_exists = MedicineAdd.objects.filter(
+            membership_no=membership_no,
+            patient_mobile=patient_mobile
+        ).exists()
+
+        if already_exists:
+            return JsonResponse({
+                "status": "error",
+                "message": "This member and patient already have a submitted record."
+            })
+
+        product_ids = request.POST.getlist("product_id[]")
+        qty_list = request.POST.getlist("qty[]")
+
+        # ❗ Create HEADER first
+        medicine_add = MedicineAdd.objects.create(
+            member_name=member_name,
+            membership_no=membership_no,
+            patient_name=patient_name,
+            patient_mobile=patient_mobile,
+        )
+
+        saved_count = 0
+
+        for product_id, qty in zip(product_ids, qty_list):
+            if not qty or int(qty) < 1:
+                continue
+
+            medicine = Medicine_SalesForm.objects.get(id=product_id)
+
+            MedicineAddProduct.objects.create(
+                medicine_add=medicine_add,   # 🔗 LINK HERE
+
+                medicine=medicine,
+                medicine_name=medicine.medicine_name,
+                code=medicine.code,
+                unit=medicine.unit,
+                medicine_pv=medicine.medicine_pv,
+                medicine_cost=medicine.medicine_cost,
+                qty=int(qty),
+            )
+
+            saved_count += 1
+
+        if saved_count == 0:
+            medicine_add.delete()  # rollback header
+            return JsonResponse({
+                "status": "error",
+                "message": "Please enter quantity ≥ 1 for at least one product."
+            })
+
+        return JsonResponse({"status": "success"})
+
+
+
+@login_required
+@user_passes_test(check_superuser, login_url='member_account')
+def ajax_medicaladdproduct_search(request):
+    query = request.GET.get('q', '').strip()
+
+    if query:
+        medicaladdproducts = MedicineAddProduct.objects.filter(
+            membership_no__icontains=query
+        # ) | MedicineAddProduct.objects.filter(
+        #     patient_name__icontains=query
+        ) | MedicineAddProduct.objects.filter(
+            member_name__icontains=query
+        ).order_by('-id')
+    else:
+        medicaladdproducts = MedicineAddProduct.objects.all().order_by('-id')
+    rank = get_it_officer_rank(request.user)
+    html = render_to_string(
+        'medicaladdproduct_table_rows.html',
+        {
+            'medicaladdproducts': medicaladdproducts,
+            'rank': rank
+        },
+        request=request
+    )
+
+    return JsonResponse({'html': html})
+
+
+
 
 # Mapping models and forms
 MODEL_MAP = {
@@ -1506,10 +1860,25 @@ def pharmacy(request):
     medicals = paginator.get_page(page_number)
     
     medical_count=medicals_queryset.count()
+    
+    # medical add (HEADER LEVEL)
+    medicalsadded = MedicineAdd.objects.all().order_by('-id')
+
+    paginator = Paginator(medicalsadded, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    medicalsadded_count = medicalsadded.count()
+
+    
     context = {
-        "rank" : it_officer_rank,
-        "medicals" : medicals,
-        "medical_count" : medical_count,
+        "rank": it_officer_rank,
+        "medicals": medicals,
+        "medical_count": medical_count,
+        
+        "medicaladdproducts": page_obj,
+        "medicalsadded_count": medicalsadded_count,
+
     }
     return render(request, "pharmacy.html", context)
 

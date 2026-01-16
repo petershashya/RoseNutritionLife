@@ -14,11 +14,13 @@ from .views import (
     
     #medical payments
     view_medicalpayment,toggle_medical_payment,view_member_payment,print_member_payment,view_medicine_form,
+    medicaladdproduct,ajax_medicaladdproduct_search,
     
     #members and payments
     view_member_pending , save_member_payment, ajax_payment_search,ajax_pending_search,ajax_user_search,
     ajax_disease_search,calculate_money,ajax_medicine_search,ajax_checkup_search,ajax_businesslevel_search,
-    ajax_businessplan_search,search_member_ajax,
+    ajax_businessplan_search,search_member_ajax,pay_medicineadd,toggle_medicaladdedproduct_payment,print_medicineadd,
+    edit_medicineadd,delete_medicineadd,
     
     #for templates
     posture_details, video_details,lists_details,list_details,business_details,
@@ -76,11 +78,18 @@ urlpatterns = [
     path('ajax/checkup-search/', ajax_checkup_search, name='ajax_checkup_search'),
     path('ajax/businesslevel-search/', ajax_businesslevel_search, name='ajax_businesslevel_search' ),
     path('ajax/businessplan-search/', ajax_businessplan_search, name='ajax_businessplan_search' ),
-
+    
     #medical payments
     path("payment/medical/<int:medical_id>/", view_medicalpayment, name="view_medicalpayment"),
     path('ajax/toggle-medical-payment/<int:product_id>/', toggle_medical_payment, name='toggle_medical_payment'),
-    
+    path("medical/add-products/", medicaladdproduct, name="medicaladdproduct"),
+    path('ajax/medicaladdproduct-search/',ajax_medicaladdproduct_search,name='ajax_medicaladdproduct_search'),
+    path("pay-medicineadd/<int:product_id>/", pay_medicineadd, name="pay_medicineadd" ),
+    path("ajax/toggle-medicaladdedproduct-payment/<int:product_id>/", toggle_medicaladdedproduct_payment, name="toggle_medicaladdedproduct_payment"),
+    path("print-medicineadd/<int:product_id>/", print_medicineadd, name="print_medicineadd"),
+    path("medicineadd/edit/<int:product_id>/", edit_medicineadd, name="edit_medicineadd"),
+    path("delete-medicineadd/delete/<int:product_id>/", delete_medicineadd, name="delete_medicineadd"),
+     
     #show and save members and payemnts
     path("payment/", payment, name="payment"),
     path("payment/member/<str:membership_no>/", view_member_pending, name="view_member_pending"),
@@ -91,7 +100,6 @@ urlpatterns = [
     path('ajax/payment_-search/', ajax_payment_search, name='ajax_payment__search'),
     path('ajax/pending_-search/', ajax_pending_search, name='ajax_pending__search'),
     path('ajax/search-member/', search_member_ajax, name='search_member_ajax'),
- 
  
     #for posts models details
     path('post_disease/', post_disease, name='post_disease'),

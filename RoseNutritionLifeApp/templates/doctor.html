@@ -12,20 +12,39 @@
 <div >
     <span id="category_title" class="d-flex justify-content-center align-items-center mt-3  mx-3 p-1 rounded" style="color:rgb(4, 70, 39);font-size:1.2rem;">
           <i class="bi bi-person-arms-up text-success mx-1" style="font-size:1.2rem;"></i>PATIENTS & MEDICALS </span>
-    <ul class="nav nav-pills d-flex justify-content-center aling-items-center gap-2 mt-2">
+    <ul class="nav nav-pills d-flex justify-content-center align-items-center gap-2 mt-2">
         <li class="nav-item">
-          <a class="nav-link " data-bs-toggle="pill" href="#patients_list" > <i class="bi bi-capsule-pill mx-1"  style="font-size:1rem;"></i> Patient List   </a>
+            <a class="nav-link active"         
+              data-bs-toggle="pill"
+              href="#patients_list"
+              role="tab"
+              aria-controls="patients_list"
+              aria-selected="true">
+              <i class="bi bi-capsule-pill mx-1" style="font-size:1rem;"></i> Patient List
+            </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " data-bs-toggle="pill" href="#medicals_list" > <i class="bi bi-view-list mx-1"  style="font-size:1rem;"></i>Medical List </a>
+            <a class="nav-link"
+              data-bs-toggle="pill"
+              href="#medicals_list"
+              role="tab"
+              aria-controls="medicals_list"
+              aria-selected="false">
+              <i class="bi bi-view-list mx-1" style="font-size:1rem;"></i> Medical List
+            </a>
         </li>
-      </ul>
+    </ul>
+
       
 
       <!-- Tab panes -->
       <div class="tab-content p-2">
-        <div class="tab-pane container-fill active rounded" id="patients_list" >   
-         <div class="rounded" >
+      <!-- FIRST TAB -->
+      <div class="tab-pane fade show active container-fill rounded" 
+          id="patients_list" 
+          role="tabpanel" 
+          aria-labelledby="patients_list-tab">
+          <div class="rounded">
 
 
         <div class="alert alert-info alert-dismissible mx-3 mt-2 shadow border-0 bg-white">
@@ -134,8 +153,15 @@
 
 
          <!-- start MEDICALS LIST-->
-        <div class="tab-pane container-fill fade rounded" id="medicals_list" >   
-         <div class="rounded" >
+        <div class="tab-content p-2">
+          <!-- SECOND TAB -->
+          <div class="tab-pane fade container-fill rounded" 
+              id="medicals_list" 
+              role="tabpanel" 
+              aria-labelledby="medicals_list-tab">
+              <div class="rounded">
+
+
 
       <div class="alert alert-info alert-dismissible mx-3 mt-2 shadow border-0 bg-white">
         <span class="d-flex justify-content-center aling-items-center text-info">

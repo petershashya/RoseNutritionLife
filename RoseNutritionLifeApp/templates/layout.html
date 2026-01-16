@@ -2549,6 +2549,18 @@ $(document).on("click", ".view-medical-btn", function () {
 
 
 
+
+//calculate total cost of medicaladdproduct
+/* document.querySelectorAll(".qty-input").forEach(input => {
+  input.addEventListener("input", function () {
+    const row = this.closest("tr");
+    const cost = parseFloat(row.querySelector(".cost").innerText);
+    const qty = parseInt(this.value || 0);
+    row.querySelector(".total-cost").innerText = (cost * qty).toFixed(2);
+  });
+});  */
+
+
 //for search patients
 $(document).ready(function() {
     $('#patientSearchInput').on('keyup', function() {
@@ -2605,6 +2617,26 @@ $(document).ready(function() {
             }
         });
     });
+});
+
+
+//for search medical added product list
+$(document).ready(function () {
+  $('#medicalAddProductSearchInput').on('keyup', function () {
+    var query = $(this).val();
+
+    $.ajax({
+      url: "{% url 'ajax_medicaladdproduct_search' %}",
+      method: "GET",
+      data: { q: query },
+      success: function (response) {
+        $('#medicalAddProductTableBody').html(response.html);
+      },
+      error: function () {
+        alert('Error fetching medical products.');
+      }
+    });
+  });
 });
 
 
@@ -2708,6 +2740,8 @@ $(document).on("click", ".confirm-payment", function () {
         }
     });
 });
+
+
 
 
 //search for list of diseases posted
@@ -2856,7 +2890,6 @@ $(document).on('click', '.toggle-payment-btn', function () {
         }
     });
 });
-
 
 
 // CSRF helper
@@ -3041,7 +3074,7 @@ $(document).on("click", ".open-payment-modal", function (e) {
 
 
 // VIEW MEDICIINE PRINT MODAL
-$(document).on("click", ".view-medicineprint-btn", function () {
+$(document).on("click", ".view-medicalprint-btn", function () {
     let url = $(this).data("url");
 
     $.ajax({
@@ -3068,6 +3101,326 @@ $(document).on("click", ".view-medicineprint-btn", function () {
         }
     });
 });
+
+
+
+
+//start medicineadd product
+/*  OPEN MEDICAL ADD PRODUCT MODAL*/
+$(document).on("click", ".medicaladdproduct-btn", function () {
+    let url = $(this).data("url");
+
+    $.ajax({
+        url: url,
+        method: "GET",
+        success: function (response) {
+
+            // Remove old modal if exists
+            $("#medicaladdproduct").remove();
+
+            // Append modal HTML
+            $("body").append(response.html);
+
+            // Show modal
+            $("#medicaladdproduct").modal("show");
+
+            // Init calculations after modal load
+            initMedicalAddProductCalc();
+
+            // Clean up
+            $("#medicaladdproduct").on("hidden.bs.modal", function () {
+                $(this).remove();
+            });
+        },
+        error: function () {
+            alert("Error loading medical add product form.");
+        }
+    });
+});
+
+
+//calculate total cost of medicaladdproduct
+function initMedicalAddProductCalc() {
+    $("#medicaladdproduct").on("input", ".qty-input", function () {
+        let row = $(this).closest("tr");
+        let cost = parseFloat(row.find(".cost").text()) || 0;
+        let qty = parseInt($(this).val()) || 0;
+        row.find(".total-cost").text((cost * qty).toFixed(2));
+    });
+}
+
+
+
+
+let medicalSubmitting = false;
+/* SUBMIT MEDICAL ADD PRODUCT (AJAX) */
+$(document).on("submit", "#medicalAddProductForm", function (e) {
+    e.preventDefault();
+
+    if (medicalSubmitting) return; // prevent double submit
+    medicalSubmitting = true;
+
+    let form = $(this);
+    let url = form.data("url");
+    let formData = new FormData(this);
+
+    $.ajax({
+        url: url,
+        type: "POST",
+        data: formData,
+        processData: false,
+        contentType: false,
+        headers: {
+            "X-Requested-With": "XMLHttpRequest"
+        },
+        beforeSend: function () {
+            $("#submitMedicalProduct")
+                .prop("disabled", true)
+                .text("Saving...");
+        },
+        success: function (response) {
+            if (response.status === "success") {
+                alert("Products added successfully");
+
+                $("#medicaladdproduct").modal("hide");
+
+                // ✅ reload page after short delay
+                setTimeout(function () {
+                    location.reload();
+                }, 800);
+
+            } else {
+                alert(response.message || "Error saving data");
+                medicalSubmitting = false;
+            }
+        },
+        error: function () {
+            alert("Server error. Try again.");
+            medicalSubmitting = false;
+        },
+        complete: function () {
+            $("#submitMedicalProduct")
+                .prop("disabled", false)
+                .text("Send / Confirm Sale");
+        }
+    });
+});
+
+
+
+// Toggle Confirm Payment Status (MedicalAddedProduct)
+$(document).on('click', '.toggle-addedproduct-payment-btn', function () {
+
+    let button = $(this);
+    let row = button.closest('tr');
+    let productId = button.data('id');
+    let qtyInput = row.find('.qty-input');
+    let qty = qtyInput.val();
+
+    $.ajax({
+        url: '/ajax/toggle-medicaladdedproduct-payment/' + productId + '/',
+        method: 'POST',
+        headers: { 'X-CSRFToken': getCookie('csrftoken') },
+        data: { qty: qty },
+
+        success: function (response) {
+
+            if (!response.success) {
+                alert(response.error);
+                return;
+            }
+
+            if (response.confirm_payment) {
+                // Pending → Paid
+                button
+                    .removeClass('btn-danger')
+                    .addClass('btn-success')
+                    .text('Paid');
+
+                qtyInput.prop('readonly', true);
+                row.find('.total-cost').text(response.total_cost);
+
+            } else {
+                // Paid → Pending
+                button
+                    .removeClass('btn-success')
+                    .addClass('btn-danger')
+                    .text('Pending');
+
+                qtyInput.prop('readonly', false).val('');
+                row.find('.total-cost').text('0');
+            }
+        },
+
+        error: function () {
+            alert('Server error occurred.');
+        }
+    });
+});
+
+
+// view medicine add payments
+$(document).on("click", ".pay_medicineadd-btn", function () {
+    let url = $(this).data("url");
+
+    $.ajax({
+        url: url,
+        type: "GET",
+        success: function (response) {
+            // Remove old instance if exists
+            $("#PayMedicineAddModal").remove();
+
+            // Add new modal HTML to page
+            $("body").append(response.html);
+
+            // Show modal
+            $("#PayMedicineAddModal").modal("show");
+
+            // Clean up when closed
+            $("#PayMedicineAddModal").on("hidden.bs.modal", function () {
+                $(this).remove();
+            });
+        },
+        error: function () {
+            alert("Error loading payment details.");
+        }
+    });
+});
+
+
+// view medicine add PRINT
+$(document).on("click", ".print_medicineadd-btn", function () {
+    let url = $(this).data("url");
+
+    $.ajax({
+        url: url,
+        type: "GET",
+        success: function (response) {
+            // Remove old instance if exists
+            $("#PrintMedicineAddModal").remove();
+
+            // Add new modal HTML to page
+            $("body").append(response.html);
+
+            // Show modal
+            $("#PrintMedicineAddModal").modal("show");
+
+            // Clean up when closed
+            $("#PrintMedicineAddModal").on("hidden.bs.modal", function () {
+                $(this).remove();
+            });
+        },
+        error: function () {
+            alert("Error loading print details.");
+        }
+    });
+});
+
+
+// shows delete modal for medical aded product
+// OPEN DELETE MODAL
+$(document).on("click", ".delete_medicineadd-btn", function () {
+    let url = $(this).data("url");
+
+    $.ajax({
+        url: url,
+        method: "GET",
+        success: function (response) {
+
+            $("#DeleteMedicineAddModal").remove();
+            $("body").append(response.html);
+
+            $("#DeleteMedicineAddModal").modal("show");
+
+            $("#DeleteMedicineAddModal").on("hidden.bs.modal", function () {
+                $(this).remove();
+            });
+        },
+        error: function () {
+            alert("Failed to load delete details.");
+        }
+    });
+});
+
+
+// CONFIRM DELETE ENTIRE MEDICAL ADD
+$(document).on("submit", "#deleteMedicalAddedProductForm", function (e) {
+    e.preventDefault();
+
+    let form = $(this);
+
+    $.ajax({
+        url: form.attr("action"),
+        method: "POST",
+        data: form.serialize(),
+        success: function (response) {
+            if (response.success) {
+                $("#DeleteMedicineAddModal").modal("hide");
+
+                // Reload page so Django messages appear
+                location.reload();
+            } else {
+                alert("Delete failed.");
+            }
+        },
+        error: function () {
+            alert("Server error.");
+        }
+    });
+});
+
+
+
+// OPEN EDIT MODAL
+$(document).on("click", ".edit_medicineadd-btn", function () {
+    let url = $(this).data("url");
+
+    $.ajax({
+        url: url,
+        method: "GET",
+        success: function (response) {
+
+            $("#EditMedicineAddModal").remove();
+            $("body").append(response.html);
+
+            $("#EditMedicineAddModal").modal("show");
+
+            $("#EditMedicineAddModal").on("hidden.bs.modal", function () {
+                $(this).remove();
+            });
+        },
+        error: function () {
+            alert("Failed to load edit form.");
+        }
+    });
+});
+
+
+// SUBMIT EDIT FORM
+$(document).on("submit", "#editMedicineAddForm", function (e) {
+    e.preventDefault();
+
+    let form = $(this);
+
+    $.ajax({
+        url: form.attr("action"),
+        method: "POST",
+        data: form.serialize(),
+        success: function (response) {
+            if (response.success) {
+                $("#EditMedicineAddModal").modal("hide");
+                location.reload();
+            } else {
+                alert(response.error || "Update failed");
+            }
+        },
+        error: function () {
+            alert("Server error");
+        }
+    });
+});
+
+
 
 
 

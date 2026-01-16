@@ -508,6 +508,96 @@ class MedicineProduct(models.Model):
 
     def __str__(self):
         return f"{self.medicine_name} ({self.medicine_pv} PV)"
+    
+    
+# class MedicineAddProduct(models.Model):
+#     # Member Details
+#     member_name = models.CharField(max_length=150, blank=True, null=True)
+#     membership_no = models.CharField(max_length=50, blank=True, null=True)
+
+#     # Patient Details (optional)
+#     patient_name = models.CharField(max_length=150, blank=True, null=True)
+#     patient_mobile = models.CharField(max_length=20, blank=True, null=True)
+
+#     # Medicine Info
+#     # =====================
+#     medicine = models.ForeignKey(Medicine_SalesForm, on_delete=models.CASCADE)
+#     medicine_name = models.CharField(max_length=200)
+#     code = models.CharField(max_length=50)
+#     unit = models.CharField(max_length=50)
+
+#     medicine_pv = models.PositiveIntegerField()
+#     medicine_cost = models.DecimalField(max_digits=10, decimal_places=2)
+
+#     qty = models.PositiveIntegerField()
+#     medicine_totalcost = models.DecimalField(
+#         max_digits=12, decimal_places=2, blank=True, null=True
+#     )
+
+#     confirm_payment = models.BooleanField(default=False, db_index=True)
+
+#     date_created = models.DateTimeField(default=timezone.now)
+#     date_modified = models.DateTimeField(auto_now=True)
+
+#     def save(self, *args, **kwargs):
+#         if self.qty and self.medicine_cost:
+#             self.medicine_totalcost = self.qty * self.medicine_cost
+#         super().save(*args, **kwargs)
+
+#     def __str__(self):
+#         return f"{self.medicine_name} ({self.qty})"
+
+
+
+class MedicineAdd(models.Model):
+    member_name = models.CharField(max_length=150, blank=True, null=True)
+    membership_no = models.CharField(max_length=50, blank=True, null=True)
+
+    patient_name = models.CharField(max_length=150, blank=True, null=True)
+    patient_mobile = models.CharField(max_length=20, blank=True, null=True)
+
+    date_created = models.DateTimeField(default=timezone.now)
+    date_modified = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.member_name} - {self.membership_no}"
+
+
+class MedicineAddProduct(models.Model):
+    medicine_add = models.ForeignKey(
+        MedicineAdd,
+        on_delete=models.CASCADE,
+        null=True,        # 👈 TEMPORARY
+        blank=True        # 👈 TEMPORARY
+    )
+    # other fields...
+
+    medicine = models.ForeignKey(Medicine_SalesForm, on_delete=models.CASCADE)
+    medicine_name = models.CharField(max_length=200)
+    code = models.CharField(max_length=50)
+    unit = models.CharField(max_length=50)
+
+    medicine_pv = models.PositiveIntegerField()
+    medicine_cost = models.DecimalField(max_digits=10, decimal_places=2)
+
+    qty = models.PositiveIntegerField()
+    medicine_totalcost = models.DecimalField(
+        max_digits=12, decimal_places=2, blank=True, null=True
+    )
+
+    confirm_payment = models.BooleanField(default=False, db_index=True)
+
+    date_created = models.DateTimeField(default=timezone.now)
+    date_modified = models.DateTimeField(auto_now=True)
+
+    def save(self, *args, **kwargs):
+        if self.qty and self.medicine_cost:
+            self.medicine_totalcost = self.qty * self.medicine_cost
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.medicine_name} ({self.qty})"
+
 
 
 class MemberPayment(models.Model):

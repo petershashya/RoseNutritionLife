@@ -1,0 +1,27 @@
+{% for product in medicaladdproducts %}
+<tr style="cursor:pointer;">
+  <td>
+    <input type="checkbox"
+           name="selected_medicaladdproducts"
+           value="{{ product.id }}">
+  </td>
+
+  <td class="text-center">{{ product.membership_no|default:"-" }}</td>
+   <td>{{ product.member_name|default:"-" }}</td>
+  <td>{{ product.patient_name|default:"-" }}</td>
+
+  {% if rank in "it_officer,pharmacist" %}
+  <td class="d-flex justify-content-center align-items-center gap-1">
+    {# buttons intentionally omitted as per your setup #}
+  </td>
+  {% else %}
+  <td>View</td>
+  {% endif %}
+</tr>
+{% empty %}
+<tr>
+  <td colspan="6" class="text-center">
+    No medical products found
+  </td>
+</tr>
+{% endfor %}

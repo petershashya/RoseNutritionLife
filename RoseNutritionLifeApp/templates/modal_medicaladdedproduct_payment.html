@@ -1,0 +1,101 @@
+<div class="modal fade" id="addedProductPaymentModal" tabindex="-1">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+
+      <!-- Header -->
+      <div class="modal-header">
+        <h5 class="modal-title">Medical Added Product Payment</h5>
+        <button type="button"
+                class="btn btn-sm btn-outline-secondary btn-close"
+                data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body">
+        <section class="container">
+
+          <!-- Member / Patient Info -->
+          <h5 class="bg-success text-light p-2 rounded mb-3">
+            Member & Patient Information
+          </h5>
+
+          <table class="table table-bordered">
+            <tr>
+              <th>Member Name</th>
+              <td>{{ product.member_name }}</td>
+            </tr>
+            <tr>
+              <th>Membership No</th>
+              <td>{{ product.membership_no }}</td>
+            </tr>
+            <tr>
+            {% if product.patient_name %}
+              <th>Patient Name</th>
+              <td>{{ product.patient_name }}</td>
+            </tr>
+            <tr>
+              <th>Patient Mobile</th>
+              <td>{{ product.patient_mobile }}</td>
+            </tr>
+            {% endif %}
+          </table>
+
+          <!-- Product Info -->
+          <h5 class="mt-4">Medicine Product</h5>
+
+          <table class="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th>Medicine</th>
+                <th>PV</th>
+                <th>Cost</th>
+                <th>Qty</th>
+                <th>Total Cost</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr data-product-id="{{ product.id }}">
+                <td>{{ product.medicine_name }}</td>
+                <td class="text-center">{{ product.medicine_pv }}</td>
+                <td class="text-center">{{ product.medicine_cost }}</td>
+
+                <!-- Qty -->
+                <td>
+                  <input type="number"
+                         class="form-control text-center qty-input"
+                         min="1"
+                         value="{{ product.qty|default:'' }}"
+                         {% if product.confirm_payment %}readonly{% endif %}>
+                </td>
+
+                <!-- Total -->
+                <td class="text-center total-cost">
+                  {{ product.medicine_totalcost|default:"0" }}
+                </td>
+
+                <!-- Status -->
+                <td class="text-center">
+                {% if product.confirm_payment %}
+                    <button class="btn btn-success btn-sm toggle-addedproduct-payment-btn"
+                    data-id="{{ product.id }}" data-status="true">
+                    Paid
+                    </button>
+                {% else %}
+                    <button class="btn btn-danger btn-sm toggle-addedproduct-payment-btn"
+                    data-id="{{ product.id }}" data-status="false">
+                    Pending
+                    </button>
+                {% endif %}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </section>
+      </div>
+
+    </div>
+  </div>
+</div>

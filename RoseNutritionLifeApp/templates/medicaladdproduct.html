@@ -1,0 +1,95 @@
+<div class="modal fade" id="medicaladdproduct" tabindex="-1">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+
+      <form method="POST" id="medicalAddProductForm" data-url="{% url 'medicaladdproduct' %}">
+        {% csrf_token %}
+
+        <!-- Header -->
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <!-- Body -->
+        <div class="modal-body">
+
+          <h5 class="mb-3 bg-success text-light p-2 rounded">
+            Add Medical Products Details
+          </h5>
+
+          <!-- Member & Patient Table Inputs -->
+          <table class="table table-bordered">
+            <tr>
+              <th style="width:30%">Member Name</th>
+              <td>
+                <input type="text" name="member_name" class="form-control">
+              </td>
+            </tr>
+            <tr>
+              <th>Membership No</th>
+              <td>
+                <input type="text" name="membership_no" class="form-control" maxlength="7">
+              </td>
+            </tr>
+            <tr>
+              <th>Patient Name</th>
+              <td>
+                <input type="text" name="patient_name" class="form-control">
+              </td>
+            </tr>
+            <tr>
+              <th>Patient Mobile</th>
+              <td>
+                <input type="text" name="patient_mobile" class="form-control" maxlength="10">
+              </td>
+            </tr>
+          </table>
+
+          <!-- Medicines -->
+          <h5 class="mt-4">Selected Medicine Products</h5>
+          <div class="table-responsive-sm"  style="max-height:350px; overflow-y:auto;">
+          <table class="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th>Medicine</th>
+                <th>PV</th>
+                <th>Cost</th>
+                <th>Qty</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for p in products %}
+              <tr>
+                <td>{{ p.medicine_name }}</td>
+                <td class="pv text-center">{{ p.medicine_pv }}</td>
+                <td class="cost text-center">{{ p.medicine_cost }}</td>
+                <td class="text-center">
+                  <input type="hidden" name="product_id[]" value="{{ p.id }}">
+                  <input
+                    type="number"
+                    name="qty[]"
+                    class="form-control text-center  qty-input"
+                    min="1"
+                    value="{{ p.qty|default:'' }}">
+                </td>
+                <td class="total-cost text-center">0.00</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-warning" id="submitMedicalProduct">
+            Add Product
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

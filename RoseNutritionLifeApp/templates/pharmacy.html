@@ -1,137 +1,304 @@
 {% extends 'layout.html' %}
-
-
 {% block content %}
 {% load static %}  
-
 
 <div class="p-2 mt-5"></div>
 
 {% if rank in "it_officer,director,vice_director,pharmacist" %}
 
-      <span id="category_title" class="d-flex justify-content-center align-items-center mt-3  mx-3 p-1 rounded" style="color:rgb(4, 70, 39);font-size:1.2rem;">
-          <i class="bi bi-view-list text-success mx-1" style="font-size:1.2rem;"></i>LIST OF MEDICALS </span>
+<ul class="nav nav-pills d-flex justify-content-center aling-items-center gap-2 mt-4">
+  <li class="nav-item">
+    <!-- ✅ FIX: active -->
+    <a class="nav-link active" data-bs-toggle="pill" href="#medicals_list">
+      <i class="bi bi-capsule-pill mx-1" style="font-size:1rem;"></i>
+      Medicals List
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-bs-toggle="pill" href="#products_added">
+      <i class="bi bi-capsule-pill mx-1" style="font-size:1rem;"></i>
+      Products Added
+    </a>
+  </li>
+</ul>
 
-        <div class="alert alert-info alert-dismissible mx-3 mt-2 shadow border-0 bg-white">
-        <span class="d-flex justify-content-center aling-items-center text-info">
-          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-          <i class="bi bi-info-circle mx-2" style="font-size:1rem;" ></i> View, Print and Confirm medicine payments
-        </span>
-      </div>
-            <!-- counts + add -->
-      <span class="d-flex justify-content-center align-items-center gap-2 mb-2">
-        <a class="text-light btn btn-sm" style="background-color: rgb(4, 70, 39); border-radius:30px;">
-          <!-- Total Patients --> List of Medicals  {{ medical_count }}
-        </a>
-        {% comment %} <a class="print-medicalform-btn  text-light btn btn-sm" style="background-color: rgb(4, 70, 39); border-radius:30px;">
-         <i class="bi bi-person-arms-up" style="font-size:0.8rem"></i>
-          Print Medicalform
-        </a> {% endcomment %}
+<!-- Tab panes -->
+<div class="tab-content p-2">
+
+  <!-- medicals list -->
+  <!-- ✅ FIX: show active -->
+  <div class="tab-pane fade show active container-fill rounded" id="medicals_list">   
+    <div class="rounded">
+
+      <span id="category_title"
+        class="d-flex justify-content-center align-items-center mt-2 mx-3 p-1 rounded"
+        style="color:rgb(4, 70, 39);font-size:1.2rem;">
+        <i class="bi bi-view-list text-success mx-1" style="font-size:1.2rem;"></i>
+        LIST OF MEDICALS
       </span>
 
-      <div class="mb-4 mt-2 d-flex justify-content-center  align-items-center">
-    <div class="shadow  container bg-white p-3 "
-        style=" border-radius:20px;">
-        
-
-      <div class="mx-3 mb-2">
-    <input type="text" id="pharmacySearchInput" placeholder="Search medicals by Name, ID or Office Name" class="form-control border-info">
+      <div class="alert alert-info alert-dismissible mx-3 mt-2 shadow border-0 bg-white">
+        <span class="d-flex justify-content-center aling-items-center text-info">
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          <i class="bi bi-info-circle mx-2"></i>
+          View, Print and Confirm medicine payments
+        </span>
       </div>
 
-            <div class="table-responsive-sm">
-            <form method="GET" action="">
-                  {% csrf_token %}
-        <table class="table table-bordered table-hover table-striped">
-          <thead>
-            <tr>
-              <th><input type="checkbox" id="select-all-medicals"></th>
-               <!-- <th>Date</th>
-               <th>RefNo</th> -->
-              <th>IdNo</th>
-              <th>OfficeName</th>
-              <th>Name</th>
-              <th>Sex</th>
-              <th>Birth</th>
-              <th>Weight</th>
-              <th>Height</th>
-              <th>Action</th>
-             <!-- <th>Charges</th> -->
-            </tr>
-          </thead>
-          <tbody id="pharmacyTableBody">
-            {% for medical in medicals %}
-            <tr  style="cursor:pointer;" >
-                <td><input type="checkbox" name="selected_medicals" value="{{ medical.id }}"></td>
-                <!-- <td>{{ medical.date }}</td>
-                 <td>{{ medical.ref_no }}</td> -->
-                <td class="text-center">{{ medical.id_number }}</td>
-                <td>{{ medical.office_name }}</td>
-                <td>{{ medical.name }}</td>
-                <td class="text-center">{{ medical.sex }}</td>
-                <td>{{ medical.dob }}</td>
-                <td class="text-center">{{ medical.weight }}</td>
-                <td class="text-center">{{ medical.height }}</td>
-                {% if rank in "it_officer,pharmacist" %}
-                <td class="d-flex justify-content-center align-items-center gap-1">
-                  <button type="button" class="btn btn-sm btn-info rounded view-medical-btn"
-                          data-url="{% url 'view_medical' medical.id %}">
-                      <i class="bi bi-eye mx-1"></i>view
-                  </button>
-                  <button type="button"
-                          class="btn btn-sm btn-secondary rounded view-medicineprint-btn"
-                          data-url="{% url 'view_medicine_form' medical.id %}">
-                      <i class="bi bi-printer mx-1"></i> print
-                  </button>
-                  <button type="button" class="btn btn-sm btn-success rounded confirm-payment"
-                        data-url="{% url 'view_medicalpayment' medical.id %}">
-                    <i class="bi bi-database-add mx-1"></i>Pay
-                </button>
-                </td>
-              {% else %}
-              <td>View</td>
-                {% endif %}
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
+      <span class="d-flex justify-content-center align-items-center gap-2 mb-2">
+        <a class="text-light btn btn-sm rounded" style="background-color: rgba(3, 41, 23, 1);">
+          List of Medicals {{ medical_count }}
+        </a>
+      </span>
 
-        <!-- Pagination controls: numbers only -->
-        <nav aria-label="Page navigation">
-            <ul class="pagination justify-content-center">
-                {% for num in medicals.paginator.page_range %}
-                    {% if medicals.number == num %}
-                        <li class="page-item active"><span class="page-link">{{ num }}</span></li>
-                    {% else %}
-                        <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
-        </nav>
-        </form>
+      <div class="mb-4 mt-2 d-flex justify-content-center align-items-center">
+        <div class="shadow container bg-white p-3" style="border-radius:20px;">
 
-        </div>
-        </div>
-        </div>
-        </div>
-        </div>
-
-        <script>
-          document.getElementById('select-all-medicals').addEventListener('click', function() {
-            var checkboxes = document.querySelectorAll('input[name="selected_medicals"]');
-            for (var checkbox of checkboxes) {
-              checkbox.checked = this.checked;
-            }
-          });
-        </script>
-
+          <div class="mx-3 mb-2">
+            <input type="text" id="pharmacySearchInput"
+              placeholder="Search medicals by Name, ID or Office Name"
+              class="form-control border-info">
           </div>
+
+          <div class="table-responsive-sm">
+            <form method="GET">
+              {% csrf_token %}
+              <table class="table table-bordered table-hover table-striped">
+                <thead>
+                  <tr>
+                    <th><input type="checkbox" id="select-all-medicals"></th>
+                    <th>IdNo</th>
+                    <th>OfficeName</th>
+                    <th>Name</th>
+                    <th>Sex</th>
+                    <th>Birth</th>
+                    <th>Weight</th>
+                    <th>Height</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="pharmacyTableBody">
+                  {% for medical in medicals %}
+                  <tr>
+                    <td><input type="checkbox" name="selected_allmedicals" value="{{ medical.id }}"></td>
+                    <td class="text-center">{{ medical.id_number }}</td>
+                    <td>{{ medical.office_name }}</td>
+                    <td>{{ medical.name }}</td>
+                    <td class="text-center">{{ medical.sex }}</td>
+                    <td>{{ medical.dob }}</td>
+                    <td class="text-center">{{ medical.weight }}</td>
+                    <td class="text-center">{{ medical.height }}</td>
+                    <td class="d-flex justify-content-center gap-1">
+                      <button type="button" class="btn btn-sm btn-info view-medical-btn"
+                        data-url="{% url 'view_medical' medical.id %}">
+                        <i class="bi bi-eye"></i> view
+                      </button>
+                      <button type="button" class="btn btn-sm btn-secondary view-medicalprint-btn"
+                        data-url="{% url 'view_medicine_form' medical.id %}">
+                        <i class="bi bi-printer"></i> print
+                      </button>
+                      <button type="button" class="btn btn-sm btn-success confirm-payment"
+                        data-url="{% url 'view_medicalpayment' medical.id %}">
+                        <i class="bi bi-database-add"></i> Pay
+                      </button>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </form>
+          </div>
+        </div>
       </div>
-        {% endif %}
-        <!-- end list of  medicals -->
+      <!-- end of medicals list -->
+    </div>
+  </div>
+
+
+  <!-- show pay medical modal -->
+  <div id="PaymentModalContainer"></div>
 
 
 
-        <div id="PaymentModalContainer"></div>
+  <!-- products added -->
+<div class="tab-pane fade container-fill rounded" id="products_added">
+  <div class="rounded">
 
+    <span id="category_title"
+          class="d-flex justify-content-center align-items-center mt-2 mx-3 p-1 rounded"
+          style="color:rgb(4, 70, 39);font-size:1.2rem;">
+      <i class="bi bi-bandaid-fill text-success mx-1" style="font-size:1.2rem;"></i>
+      ADDED MEDICALS
+    </span>
+
+    <div class="alert alert-info alert-dismissible mx-3 mt-2 shadow border-0 bg-white">
+      <span class="d-flex justify-content-center aling-items-center text-info">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <i class="bi bi-info-circle mx-2" style="font-size:1rem;"></i>
+        view, confirm and print payment
+      </span>
+    </div>
+
+    <span class="d-flex justify-content-center align-items-center gap-2">
+      <a class="text-light btn btn-sm rounded"
+         style="background-color: rgba(3, 41, 23, 1);">
+        Added Medicals {{ medicalsadded_count }}
+      </a>
+
+      <button type="button"
+              class="btn btn-sm btn-success medicaladdproduct-btn rounded"
+              data-url="{% url 'medicaladdproduct' %}">
+        Add Products
+      </button>
+    </span>
+
+    <!-- for listing medicaladdproducts -->
+    <div class="mb-4 mt-2 d-flex justify-content-center align-items-center">
+      <div class="shadow container bg-white p-3" style="border-radius:20px;">
+
+        <!-- Search -->
+      <div class="mx-3 mb-2">
+        <input type="text"
+              id="medicalAddProductSearchInput"
+              placeholder="Search medical products by Office ID or Name"
+              class="form-control border-info">
+      </div>
+
+
+        <!-- Table -->
+        <div class="table-responsive-sm">
+          <form method="GET">
+            {% csrf_token %}
+
+            <table class="table table-bordered table-hover table-striped">
+              <thead>
+                <tr>
+                  <th>
+                    <input type="checkbox" id="select-all-medicaladdproducts">
+                  </th>
+                  <th>MemberID</th>
+                  <th>MemberName</th>
+                  <th>PatientName</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+
+              <tbody id="medicalAddProductTableBody">
+                {% for product in medicaladdproducts %}
+                <tr style="cursor:pointer;">
+                  <td>
+                    <input type="checkbox"
+                           name="selected_medicaladdproducts"
+                           value="{{ product.id }}">
+                  </td>
+                  <td class="text-center">{{ product.membership_no|default:"-" }}</td>
+                  <td>{{ product.member_name|default:"-" }}</td>
+                  {% if product.patient_name %}
+                  <td>{{ product.patient_name|default:"-" }}</td>
+                  {% else %}
+                  <td>None</td>
+                  {% endif %}
+
+                  {% if rank in "it_officer,pharmacist" %}
+                  <td class="d-flex justify-content-center align-items-center gap-1">
+                     {% if rank in "it_officer" %}
+                         <button type="button"
+                            class="btn btn-sm btn-danger delete_medicineadd-btn"
+                            data-url="{% url 'delete_medicineadd' product.id %}">
+                            <i class="bi bi-trash"></i> delete
+                          </button> 
+                      {% endif %}
+                         <button type="button"
+                                  class="btn btn-sm btn-warning edit_medicineadd-btn"
+                                  data-url="{% url 'edit_medicineadd' product.id %}">
+                            <i class="bi bi-pencil"></i> Edit
+                          </button>
+                          <button type="button"
+                                class="btn btn-sm btn-secondary print_medicineadd-btn"
+                                data-url="{% url 'print_medicineadd' product.id %}">
+                          <i class="bi bi-printer"></i> print
+                        </button>
+                         <button type="button"
+                              class="btn btn-sm btn-success pay_medicineadd-btn"
+                              data-url="{% url 'pay_medicineadd' product.id %}">
+                        <i class="bi bi-database-add"></i> Pay
+                      </button>
+                </td>
+                  {% else %}
+                  <td>View</td>
+                  {% endif %}
+                </tr>
+                {% empty %}
+                <tr>
+                  <td colspan="6" class="text-center">
+                    No medical products found
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+
+            <!-- Pagination -->
+            <nav aria-label="Page navigation">
+              <ul class="pagination justify-content-center">
+                {% for num in medicaladdproducts.paginator.page_range %}
+                  {% if medicaladdproducts.number == num %}
+                    <li class="page-item active">
+                      <span class="page-link">{{ num }}</span>
+                    </li>
+                  {% else %}
+                    <li class="page-item">
+                      <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+            </nav>
+
+          </form>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- end list for products added -->
+  </div>
+</div>
+
+
+</div>
+
+
+<!-- scripts codes for select inputs -->
+    <script>
+            document.getElementById('select-all-medicals')
+        .addEventListener('click', function () {
+          var checkboxes = document.querySelectorAll(
+            'input[name="selected_allmedicals"]'
+          );
+          for (var checkbox of checkboxes) {
+            checkbox.checked = this.checked;
+          }
+        });
+
+        
+      document.getElementById('select-all-medicaladdproducts')
+        .addEventListener('click', function () {
+          var checkboxes = document.querySelectorAll(
+            'input[name="selected_medicaladdproducts"]'
+          );
+          for (var checkbox of checkboxes) {
+            checkbox.checked = this.checked;
+          }
+        });
+
+    </script>
+
+
+{% endif %}
+
+
+<!-- list of  -->
+<div id="PaymedicineAddDiv"></div>
 
 {% endblock %}

@@ -30,7 +30,7 @@
                 <strong>ETERNAL INTERNATIONAL TANZANIA LTD</strong><br>
                 Buguruni Sherry, Madenge Street near The Dreamers Hotel<br>
                 Dar Es Salaam<br>
-                Phone: 0750990508, 0673222116 / 0765375657<br>
+                Phone: 0673222116 / 0765375657<br>
                 Email: eternalbugurunishop@gmail.com
             </div>
 
@@ -117,7 +117,7 @@
 
                 <div class="col-4 hand_fontstyle mx-1" style="background-color: #fafcffff">
                     <strong class="title_fontstyle">Products:</strong>
-                    <ul>
+                    <ol>
                         {% for product in medical.medicine_products.all %}
                             <li>{{ product.medicine_name }} - {{ product.medicine_cost }}
                             </li>
@@ -127,10 +127,10 @@
 
                         <hr>
                         {% if medical.medicine_products.exists %}
-                            <li><strong>Total cost = {{ total_cost }}</strong></li>
+                            <strong>Total cost = {{ total_cost }}</strong>
                         {% endif %}
 
-                    </ul>
+                    </ol>
                 </div>
             </div>
 
