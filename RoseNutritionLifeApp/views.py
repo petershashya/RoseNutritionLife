@@ -1775,15 +1775,15 @@ def ajax_medicaladdproduct_search(request):
     query = request.GET.get('q', '').strip()
 
     if query:
-        medicaladdproducts = MedicineAddProduct.objects.filter(
+        medicaladdproducts = MedicineAdd.objects.filter(
             membership_no__icontains=query
         # ) | MedicineAddProduct.objects.filter(
         #     patient_name__icontains=query
-        ) | MedicineAddProduct.objects.filter(
+        ) | MedicineAdd.objects.filter(
             member_name__icontains=query
         ).order_by('-id')
     else:
-        medicaladdproducts = MedicineAddProduct.objects.all().order_by('-id')
+        medicaladdproducts = MedicineAdd.objects.all().order_by('-id')
     rank = get_it_officer_rank(request.user)
     html = render_to_string(
         'medicaladdproduct_table_rows.html',

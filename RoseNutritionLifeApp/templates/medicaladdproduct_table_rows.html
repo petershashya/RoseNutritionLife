@@ -7,13 +7,34 @@
   </td>
 
   <td class="text-center">{{ product.membership_no|default:"-" }}</td>
-   <td>{{ product.member_name|default:"-" }}</td>
+  <td>{{ product.member_name|default:"-" }}</td>
   <td>{{ product.patient_name|default:"-" }}</td>
 
-  {% if rank in "it_officer,pharmacist" %}
-  <td class="d-flex justify-content-center align-items-center gap-1">
-    {# buttons intentionally omitted as per your setup #}
-  </td>
+    {% if rank in "it_officer,pharmacist" %}
+                  <td class="d-flex justify-content-center align-items-center gap-1">
+                     {% if rank in "it_officer" %}
+                         <button type="button"
+                            class="btn btn-sm btn-danger delete_medicineadd-btn"
+                            data-url="{% url 'delete_medicineadd' product.id %}">
+                            <i class="bi bi-trash"></i> delete
+                          </button> 
+                      {% endif %}
+                         <button type="button"
+                                  class="btn btn-sm btn-warning edit_medicineadd-btn"
+                                  data-url="{% url 'edit_medicineadd' product.id %}">
+                            <i class="bi bi-pencil"></i> Edit
+                          </button>
+                          <button type="button"
+                                class="btn btn-sm btn-secondary print_medicineadd-btn"
+                                data-url="{% url 'print_medicineadd' product.id %}">
+                          <i class="bi bi-printer"></i> print
+                        </button>
+                         <button type="button"
+                              class="btn btn-sm btn-success pay_medicineadd-btn"
+                              data-url="{% url 'pay_medicineadd' product.id %}">
+                        <i class="bi bi-database-add"></i> Pay
+                      </button>
+                </td>
   {% else %}
   <td>View</td>
   {% endif %}
