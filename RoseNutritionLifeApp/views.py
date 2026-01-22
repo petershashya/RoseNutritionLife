@@ -1714,16 +1714,16 @@ def medicaladdproduct(request):
             })
 
         # ✅ DUPLICATE CHECK (HEADER LEVEL)
-        already_exists = MedicineAdd.objects.filter(
-            membership_no=membership_no,
-            patient_mobile=patient_mobile
-        ).exists()
+        # already_exists = MedicineAdd.objects.filter(
+        #     membership_no=membership_no,
+        #     patient_mobile=patient_mobile
+        # ).exists()
 
-        if already_exists:
-            return JsonResponse({
-                "status": "error",
-                "message": "This member and patient already have a submitted record."
-            })
+        # if already_exists:
+        #     return JsonResponse({
+        #         "status": "error",
+        #         "message": "This member and patient already have a submitted record."
+        #     })
 
         product_ids = request.POST.getlist("product_id[]")
         qty_list = request.POST.getlist("qty[]")
