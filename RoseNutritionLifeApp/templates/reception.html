@@ -45,7 +45,7 @@
 
           <form method="GET" action="">
                 {% csrf_token %}
-      <table class="table table-bordered table-hover table-striped">
+      <table class="table table-bordered table-hover ">
         <thead>
           <tr>
             <th><input type="checkbox" id="select-all-patients"></th>
@@ -61,33 +61,50 @@
             {% endif %}
           </tr>
         </thead>
-        <tbody  id="patientsTableBody">
+       <tbody id="patientsTableBody">
           {% for patient in patients %}
-          <tr>
-              <td><input type="checkbox" name="selected_patients" value="{{ patient.id }}"></td>
-              <td>{{ patient.full_name }}</td>
-              <td class="text-center">{{ patient.gender }}</td>
-              <td>{{ patient.region }}</td>
-              <td class="text-center">{{ patient.postal_address }}</td>
-              <td>{{ patient.email }}</td>
-              <td class="text-center">{{ patient.mobile_no }}</td>
-              <td class="text-center">{{ patient.membership_no }}</td>
-            {% if rank in "it_officer" %}
-                 <td class="d-flex justify-content-center align-items-center gap-1">
-                  <button class="btn btn-sm  generic-edit-btn btn-warning rounded" data-url="{% url 'generic_edit' 'patient' patient.id %}" data-target="#editGenericModal">
-                    <i class="bi bi-pencil"></i>
-                  </button> 
-                  <button class="btn btn-sm generic-delete-btn btn-danger rounded" data-url="{% url 'generic_delete' 'patient' patient.id %}" data-target="#deleteGenericModal">
-                    <i class="bi bi-trash"></i>
-                  </button>
-                </td>
-         {% else %}
-   <td>View</td>
-      {% endif %}
 
-          </tr>
+              {# ---- SHOW DATE ONLY WHEN IT CHANGES ---- #}
+              {% ifchanged patient.date_created.date %}
+              <tr>
+                  <td colspan="9" class="text-center fw-bold"
+                      style="background-color:rgba(233, 247, 250, 1);">
+                      {{ patient.date_created|date:"j M Y" }}
+                  </td>
+              </tr>
+              {% endifchanged %}
+
+              <tr>
+                  <td><input type="checkbox" name="selected_patients" value="{{ patient.id }}"></td>
+                  <td>{{ patient.full_name }}</td>
+                  <td class="text-center">{{ patient.gender }}</td>
+                  <td>{{ patient.region }}</td>
+                  <td class="text-center">{{ patient.postal_address }}</td>
+                  <td>{{ patient.email }}</td>
+                  <td class="text-center">{{ patient.mobile_no }}</td>
+                  <td class="text-center">{{ patient.membership_no }}</td>
+
+                  {% if rank in "it_officer" %}
+                  <td class="d-flex justify-content-center align-items-center gap-1">
+                      <button class="btn btn-sm generic-edit-btn btn-warning rounded"
+                              data-url="{% url 'generic_edit' 'patient' patient.id %}"
+                              data-target="#editGenericModal">
+                          <i class="bi bi-pencil"></i>
+                      </button>
+                      <button class="btn btn-sm generic-delete-btn btn-danger rounded"
+                              data-url="{% url 'generic_delete' 'patient' patient.id %}"
+                              data-target="#deleteGenericModal">
+                          <i class="bi bi-trash"></i>
+                      </button>
+                  </td>
+                  {% else %}
+                  <td>View</td>
+                  {% endif %}
+              </tr>
+
           {% endfor %}
-        </tbody>
+          </tbody>
+
       </table>
               <!-- Pagination controls: numbers only -->
         <nav aria-label="Page navigation">

@@ -63,7 +63,7 @@
           <div class="table-responsive-sm">
             <form method="GET">
               {% csrf_token %}
-              <table class="table table-bordered table-hover table-striped">
+              <table class="table table-bordered table-hover">
                 <thead>
                   <tr>
                     <th><input type="checkbox" id="select-all-medicals"></th>
@@ -79,6 +79,17 @@
                 </thead>
                 <tbody id="pharmacyTableBody">
                   {% for medical in medicals %}
+
+                    {# ---- SHOW DATE ONLY WHEN IT CHANGES ---- #}
+                    {% ifchanged medical.date_created.date %}
+                    <tr>
+                        <td colspan="9" class="text-center fw-bold"
+                            style="background-color:rgba(233, 247, 250, 1);">
+                            {{ medical.date_created|date:"j M Y" }}
+                        </td>
+                    </tr>
+                    {% endifchanged %}
+
                   <tr>
                     <td><input type="checkbox" name="selected_allmedicals" value="{{ medical.id }}"></td>
                     <td class="text-center">{{ medical.id_number }}</td>
@@ -185,7 +196,7 @@
           <form method="GET">
             {% csrf_token %}
 
-            <table class="table table-bordered table-hover table-striped">
+            <table class="table table-bordered table-hover">
               <thead>
                 <tr>
                   <th>
@@ -200,6 +211,17 @@
 
               <tbody id="medicalAddProductTableBody">
                 {% for product in medicaladdproducts %}
+
+                {# ---- SHOW DATE ONLY WHEN IT CHANGES ---- #}
+                    {% ifchanged product.date_created.date %}
+                    <tr>
+                        <td colspan="9" class="text-center fw-bold"
+                            style="background-color:rgba(233, 247, 250, 1);">
+                            {{ product.date_created|date:"j M Y" }}
+                        </td>
+                    </tr>
+                    {% endifchanged %}
+
                 <tr style="cursor:pointer;">
                   <td>
                     <input type="checkbox"

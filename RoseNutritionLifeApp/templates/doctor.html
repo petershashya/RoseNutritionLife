@@ -80,7 +80,7 @@
 
           <form method="GET" action="">
                 {% csrf_token %}
-      <table class="table table-bordered table-hover table-striped">
+      <table class="table table-bordered table-hover">
         <thead>
           <tr>
             <th><input type="checkbox" id="select-all-patients"></th>
@@ -96,6 +96,16 @@
         </thead>
         <tbody  id="patientsTableBody">
           {% for patient in patients %}
+                    {# ---- SHOW DATE ONLY WHEN IT CHANGES ---- #}
+                    {% ifchanged patient.date_created.date %}
+                    <tr>
+                        <td colspan="9" class="text-center fw-bold"
+                            style="background-color:rgba(233, 247, 250, 1);">
+                            {{ patient.date_created|date:"j M Y" }}
+                        </td>
+                    </tr>
+                    {% endifchanged %}
+
           <tr class="clickable-row" data-url="{% url 'medical_form' patient.id %}" style="cursor:pointer;">
               <td><input type="checkbox" name="selected_patients" value="{{ patient.id }}"></td>
               <td>{{ patient.full_name }}</td>
@@ -194,7 +204,7 @@
             <div class="table-responsive-sm">
             <form method="GET" action="">
                   {% csrf_token %}
-        <table class="table table-bordered table-hover table-striped">
+        <table class="table table-bordered table-hover">
           <thead>
             <tr>
               <th><input type="checkbox" id="select-all-medicals"></th>
@@ -210,6 +220,16 @@
           </thead>
           <tbody id="medicalsTableBody">
             {% for medical in medicals %}
+                    {# ---- SHOW DATE ONLY WHEN IT CHANGES ---- #}
+                    {% ifchanged medical.date_created.date %}
+                    <tr>
+                        <td colspan="9" class="text-center fw-bold"
+                            style="background-color:rgba(233, 247, 250, 1);">
+                            {{ medical.date_created|date:"j M Y" }}
+                        </td>
+                    </tr>
+                    {% endifchanged %}
+
             <tr class="clickable-row " data-url="{% url 'view_medical' medical.id %}" style="cursor:pointer;">
                 <td><input type="checkbox" name="selected_medicals" value="{{ medical.id }}"></td>
                 <td class="text-center">{{ medical.id_number }}</td>
