@@ -65,11 +65,11 @@
           {% for patient in patients %}
 
               {# ---- SHOW DATE ONLY WHEN IT CHANGES ---- #}
-              {% ifchanged patient.date_created.date %}
+              {% ifchanged patient.date_modified.date %}
               <tr>
                   <td colspan="9" class="text-center fw-bold"
                       style="background-color:rgba(233, 247, 250, 1);">
-                      {{ patient.date_created|date:"j M Y" }}
+                      {{ patient.date_modified|date:"j M Y" }}
                   </td>
               </tr>
               {% endifchanged %}

@@ -1,4 +1,13 @@
 {% for medical in medicals %}
+                    {# ---- SHOW DATE ONLY WHEN IT CHANGES ---- #}
+                    {% ifchanged medical.date_modified.date %}
+                    <tr>
+                        <td colspan="9" class="text-center fw-bold"
+                            style="background-color:rgba(233, 247, 250, 1);">
+                            {{ medical.date_modified|date:"j M Y" }}
+                        </td>
+                    </tr>
+                    {% endifchanged %}
 <tr class="clickable-row" data-url="{% url 'view_medical' medical.id %}" style="cursor:pointer;">
     <td><input type="checkbox" name="selected_medicals" value="{{ medical.id }}"></td>
                 <td>{{ medical.id_number }}</td>

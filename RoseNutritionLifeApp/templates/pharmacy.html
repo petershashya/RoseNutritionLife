@@ -81,11 +81,11 @@
                   {% for medical in medicals %}
 
                     {# ---- SHOW DATE ONLY WHEN IT CHANGES ---- #}
-                    {% ifchanged medical.date_created.date %}
+                    {% ifchanged medical.date_modified.date %}
                     <tr>
                         <td colspan="9" class="text-center fw-bold"
                             style="background-color:rgba(233, 247, 250, 1);">
-                            {{ medical.date_created|date:"j M Y" }}
+                            {{ medical.date_modified|date:"j M Y" }}
                         </td>
                     </tr>
                     {% endifchanged %}
@@ -213,11 +213,11 @@
                 {% for product in medicaladdproducts %}
 
                 {# ---- SHOW DATE ONLY WHEN IT CHANGES ---- #}
-                    {% ifchanged product.date_created.date %}
+                    {% ifchanged product.date_modified.date %}
                     <tr>
                         <td colspan="9" class="text-center fw-bold"
                             style="background-color:rgba(233, 247, 250, 1);">
-                            {{ product.date_created|date:"j M Y" }}
+                            {{ product.date_modified|date:"j M Y" }}
                         </td>
                     </tr>
                     {% endifchanged %}
