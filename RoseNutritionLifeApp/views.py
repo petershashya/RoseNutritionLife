@@ -194,7 +194,7 @@ def reception(request):
     return render(request, "reception.html", context)
 
 
-
+from django.db.models.functions import TruncDate
 #start superuser accounts
 def is_superuser(user):
     return user.is_superuser
@@ -204,13 +204,23 @@ def check_superuser(user):
 @user_passes_test(check_superuser, login_url='member_account')
 @login_required
 def doctor(request):
-    patients_queryset = PatientForm.objects.all().order_by('-id')  # last to first
+    patients_queryset = (
+    PatientForm.objects
+    .annotate(modified_date=TruncDate('date_modified'))  # extract only date
+    .order_by('-modified_date', '-date_modified')  # group by date, newest date first
+)  # last to first
     # Pagination: 20 per page
     paginator = Paginator(patients_queryset, 10)
     page_number = request.GET.get('page')
     patients= paginator.get_page(page_number)
     
-    medicals_queryset = Medical.objects.all().order_by('-id')  # last to first
+    # medicals_queryset = Medical.objects.all().order_by('-id') 
+    medicals_queryset = (
+    Medical.objects
+    .annotate(modified_date=TruncDate('date_modified'))  # extract only date
+    .order_by('-modified_date', '-date_modified')  # group by date, newest date first
+)  # last to first
+    # # last to first
     # Pagination: 20 per page
     paginator = Paginator(medicals_queryset, 10)
     page_number = request.GET.get('page')
@@ -881,6 +891,7 @@ def print_medicineadd(request, product_id):
 
 #for edit medicine added products
 from django.db import transaction
+from django.utils.dateparse import parse_datetime
 def edit_medicineadd(request, product_id):
     medicine_add = get_object_or_404(MedicineAdd, id=product_id)
 
@@ -898,6 +909,18 @@ def edit_medicineadd(request, product_id):
     if request.method == "POST":
         try:
             with transaction.atomic():
+                
+                # =========================
+                # 🟡 UPDATE DATE MODIFIED ONLY
+                # =========================
+                date_modified_input = request.POST.get("date_modified")
+                if date_modified_input:
+                    parsed_date = parse_datetime(date_modified_input)
+                    if parsed_date:
+                        if timezone.is_naive(parsed_date):
+                            parsed_date = timezone.make_aware(parsed_date)
+                        medicine_add.date_modified = parsed_date
+                        medicine_add.save()
 
                 # =========================
                 # 🔴 DELETE SELECTED PRODUCTS
@@ -1853,7 +1876,12 @@ def check_superuser(user):
 @login_required
 def pharmacy(request):
     it_officer_rank = get_it_officer_rank(request.user)
-    medicals_queryset = Medical.objects.all().order_by('-id')  # last to first
+   # medicals_queryset = Medical.objects.all().order_by('-id') 
+    medicals_queryset = (
+    Medical.objects
+    .annotate(modified_date=TruncDate('date_modified'))  # extract only date
+    .order_by('-modified_date', '-date_modified'))
+    
     # Pagination: 20 per page
     paginator = Paginator(medicals_queryset, 10)
     page_number = request.GET.get('page')
@@ -1861,8 +1889,13 @@ def pharmacy(request):
     
     medical_count=medicals_queryset.count()
     
+
     # medical add (HEADER LEVEL)
-    medicalsadded = MedicineAdd.objects.all().order_by('-id')
+    medicalsadded = (
+        MedicineAdd.objects
+        .annotate(modified_date=TruncDate('date_modified'))
+        .order_by('-modified_date', '-date_modified')
+    )
 
     paginator = Paginator(medicalsadded, 10)
     page_number = request.GET.get('page')
@@ -1870,7 +1903,6 @@ def pharmacy(request):
 
     medicalsadded_count = medicalsadded.count()
 
-    
     context = {
         "rank": it_officer_rank,
         "medicals": medicals,
@@ -3754,19 +3786,37 @@ MODEL_MAP = {
 @login_required
 @user_passes_test(has_edit_permission)
 def edit_object(request, model, object_id):
+    from django.utils.dateparse import parse_datetime
+    from django.utils import timezone
+
     ModelClass, FormClass, template, _ = MODEL_MAP[model]
     instance = get_object_or_404(ModelClass, id=object_id)
 
     if request.method == "POST":
         form = FormClass(request.POST, request.FILES, instance=instance)
         if form.is_valid():
-            form.save()
-            
+
+            # ---- SAVE WITHOUT COMMIT (to modify date_modified only) ----
+            instance = form.save(commit=False)
+
+            # -------- HANDLE DATE MODIFIED ONLY ----------
+            date_modified_input = request.POST.get("date_modified")
+            if date_modified_input:
+                parsed_date = parse_datetime(date_modified_input)
+                if parsed_date:
+                    if timezone.is_naive(parsed_date):
+                        parsed_date = timezone.make_aware(parsed_date)
+                    instance.date_modified = parsed_date
+            # ---------------------------------------------
+
+            instance.save()
+            form.save_m2m()
+
             if model == "medical":
-                product_ids = request.POST.getlist("products")  # list of selected Medicine_SalesForm IDs
+                product_ids = request.POST.getlist("products")
 
                 # Clear old MedicineProducts for this medical
-                instance.medicine_products.all().delete()  # remove old ones
+                instance.medicine_products.all().delete()
 
                 # Create new MedicineProduct objects
                 for med_id in product_ids:
@@ -3774,27 +3824,30 @@ def edit_object(request, model, object_id):
                     mp = MedicineProduct.objects.create(
                         medical=instance,
                         membership_no=instance.id_number,
-                        patient_no=None,  # if needed, set patient_no
+                        patient_no=None,
                         medicine=med,
                         medicine_name=med.medicine_name,
                         medicine_pv=med.medicine_pv,
                         medicine_cost=med.medicine_cost,
                         confirm_payment=False
                     )
-                    # Add to ManyToManyField
                     instance.medicine_products.add(mp)
-        
-        
+
             messages.success(request, f"{model.capitalize()} updated successfully.")
             return JsonResponse({"success": True})
+
         return JsonResponse({"errors": form.errors}, status=400)
 
     else:
         form = FormClass(instance=instance)
-        # Get all medicines for product select
         medicines = Medicine_SalesForm.objects.all().order_by('-id')
-        html = render_to_string(template, {"form": form, "object": instance, "model": model ,"medicines":medicines}, request)
+        html = render_to_string(
+            template,
+            {"form": form, "object": instance, "model": model, "medicines": medicines},
+            request
+        )
         return HttpResponse(html)
+
 
 # ---------------------- DELETE OBJECT ----------------------
 @login_required

@@ -213,14 +213,15 @@
                 {% for product in medicaladdproducts %}
 
                 {# ---- SHOW DATE ONLY WHEN IT CHANGES ---- #}
-                    {% ifchanged product.date_modified.date %}
-                    <tr>
-                        <td colspan="9" class="text-center fw-bold"
-                            style="background-color:rgba(233, 247, 250, 1);">
-                            {{ product.date_modified|date:"j M Y" }}
-                        </td>
-                    </tr>
-                    {% endifchanged %}
+                {% ifchanged product.modified_date %}
+                <tr>
+                    <td colspan="9" class="text-center fw-bold"
+                        style="background-color:rgba(233, 247, 250, 1);">
+                        {{ product.modified_date|date:"j M Y" }}
+                    </td>
+                </tr>
+                {% endifchanged %}
+
 
                 <tr style="cursor:pointer;">
                   <td>

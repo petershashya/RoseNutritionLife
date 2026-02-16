@@ -99,7 +99,7 @@
               <!-- Row 3: Postal Address, Membership No -->
               <div class="form-row mt-2">
                 <!-- Postal Address -->
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                   <label for="{{ form.postal_address.id_for_label }}">Postal Address</label>
                   <textarea class="form-control"
                             id="{{ form.postal_address.id_for_label }}"
@@ -109,7 +109,7 @@
                 </div>
 
                 <!-- Membership No -->
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                   <label for="{{ form.membership_no.id_for_label }}">Membership No.</label>
                   <input type="text" class="form-control"
                          id="{{ form.membership_no.id_for_label }}"
@@ -117,6 +117,17 @@
                          value="{{ form.membership_no.value|default_if_none:'' }}"
                          placeholder="Enter membership number">
                 </div>
+
+                <!-- date modified -->
+                <div class="mb-3">
+                    <label for="id_date_modified">Date Modified</label>
+                    <input type="datetime-local" 
+                          name="date_modified" 
+                          id="id_date_modified"
+                          class="form-control"
+                          value="{{ object.date_modified|date:'Y-m-d\\TH:i' }}">
+                </div>
+
               </div>
 
             </form>

@@ -277,7 +277,7 @@ class PatientForm(models.Model):
     birth = models.DateField(default="2000-01-01")
 
     date_created = models.DateTimeField(default=timezone.now)
-    date_modified = models.DateTimeField(auto_now=True)
+    date_modified = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return f"Patient: {self.full_name}"
@@ -462,7 +462,7 @@ class Medical(models.Model):
     charges = models.CharField(max_length=50, default='30,000/=')
     
     date_created = models.DateTimeField(default=timezone.now)
-    date_modified = models.DateTimeField(auto_now=True)
+    date_modified = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return f"Medical Form - {self.name} ({self.ref_no})"
@@ -504,7 +504,7 @@ class MedicineProduct(models.Model):
     confirm_payment = models.BooleanField(default=False)
 
     date_created = models.DateTimeField(default=timezone.now)
-    date_modified = models.DateTimeField(auto_now=True)
+    date_modified = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return f"{self.medicine_name} ({self.medicine_pv} PV)"
@@ -557,7 +557,7 @@ class MedicineAdd(models.Model):
     patient_mobile = models.CharField(max_length=20, blank=True, null=True)
 
     date_created = models.DateTimeField(default=timezone.now)
-    date_modified = models.DateTimeField(auto_now=True)
+    date_modified = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return f"{self.member_name} - {self.membership_no}"
@@ -588,7 +588,7 @@ class MedicineAddProduct(models.Model):
     confirm_payment = models.BooleanField(default=False, db_index=True)
 
     date_created = models.DateTimeField(default=timezone.now)
-    date_modified = models.DateTimeField(auto_now=True)
+    date_modified = models.DateTimeField(default=timezone.now)
 
     def save(self, *args, **kwargs):
         if self.qty and self.medicine_cost:

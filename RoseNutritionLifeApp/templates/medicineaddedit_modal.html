@@ -71,6 +71,15 @@
           </table>
         </div>
 
+                  <!-- date modified -->
+                  <div class="col-3">
+                    <label>Date Modified</label>
+                    <input type="datetime-local"
+                          name="date_modified"
+                          class="form-control"
+                          value="{{ medicine_add.date_modified|date:'Y-m-d\\TH:i' }}">
+                </div>
+
           <!-- ADD NEW PRODUCTS -->
           <h6 class="mt-4 text-warning">Add New Products</h6>
           <div class="row g-2">

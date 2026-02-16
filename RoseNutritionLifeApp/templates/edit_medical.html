@@ -79,7 +79,7 @@
                           class="line-input w-50 hand_fontstyle"
                           name="{{ form.id_number.html_name }}"
                           value="{{ form.id_number.value|default_if_none:'' }}"
-                          readonly>
+                          g>
                   </div>
                 </div>
 
@@ -113,7 +113,7 @@
                 </div>
 
                 <div class="row mb-4">
-                  <div class="col-4">
+                  <div class="col-2">
                     <label class="fw-bold">Weight (Kg):</label>
                     <input type="number"
                           class="line-input w-50 hand_fontstyle"
@@ -121,12 +121,22 @@
                           value="{{ form.weight.value|default_if_none:'' }}">
                   </div>
 
-                  <div class="col-4">
+                  <div class="col-2">
                     <label class="fw-bold">Height (Cm):</label>
                     <input type="number"
                           class="line-input w-50 hand_fontstyle"
                           name="{{ form.height.html_name }}"
                           value="{{ form.height.value|default_if_none:'' }}">
+                  </div>
+                
+                  <!-- date modified -->
+                  <div class="col-3">
+                      <label for="id_date_modified">Date Modified</label>
+                      <input type="datetime-local" 
+                            name="date_modified" 
+                            id="id_date_modified"
+                            class="form-control"
+                            value="{{ object.date_modified|date:'Y-m-d\\TH:i' }}">
                   </div>
                 </div>
 
