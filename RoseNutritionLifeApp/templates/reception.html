@@ -9,7 +9,7 @@
 
 <!-- start listing patients -->
 <!-- Patients Table -->
-{% if rank in "it_officer,director,vice_director,reception" %}
+{% if rank in "it_officer,director,vice_director,reception,pharmacist" %}
 
       <span id="category_title" class="d-flex justify-content-center align-items-center mt-3  mx-3 p-1 rounded" style="color:rgb(4, 70, 39);font-size:1.2rem;">
           <i class="bi bi-capsule-pill text-success mx-1" style="font-size:1.2rem;"></i>LIST OF PATIENTS </span>
@@ -84,7 +84,7 @@
                   <td class="text-center">{{ patient.mobile_no }}</td>
                   <td class="text-center">{{ patient.membership_no }}</td>
 
-                  {% if rank in "it_officer" %}
+                  {% if rank in "it_officer,pharmacist" %}
                   <td class="d-flex justify-content-center align-items-center gap-1">
                       <button class="btn btn-sm generic-edit-btn btn-warning rounded"
                               data-url="{% url 'generic_edit' 'patient' patient.id %}"
