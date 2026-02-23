@@ -2372,7 +2372,7 @@ def post_businesslevel(request):
 # ---------------- Patient View ----------------
 def post_patient(request):
     user_rank = getattr(request.user.user_detail, 'company_rank', '').lower()
-    if user_rank not in ['director','vice_director','manager','reception','supervisor','it_officer']:
+    if user_rank not in ['director','vice_director','manager','reception','pharmacist','supervisor','it_officer']:
         messages.error(request, "You do not have permission to register a patient.")
         return redirect('/')
 
