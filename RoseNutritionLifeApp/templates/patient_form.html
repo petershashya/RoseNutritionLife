@@ -102,13 +102,25 @@
                 </div>
               </div> {% endcomment %}
               
+              
               <!-- Membership No -->
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="{{ patient_form.membership_no.id_for_label }}">No ya Mwanachama</label>
-                    {{ patient_form.membership_no }}
-                  </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="{{ patient_form.membership_no.id_for_label }}">
+                      No ya Mwanachama
+                  </label>
+                  {{ patient_form.membership_no }}
+
+                  <!-- Datalist for search results -->
+                  <datalist id="membershipList">
+                      {% for u in users %}
+                          <option value="{{ u.membership_no }}">
+                              {{ u.user.first_name }} - {{ u.membership_no }}
+                          </option>
+                      {% endfor %}
+                  </datalist>
                 </div>
+              </div>
 
               <!-- Submit Button -->
               <div class="btn-box">

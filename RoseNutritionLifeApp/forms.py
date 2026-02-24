@@ -352,12 +352,16 @@ class BusinessLevelForm(forms.ModelForm):
             'video': 'BusinessLevel Video',
         }
 
+
 # ---------------- Patient Form ----------------
 class PatientModelForm(forms.ModelForm):
-    membership_no = forms.ChoiceField(
-        choices=[],
+    membership_no = forms.CharField(
         required=True,
-        widget=forms.Select(attrs={'class': 'form-control'}),
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'list': 'membershipList',   # muhimu kwa datalist
+            'placeholder': 'Search Membership No or First Name'
+        }),
         label="Membership No."
     )
 
@@ -378,25 +382,26 @@ class PatientModelForm(forms.ModelForm):
             'region',
             'postal_address',
             'membership_no',
-            'birth',  # added date here
+            'birth',
         ]
         widgets = {
             'postal_address': forms.Textarea(attrs={'rows': 2}),
         }
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        # First empty placeholder option
-        choices = [("", "-- Chagua No ya Mwanachama --")]
-
-        # Populate membership_no options from UserDetail
-        for u in UserDetail.objects.order_by('-id'):
-            label = f"{u.user.first_name} - {u.membership_no}"
-            choices.append((u.membership_no, label))
-
-        self.fields['membership_no'].choices = choices
         
+        
+    #### --- this was the choice option for membership no ---###
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+
+    #     # First empty placeholder option
+    #     choices = [("", "-- Chagua No ya Mwanachama --")]
+
+    #     # Populate membership_no options from UserDetail
+    #     for u in UserDetail.objects.order_by('-id'):
+    #         label = f"{u.user.first_name} - {u.membership_no}"
+    #         choices.append((u.membership_no, label))
+
+    #     self.fields['membership_no'].choices = choices
         
 
 class MedicalForm(forms.ModelForm):

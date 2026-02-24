@@ -2411,7 +2411,14 @@ def post_patient(request):
             return redirect('/')
     else:
         form = PatientModelForm()
-        return render(request, 'patient_form.html', {'patient_form': form})
+        users = UserDetail.objects.select_related('user').order_by('-id')
+        
+        context = {
+        'patient_form': form,
+        'users': users,
+        }
+
+        return render(request, 'patient_form.html', context)
 
 # def post_patient(request):
 #     user_rank = getattr(request.user.user_detail, 'company_rank', '').lower()
