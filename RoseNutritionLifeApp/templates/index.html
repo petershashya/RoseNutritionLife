@@ -143,6 +143,19 @@
         </span>
         {% endif %}
 
+        {% if rank == 'it_officer' or rank == 'director' or rank == 'vice_director'  %}
+          <span class="rotateads bg-light flex-shrink-0" style="padding:2px;">
+        <a href="{% url 'stock' %}" id="getservice"
+           class="top_providers text-decoration-none p-4 text-light d-block"
+           style="min-width:150px;">
+            <span class="d-flex justify-content-center align-items-center">HIFADHI</span>
+            <span class="d-flex justify-content-center align-items-center">
+                <i class="bi bi-box-fill text-light" style="font-size:2.5rem;"></i>
+            </span>
+        </a>
+        </span>
+        {% endif %}
+
      <span class="rotateads bg-light flex-shrink-0" style="padding:2px;">
         <a href="{% url 'services' %}" id="getservice"
            class="top_providers text-decoration-none p-4 text-light d-block"

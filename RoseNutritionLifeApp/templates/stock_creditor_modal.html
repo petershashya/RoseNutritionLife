@@ -1,0 +1,154 @@
+<div class="modal fade" id="creditorModal">
+<div class="modal-dialog modal-xl">
+<div class="modal-content">
+
+<div class="modal-header">
+<button class="btn-close" data-bs-dismiss="modal"></button>
+</div>
+
+
+<div class="modal-body mb-3">
+{% comment %} <h5 class="text-dark d-flex justify-content-center align-items-center bg-light p-2"> Product Creditor</h5> {% endcomment %}
+<div class="d-flex justify-content-center align-items-center">
+    <h5 class="text-success text-bold text-uppercase">
+        {{stock.member_name}} - {{stock.membership_no}}
+    </h5>
+</div>
+
+<!-- TOTALS -->
+<div class="mb-1 d-flex justify-content-center align-items-center bg-light p-2 gap-3">
+<b>Total Products : {{total_products}} </b>
+<b>Total Cost : {{total_cost}} </b>
+</div>
+
+
+<!-- PRODUCTS TABLE -->
+<div style="max-height:350px; overflow-y:auto">
+<table class="table table-bordered table-sm">
+<thead>
+<tr>
+<th><input type="checkbox"></th>
+<th>Product</th>
+<th>Code</th>
+<th>Unit</th>
+<th>PV</th>
+<th>Qty</th>
+<th>Total</th>
+</tr>
+</thead>
+
+<tbody>
+{% for p in products %}
+<tr>
+<td><input type="checkbox"></td>
+<td class="text-center">{{p.product_name}}</td>
+<td class="text-center">{{p.code}}</td>
+<td class="text-center">{{p.unit}}</td>
+<td class="text-center">{{p.product_pv}}</td>
+<td class="text-center">{{p.qty}}</td>
+<td class="text-center">{{p.total_cost}}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+
+
+
+<!-- PAYMENT FORM -->
+<div class="mb-1 mt-3 d-flex justify-content-center align-items-center bg-light p-2 gap-3">
+    Add Debtor Payment
+</div>
+<div class="container d-flex justify-content-center align-items-center">
+    <form id="stockPaymentForm"
+        data-url="{% url 'add_stock_payment' stock.id %}"
+        class="w-100"
+        style="max-width:600px;">
+        
+        {% csrf_token %}
+
+        <div class="row justify-content-center g-2">
+
+            <div class="col-md-4">
+                <input
+                    type="date"
+                    name="payment_date"
+                    class="form-control"
+                    required>
+            </div>
+
+            <div class="col-md-4">
+                <input
+                    type="number"
+                    name="amount_paid"
+                    class="form-control"
+                    placeholder="Amount"
+                    required>
+            </div>
+
+            <div class="col-md-2 d-grid">
+                <button class="btn btn-success">
+                    Pay
+                </button>
+            </div>
+
+        </div>
+
+    </form>
+</div>
+
+<!-- PAYMENT SUMMARY -->
+<div class="mb-1 mt-4 mb-1 d-flex justify-content-center align-items-center bg-light p-2 gap-3">
+    List of Payment
+</div>
+<div class="mb-1 d-flex justify-content-center align-items-center bg-light p-2 gap-3">
+<b>Total Paid: {{total_paid}}</b>
+<b>Total Remaining: {{remaining}}</b>
+{% if remaining == 0 %}
+<input type="checkbox" checked style="accent-color:green">
+{% else %}
+<input type="checkbox" checked style="accent-color:red">
+{% endif %}
+</div>
+
+
+<!-- PAYMENT LIST -->
+<div style="max-height:350px; overflow-y:auto">
+<table class="table table-sm table-bordered">
+<thead>
+
+<tr>
+<th class="text-start">Date</th>
+<th>Amount</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+
+{% for pay in payments %}
+<tr>
+<td class="text-start">{{pay.payment_date}}</td>
+<td class="text-center">{{pay.amount_paid}}</td>
+<td class="text-center">
+<button type="button"
+class="btn btn-sm btn-danger deletePaymentBtn"
+data-url="{% url 'delete_stock_payment' pay.id %}">
+Delete
+</button>
+
+</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+</div>
+</div>
+
+</div>
+</div>
+</div>
+
+
+<!-- Delete Payment Modal -->
+<div id="deletePaymentModalContainer"></div>

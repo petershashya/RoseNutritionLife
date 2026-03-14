@@ -8,7 +8,8 @@ from .models import (
     BusinessLevel,Medicine_SalesForm, CheckUp_SalesForm,PatientForm ,
     Advertisement,Shop,Branch,Meeting,Log,About,Viewer,
     DiseaseComment,MedicineComment,CheckupComment,BusinessplanComment,BusinesslevelComment,Viewer ,Comment,
-    Medical ,MedicineProduct,MemberPayment,PaymentProduct,MedicalMessage,MedicineAddProduct,MedicineAdd
+    Medical ,MedicineProduct,MemberPayment,PaymentProduct,MedicalMessage,MedicineAddProduct,MedicineAdd,Stock,
+    StockAdd,StockAddProduct,StockPayment
 )
 from .forms import (
     MedicineForm, CheckUpForm, BusinessPlanForm, BusinessLevelForm,
@@ -56,6 +57,7 @@ from xhtml2pdf import pisa
 from datetime import timedelta
 from django.utils import timezone
 from django.db.models import Q
+from django.db.models import OuterRef, Subquery
 
 
 def home(request):
@@ -1471,6 +1473,122 @@ def ajax_pending_search(request):
 
 
 
+
+# ------------------------
+# Check user rank / permission
+# ------------------------
+def check_superuser(user):
+    return user.is_superuser or getattr(user.user_detail, 'company_rank', '').lower() in [
+        'director', 'vice_director', 'manager', 'it_officer'
+    ]
+
+# ------------------------
+# Combined Stock View (date_modified version)
+# ------------------------
+@login_required
+@user_passes_test(check_superuser, login_url='member_account')
+def stock(request):
+    """Show StockAddProduct + Stock items with search and pagination."""
+
+    it_officer_rank = getattr(request.user.user_detail, 'company_rank', '')
+
+    # Get search query
+    query = request.GET.get('q', '').strip()
+
+    # ---------------- StockAddProduct section (aggregated per member) ----------------
+    stock_products = (
+        StockAddProduct.objects
+        .select_related('stock_add')
+        # Use date_modified instead of date_created
+        .annotate(modified_date=TruncDate('stock_add__date_modified'))
+        .values(
+            'stock_add__id',
+            'stock_add__membership_no',
+            'stock_add__member_name',
+            'stock_add__member_mobile',
+            'modified_date'
+        )
+        .annotate(
+            total_product=Sum('qty'),
+            total_pv=Sum(F('product_pv') * F('qty')),
+            total_cost=Sum(F('product_cost') * F('qty'))
+        )
+        .order_by('-modified_date', '-stock_add__id')
+    )
+
+    # 🔎 Search StockAddProduct
+    if query:
+        stock_products = stock_products.filter(
+            Q(stock_add__membership_no__icontains=query) |
+            Q(stock_add__member_name__icontains=query) |
+            Q(stock_add__member_mobile__icontains=query)
+        )
+
+    # Pagination for StockAddProduct
+    paginator_products = Paginator(stock_products, 10)
+    page_number_products = request.GET.get('page_stock_products')
+    stock_products_page = paginator_products.get_page(page_number_products)
+
+    # ---------------- Totals for StockAddProduct / creditors ----------------
+    total_qty_creditors = stock_products.aggregate(total=Sum('total_product'))['total'] or 0
+    total_pv_creditors = stock_products.aggregate(total=Sum('total_pv'))['total'] or 0
+    total_cost_creditors = stock_products.aggregate(total=Sum('total_cost'))['total'] or 0
+
+    # ---------------- Stock model section ----------------
+    stocks = Stock.objects.all().order_by('-date_created')
+
+    # 🔎 Search Stock
+    if query:
+        stocks = stocks.filter(
+            Q(product_name__icontains=query) |
+            Q(code__icontains=query) |
+            Q(unit__icontains=query)
+        )
+
+    paginator_stock = Paginator(stocks, 10)
+    page_number_stock = request.GET.get('page_stock')
+    stocks_page = paginator_stock.get_page(page_number_stock)
+
+    # Totals for Stock
+    stock_count = stocks.aggregate(total=Sum('product_amount'))['total'] or 0
+    total_pv_stock = stocks.aggregate(total=Sum(F('product_pv') * F('product_amount')))['total'] or 0
+
+    # ---------------- AJAX search handling ----------------
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+
+        html_stocks = render_to_string(
+            'stock_table_rows.html',
+            {'stocks': stocks_page},
+            request=request
+        )
+
+        html_products = render_to_string(
+            'stockproduct_table_rows.html',
+            {'creditors': stock_products_page},
+            request=request
+        )
+
+        return JsonResponse({
+            'stocks_html': html_stocks,
+            'stock_products_html': html_products
+        })
+
+    context = {
+        'rank': it_officer_rank,
+        'creditors': stock_products_page,
+        'stocks': stocks_page,
+        'stock_count': stock_count,
+        'total_pv_stock': total_pv_stock,
+        'total_qty_creditors': total_qty_creditors,
+        'total_pv_creditors': total_pv_creditors,
+        'total_cost_creditors': total_cost_creditors,
+        'query': query,
+    }
+    return render(request, 'stock.html', context)
+
+
+
+
 #search for users list
 @login_required
 @user_passes_test(check_superuser, login_url='member_account')
@@ -2428,7 +2546,7 @@ def post_patient(request):
 
 #     if request.method == 'POST':
 #         form = PatientModelForm(request.POST)
-#         if form.is_valid():
+#         if form.is_valid():m 
 #             full_name = form.cleaned_data['full_name']
 #             mobile_no = form.cleaned_data['mobile_no']
 #             membership_no = form.cleaned_data.get('membership_no')
@@ -2745,6 +2863,616 @@ def post_medicine_sales(request):
     return render(request, 'medicinesales_form.html', {'medicinesales_form': form})
 
 
+
+# ---------------- Add Stock ----------------
+@login_required
+def post_stock(request):
+    user_rank = getattr(request.user.user_detail, 'company_rank', '').lower()
+    # Permission check
+    if user_rank not in ['director', 'vice_director', 'manager', 'it_officer']:
+        messages.error(request, "You do not have permission to add stock.")
+        return redirect('/')
+    if request.method == "POST":
+        product_id = request.POST.get('product_id')
+        product_amount = request.POST.get('product_amount')
+        if not product_id or not product_amount:
+            messages.error(request, "Please select a product and enter an amount.")
+            medicines = Medicine_SalesForm.objects.all()
+            return render(request, "stock_form.html", {"medicines": medicines})
+
+        try:
+            medicine = Medicine_SalesForm.objects.get(id=product_id)
+        except Medicine_SalesForm.DoesNotExist:
+            messages.error(request, "Selected product does not exist.")
+            medicines = Medicine_SalesForm.objects.all()
+            return render(request, "stock_form.html", {"medicines": medicines})
+        # Ensure code and unit are not null
+        code = medicine.code or ""   # fallback to empty string
+        unit = medicine.unit or ""   # fallback to empty string
+        # Create stock entry (ALLOW SAME PRODUCT MANY TIMES)
+        stock = Stock(
+            user=request.user,
+            product_name=medicine.medicine_name,
+            product_type=medicine.medicine_type,
+            code=code,
+            unit=unit,
+            product_cost=medicine.medicine_cost,
+            product_pv=medicine.medicine_pv,
+            product_amount=int(product_amount),
+            product_remain=int(product_amount),
+            date_created=datetime.now(pytz.timezone("Africa/Dar_es_Salaam")),
+            date_modified=datetime.now(pytz.timezone("Africa/Dar_es_Salaam")),
+        )
+        stock.save()
+        messages.success(request, "Stock added successfully.")
+        return JsonResponse({"status": "success"})
+    # GET request → load all medicines
+    medicines = Medicine_SalesForm.objects.all()
+    return render(request, "stock_form.html", {"medicines": medicines})
+
+
+
+#for print stock
+def print_stock(request):
+    products = []
+    grand_total_pv = 0
+    grand_total_pay = 0
+
+    # get unique products with their latest stock row
+    latest_products = (
+        Stock.objects
+        .values("product_name")
+        .annotate(latest_id=Max("id"))
+    )
+
+    for item in latest_products:
+        product_name = item["product_name"]
+
+        # latest stock row (ONLY for displaying product info)
+        p = Stock.objects.get(id=item["latest_id"])
+
+        # ---------- TOTAL STOCK FROM ALL ROWS ----------
+        total_stock_qty = (
+            Stock.objects
+            .filter(product_name=product_name)
+            .aggregate(total=Sum("product_remain"))["total"] or 0
+        )
+
+        # ---------- TOTAL ORDERED ----------
+        total_ordered_qty = (
+            StockAddProduct.objects
+            .filter(product_name=product_name)
+            .aggregate(total=Sum("qty"))["total"] or 0
+        )
+
+        # ---------- REMAINING ----------
+        qty_remaining = total_stock_qty - total_ordered_qty
+
+        # ---------- TOTAL VALUES ----------
+        total_pv = p.product_pv * total_stock_qty
+        total_pay = p.product_cost * total_stock_qty
+
+        products.append({
+            "code": p.code,
+            "product_name": product_name,
+            "unit": p.unit,
+            "product_cost": p.product_cost,
+            "product_pv": p.product_pv,
+            "total_qty_added": total_stock_qty,
+            "qty_used": total_ordered_qty,
+            "qty_remaining": qty_remaining,
+            "total_pv": total_pv,
+            "total_pay": total_pay,
+            "date": p.date_created,
+        })
+
+        grand_total_pv += total_pv
+        grand_total_pay += total_pay
+
+    html = render_to_string(
+        "stockprint_modal.html",
+        {
+            "products": products,
+            "grand_total_pv": grand_total_pv,
+            "grand_total_pay": grand_total_pay
+        },
+        request=request
+    )
+
+    return JsonResponse({"html": html})
+
+
+from django.db.models import Sum, Max
+# For post stockadd and stockaddproduct
+def stockaddproduct(request):
+    # ---------------- GET → LOAD MODAL ----------------
+    if request.method == "GET":
+        products = []
+        # get unique products with their latest stock row
+        latest_products = (
+            Stock.objects
+            .values("product_name")
+            .annotate(latest_id=Max("id"))
+        )
+
+        for item in latest_products:
+            product_name = item["product_name"]
+
+            # latest stock row (ONLY for displaying product info)
+            p = Stock.objects.get(id=item["latest_id"])
+
+            # ---------- TOTAL STOCK FROM ALL ROWS ----------
+            total_stock_qty = (
+                Stock.objects
+                .filter(product_name=product_name)
+                .aggregate(total=Sum("product_remain"))["total"] or 0
+            )
+
+            # ---------- TOTAL ORDERED ----------
+            total_ordered_qty = (
+                StockAddProduct.objects
+                .filter(product_name=product_name)
+                .aggregate(total=Sum("qty"))["total"] or 0
+            )
+
+            # ---------- AVAILABLE ----------
+            available_qty = total_stock_qty - total_ordered_qty
+            p.available_qty = available_qty
+            products.append(p)
+        html = render_to_string(
+            "stockaddproduct.html",
+            {"products": products},
+            request=request
+        )
+        return JsonResponse({"html": html})
+
+
+    # ---------------- POST → SAVE DATA ----------------
+    if request.method == "POST":
+        member_name = request.POST.get("member_name", "").strip()
+        membership_no = request.POST.get("membership_no", "").strip()
+        member_mobile = request.POST.get("member_mobile", "").strip()
+
+        #if not member_name or not membership_no:
+        if not member_name:
+            messages.error(request, "Please enter both Member Name and Membership No.")
+            return JsonResponse({"status": "error"})
+        product_ids = request.POST.getlist("product_id[]")
+        qty_list = request.POST.getlist("qty[]")
+
+        # create order header
+        stock_add = StockAdd.objects.create(
+            member_name=member_name,
+            membership_no=membership_no,
+            member_mobile=member_mobile,
+        )
+        saved_count = 0
+        
+        for product_id, qty in zip(product_ids, qty_list):
+            if not qty:
+                continue
+            qty = int(qty)
+            product = get_object_or_404(Stock, id=product_id)
+            product_name = product.product_name
+
+            # ---------- TOTAL STOCK ----------
+            total_stock_qty = (
+                Stock.objects
+                .filter(product_name=product_name)
+                .aggregate(total=Sum("product_remain"))["total"] or 0
+            )
+
+            # ---------- TOTAL ORDERED ----------
+            total_ordered_qty = (
+                StockAddProduct.objects
+                .filter(product_name=product_name)
+                .aggregate(total=Sum("qty"))["total"] or 0
+            )
+
+            # ---------- AVAILABLE ----------
+            available_qty = total_stock_qty - total_ordered_qty
+
+            # ---------- VALIDATION ----------
+            if qty > available_qty:
+                stock_add.delete()
+                messages.error(
+                    request,
+                    f"Available quantity for {product_name} is not enough to make your order."
+                )
+                return JsonResponse({"status": "error"})
+
+
+            # ---------- SAVE ----------
+            StockAddProduct.objects.create(
+                stock_add=stock_add,
+                product=product,
+                product_name=product.product_name,
+                code=product.code,
+                unit=product.unit,
+                product_pv=product.product_pv,
+                product_cost=product.product_cost,
+                qty=qty,
+            )
+
+            saved_count += 1
+        if saved_count == 0:
+            stock_add.delete()
+
+            messages.error(
+                request,
+                "Please enter quantity ≥ 1 for at least one product."
+            )
+
+            return JsonResponse({"status": "error"})
+        messages.success(request, "Stock products added successfully.")
+        return JsonResponse({"status": "success"})
+    
+    
+
+#for search creditors
+@login_required
+@user_passes_test(check_superuser, login_url='member_account')
+def ajax_creditor_search(request):
+    query = request.GET.get('q', '').strip()
+
+    # Use a unique annotation name to avoid conflict
+    creditors = (
+        StockAddProduct.objects
+        .select_related('stock_add')
+        .annotate(created_date=TruncDate('stock_add__date_created'))  # <--- unique name
+        .annotate(
+            total_product=Sum('qty'),
+            total_pv=Sum(F('product_pv') * F('qty')),
+            total_cost=Sum(F('product_cost') * F('qty'))
+        )
+        .order_by('-created_date', '-stock_add__id')
+    )
+
+    # Apply search filters
+    if query:
+        creditors = creditors.filter(
+            Q(stock_add__member_name__icontains=query) |
+            Q(stock_add__membership_no__icontains=query) |
+            Q(stock_add__member_mobile__icontains=query)
+        )
+    rank = get_it_officer_rank(request.user)
+    html = render_to_string(
+        'creditor_table_rows.html',
+        {
+            'creditors': creditors,
+            'rank': rank
+        },
+        request=request
+    )
+    return JsonResponse({'html': html})
+
+
+
+#for print stock add product list of debtors
+def print_stockadd(request, stockadd_id):
+    # Get StockAdd record
+    stock_add = get_object_or_404(StockAdd, id=stockadd_id)
+    # Get all related products
+    products = StockAddProduct.objects.filter(stock_add=stock_add).select_related('product')
+
+    # Compute totals directly in view
+    product_list = []
+    grand_total_pv = 0
+    grand_total_pay = 0
+
+    for p in products:
+        total_pv = p.product_pv * p.qty
+        total_pay = p.product_cost * p.qty
+        grand_total_pv += total_pv
+        grand_total_pay += total_pay
+
+        product_list.append({
+            'code': p.product.code,
+            'product_name': p.product_name,
+            'unit': p.unit,
+            'product_cost': p.product_cost,
+            'product_pv': p.product_pv,
+            'qty': p.qty,
+            'total_pv': total_pv,
+            'total_pay': total_pay,
+        })
+
+    html = render_to_string(
+        "stockadd_print_modal.html",
+        {
+            "stock_add": stock_add,
+            "products": product_list,
+            "grand_total_pv": grand_total_pv,
+            "grand_total_pay": grand_total_pay
+        },
+        request=request
+    )
+    return JsonResponse({"html": html})
+
+
+
+#for edit stockaddproduct
+def edit_stockadd(request, stockadd_id):
+    stock_add = get_object_or_404(StockAdd, id=stockadd_id)
+    products = StockAddProduct.objects.filter(stock_add=stock_add)
+
+    # -------- UNIQUE PRODUCTS FOR DROPDOWN --------
+    latest_products = (
+        Stock.objects
+        .values("product_name")
+        .annotate(latest_id=Max("id"))
+    )
+    stock_list = [Stock.objects.get(id=item["latest_id"]) for item in latest_products]
+
+    # ================= POST =================
+    if request.method == "POST":
+        try:
+            with transaction.atomic():
+                # Lock rows to prevent race conditions
+                StockAddProduct.objects.select_for_update().filter(stock_add=stock_add)
+
+                # -------- DATE MODIFIED --------
+                date_modified_input = request.POST.get("date_modified")
+                if date_modified_input:
+                    parsed_date = parse_datetime(date_modified_input)
+                    if parsed_date:
+                        if timezone.is_naive(parsed_date):
+                            parsed_date = timezone.make_aware(parsed_date)
+                        stock_add.date_modified = parsed_date
+                        stock_add.save()
+
+                # -------- DELETE PRODUCTS --------
+                delete_ids = request.POST.getlist("delete_products[]")
+                if delete_ids:
+                    StockAddProduct.objects.filter(
+                        id__in=delete_ids,
+                        stock_add=stock_add
+                    ).delete()
+
+                # -------- UPDATE EXISTING PRODUCTS --------
+                for p in products.exclude(id__in=delete_ids):
+
+                    qty_value = request.POST.get(f"qty_{p.id}")
+                    if not qty_value:
+                        continue
+
+                    try:
+                        qty = int(qty_value)
+                    except ValueError:
+                        continue
+
+                    if qty < 1:
+                        continue
+
+                    product_name = p.product_name
+
+                    # Total stock
+                    total_stock = (
+                        Stock.objects
+                        .filter(product_name=product_name)
+                        .aggregate(total=Sum("product_remain"))["total"] or 0
+                    )
+
+                    # Total ordered excluding current row
+                    total_ordered_other = (
+                        StockAddProduct.objects
+                        .filter(product_name=product_name)
+                        .exclude(id=p.id)
+                        .aggregate(total=Sum("qty"))["total"] or 0
+                    )
+
+                    remain_stock = total_stock - total_ordered_other
+
+                    if qty > remain_stock:
+                        return JsonResponse({
+                            "success": False,
+                            "error": f"Cannot update {product_name}. Remaining stock: {remain_stock}"
+                        })
+
+                    p.qty = qty
+                    p.save()
+
+                # -------- ADD NEW PRODUCTS --------
+                new_product_ids = request.POST.getlist("new_product[]")
+                new_qtys = request.POST.getlist("new_qty[]")
+
+                added_products = []
+                for pid, qty_value in zip(new_product_ids, new_qtys):
+                    if not qty_value:
+                        continue
+
+                    try:
+                        qty = int(qty_value)
+                    except ValueError:
+                        continue
+
+                    if qty < 1:
+                        continue
+
+                    product = get_object_or_404(Stock, id=pid)
+                    product_name = product.product_name
+
+                    # Total stock
+                    total_stock = (
+                        Stock.objects
+                        .filter(product_name=product_name)
+                        .aggregate(total=Sum("product_remain"))["total"] or 0
+                    )
+
+                    # Total ordered including all rows
+                    total_ordered = (
+                        StockAddProduct.objects
+                        .filter(product_name=product_name)
+                        .aggregate(total=Sum("qty"))["total"] or 0
+                    )
+
+                    remain_stock = total_stock - total_ordered
+
+                    if qty > remain_stock:
+                        return JsonResponse({
+                            "success": False,
+                            "error": f"Cannot add {product_name}. Remaining stock: {remain_stock}"
+                        })
+
+                    new_entry = StockAddProduct.objects.create(
+                        stock_add=stock_add,
+                        product=product,
+                        product_name=product.product_name,
+                        code=product.code,
+                        unit=product.unit,
+                        product_pv=product.product_pv,
+                        product_cost=product.product_cost,
+                        qty=qty,
+                    )
+                    added_products.append(new_entry)
+
+            # -------- SUCCESS MESSAGE --------
+            messages.success(request, "debtor updated successfully.")
+            return JsonResponse({"success": True})
+
+        except Exception as e:
+            return JsonResponse({"success": False, "error": str(e)})
+
+    # ================= GET =================
+    html = render_to_string(
+        "stockaddproduct_edit_modal.html",
+        {
+            "stock_add": stock_add,
+            "products": products,
+            "stocks": stock_list,
+        },
+        request=request
+    )
+    return JsonResponse({"html": html})
+
+
+
+# Delete StockAdd (header) safely
+def delete_stockadd(request, id):
+    stock = get_object_or_404(StockAdd, id=id)
+    stock.delete()
+    messages.success(request, "Stock record deleted successfully.")
+    return JsonResponse({"status": "success"})
+
+
+
+#view creditor
+def view_creditor_modal(request,pk):
+    stock = StockAdd.objects.get(id=pk)
+    products = StockAddProduct.objects.filter(
+        stock_add=stock
+    )
+    for p in products:
+        p.total_cost = p.product_cost * p.qty
+    total_products = sum(p.qty for p in products)
+    total_cost = sum(p.total_cost for p in products)
+    payments = StockPayment.objects.filter(stock_add=stock)
+    total_paid = sum(p.amount_paid for p in payments)
+    remaining = total_cost - total_paid
+    html = render_to_string(
+        "stock_creditor_modal.html",
+        {
+            "stock":stock,
+            "products":products,
+            "payments":payments,
+            "total_products":total_products,
+            "total_cost":total_cost,
+            "total_paid":total_paid,
+            "remaining":remaining
+        },
+        request=request
+    )
+    return JsonResponse({"html":html})
+
+
+# view stock payment (add payment)
+@require_POST
+def add_stock_payment(request, pk):
+    stock = get_object_or_404(StockAdd, id=pk)
+    payment_date = request.POST.get("payment_date")
+    amount = request.POST.get("amount_paid")
+
+    StockPayment.objects.create(
+        stock_add=stock,
+        payment_date=payment_date,
+        amount_paid=amount
+    )
+    messages.success(request, "Payment added successfully.")
+    return JsonResponse({"status": "success"})
+
+
+# confirm delete stock payment
+@require_POST
+def delete_stock_payment(request, pk):
+    payment = get_object_or_404(StockPayment, id=pk)
+    payment.delete()
+    messages.success(request, "Payment deleted successfully.")
+    return JsonResponse({"status": "success"})
+
+
+
+#edit stock product
+def edit_stock(request, stock_id):
+    stock = get_object_or_404(Stock, id=stock_id)
+
+    # Check if stock has been used in any StockAddProduct
+    used_count = StockAddProduct.objects.filter(product=stock).count()
+
+    if request.method == "POST":
+        if used_count > 0:
+            return JsonResponse({
+                "success": False,
+                "error": f"Stock '{stock.product_name}' cannot be modified; it has been ordered by debtors."
+            })
+
+        try:
+            with transaction.atomic():
+                # Update stock fields from form
+                stock.product_name = request.POST.get("product_name", stock.product_name)
+                stock.code = request.POST.get("code", stock.code)
+                stock.unit = request.POST.get("unit", stock.unit)
+                stock.product_pv = float(request.POST.get("product_pv", stock.product_pv))
+                stock.product_cost = float(request.POST.get("product_cost", stock.product_cost))
+                stock.product_amount = int(request.POST.get("product_amount", stock.product_amount))
+                stock.save()
+
+            messages.success(request, "Stock updated successfully.")
+            return JsonResponse({"success": True})
+
+        except Exception as e:
+            return JsonResponse({"success": False, "error": str(e)})
+
+    # GET: Render modal
+    html = render_to_string(
+        "stockedit_modal.html",
+        {"stock": stock, "used_count": used_count},
+        request=request
+    )
+    return JsonResponse({"html": html})
+
+
+
+# delete stock product
+def delete_stock_product(request, pk):
+    if request.method == "POST":
+        stock_product = get_object_or_404(Stock, id=pk)
+
+        # check if product already used in StockAddProduct
+        used_in_order = StockAddProduct.objects.filter(product=stock_product).exists()
+        if used_in_order:
+            messages.error(
+                request,
+                "Cannot delete this product because it is already used in customer orders."
+            )
+            return redirect(request.META.get('HTTP_REFERER', '/'))
+
+        # if not used → allow delete
+        stock_product.delete()
+        messages.success(request, "Stock product successfully deleted.")
+        return redirect(request.META.get('HTTP_REFERER', '/'))
+    
+
+
 #post about details
 @login_required
 def post_about(request, about_id=None):
@@ -2767,7 +3495,6 @@ def post_about(request, about_id=None):
 
     if request.method == "POST":
         form = AboutForm(request.POST, request.FILES, instance=about_instance)
-
         if form.is_valid():
             about = form.save(commit=False)
             about.user = request.user
@@ -2783,13 +3510,11 @@ def post_about(request, about_id=None):
 
         errors = form.errors.as_json()
         print("AboutForm errors:", errors)
-
         if request.headers.get("x-requested-with") == "XMLHttpRequest":
             return JsonResponse({"success": False, "errors": errors})
 
         messages.error(request, "Form submission error.")
         return render(request, "about_form_modal.html", {"about_form": form, "about_instance": about_instance})
-
     form = AboutForm(instance=about_instance)
     return render(request, "about_form.html", {"about_form": form, "about_instance": about_instance})
 

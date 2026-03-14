@@ -1,0 +1,28 @@
+{% for creditor in creditors %}
+     {% ifchanged creditor.modified_date %}
+                <tr>
+                <td colspan="8" class="text-center fw-bold" style="background-color:rgba(233,247,250,1);">
+                    {{ creditor.modified_date|date:"j M Y" }}
+                </td>
+                </tr>
+                {% endifchanged %}
+
+                <tr>
+                <td>
+                    <input type="checkbox" name="selected_creditors" value="{{ creditor.stock_add__id }}">
+                </td>
+                <td class="text-center">{{ creditor.stock_add__membership_no }}</td>
+                <td>{{ creditor.stock_add__member_name }}</td>
+                <td>{{ creditor.stock_add__member_mobile }}</td>
+                <td class="text-center">{{ creditor.total_product }}</td>
+                <td class="text-center">{{ creditor.total_pv }}</td>
+                <td class="text-center">{{ creditor.total_cost }}</td>
+                <td class="d-flex justify-content-center gap-1">
+        {% comment %} <a href="{% url 'view_creditor' creditor.stock_add__id %}" class="btn btn-sm btn-info">View</a> {% endcomment %}
+    </td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="8" class="text-center">No stock debtor list found.</td>
+</tr>
+{% endfor %}

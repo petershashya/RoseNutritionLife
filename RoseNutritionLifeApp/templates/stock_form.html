@@ -1,0 +1,145 @@
+{% load static %}
+
+<!-- stock Modal -->
+<div class="modal fade" id="stockModal" tabindex="-1" aria-labelledby="stockModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <button type="button" class="btn btn-sm btn-outline-secondary btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <section class="book_section mb-2" id="details">
+          <div class="container">
+            <form id="stockForm" method="post" action="{% url 'post_stock' %}">
+                {% csrf_token %}
+
+                <h4>ADD <span>PRODUCT IN STOCK</span></h4>
+
+                <div class="row mb-2">
+
+                <!-- Select Product -->
+                <div class="col-md-4">
+                <div class="form-group">
+                <label>Product Name</label>
+                <select class="form-control" id="product_select" name="product_id" required>
+                <option value="">-- Select Product --</option>
+
+                {% for m in medicines %}
+                <option value="{{ m.id }}"
+                        data-name="{{ m.medicine_name }}"
+                        data-code="{{ m.code }}"
+                        data-unit="{{ m.unit }}"
+                        data-type="{{ m.medicine_type }}"
+                        data-cost="{{ m.medicine_cost }}"
+                        data-pv="{{ m.medicine_pv }}">
+                {{ m.medicine_name }}
+                </option>
+
+                {% endfor %}
+                </select>
+                </div>
+                </div>
+
+
+                <!-- Product Code -->
+                <div class="col-md-4">
+                <div class="form-group">
+                <label>Product Code</label>
+                <input type="text" class="form-control" id="code" name="code" readonly>
+                </div>
+                </div>
+
+
+                <!-- Product Unit -->
+                <div class="col-md-4">
+                <div class="form-group">
+                <label>Product Unit</label>
+                <input type="text" class="form-control" id="unit" name="unit" readonly>
+                </div>
+                </div>
+
+                </div>
+
+                <div class="row mb-2">
+
+                <!-- Product Type -->
+                <div class="col-md-4">
+                <div class="form-group">
+                <label>Product Type</label>
+                <input type="text" class="form-control" id="product_type" name="product_type" readonly>
+                </div>
+                </div>
+
+
+                <!-- Product Cost -->
+                <div class="col-md-4">
+                <div class="form-group">
+                <label>Product Cost</label>
+                <input type="number" class="form-control" id="product_cost" name="product_cost" readonly>
+                </div>
+                </div>
+
+
+                <!-- Product PV -->
+                <div class="col-md-4">
+                <div class="form-group">
+                <label>Product PV</label>
+                <input type="number" class="form-control" id="product_pv" name="product_pv" readonly>
+                </div>
+                </div>
+
+                </div>
+
+                <div class="row mb-2">
+
+                <!-- Product Amount -->
+                <div class="col-md-4">
+                <div class="form-group">
+                <label>Product Amount</label>
+                <input type="number" class="form-control" name="product_amount" required min="1">
+                </div>
+                </div>
+
+                </div>
+
+
+                <div class="btn-box">
+                 <button id="poststock_button" type="submit" class="btn btn-sm btn-light bg-secondary text-white">Add stock</button>
+                </div>
+
+                </form>
+          </div>
+        </section>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+<!-- javascripts codes -->
+<script>
+
+document.getElementById("product_select").addEventListener("change", function(){
+
+let option = this.options[this.selectedIndex];
+
+document.getElementById("code").value = option.dataset.code || "";
+document.getElementById("unit").value = option.dataset.unit || "";
+document.getElementById("product_type").value = option.dataset.type || "";
+document.getElementById("product_cost").value = option.dataset.cost || "";
+document.getElementById("product_pv").value = option.dataset.pv || "";
+
+});
+
+</script>

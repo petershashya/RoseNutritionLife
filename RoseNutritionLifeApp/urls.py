@@ -1,11 +1,11 @@
 from django.urls import path
 from .views import (
-    home ,services ,reception ,doctor, pharmacy, advertisement,analysis ,payment,account ,
+    home ,services ,reception ,doctor, pharmacy, advertisement,analysis ,payment,account ,stock,stockaddproduct,
     member_account,memberdetail,
     
     #post function
     post_disease,post_medicine, post_checkup ,
-    post_businessplan, post_businesslevel,post_patient,
+    post_businessplan, post_businesslevel,post_patient,post_stock,
     post_patient, post_checkup_sales, post_medicine_sales ,post_advertisement ,
     post_shop,post_branch,post_meeting, post_about,edit_about, post_medicine_sales,
     
@@ -16,11 +16,15 @@ from .views import (
     view_medicalpayment,toggle_medical_payment,view_member_payment,print_member_payment,view_medicine_form,
     medicaladdproduct,ajax_medicaladdproduct_search,
     
+    #for stocks
+    print_stock,print_stockadd,edit_stock,edit_stockadd,delete_stockadd,view_creditor_modal,add_stock_payment,delete_stock_payment
+    ,delete_stock_product,
+    
     #members and payments
     view_member_pending , save_member_payment, ajax_payment_search,ajax_pending_search,ajax_user_search,
     ajax_disease_search,calculate_money,ajax_medicine_search,ajax_checkup_search,ajax_businesslevel_search,
     ajax_businessplan_search,search_member_ajax,pay_medicineadd,toggle_medicaladdedproduct_payment,print_medicineadd,
-    edit_medicineadd,delete_medicineadd,
+    edit_medicineadd,delete_medicineadd,ajax_creditor_search,
     
     #for templates
     posture_details, video_details,lists_details,list_details,business_details,
@@ -60,6 +64,7 @@ urlpatterns = [
     path('advertisement/', advertisement, name='advertisement'),
     path('analysis/', analysis, name='analysis'),
     path('payment/', payment, name='payment'),
+    path('stock/', stock, name='stock'),  
     path('account/', account, name='account'),
     path('memberdetail/', memberdetail, name='memberdetail'),
     path('member_account/', member_account, name='member_account'),
@@ -112,6 +117,22 @@ urlpatterns = [
     path('post_meeting/', post_meeting, name='post_meeting'),
     path('post_branch/', post_branch, name='post_branch'),
     
+    path('post_stock/', post_stock, name='post_stock'),
+    path('print-stock/', print_stock, name='print_stock'), 
+    path('stockaddproduct/', stockaddproduct, name='stockaddproduct'),
+    path('ajax/creditor-search/', ajax_creditor_search, name='ajax_creditor_search'),
+    
+    path('view-stockadd/<int:stockadd_id>/', print_stockadd, name='view_stockadd'),
+    path("edit-stockadd/<int:stockadd_id>/",edit_stockadd, name="edit_stockadd"),
+    path('delete-stockadd/<int:id>/',delete_stockadd,name='delete_stockadd'),
+     
+    path('creditor/view/<int:pk>/',view_creditor_modal,name='view_creditor_modal'),
+    path('creditor/payment/<int:pk>/',add_stock_payment,name='add_stock_payment'),
+    path('stock-payment/delete/<int:pk>/',delete_stock_payment,name='delete_stock_payment'),
+      
+    path('edit-stock/<int:stock_id>/', edit_stock, name='edit_stock'),
+    path('stock/delete/<int:pk>/',delete_stock_product,name='delete_stock_product'),
+      
     path('post_about/',post_about, name='post_about'),
     path('edit_about/<str:model>/<int:object_id>/', edit_about, name='edit_about'),
 

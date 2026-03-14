@@ -1512,6 +1512,9 @@ $(document).ready(function() {
 
     showModal('.medicinesales-post-btn', '/post_medicine_sales/', '#medicinesalesModal');
     postForm('#postmedicinesales_button', '#medicinesalesForm', '#medicinesalesModal');
+
+    showModal('.stock-post-btn', '/post_stock/', '#stockModal');
+    postForm('#poststock_button', '#stockForm', '#stockModal');
     
 });
 
@@ -3420,6 +3423,387 @@ $(document).on("submit", "#editMedicineAddForm", function (e) {
     });
 });
 
+
+
+//for post stockadd and stockaddproduct// START STOCK ADD PRODUCT
+/* OPEN STOCK ADD PRODUCT MODAL */
+$(document).on("click", ".stockaddproduct-btn", function () {
+
+    let url = $(this).data("url");
+
+    $.ajax({
+        url: url,
+        method: "GET",
+
+        success: function (response) {
+
+            // Remove old modal if exists
+            $("#stockaddproduct").remove();
+
+            // Append modal HTML
+            $("body").append(response.html);
+
+            // Show modal
+            $("#stockaddproduct").modal("show");
+
+            // Init calculations
+            initStockAddProductCalc();
+
+            // Clean up modal when closed
+            $("#stockaddproduct").on("hidden.bs.modal", function () {
+                $(this).remove();
+            });
+        },
+
+        error: function () {
+            alert("Error loading stock add product form.");
+        }
+    });
+});
+
+
+
+/* CALCULATE TOTAL COST */
+function initStockAddProductCalc() {
+
+    $("#stockaddproduct").on("input", ".qty-input", function () {
+
+        let row = $(this).closest("tr");
+
+        let cost = parseFloat(row.find(".cost").text()) || 0;
+        let qty = parseInt($(this).val()) || 0;
+
+        row.find(".total-cost").text((cost * qty).toFixed(2));
+    });
+}
+
+
+
+let stockSubmitting = false;
+/* SUBMIT STOCK ADD PRODUCT (AJAX) */
+$(document).on("submit", "#stockAddProductForm", function (e) {
+    e.preventDefault();
+
+    if (stockSubmitting) return; // prevent double submit
+    stockSubmitting = true;
+
+    let form = $(this);
+    let url = form.data("url");
+    let formData = new FormData(this);
+
+    $.ajax({
+        url: url,
+        type: "POST",
+        data: formData,
+        processData: false,
+        contentType: false,
+        headers: {
+            "X-Requested-With": "XMLHttpRequest"
+        },
+
+        beforeSend: function () {
+            $("#submitStockProduct")
+                .prop("disabled", true)
+                .text("Saving...");
+        },
+
+        success: function (response) {
+            // Just reload page to display Django messages
+            location.reload();
+        },
+
+        error: function () {
+            location.reload(); // reload even on error to show backend error message
+        },
+
+        complete: function () {
+            $("#submitStockProduct")
+                .prop("disabled", false)
+                .text("Add Product");
+            stockSubmitting = false;
+        }
+    });
+});
+
+
+// Creditor Search AJAX
+$(document).ready(function(){
+    $("#creditorSearchInput").on("keyup", function(){
+        let query = $(this).val();
+
+        $.ajax({
+            url: "{% url 'stock' %}",
+            type: "GET",
+            data: {
+                q: query
+            },
+            headers: {
+                "X-Requested-With": "XMLHttpRequest"
+            },
+            success: function(response){
+                // update stock table
+                if(response.stocks_html){
+                    $("#stockTableBody").html(response.stocks_html);
+                }
+                // update stockaddproduct table
+                if(response.stock_products_html){
+                    $("#creditorTableBody").html(response.stock_products_html);
+                }
+            },
+            error: function(){
+                console.log("Search error");
+            }
+        });
+    });
+});
+
+
+//ajac stock search
+$(document).ready(function() {
+    $('#stockSearchInput').on('keyup', function() {
+        var query = $(this).val();
+
+        $.ajax({
+            url: "{% url 'stock' %}",
+            type: 'GET',
+            data: { 'q': query },
+            success: function(response) {
+                $('#stockTableBody').html(response.stocks_html);
+                $('#stockAddProductTableBody').html(response.stock_products_html);
+            },
+            error: function() {
+                alert('Error fetching stock data.');
+            }
+        });
+    });
+});
+
+
+//load editstockadddproduct modal 
+$(document).on("click",".editStockAddBtn",function(){
+let id = $(this).data("id")
+$.get("/edit-stockadd/"+id+"/",function(data){
+    $("#CreditorEditContainer").html(data.html)
+    $("#EditStockAddModal").modal("show")
+    })
+})
+
+
+
+// Submit edit stockaddproduct modal
+$(document).on("submit","#editStockAddForm",function(e){
+    e.preventDefault();
+    let form = $(this);
+
+    $.ajax({
+        url: form.attr("action"),
+        type: "POST",
+        data: form.serialize(),
+        success:function(res){
+            if(res.success){
+                $("#EditStockAddModal").modal("hide"); // hide modal
+                location.reload(); // reload page
+            } else {
+                alert(res.error || "An error occurred"); // show error
+            }
+        },
+        error:function(){
+            alert("Server error occurred");
+        }
+    })
+});
+
+
+// DELETE STOCKADD / CREDITOR AJAX
+$(document).on("click", ".deleteStockAddBtn", function () {
+    if (!confirm("Are you sure you want to delete this creditor?")) return;
+    let id = $(this).data("id");
+    $.ajax({
+        url: "/delete-stockadd/" + id + "/",
+        type: "POST",
+        data: {
+            csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val()
+        },
+        success: function (response) {
+            if (response.status === "success") {
+                alert("Stock record deleted successfully."); // shows success message
+            } else if (response.status === "error") {
+                alert(response.message || "Cannot delete this stock."); // shows error from view
+            }
+            // reload page in any case
+            location.reload();
+        },
+        error: function () {
+            alert("Server error while deleting the stock record.");
+            location.reload();
+        }
+    });
+});
+
+
+
+// Load Stock Edit Modal
+$(document).on("click", ".editStockBtn", function(){
+    let stockId = $(this).data("id");
+
+    $.get("/edit-stock/" + stockId + "/", function(data){
+        $("#StockEditContainer").html(data.html);
+        $("#EditStockModal").modal("show");
+    });
+});
+
+
+
+// Submit Edit Stock Form
+$(document).on("submit", "#editStockForm", function(e){
+    e.preventDefault();
+    let form = $(this);
+
+    $.ajax({
+        url: form.attr("action"),
+        type: "POST",
+        data: form.serialize(),
+        success: function(res){
+            if(res.success){
+                $("#EditStockModal").modal("hide");
+                location.reload(); // refresh page to see changes
+            } else {
+                alert(res.error || "Cannot modify stock; it is already used by debtors");
+            }
+        },
+        error: function(){
+            alert("Server error occurred");
+        }
+    });
+});
+
+
+// DELETE STOCK PRODUCT
+$(document).on("click",".deleteStockBtn",function(){
+    let url = $(this).data("url");
+    if(confirm("Are you sure you want to delete this product from stock?")){
+        $.ajax({
+            url: url,
+            type: "POST",
+            data:{
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+            },
+            success:function(){
+                location.reload();   // reload page to show Django messages
+            },
+            error:function(){
+                location.reload();   // still reload so messages or state updates appear
+            }
+
+        });
+
+    }
+
+});
+
+
+
+// Load StockAdd print modal
+$(document).on("click", ".printStockAddBtn", function() {
+    let id = $(this).data("id");
+    $.get("/view-stockadd/" + id + "/", function(res) {
+        $("#CreditorPrintContainer").html(res.html);
+        $("#printStockAddModal").modal("show");
+    });
+});
+
+// Reload page when Stock Add Print Modal is closed
+$(document).on("hidden.bs.modal", "#printStockAddModal", function () {
+    location.reload();
+});
+
+
+
+// load print modal
+$(document).on("click", ".printStockBtn", function() {
+    $.get("/print-stock/", function(res) {
+        $("#StockPrintContainer").html(res.html);
+        $("#printStockModal").modal("show");
+    });
+});
+
+
+// Reload page when Stock Print Modal is closed
+$(document).on("hidden.bs.modal", "#printStockModal", function () {
+    location.reload();
+});
+
+
+//for stockpayment view// OPEN CREDITOR VIEW MODAL
+$(document).on("click",".view-creditor-btn",function(){
+    let url = $(this).data("url");
+    $.ajax({
+        url:url,
+        method:"GET",
+        success:function(response){
+
+            $("#CreditorModalContainer").html(response.html)
+
+            $("#creditorModal").modal("show")
+        },
+
+        error:function(){
+            alert("Error loading creditor data")
+        }
+    });
+
+});
+
+
+// SUBMIT STOCKADDPRODUCT PAYMENT
+$(document).on("submit","#stockPaymentForm",function(e){
+    e.preventDefault()
+
+    let form = $(this)
+    let url = form.data("url")
+    let formData = new FormData(this)
+
+    $.ajax({
+
+        url: url,
+        type: "POST",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success:function(){
+            location.reload()   // reload to display Django messages
+        },
+        error:function(){
+            location.reload()   // reload even if error so messages appear
+        }
+
+    })
+
+})
+
+
+
+// DELETE PAYMENT WITH SIMPLE CONFIRM
+$(document).on("click",".deletePaymentBtn",function(){
+    let url = $(this).data("url")
+    if(confirm("Are you sure you want to delete this payment?")){
+        $.ajax({
+            url: url,
+            type: "POST",
+            data:{
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+            },
+            success:function(){
+                location.reload()   // show Django success message
+            },
+            error:function(){
+                location.reload()   // show Django error message if exists
+            }
+        })
+
+    }
+
+})
 
 
 

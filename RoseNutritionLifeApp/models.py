@@ -756,3 +756,114 @@ class BusinesslevelComment(models.Model):
 
     def __str__(self):
         return self.comment[:20]
+    
+    
+    # ---------------- Stock Model ----------------
+class Stock(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="stock_items")
+
+    # Product details
+    product_name = models.CharField(max_length=200)
+    product_type = models.CharField(max_length=255)
+    
+    code = models.CharField(max_length=100, blank=True, null=False)  # not null
+    unit = models.CharField(max_length=50, blank=True, null=False)    # not null
+
+    # Product values
+    product_cost = models.DecimalField(max_digits=10, decimal_places=2)
+    product_pv = models.PositiveIntegerField()
+
+    # Stock quantities
+    product_amount = models.PositiveIntegerField()   # Total stock added
+    product_remain = models.PositiveIntegerField(blank=True, null=True)  # Remaining stock
+
+    # Time tracking
+    date_created = models.DateTimeField(default=timezone.now)
+    date_modified = models.DateTimeField(auto_now=True)
+
+    def save(self, *args, **kwargs):
+        # Automatically set product_remain equal to product_amount when first created
+        if self.product_remain is None:
+            self.product_remain = self.product_amount
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"Stock: {self.product_name} | Code: {self.code} | Amount: {self.product_amount} | Remain: {self.product_remain}"
+
+
+# ---------------- Stock Add (Main Table) ----------------
+class StockAdd(models.Model):
+    member_name = models.CharField(max_length=150, blank=True, null=True)
+    membership_no = models.CharField(max_length=50, blank=True, null=True)
+
+    member_mobile = models.CharField(max_length=20, blank=True, null=True)
+
+    date_created = models.DateTimeField(default=timezone.now)
+    date_modified = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f"{self.member_name} - {self.membership_no}"
+
+
+# ---------------- Stock Add Product Table ----------------
+class StockAddProduct(models.Model):
+
+    stock_add = models.ForeignKey(
+        StockAdd,
+        on_delete=models.CASCADE,
+        null=True,      # temporary
+        blank=True
+    )
+
+    # Link to Stock table
+    product = models.ForeignKey(
+        Stock,
+        on_delete=models.PROTECT
+    )
+
+    product_name = models.CharField(max_length=200)
+    code = models.CharField(max_length=50)
+    unit = models.CharField(max_length=50)
+
+    product_pv = models.PositiveIntegerField()
+    product_cost = models.DecimalField(max_digits=10, decimal_places=2)
+
+    qty = models.PositiveIntegerField()
+
+    product_totalcost = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        blank=True,
+        null=True
+    )
+
+    date_created = models.DateTimeField(default=timezone.now)
+    date_modified = models.DateTimeField(default=timezone.now)
+
+    def save(self, *args, **kwargs):
+
+        # Calculate total cost
+        if self.qty and self.product_cost:
+            self.product_totalcost = self.qty * self.product_cost
+
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.product_name} ({self.qty})"
+
+
+class StockPayment(models.Model):
+    stock_add = models.ForeignKey(
+        StockAdd,
+        on_delete=models.CASCADE,
+        related_name="payments"
+    )
+    payment_date = models.DateField()
+    amount_paid = models.DecimalField(
+        max_digits=12,
+        decimal_places=2
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return f"{self.stock_add.member_name} - {self.amount_paid}"
