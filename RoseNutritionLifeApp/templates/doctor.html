@@ -127,7 +127,9 @@
           {% endfor %}
         </tbody>
       </table>
-              <!-- Pagination controls: numbers only -->
+          
+      <!-- Pagination controls: numbers only -->
+         <div style="overflow-x:auto; white-space:nowrap; scroll-behavior:smooth;">
         <nav aria-label="Page navigation">
             <ul class="pagination justify-content-center">
                 {% for num in patients.paginator.page_range %}
@@ -139,6 +141,8 @@
                 {% endfor %}
             </ul>
         </nav>
+      </div>
+      
       </form>
 
       </div>
@@ -257,6 +261,7 @@
         </table>
 
         <!-- Pagination controls: numbers only -->
+        <div style="overflow-x:auto; white-space:nowrap; scroll-behavior:smooth;">
         <nav aria-label="Page navigation">
             <ul class="pagination justify-content-center">
                 {% for num in medicals.paginator.page_range %}
@@ -268,6 +273,8 @@
                 {% endfor %}
             </ul>
         </nav>
+      </div>
+
         </form>
 
         </div>
