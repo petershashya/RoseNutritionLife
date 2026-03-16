@@ -3148,6 +3148,64 @@ def ajax_creditor_search(request):
 
 
 
+
+#print stock debtors lists
+def print_debtors(request):
+
+    products = []
+    grand_total_pv = 0
+    grand_total_pay = 0
+
+    debtors = StockAdd.objects.all().order_by("-date_created")
+
+    for debtor in debtors:
+
+        total_qty = (
+            StockAddProduct.objects
+            .filter(stock_add=debtor)
+            .aggregate(total=Sum("qty"))["total"] or 0
+        )
+
+        total_pv = (
+            StockAddProduct.objects
+            .filter(stock_add=debtor)
+            .aggregate(total=Sum(F("product_pv") * F("qty")))["total"] or 0
+        )
+
+        total_pay = (
+            StockAddProduct.objects
+            .filter(stock_add=debtor)
+            .aggregate(total=Sum("product_totalcost"))["total"] or 0
+        )
+
+        products.append({
+            "membershipid": debtor.membership_no,
+            "member_name": debtor.member_name,
+            "mobileNo": debtor.member_mobile,
+            "total_qt": total_qty,
+            "total_pv": total_pv,
+            "total_pay": total_pay,
+            "date": debtor.date_created,
+        })
+
+        grand_total_pv += total_pv
+        grand_total_pay += total_pay
+
+
+    html = render_to_string(
+        "stock_debtorsprint_modal.html",
+        {
+            "products": products,
+            "grand_total_pv": grand_total_pv,
+            "grand_total_pay": grand_total_pay
+        },
+        request=request
+    )
+
+    return JsonResponse({"html": html})
+
+
+
 #for print stock add product list of debtors
 def print_stockadd(request, stockadd_id):
     # Get StockAdd record

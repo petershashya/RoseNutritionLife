@@ -18,7 +18,7 @@ from .views import (
     
     #for stocks
     print_stock,print_stockadd,edit_stock,edit_stockadd,delete_stockadd,view_creditor_modal,add_stock_payment,delete_stock_payment
-    ,delete_stock_product,
+    ,delete_stock_product,print_debtors,
     
     #members and payments
     view_member_pending , save_member_payment, ajax_payment_search,ajax_pending_search,ajax_user_search,
@@ -122,6 +122,7 @@ urlpatterns = [
     path('stockaddproduct/', stockaddproduct, name='stockaddproduct'),
     path('ajax/creditor-search/', ajax_creditor_search, name='ajax_creditor_search'),
     
+    path('print-debtors/', print_debtors, name='print_debtors'),
     path('view-stockadd/<int:stockadd_id>/', print_stockadd, name='view_stockadd'),
     path("edit-stockadd/<int:stockadd_id>/",edit_stockadd, name="edit_stockadd"),
     path('delete-stockadd/<int:id>/',delete_stockadd,name='delete_stockadd'),

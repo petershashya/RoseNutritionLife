@@ -3702,6 +3702,21 @@ $(document).on("click",".deleteStockBtn",function(){
 });
 
 
+// Load Debtors Print Modal
+$(document).on("click", ".printDebtorsBtn", function () {
+
+    $.get("/print-debtors/", function (res) {
+        $("#DebtorsPrintContainer").html(res.html);
+        $("#printDebtorsModal").modal("show");
+    });
+
+});
+
+// Reload page when modal closes
+$(document).on("hidden.bs.modal", "#printDebtorsModal", function () {
+    location.reload();
+});
+
 
 // Load StockAdd print modal
 $(document).on("click", ".printStockAddBtn", function() {
@@ -3716,6 +3731,7 @@ $(document).on("click", ".printStockAddBtn", function() {
 $(document).on("hidden.bs.modal", "#printStockAddModal", function () {
     location.reload();
 });
+
 
 
 

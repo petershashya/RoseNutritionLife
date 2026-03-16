@@ -45,24 +45,34 @@
         </span>
       </div>
 
-    <span class="d-flex justify-content-center align-items-center gap-2">
-      <a class="text-light btn btn-sm rounded bg-success">
-       <!-- <span class="badge bg-warning px-2 mx-1" style="font-size:1rem;"> -->
-        Total Debtor <span class="text-warning">{{ creditors.paginator.count }} </span>
-      </a>
-      <a class="text-light btn btn-sm rounded bg-success">
-        Total Qty <span class="text-warning">{{ total_qty_creditors }}</span>
-      </a>
-      <a class="text-light btn btn-sm rounded bg-success">
-        Total PV <span class="text-warning">{{ total_pv_creditors }}</span>
-      </a>
+<div class="d-flex justify-content-center">
+  <div class="d-flex align-items-center flex-nowrap overflow-auto gap-2">
+        <a class="text-light btn btn-sm rounded bg-success flex-shrink-0">
+            Total Debtor <span class="text-warning">{{ creditors.paginator.count }}</span>
+        </a>
 
-      <button type="button"
-              class="btn btn-sm btn-info stockaddproduct-btn rounded"
-              data-url="{% url 'stockaddproduct' %}">
-        <i class="bi bi-plus mx-1" style="font-size:1rem;"></i> Debtor
-      </button>
-    </span>
+        <a class="text-light btn btn-sm rounded bg-success flex-shrink-0">
+            Total Qty <span class="text-warning">{{ total_qty_creditors }}</span>
+        </a>
+
+        <a class="text-light btn btn-sm rounded bg-success flex-shrink-0">
+            Total PV <span class="text-warning">{{ total_pv_creditors }}</span>
+        </a>
+
+        <!-- Print Debtors Button -->
+        <a type="button"
+          class="text-light btn btn-sm rounded btn-secondary printDebtorsBtn flex-shrink-0">
+          <i class="bi bi-printer mx-1" style="font-size:1rem;"></i> Debtors
+        </a>
+
+        <button type="button"
+                class="btn btn-sm btn-info stockaddproduct-btn rounded flex-shrink-0"
+                data-url="{% url 'stockaddproduct' %}">
+            <i class="bi bi-plus mx-1" style="font-size:1rem;"></i> Debtor
+        </button>
+
+      </div>
+    </div>
 
       <div class="mb-4 mt-2 d-flex justify-content-center align-items-center">
         <div class="shadow container bg-white p-3" style="border-radius:20px;">
@@ -138,11 +148,14 @@
                 <i class="bi bi-trash mx-1" style="font-size:1rem;"></i>
                 </button>
                 </td>
+                </tr>
 
+                {% empty %}
+                <tr>
+                  <td colspan="9" class="text-center">No Debtor List Found</td>
                 </tr>
 
                 {% endfor %}
-
                 </tbody>
               </table>
 
@@ -190,6 +203,9 @@
 <!-- for print stocks-->
 <div id="StockPrintContainer"></div>
 
+<!-- for print debtors-->
+<div id="DebtorsPrintContainer"></div>
+
 
 
   <!-- products added -->
@@ -211,25 +227,29 @@
       </span>
     </div>
 
-   <span class="d-flex justify-content-center align-items-center gap-2">
-    <a class="text-light btn btn-sm btn-success rounded bg-success">
+
+<div class="d-flex justify-content-center">
+  <div class="d-flex align-items-center flex-nowrap overflow-auto gap-2">
+    <a class="text-light btn btn-sm btn-success rounded bg-success flex-shrink-0">
       Total Stocks <span class="text-warning">{{ stock_count }}</span>
     </a>
-      <a class="text-light btn btn-sm rounded bg-success">
+      <a class="text-light btn btn-sm rounded bg-success flex-shrink-0">
        Total Pvs <span class="text-warning">{{ total_pv_stock }}</span>
       </a>
 
-      <!-- for print stocks button -->
+    <!-- for print stocks button -->
       <a type="button"
-        class="text-light btn btn-sm rounded btn-secondary printStockBtn">
+        class="text-light btn btn-sm rounded btn-secondary printStockBtn flex-shrink-0">
       <i class="bi bi-printer mx-1" style="font-size:1rem;"></i> Stock
-    </a>
+      </a>
 
     <!-- for add stock button -->
-    <a class="stock-post-btn btn btn-sm btn-info rounded">
+    <a class="stock-post-btn btn btn-sm btn-info rounded flex-shrink-0">
       <i class="bi bi-plus mx-1" style="font-size:1rem;"></i> Stock
     </a>
 </span>
+</div>
+</div>
 
     <!-- Stock Table -->
     <div class="mb-4 mt-2 d-flex justify-content-center align-items-center">
@@ -309,7 +329,7 @@
 
                 {% empty %}
                 <tr>
-                  <td colspan="9" class="text-center">No stock items found</td>
+                  <td colspan="9" class="text-center">No Stock Items Found</td>
                 </tr>
                 {% endfor %}
               </tbody>
